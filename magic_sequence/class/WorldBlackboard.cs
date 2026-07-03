@@ -3,12 +3,15 @@ using System.Collections.Generic;
 
 public static class Blackboard
 {
-    public static Main Main { private get; set; }
+    public static Main Main { get; set; }
     public static int Health => Main.Health;
     public static int Wave => Main.Wave;
     public static int Gold => Main.Gold;
     public static Node BattleWorld => Main.BattleWorld;
     public static Wand[] Wands => Main.Wands;
+    
+    public static MagicPool MagicPool => Main.MagicPool;
+    public static WandPool WandPool => Main.WandPool;
 
     public static void SetHealth(int health, int maxHealth)
     {

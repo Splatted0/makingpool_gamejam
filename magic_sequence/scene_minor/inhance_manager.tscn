@@ -2,40 +2,163 @@
 
 [ext_resource type="PackedScene" uid="uid://2gnnv4ib1kds" path="res://scene_minor/wand_ui.tscn" id="1_8eo4g"]
 [ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="1_i0e1h"]
-[ext_resource type="Script" uid="uid://b2tvc04bnhw3l" path="res://class/InhanceManager.cs" id="1_u3f34"]
-[ext_resource type="Resource" uid="uid://banpxa2wpix51" path="res://resource_ingame/default_wand.tres" id="3_3rr7k"]
+[ext_resource type="Script" uid="uid://bsyfmjt7ht5i4" path="res://class/InhanceManager.cs" id="1_u3f34"]
+[ext_resource type="StyleBox" uid="uid://cctlp0ml5uthl" path="res://resource_dev/get_style_box.tres" id="2_123qq"]
+[ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="2_u3f34"]
+[ext_resource type="Script" uid="uid://ouqakoep72ep" path="res://class/MagicChangeManager.cs" id="6_dk4am"]
 
-[node name="InhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("AddMagicContainer", "WandUis")]
+[sub_resource type="LabelSettings" id="LabelSettings_i8g4g"]
+font = ExtResource("2_u3f34")
+font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rluau"]
+bg_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8g4g"]
+bg_color = Color(0.98039216, 0.8745098, 0.3882353, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+expand_margin_left = 16.0
+expand_margin_top = 8.0
+expand_margin_right = 16.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_1736y"]
+font = ExtResource("2_u3f34")
+font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+
+[node name="InhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi")]
 script = ExtResource("1_u3f34")
-AddMagicContainer = NodePath("GetContainer/MagicSlot")
-WandUis = [NodePath("WandContainer/WandUi"), NodePath("WandContainer/WandUi2"), NodePath("WandContainer/WandUi3")]
+MagicChanceManager = NodePath("MagicChangeManager")
+GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer/WandUi")
 
-[node name="GetContainer" type="CenterContainer" parent="." unique_id=204002459]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 643.0
-grow_vertical = 2
-
-[node name="MagicSlot" parent="GetContainer" unique_id=1128488414 instance=ExtResource("1_i0e1h")]
-layout_mode = 2
-
-[node name="WandContainer" type="VBoxContainer" parent="." unique_id=816952931]
-anchors_preset = 11
-anchor_left = 1.0
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=862891261]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -344.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GetContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1192003493]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/GetContainer" unique_id=825728073]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer" unique_id=868978019]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer" unique_id=1312682935]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_123qq")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer" unique_id=621573501]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer" unique_id=591325420]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=400534150]
+layout_mode = 2
+text = "마법 획득"
+label_settings = SubResource("LabelSettings_i8g4g")
+
+[node name="MagicSlot" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1128488414 instance=ExtResource("1_i0e1h")]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer" unique_id=1452533383]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_123qq")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2" unique_id=759158520]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer" unique_id=1661327235]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer" unique_id=599680051]
+layout_mode = 2
+text = "마법 획득"
+label_settings = SubResource("LabelSettings_i8g4g")
+
+[node name="MagicSlot" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer" unique_id=511405917 instance=ExtResource("1_i0e1h")]
+layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer/GetContainer" unique_id=693741901]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/GetContainer/CenterContainer2" unique_id=1972612673]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_123qq")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer2/PanelContainer" unique_id=618405822]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer" unique_id=1788454091]
+layout_mode = 2
+
+[node name="WandUi" parent="HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer" unique_id=750007204 instance=ExtResource("1_8eo4g")]
+layout_mode = 2
+
+[node name="GetWandButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer" unique_id=17715211]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_rluau")
+text = "완드 획득 "
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer" unique_id=1103129779]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/CenterContainer" unique_id=1317001771]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8g4g")
+
+[node name="WandContainer" type="VBoxContainer" parent="HBoxContainer/CenterContainer/PanelContainer" unique_id=816952931]
+layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="WandUi" parent="WandContainer" unique_id=1162343546 instance=ExtResource("1_8eo4g")]
+[node name="Label" type="Label" parent="HBoxContainer/CenterContainer/PanelContainer/WandContainer" unique_id=1183755921]
+layout_mode = 2
+text = "보유 완드"
+label_settings = SubResource("LabelSettings_1736y")
+
+[node name="WandUi" parent="HBoxContainer/CenterContainer/PanelContainer/WandContainer" unique_id=1162343546 instance=ExtResource("1_8eo4g")]
 layout_mode = 2
 
-[node name="WandUi2" parent="WandContainer" unique_id=1087190564 instance=ExtResource("1_8eo4g")]
+[node name="WandUi2" parent="HBoxContainer/CenterContainer/PanelContainer/WandContainer" unique_id=1087190564 instance=ExtResource("1_8eo4g")]
 layout_mode = 2
-_wand = ExtResource("3_3rr7k")
 
-[node name="WandUi3" parent="WandContainer" unique_id=1934178586 instance=ExtResource("1_8eo4g")]
+[node name="WandUi3" parent="HBoxContainer/CenterContainer/PanelContainer/WandContainer" unique_id=1934178586 instance=ExtResource("1_8eo4g")]
 layout_mode = 2
+
+[node name="MagicChangeManager" type="Node" parent="." unique_id=743292602 node_paths=PackedStringArray("GetMagicPanels", "WandUis")]
+script = ExtResource("6_dk4am")
+GetMagicPanels = [NodePath("../HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MagicSlot"), NodePath("../HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/MagicSlot")]
+WandUis = [NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi"), NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi2"), NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi3")]

@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://c5tj5m4uapm65"]
+
+[ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="1_jvqpu"]
+
+[resource]
+font = ExtResource("1_jvqpu")
+font_size = 24
+font_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
