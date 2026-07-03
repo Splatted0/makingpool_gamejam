@@ -18,6 +18,9 @@ public partial class Monster : CharacterBody2D, IEntity
 	private bool _isAttacking;                        // 사거리 안에 들어와 공격 중인지
 	private double _attackTimer;                      // 다음 공격까지 누적 시간
 
+	private const float KNOCKBACK_DECAY = 1800f;       // 넉백 감속량(px/s). 클수록 빨리 멈춤
+	private Vector2 _knockbackVelocity;               // 남은 넉백 속도. 0이 아니면 넉백 중, 매 프레임 0으로 감쇠
+
 	// ── 디버프 표면 ── 디버프 클래스들이 발동/종료 시 여기를 바꾼다. 적용/만료 관리는 컨트롤러 담당.
 	public bool IsStunned { get; set; }                     // 스턴 중이면 이동·공격 정지
 	public float MoveSpeedMultiplier { get; set; } = 1f;    // 슬로우 등 이동속도 배율
@@ -104,6 +107,17 @@ public partial class Monster : CharacterBody2D, IEntity
 	{
 		_debuffs.Tick((float)delta);   // 지속 감소·틱데미지·만료(스턴/슬로우 해제)를 먼저 반영
 
+		// 넉백 중에는 전진·공격을 멈추고 넉백만 적용한다(밀려나는 게 온전히 보이게).
+		// 매 프레임 속도를 0으로 감쇠시키고, 0에 도달하면 아래 일반 로직으로 복귀한다.
+		// 스턴보다 우선 — 짧은 충격이라 스턴에 걸려도 밀려나긴 함.
+		if (_knockbackVelocity != Vector2.Zero)
+		{
+			Velocity = _knockbackVelocity;
+			MoveAndSlide();
+			_knockbackVelocity = _knockbackVelocity.MoveToward(Vector2.Zero, KNOCKBACK_DECAY * (float)delta);
+			return;
+		}
+
 		if (IsStunned)
 		{
 			Velocity = Vector2.Zero;
@@ -168,6 +182,14 @@ public partial class Monster : CharacterBody2D, IEntity
 	{
 		Velocity = _direction * Data.MoveSpeed * MoveSpeedMultiplier;
 		MoveAndSlide();
+	}
+
+	// 넉백. 진행 방향(_direction) 반대로 초기 속도 amount(px/s)를 실어준다.
+	// 방향은 파라미터로 받지 않고 내부에서 결정 — 항상 Core 반대쪽으로 후퇴.
+	// 실제 이동·감쇠는 _PhysicsProcess의 넉백 블록이 처리한다(여기선 속도만 세팅).
+	public void Knockback(float amount)
+	{
+		_knockbackVelocity = -_direction * amount;
 	}
 
 	// 사거리 안에서 AttackInterval마다 한 번씩 Attack 호출
