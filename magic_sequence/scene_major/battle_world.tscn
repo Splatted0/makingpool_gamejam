@@ -1,12 +1,31 @@
 [gd_scene format=3 uid="uid://dpxu7xfy4jln2"]
 
+[ext_resource type="Texture2D" uid="uid://c100187e02v6i" path="res://Sprites/background.png" id="1_0bhie"]
+[ext_resource type="PackedScene" uid="uid://8ts3lb4x7jt8" path="res://scene_major/core.tscn" id="2_1bjxy"]
+[ext_resource type="PackedScene" uid="uid://c5mjlu0ja5toy" path="res://scene_major/player.tscn" id="3_1j1wl"]
+
 [node name="BattleWorld" type="CanvasLayer" unique_id=2120806126]
 
 [node name="BattleCenter" type="Node2D" parent="." unique_id=614227833]
 
 [node name="Map" type="Node2D" parent="BattleCenter" unique_id=703075727]
 
+[node name="Parallax2D" type="Parallax2D" parent="BattleCenter/Map" unique_id=1344518795]
+
+[node name="Sprite2D" type="Sprite2D" parent="BattleCenter/Map/Parallax2D" unique_id=2075542629]
+position = Vector2(575.62506, 323.25003)
+scale = Vector2(0.90381587, 0.8937501)
+texture = ExtResource("1_0bhie")
+
 [node name="EntityContainer" type="Node2D" parent="BattleCenter" unique_id=845372466]
+
+[node name="Core" parent="BattleCenter/EntityContainer" unique_id=326636362 instance=ExtResource("2_1bjxy")]
+position = Vector2(105, 306)
+
+[node name="Player" parent="BattleCenter/EntityContainer" unique_id=1271626603 instance=ExtResource("3_1j1wl")]
+position = Vector2(312, 329)
+
+[node name="Projectiles" type="Node2D" parent="BattleCenter/EntityContainer" unique_id=1015432122]
 
 [node name="EnemySpawner" type="Node" parent="BattleCenter" unique_id=275725980]
 

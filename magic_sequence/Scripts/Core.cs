@@ -1,23 +1,33 @@
 using Godot;
 
-public partial class Core : StaticBody2D
+public partial class Core : StaticBody2D, IEntity
 {
+    [Export] public Team Team { get; set; } = Team.Player;
+
+    [Export] public int MaxHp { get; set; } = 100;
+
+    public int Health { get; set; }
+
     [Signal]
-    public delegate void HpChangedEventHandler(int currentHp, int maxHp);
+    public delegate void HpChangedEventHandler(int health, int maxHp);
 
     [Signal]
     public delegate void DiedEventHandler();
 
-    [Export] public int MaxHp { get; set; } = 100;
-
-    public int CurrentHp { get; private set; }
-
     public override void _Ready()
     {
-        CurrentHp = MaxHp;
+        Health = MaxHp;
         AddToGroup("core");
 
-        EmitSignal(SignalName.HpChanged, CurrentHp, MaxHp);
+        EmitSignal(SignalName.HpChanged, Health, MaxHp);
+    }
+
+    public void Hit(HitInfo hitInfo)
+    {
+        if (hitInfo.SourceTeam == Team)
+            return;
+
+        TakeDamage(hitInfo.Damage);
     }
 
     public void TakeDamage(int damage)
@@ -25,12 +35,12 @@ public partial class Core : StaticBody2D
         if (damage <= 0)
             return;
 
-        CurrentHp = Mathf.Max(CurrentHp - damage, 0);
-        EmitSignal(SignalName.HpChanged, CurrentHp, MaxHp);
+        Health = Mathf.Max(Health - damage, 0);
+        EmitSignal(SignalName.HpChanged, Health, MaxHp);
 
-        GD.Print($"Core HP: {CurrentHp}/{MaxHp}");
+        GD.Print($"Core HP: {Health}/{MaxHp}");
 
-        if (CurrentHp <= 0)
+        if (Health <= 0)
         {
             EmitSignal(SignalName.Died);
             GD.Print("Core destroyed");
