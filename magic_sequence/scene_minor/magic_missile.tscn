@@ -1,17 +1,27 @@
 [gd_scene format=3 uid="uid://cp3y7o4nt1rp1"]
 
-[ext_resource type="Script" uid="uid://7bqtovnjdvei" path="res://Scripts/MagicMissile.cs" id="1_lwd6k"]
+[ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_lwd6k"]
 [ext_resource type="Texture2D" uid="uid://bqlfcju4dqymo" path="res://Sprites/missile.png" id="2_bphea"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kjtai"]
 
-[node name="MagicMissile" type="Area2D" unique_id=2105891535]
+[node name="MagicMissile" type="Node2D" unique_id=2105891535 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
 script = ExtResource("1_lwd6k")
+_moveArea = NodePath("MoveArea")
+_arrivalArea = NodePath("ArraivalArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=711102515]
 position = Vector2(7.6293945e-06, 7.6293945e-06)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_bphea")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1615455762]
+[node name="MoveArea" type="Area2D" parent="." unique_id=111111111]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1615455762]
+shape = SubResource("CapsuleShape2D_kjtai")
+
+[node name="ArraivalArea" type="Area2D" parent="." unique_id=111111112]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=111111113]
 shape = SubResource("CapsuleShape2D_kjtai")

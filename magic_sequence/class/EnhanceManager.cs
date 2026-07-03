@@ -3,6 +3,7 @@ using Godot;
 public partial class EnhanceManager : CanvasLayer
 {
     [Signal] public delegate void EnhanceEndEventHandler();
+    [Signal] public delegate void InhanceFinishedEventHandler();
     
     [Export] public MagicChangeManager MagicChanceManager;
     [Export] public WandUi GetWandUi;
@@ -52,5 +53,7 @@ public partial class EnhanceManager : CanvasLayer
 
     private void OnExitButtonPressed()
     {
+        EmitSignal(SignalName.InhanceFinished);
+        EmitSignal(SignalName.EnhanceEnd);
     }
 }

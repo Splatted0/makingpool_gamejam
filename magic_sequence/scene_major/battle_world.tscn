@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://brf2rmq1y1476" path="res://class_resource/WaveData.cs" id="7_yt1t0"]
 [ext_resource type="Script" uid="uid://bryasmnd8ejj8" path="res://class/BattleWorldHud.cs" id="8_m7vi4"]
 [ext_resource type="Script" uid="uid://b8cuf2svmc8xq" path="res://Scripts/RoundManager.cs" id="8_yt1t0"]
+[ext_resource type="Script" uid="uid://dd3sy43j8qy70" path="res://class/WandManager.cs" id="9_wandmanager"]
+[ext_resource type="PackedScene" uid="uid://v06jyj3rh1iu" path="res://scene_minor/wand_node.tscn" id="10_wandnode"]
 
 [sub_resource type="Resource" id="Resource_yt1t0"]
 script = ExtResource("6_m7vi4")
@@ -33,7 +35,7 @@ metadata/_custom_type_script = "uid://b13lxgu1pog8m"
 
 [sub_resource type="Resource" id="Resource_0bhie"]
 script = ExtResource("7_yt1t0")
-Entries = Array[ExtResource("5_egww6")]([SubResource("Resource_egww6"), SubResource("Resource_m7vi4")])
+Entries = [SubResource("Resource_egww6"), SubResource("Resource_m7vi4")]
 Interval = 0.2
 metadata/_custom_type_script = "uid://brf2rmq1y1476"
 
@@ -71,6 +73,7 @@ expand_margin_left = 2.0
 expand_margin_right = 2.0
 
 [node name="BattleWorld" type="CanvasLayer" unique_id=2120806126]
+script = ExtResource("8_m7vi4")
 
 [node name="BattleCenter" type="Node2D" parent="." unique_id=614227833]
 
@@ -93,6 +96,21 @@ position = Vector2(312, 329)
 
 [node name="Projectiles" type="Node2D" parent="BattleCenter/EntityContainer" unique_id=1015432122]
 
+[node name="WandManager" type="Node" parent="BattleCenter" unique_id=120000001 node_paths=PackedStringArray("Player", "Core", "Projectiles", "WandNode1", "WandNode2", "WandNode3")]
+script = ExtResource("9_wandmanager")
+Player = NodePath("../EntityContainer/Player")
+Core = NodePath("../EntityContainer/Core")
+Projectiles = NodePath("../EntityContainer/Projectiles")
+WandNode1 = NodePath("WandNode1")
+WandNode2 = NodePath("WandNode2")
+WandNode3 = NodePath("WandNode3")
+
+[node name="WandNode1" parent="BattleCenter/WandManager" unique_id=120000002 instance=ExtResource("10_wandnode")]
+
+[node name="WandNode2" parent="BattleCenter/WandManager" unique_id=120000003 instance=ExtResource("10_wandnode")]
+
+[node name="WandNode3" parent="BattleCenter/WandManager" unique_id=120000004 instance=ExtResource("10_wandnode")]
+
 [node name="EnemySpawner" type="Node" parent="BattleCenter" unique_id=275725980]
 
 [node name="Spawner" parent="BattleCenter/EnemySpawner" unique_id=726345657 node_paths=PackedStringArray("Container", "Core") instance=ExtResource("4_0bhie")]
@@ -106,13 +124,10 @@ _testWave = SubResource("Resource_0bhie")
 [node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud")]
 script = ExtResource("8_yt1t0")
 Spawner = NodePath("../EnemySpawner/Spawner")
-Hud = NodePath("../../BattleUI")
+Hud = NodePath("../..")
 MaxRounds = 4
 
-[node name="BattleUI" type="CanvasLayer" parent="." unique_id=1331853940]
-script = ExtResource("8_m7vi4")
-
-[node name="UIRoot" type="Control" parent="BattleUI" unique_id=1582633444]
+[node name="UIRoot" type="Control" parent="." unique_id=1582633444]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,14 +135,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CoreStatus" type="Control" parent="BattleUI/UIRoot" unique_id=129841672]
+[node name="CoreStatus" type="Control" parent="UIRoot" unique_id=129841672]
 anchors_preset = 0
 offset_left = 42.0
 offset_top = 341.0
 offset_right = 173.0
 offset_bottom = 394.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BattleUI/UIRoot/CoreStatus" unique_id=239895195]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/CoreStatus" unique_id=239895195]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -135,11 +150,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CoreHpArea" type="Control" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer" unique_id=965978]
+[node name="CoreHpArea" type="Control" parent="UIRoot/CoreStatus/VBoxContainer" unique_id=965978]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CoreHpBar" type="ProgressBar" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer/CoreHpArea" unique_id=1923452347]
+[node name="CoreHpBar" type="ProgressBar" parent="UIRoot/CoreStatus/VBoxContainer/CoreHpArea" unique_id=1923452347]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -152,7 +167,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_kjtai")
 theme_override_styles/fill = SubResource("StyleBoxFlat_m3204")
 show_percentage = false
 
-[node name="CoreHpText" type="Label" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer/CoreHpArea" unique_id=1297434061]
+[node name="CoreHpText" type="Label" parent="UIRoot/CoreStatus/VBoxContainer/CoreHpArea" unique_id=1297434061]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -163,15 +178,15 @@ text = "75/100 (75%)"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="GoldPanel" type="PanelContainer" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer" unique_id=1074364365]
+[node name="GoldPanel" type="PanelContainer" parent="UIRoot/CoreStatus/VBoxContainer" unique_id=1074364365]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_0c07y")
 
-[node name="GoldText" type="Label" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer/GoldPanel" unique_id=942591015]
+[node name="GoldText" type="Label" parent="UIRoot/CoreStatus/VBoxContainer/GoldPanel" unique_id=942591015]
 layout_mode = 2
 
-[node name="PauseButton" type="Button" parent="BattleUI/UIRoot" unique_id=330854470]
+[node name="PauseButton" type="Button" parent="UIRoot" unique_id=330854470]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

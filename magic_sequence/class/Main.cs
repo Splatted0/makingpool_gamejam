@@ -23,6 +23,9 @@ public partial class Main : Node
     [Export] public Wand[] Wands;
     [Export] public MagicPool MagicPool;
     [Export] public WandPool WandPool;
+
+    private RoundManager _roundManager;
+    private WandManager _wandManager;
     
     
     public override void _EnterTree()
@@ -33,7 +36,49 @@ public partial class Main : Node
 
     public override void _Ready()
     {
+        ResolveBattleReferences();
+        ConnectRoundFlow();
         StateChanger.Start();
+    }
+
+    private void ResolveBattleReferences()
+    {
+        _roundManager = BattleWorld?.GetNodeOrNull<RoundManager>("BattleCenter/RoundManager");
+        _wandManager = BattleWorld?.GetNodeOrNull<WandManager>("BattleCenter/WandManager");
+    }
+
+    private void ConnectRoundFlow()
+    {
+        if (_roundManager != null)
+            _roundManager.RoundEnded += OnRoundEnded;
+
+        if (EnhanceManager != null)
+            EnhanceManager.InhanceFinished += OnInhanceFinished;
+
+        if (MainMenu != null)
+            MainMenu.GameStartPressed += OnGameStartPressed;
+    }
+
+    private async void OnGameStartPressed()
+    {
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        _wandManager?.SetupWands();
+        _roundManager?.StartRound();
+    }
+
+    private void OnRoundEnded()
+    {
+        BattleWorld.Visible = false;
+        EnhanceManager.Visible = true;
+        EnhanceManager.Setup();
+    }
+
+    private void OnInhanceFinished()
+    {
+        EnhanceManager.Visible = false;
+        BattleWorld.Visible = true;
+        _wandManager?.SetupWands();
+        _roundManager?.StartRound();
     }
     
     

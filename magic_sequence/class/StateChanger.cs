@@ -5,15 +5,7 @@ public partial class StateChanger: Node
     public async void Start()
     {
         await MainMemuState();
-        Flow();
-    }
-    
-    public async void Flow()
-    {
-        
-        //await EnhanceState();
         await BattleState();
-        Flow();
     }
 
     public async Task MainMemuState()

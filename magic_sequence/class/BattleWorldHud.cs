@@ -22,7 +22,8 @@ public partial class BattleWorldHud : CanvasLayer
 
         _uiRoot = GetNodeOrNull<Control>("UIRoot");
 
-        _core = GetNodeOrNull<Core>("../BattleCenter/EntityContainer/Core");
+        _core = GetNodeOrNull<Core>("BattleCenter/EntityContainer/Core")
+            ?? GetTree().GetFirstNodeInGroup("core") as Core;
 
         _coreHpBar = GetNodeOrNull<ProgressBar>(
             "UIRoot/CoreStatus/VBoxContainer/CoreHpArea/CoreHpBar"

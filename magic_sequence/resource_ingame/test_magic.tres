@@ -2,9 +2,21 @@
 
 [ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_hkco1"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_tvj8d"]
+[ext_resource type="Script" uid="uid://basicprojectilespell01" path="res://class_ability/BasicProjectileSpell.cs" id="3_spell"]
+[ext_resource type="PackedScene" uid="uid://cp3y7o4nt1rp1" path="res://scene_minor/magic_missile.tscn" id="4_missile"]
+
+[sub_resource type="Resource" id="Resource_basic_projectile"]
+script = ExtResource("3_spell")
+MagicNodePack = ExtResource("4_missile")
+BaseMaxDistance = 800.0
+BaseRange = 1.0
+BaseSpeed = 600.0
+BaseDamage = 10
+metadata/_custom_type_script = "uid://basicprojectilespell01"
 
 [resource]
 script = ExtResource("1_tvj8d")
-Name = "실험 "
+Name = "test_magic"
 Icon = ExtResource("1_hkco1")
+MagicEffect = SubResource("Resource_basic_projectile")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

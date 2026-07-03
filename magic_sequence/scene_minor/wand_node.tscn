@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://v06jyj3rh1iu"]
 
+[ext_resource type="Script" uid="uid://u8pogqrsbdpm" path="res://class/WandNode.cs" id="1_wandnode"]
+
 [node name="WandNode" type="Control" unique_id=1352109310]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_wandnode")
 
 [node name="WandTexture" type="TextureRect" parent="." unique_id=582081304]
 layout_mode = 0
