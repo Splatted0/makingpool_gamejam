@@ -4,13 +4,13 @@
 [ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/three_wand.tres" id="2_ghhmx"]
 [ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="3_ghhmx"]
 
-[node name="WandUi" type="PanelContainer" unique_id=750007204 node_paths=PackedStringArray("_name", "_description", "_magicPanel")]
-offset_right = 412.0
+[node name="WandUi" type="PanelContainer" unique_id=750007204 node_paths=PackedStringArray("_name", "_description", "MagicPanel")]
+offset_right = 344.0
 offset_bottom = 126.0
 script = ExtResource("1_tf1h3")
 _name = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Name")
 _description = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Description")
-_magicPanel = [NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot2"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot3"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot4"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot5"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot6")]
+MagicPanel = [NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot2"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot3"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot4"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot5")]
 _wand = ExtResource("2_ghhmx")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=236517999]
@@ -54,7 +54,4 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="MagicSlot5" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=795842649 instance=ExtResource("3_ghhmx")]
-layout_mode = 2
-
-[node name="MagicSlot6" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=259310233 instance=ExtResource("3_ghhmx")]
 layout_mode = 2

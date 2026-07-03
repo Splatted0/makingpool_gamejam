@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 public static class Blackboard
 {
     public static Main Main { private get; set; }
@@ -6,6 +8,7 @@ public static class Blackboard
     public static int Wave => Main.Wave;
     public static int Gold => Main.Gold;
     public static Node BattleWorld => Main.BattleWorld;
+    public static Wand[] Wands => Main.Wands;
 
     public static void SetHealth(int health, int maxHealth)
     {
