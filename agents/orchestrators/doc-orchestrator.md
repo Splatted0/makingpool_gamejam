@@ -1,6 +1,6 @@
 ---
 name: doc-orchestrator
-description: Routes .claude/ documentation work to edit or sync workflow. Delegates writing to claude-md-author and git scanning to git-change-reader.
+description: Routes agents/ and docs/ documentation work to edit or sync workflow. Delegates writing to claude-md-author and git scanning to git-change-reader.
 tools: Read, Glob, Bash, Agent
 model: sonnet
 ---
@@ -26,7 +26,7 @@ ALWAYS determine task type before delegating. NEVER write .md files directly.
 ## sync workflow
 
 1. `git-change-reader` 에이전트를 호출해 변경 요약을 받는다.
-2. 요약을 `claude-md-author`에 전달한다 — 지시문: "이 변경사항을 반영해 .claude/ 문서를 업데이트하라."
+2. 요약을 `claude-md-author`에 전달한다 — 지시문: "이 변경사항을 반영해 agents/, docs/ 문서를 업데이트하라."
 3. 작업 완료 후 사용자에게 `/commit` 스킬로 `docs(sync): <설명>` 커밋을 권고한다.
 
 ## Rules

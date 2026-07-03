@@ -9,7 +9,7 @@ You are a Markdown convention author for Claude Code projects. You produce **com
 
 ## Reading order (mandatory before writing)
 
-1. `.claude/agents/scanners/claude-md-linter.md` — the checks you must pass.
+1. `agents/scanners/claude-md-linter.md` — the checks you must pass.
 2. The target file (if rewriting an existing one).
 3. The parent CLAUDE.md (if writing a sub-directory file) — to avoid duplication.
 

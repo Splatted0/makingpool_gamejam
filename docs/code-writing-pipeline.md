@@ -65,4 +65,4 @@
 ## 관련 문서
 
 - [project.md](project.md) — 엔진 환경 (Godot 4.7, C#, GDScript)
-- [structure.md](structure.md) — .claude/ 전체 구조 지도
+- [structure.md](structure.md) — 에이전트·문서 전체 구조 지도

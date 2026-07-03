@@ -4,7 +4,7 @@
 
 - ❌ `git commit` 직접 실행 금지 — `/commit` 사용.
 - ❌ 커밋 메시지에 AI/Claude/Anthropic 언급 금지.
-- ❌ `.claude/**/*.md` 내 절대경로(`/Users/...`) 사용 금지.
+- ❌ `agents/**/*.md`, `docs/**/*.md` 내 절대경로(`/Users/...`) 사용 금지.
 - ❌ 에이전트·스킬 파일에 regex 패턴 인라인 금지 — 전용 파일에 분리.
 
 ## Commands
@@ -42,11 +42,11 @@
 
 ## Docs
 
-- [project.md](.claude/docs/project.md) — 엔진 환경, 맥락, 팀 정보, 문서 관리 규칙.
-- [structure.md](.claude/docs/structure.md) — .claude/ 전체 구조 지도 (command / agent / docs 분류).
-- [folders.md](.claude/docs/folders.md) — **Godot 프로젝트 폴더 구조 및 역할 정의. reader·applier 에이전트 필독.**
-- [code-writing-pipeline.md](.claude/docs/code-writing-pipeline.md) — 코드 작성 에이전트 파이프라인 전체 흐름.
-- [scene-writing-pipeline.md](.claude/docs/scene-writing-pipeline.md) — 씬 작성 에이전트 파이프라인 전체 흐름.
+- [project.md](docs/project.md) — 엔진 환경, 맥락, 팀 정보, 문서 관리 규칙.
+- [structure.md](docs/structure.md) — 에이전트·문서 전체 구조 지도 (command / agent / docs 분류).
+- [folders.md](docs/folders.md) — **Godot 프로젝트 폴더 구조 및 역할 정의. reader·applier 에이전트 필독.**
+- [code-writing-pipeline.md](docs/code-writing-pipeline.md) — 코드 작성 에이전트 파이프라인 전체 흐름.
+- [scene-writing-pipeline.md](docs/scene-writing-pipeline.md) — 씬 작성 에이전트 파이프라인 전체 흐름.
 
 ## Hooks (auto-active)
 
@@ -57,4 +57,4 @@
 ## NEVER (bottom anchor)
 
 - ❌ `git commit` 직접 실행 금지 — `/commit` 사용.
-- ❌ 문서 담당자 외 .claude/ 파일 수정 금지.
+- ❌ 문서 담당자 외 `agents/`, `docs/`, `.claude/` 파일 수정 금지.

@@ -31,7 +31,7 @@ git log --oneline <base-hash>..HEAD
 git diff --stat <base-hash> HEAD
 
 # 5. 관련 파일 diff (문서·소스·설정)
-git diff <base-hash> HEAD -- .claude/ *.gd *.cs project.godot
+git diff <base-hash> HEAD -- agents/ docs/ *.gd *.cs project.godot
 ```
 
 ## 변경사항 분류
@@ -41,7 +41,7 @@ git diff <base-hash> HEAD -- .claude/ *.gd *.cs project.godot
 | 신규 / 수정된 시스템 | 새 스크립트, 씬, 서브시스템 추가 |
 | 삭제 / 이름 변경 | 파일 제거 또는 이동 |
 | 설정 변경 | project.godot, .godot/, settings.json |
-| 에이전트 / 스킬 / 훅 변경 | .claude/ 내 파일 수정 |
+| 에이전트 / 스킬 / 훅 변경 | agents/ 또는 docs/ 내 파일 수정 |
 
 ## Output format
 
