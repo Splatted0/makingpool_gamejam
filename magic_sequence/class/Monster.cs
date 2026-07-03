@@ -2,7 +2,7 @@
 // 스탯만 다른 종류는 .tres 교체로 끝. 특수 행동을 가진 종류만 이 클래스를 상속해 override 한다.
 public partial class Monster : CharacterBody2D, IEntity
 {
-	private const string HomeBaseGroup = "home_base";   // 본진이 속한 그룹 이름
+	private const string CoreGroup = "core";   // 본진(Core)이 속한 그룹 이름
 
 	[Export] public MonsterData Data { get; set; }   // 종류별 스탯·외형. 인스펙터에서 .tres를 갈아끼운다
 	[Export] private AnimatedSprite2D _animatedSprite;   // 외형·애니메이션. 씬에서 연결
@@ -12,7 +12,7 @@ public partial class Monster : CharacterBody2D, IEntity
 	public int Health { get; set; }                  // 런타임 현재 체력. _Ready에서 Data.MaxHealth로 초기화
 
 	private bool _hasTarget;                          // 타깃이 정해졌는지 (본진)
-	private Vector2 _targetPosition;                 // 향할 본진 좌표
+	private Vector2 _targetPosition;                 // 향할 Core 좌표. 스포너가 스폰 직후 1회 주입. 단독 실행 시 _Ready에서 본진을 찾아서 설정
 	private Vector2 _direction;                       // 스폰 시 1회 계산한 직선 방향(본진 고정이라 갱신 안 함)
 
 	// 근거리 여부 — Data.AttackRange가 음수면 접촉 공격
@@ -36,12 +36,12 @@ public partial class Monster : CharacterBody2D, IEntity
 	}
 
 	public void Hit(HitInfo hitInfo)
-    {
-        if (hitInfo.SourceTeam == Team)
-            return;
+	{
+		if (hitInfo.SourceTeam == Team)
+			return;
 
-        TakeDamage(hitInfo.Damage);
-    }
+		TakeDamage(hitInfo.Damage);
+	}
 
 	public override void _Ready()
 	{
@@ -56,10 +56,10 @@ public partial class Monster : CharacterBody2D, IEntity
 		// 스포너가 타깃을 안 넘겼으면 본진을 직접 찾는다(단독 실행·테스트용 폴백)
 		if (!_hasTarget)
 		{
-			Node2D baseNode = GetTree().GetFirstNodeInGroup(HomeBaseGroup) as Node2D;
-			if (baseNode != null)
+			Node2D core = GetTree().GetFirstNodeInGroup(CoreGroup) as Node2D;
+			if (core != null)
 			{
-				_targetPosition = baseNode.GlobalPosition;
+				_targetPosition = core.GlobalPosition;
 				_hasTarget = true;
 			}
 		}
