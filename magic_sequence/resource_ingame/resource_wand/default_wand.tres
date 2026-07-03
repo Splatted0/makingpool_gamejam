@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Wand" format=3 uid="uid://banpxa2wpix51"]
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_8546e"]
-[ext_resource type="Resource" uid="uid://yle2o4q2kv4j" path="res://resource_ingame/test_magic.tres" id="2_lskbu"]
+[ext_resource type="Resource" uid="uid://yle2o4q2kv4j" path="res://resource_ingame/resource_magic/test_magic.tres" id="2_lskbu"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="3_741de"]
 
 [resource]
