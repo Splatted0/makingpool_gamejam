@@ -9,9 +9,10 @@
 [ext_resource type="Resource" uid="uid://uico6cp0vjnj" path="res://resource_ingame/wand_pool.tres" id="5_1k3cu"]
 [ext_resource type="PackedScene" uid="uid://bwttwt3aa277d" path="res://scene_major/magic_info_layer.tscn" id="6_1ktro"]
 
-[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("BattleWorld")]
+[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("BattleWorld", "MagicInfoLayer")]
 script = ExtResource("1_aof71")
 BattleWorld = NodePath("BattleWorld")
+MagicInfoLayer = NodePath("MagicInfoLayer")
 Wands = Array[Object]([ExtResource("2_du5p4"), ExtResource("3_1ktro")])
 MagicPool = ExtResource("4_jq05p")
 WandPool = ExtResource("5_1k3cu")
@@ -22,4 +23,3 @@ visible = false
 [node name="InhanceManager" parent="." unique_id=900625737 instance=ExtResource("3_du5p4")]
 
 [node name="MagicInfoLayer" parent="." unique_id=754231825 instance=ExtResource("6_1ktro")]
-visible = false

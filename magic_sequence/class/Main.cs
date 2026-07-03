@@ -2,8 +2,7 @@
 
 public partial class Main : Node
 {
-    [Export] public Node BattleWorld;
-
+    
     [Signal] public delegate void HealthChangedEventHandler(int health, int maxHealth);
     [Signal] public delegate void GoldChangedEventHandler(int gold);
     [Signal] public delegate void WaveChangedEventHandler(int wave);
@@ -12,10 +11,16 @@ public partial class Main : Node
     public int Health { get; private set; }
     public int MaxHealth { get; private set; } = 1;
     public int Gold { get; private set; }
+    
+    [ExportCategory("Nodes")]
+    [Export] public Node BattleWorld;
+    [Export] public MagicInfoLayer MagicInfoLayer;
 
+    [ExportCategory("Resources")]
     [Export] public Wand[] Wands;
     [Export] public MagicPool MagicPool;
     [Export] public WandPool WandPool;
+    
     
     public override void _EnterTree()
     {

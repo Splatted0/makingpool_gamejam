@@ -25,7 +25,7 @@ public partial class MagicPanel : Control
     public void Selected() => SelfModulate = new Color(0.5f, 1, 0.5f, 1);
     
     public void Unselected() => SelfModulate = Colors.White;
-
+    
     public override void _GuiInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseBtn && mouseBtn.ButtonIndex == MouseButton.Left)
@@ -37,5 +37,18 @@ public partial class MagicPanel : Control
             _dragging = false;
             EmitSignal(SignalName.DraggedMagic, _magic);
         }
+    }
+    
+    public void OnMouseEnter()
+    {
+        if (_magic != null)
+        {
+            Blackboard.MagicInfoLayer.ShowInfo(_magic, GetGlobalMousePosition());
+        }
+    }
+
+    public void OnMouseExit()
+    {
+        Blackboard.MagicInfoLayer.HideInfo();
     }
 }

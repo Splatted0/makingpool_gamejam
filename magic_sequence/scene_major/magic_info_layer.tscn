@@ -16,8 +16,10 @@ script = ExtResource("1_pvu3l")
 _magicInfo = NodePath("MagicInfo")
 
 [node name="MagicInfo" type="PanelContainer" parent="." unique_id=494533344 node_paths=PackedStringArray("_name", "_description", "_tier")]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_umlpb")
 script = ExtResource("2_uype8")
 _name = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Name")
@@ -26,6 +28,7 @@ _tier = NodePath("MarginContainer/HBoxContainer/Tier")
 
 [node name="MarginContainer" type="MarginContainer" parent="MagicInfo" unique_id=1125459883]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 16
@@ -33,15 +36,18 @@ theme_override_constants/margin_bottom = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MagicInfo/MarginContainer" unique_id=1996098240]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 8
 
 [node name="Tier" type="Panel" parent="MagicInfo/MarginContainer/HBoxContainer" unique_id=942804003]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_i8g4g")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MagicInfo/MarginContainer/HBoxContainer" unique_id=1024006679]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Name" type="Label" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer" unique_id=874120533]
 layout_mode = 2
@@ -50,10 +56,12 @@ label_settings = ExtResource("3_umlpb")
 
 [node name="HSlider" type="HSeparator" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1059523331]
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_7fjmo")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer" unique_id=765397269]
 layout_mode = 2
+mouse_filter = 2
 text = "투사체의 개별 데미지가 30%감소하는 대신, 
 부채꼴 모양으로 3갈래로 분열되어 발사됩니다."
 fit_content = true

@@ -7,7 +7,9 @@ public static class Blackboard
     public static int Health => Main.Health;
     public static int Wave => Main.Wave;
     public static int Gold => Main.Gold;
+    
     public static Node BattleWorld => Main.BattleWorld;
+    public static MagicInfoLayer MagicInfoLayer => Main.MagicInfoLayer;
     public static Wand[] Wands => Main.Wands;
     
     public static MagicPool MagicPool => Main.MagicPool;
