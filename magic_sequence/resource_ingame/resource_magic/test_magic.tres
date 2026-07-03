@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_hkco1"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_tvj8d"]
-[ext_resource type="Script" uid="uid://basicprojectilespell01" path="res://class_ability/BasicProjectileSpell.cs" id="3_spell"]
-[ext_resource type="PackedScene" uid="uid://cp3y7o4nt1rp1" path="res://scene_minor/magic_missile.tscn" id="4_missile"]
+[ext_resource type="Script" uid="uid://bph0esguhnq45" path="res://class_ability/BasicProjectileSpell.cs" id="3_spell"]
+[ext_resource type="PackedScene" uid="uid://cp3y7o4nt1rp1" path="res://scene_magic/magic_missile.tscn" id="4_missile"]
 
 [sub_resource type="Resource" id="Resource_basic_projectile"]
 script = ExtResource("3_spell")

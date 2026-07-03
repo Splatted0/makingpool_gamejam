@@ -5,9 +5,16 @@ public partial class StateChanger: Node
     public async void Start()
     {
         await MainMemuState();
-        await BattleState();
+        Flow();
     }
 
+    public async void Flow()
+    {
+        await EnhanceState();
+        await BattleState(); 
+        Flow();
+    }
+    
     public async Task MainMemuState()
     {
         Blackboard.MainMenu.Visible = true;

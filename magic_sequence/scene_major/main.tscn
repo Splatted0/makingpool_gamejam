@@ -11,10 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://bwttwt3aa277d" path="res://scene_major/magic_info_layer.tscn" id="6_1ktro"]
 [ext_resource type="Script" uid="uid://d1onj0qfoasyu" path="res://class/StateChanger.cs" id="6_6ah6l"]
 
-[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("MainMenu", "BattleWorld", "MagicInfoLayer", "EnhanceManager", "StateChanger")]
+[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("MainMenu", "BattleWorldHud", "MagicInfoLayer", "EnhanceManager", "StateChanger")]
 script = ExtResource("1_aof71")
 MainMenu = NodePath("MainMenu")
-BattleWorld = NodePath("BattleWorld")
+BattleWorldHud = NodePath("BattleWorldHud")
 MagicInfoLayer = NodePath("MagicInfoLayer")
 EnhanceManager = NodePath("EnhanceManager")
 StateChanger = NodePath("StateChanger")
@@ -25,7 +25,7 @@ WandPool = ExtResource("5_1k3cu")
 [node name="StateChanger" type="Node" parent="." unique_id=354889198]
 script = ExtResource("6_6ah6l")
 
-[node name="BattleWorld" parent="." unique_id=2120806126 instance=ExtResource("2_0ag1k")]
+[node name="BattleWorldHud" parent="." unique_id=2120806126 instance=ExtResource("2_0ag1k")]
 visible = false
 
 [node name="MainMenu" parent="." unique_id=1559025204 instance=ExtResource("6_1k3cu")]

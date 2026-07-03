@@ -35,7 +35,7 @@ metadata/_custom_type_script = "uid://b13lxgu1pog8m"
 
 [sub_resource type="Resource" id="Resource_0bhie"]
 script = ExtResource("7_yt1t0")
-Entries = [SubResource("Resource_egww6"), SubResource("Resource_m7vi4")]
+Entries = Array[ExtResource("5_egww6")]([SubResource("Resource_egww6"), SubResource("Resource_m7vi4")])
 Interval = 0.2
 metadata/_custom_type_script = "uid://brf2rmq1y1476"
 

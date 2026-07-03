@@ -29,6 +29,11 @@ public partial class Main : Node
         Blackboard.Main = this;
 
     }
+
+    public override void _Ready()
+    {
+        StateChanger.Start();
+    }
     
     
     public void SetHealth(int health, int maxHealth)
