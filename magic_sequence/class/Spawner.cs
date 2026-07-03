@@ -7,7 +7,7 @@ public partial class Spawner : Node2D
 	[Export] public PackedScene MonsterScene { get; set; }   // Monster.tscn
 	[Export] public Area2D SpawnArea { get; set; }           // 랜덤 스폰 영역(사각 CollisionShape2D 가정)
 	[Export] public Node2D Container { get; set; }           // 소환한 몬스터를 붙일 부모
-	[Export] public Node2D Core { get; set; }            // 본진 (SetTarget용)
+	[Export] public Core Core { get; set; }              // 본진 (SetTarget용, Hit 호출을 위해 Core 타입)
 
 	[Export] private WaveData _testWave;                     // 단독 테스트용(매니저 붙으면 제거)
 
@@ -113,7 +113,7 @@ public partial class Spawner : Node2D
 	{
 		Monster monster = MonsterScene.Instantiate<Monster>();
 		monster.Data = data;
-		monster.SetTarget(Core.GlobalPosition);
+		monster.SetTarget(Core.GlobalPosition, Core);
 		monster.Position = Container.ToLocal(worldPos);   // AddChild 후 GlobalPosition이 worldPos가 되도록
 		Container.AddChild(monster);
 	}
