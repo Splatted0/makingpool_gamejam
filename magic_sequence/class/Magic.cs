@@ -5,4 +5,5 @@ public partial class Magic : Resource
     [Export] public Texture2D Icon { get; private set; }
     [Export] public string Description { get; private set; }
     [Export] public Tier Tier { get; private set; }
+    [Export] public MagicEffect MagicEffect { get; private set; }
 }   
