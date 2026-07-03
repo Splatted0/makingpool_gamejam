@@ -26,6 +26,27 @@ public partial class Spawner : Node2D
 
 		_spawnCollision = FindCollisionShape(SpawnArea);
 
+		if (MonsterScene == null)
+		{
+			GD.PrintErr($"[Spawner] {Name}: MonsterScene이 비어있습니다.");
+		}
+		if (SpawnArea == null)
+		{
+			GD.PrintErr($"[Spawner] {Name}: SpawnArea가 비어있습니다.");
+		}
+		else if (_spawnCollision == null)
+		{
+			GD.PrintErr($"[Spawner] {Name}: SpawnArea 밑에 CollisionShape2D가 없습니다.");
+		}
+		if (Container == null)
+		{
+			GD.PrintErr($"[Spawner] {Name}: Container가 비어있습니다.");
+		}
+		if (Core == null)
+		{
+			GD.PrintErr($"[Spawner] {Name}: Core가 비어있습니다.");
+		}
+
 		if (_testWave != null)
 		{
 			SpawnStart(_testWave);
@@ -35,6 +56,12 @@ public partial class Spawner : Node2D
 	// 웨이브 하나를 받아 소환 시작. 매니저가 호출.
 	public void SpawnStart(WaveData wave)
 	{
+		if (wave == null)
+		{
+			GD.PrintErr($"[Spawner] {Name}: SpawnStart에 null WaveData가 전달되었습니다.");
+			return;
+		}
+
 		_spawnList = new Godot.Collections.Array<MonsterData>();
 		foreach (SpawnEntry entry in wave.Entries)
 		{
@@ -54,6 +81,8 @@ public partial class Spawner : Node2D
 
 		_timer.WaitTime = wave.Interval;
 		_timer.Start();
+
+		GD.Print($"[Spawner] {Name}: 스폰 시작 (총 {_spawnList.Count}마리, 보스 {_pendingBoss != null}, interval {wave.Interval})");
 	}
 
 	// 타이머 tick마다 한 마리씩 소환. 큐 소진 후 보스, 그 뒤 종료.
@@ -74,6 +103,7 @@ public partial class Spawner : Node2D
 		if (_spawnIndex >= _spawnList.Count && _pendingBoss == null)
 		{
 			_timer.Stop();
+			GD.Print($"[Spawner] {Name}: 스폰 끝");
 			EmitSignal(SignalName.SpawnFinished);
 		}
 	}
