@@ -128,7 +128,7 @@ public partial class Spawner : Node2D
 		monster.Data = data;
 
 		if (Core != null)
-			monster.SetTarget(Core);
+			monster.SetTarget(Core.GlobalPosition, Core);
 		else
 			GD.PrintErr($"[Spawner] {Name}: Core가 null이라 monster target을 지정하지 못했습니다.");
 
