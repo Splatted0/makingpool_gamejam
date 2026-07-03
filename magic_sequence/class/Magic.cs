@@ -1,5 +1,5 @@
 
-public partial class Magic : Resource
+public partial class Magic : Resource, IDropObject
 { 
     [Export] public string Name { get; private set; }
     [Export] public Texture2D Icon { get; private set; }

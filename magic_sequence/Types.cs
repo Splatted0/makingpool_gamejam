@@ -15,11 +15,3 @@ public enum Tier
     Epic = 2,
     Legendary = 3,
 }
-
-public enum MagicElement
-{
-    None,
-    Fire,
-    Water,
-    Wind
-}
