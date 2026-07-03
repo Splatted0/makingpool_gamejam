@@ -1,14 +1,18 @@
 [gd_scene format=3 uid="uid://dt16jbqxdnhfy"]
 
 [ext_resource type="PackedScene" uid="uid://2gnnv4ib1kds" path="res://scene_minor/wand_ui.tscn" id="1_8eo4g"]
+[ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="1_i0e1h"]
 
 [node name="InhanceManager" type="CanvasLayer" unique_id=900625737]
 
-[node name="GetContainer" type="PanelContainer" parent="." unique_id=1487847121]
+[node name="GetContainer" type="CenterContainer" parent="." unique_id=204002459]
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 643.0
 grow_vertical = 2
+
+[node name="MagicSlot" parent="GetContainer" unique_id=1128488414 instance=ExtResource("1_i0e1h")]
+layout_mode = 2
 
 [node name="WandContainer" type="VBoxContainer" parent="." unique_id=816952931]
 anchors_preset = 11
@@ -21,13 +25,14 @@ grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="WandUi" parent="WandContainer" unique_id=1162343546 instance=ExtResource("1_8eo4g")]
+[node name="WandUi" parent="WandContainer" unique_id=1162343546 node_paths=PackedStringArray("MagicPanel") instance=ExtResource("1_8eo4g")]
 layout_mode = 2
+MagicPanel = []
 
-[node name="WandUi2" parent="WandContainer" unique_id=1087190564 node_paths=PackedStringArray("_magicPanel") instance=ExtResource("1_8eo4g")]
+[node name="WandUi2" parent="WandContainer" unique_id=1087190564 node_paths=PackedStringArray("MagicPanel") instance=ExtResource("1_8eo4g")]
 layout_mode = 2
-_magicPanel = [null, null, null, null, null, null]
+MagicPanel = []
 
-[node name="WandUi3" parent="WandContainer" unique_id=1934178586 node_paths=PackedStringArray("_magicPanel") instance=ExtResource("1_8eo4g")]
+[node name="WandUi3" parent="WandContainer" unique_id=1934178586 node_paths=PackedStringArray("MagicPanel") instance=ExtResource("1_8eo4g")]
 layout_mode = 2
-_magicPanel = [null, null, null, null, null, null]
+MagicPanel = []

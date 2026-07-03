@@ -1,3 +1,14 @@
 [gd_scene format=3 uid="uid://nh73m2lqnhgy"]
 
-[node name="Main" type="Node" unique_id=1478852612]
+[ext_resource type="Script" uid="uid://2ggckewr2qdd" path="res://class/Main.cs" id="1_aof71"]
+[ext_resource type="PackedScene" uid="uid://dpxu7xfy4jln2" path="res://scene_major/battle_world.tscn" id="2_0ag1k"]
+[ext_resource type="PackedScene" uid="uid://dt16jbqxdnhfy" path="res://scene_minor/inhance_manager.tscn" id="3_du5p4"]
+
+[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("BattleWorld")]
+script = ExtResource("1_aof71")
+BattleWorld = NodePath("BattleWorld")
+
+[node name="BattleWorld" parent="." unique_id=2120806126 instance=ExtResource("2_0ag1k")]
+
+[node name="InhanceManager" parent="." unique_id=900625737 instance=ExtResource("3_du5p4")]
+visible = false

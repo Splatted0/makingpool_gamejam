@@ -1,6 +1,6 @@
 ﻿
 public static class Blackboard
 {
-    public static Node Main { private get; set; }
-    public static Node BattleWorld => Main;
+    public static Main Main { private get; set; }
+    public static Node BattleWorld => Main.BattleWorld;
 }
