@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dpxu7xfy4jln2" path="res://scene_major/battle_world.tscn" id="2_0ag1k"]
 [ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/resource_wand/three_wand.tres" id="2_du5p4"]
 [ext_resource type="Resource" uid="uid://banpxa2wpix51" path="res://resource_ingame/resource_wand/default_wand.tres" id="3_1ktro"]
-[ext_resource type="PackedScene" uid="uid://dt16jbqxdnhfy" path="res://scene_minor/enhance_manager.tscn" id="3_du5p4"]
+[ext_resource type="PackedScene" uid="uid://dt16jbqxdnhfy" path="res://scene_major/enhance_manager.tscn" id="3_du5p4"]
 [ext_resource type="Resource" uid="uid://c6god3njjwfgq" path="res://resource_ingame/magic_pool.tres" id="4_jq05p"]
 [ext_resource type="Resource" uid="uid://uico6cp0vjnj" path="res://resource_ingame/wand_pool.tres" id="5_1k3cu"]
 [ext_resource type="PackedScene" uid="uid://7w7eqt0uj323" path="res://scene_major/main_menu.tscn" id="6_1k3cu"]

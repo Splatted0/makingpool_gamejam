@@ -26,6 +26,9 @@ public partial class StateChanger: Node
 
     public async Task BattleState()
     {
-        Blackboard.BattleWorld.Visible = true;
+        RoundManager roundManager = Blackboard.RoundManager;
+        Blackboard.BattleWorldHud.Visible = true;
+        await ToSignal(roundManager, RoundManager.SignalName.RoundEnded);
+        Blackboard.BattleWorldHud.Visible = false;
     }
 }

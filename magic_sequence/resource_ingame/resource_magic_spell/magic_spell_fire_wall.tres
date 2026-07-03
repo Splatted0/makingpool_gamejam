@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MagicSpellFireWall" format=3 uid="uid://bjl5ixmm1w6hl"]
+
+[ext_resource type="Script" uid="uid://dvwypatb3ogq2" path="res://class_ability/MagicSpellFireWall.cs" id="1_1p100"]
+
+[resource]
+script = ExtResource("1_1p100")
+metadata/_custom_type_script = "uid://dvwypatb3ogq2"

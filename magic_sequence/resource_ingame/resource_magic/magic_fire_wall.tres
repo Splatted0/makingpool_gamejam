@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://oafq4vvjpyu0"]
+
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_lbiji"]
+
+[resource]
+script = ExtResource("1_lbiji")
+metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

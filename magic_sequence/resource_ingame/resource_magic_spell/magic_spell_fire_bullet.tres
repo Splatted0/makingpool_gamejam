@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MagicSpellFireBullet" format=3 uid="uid://dgr2vywejrt44"]
 
-[ext_resource type="PackedScene" uid="uid://dl11hdsuas40" path="res://scene_minor/magic_fire_bullet.tscn" id="1_60l8f"]
+[ext_resource type="PackedScene" uid="uid://dl11hdsuas40" path="res://scene_magic/magic_fire_bullet.tscn" id="1_60l8f"]
 [ext_resource type="Script" uid="uid://bmwn06e42qw3p" path="res://class_ability/MagicSpellFireBullet.cs" id="1_ci2vt"]
 
 [resource]
