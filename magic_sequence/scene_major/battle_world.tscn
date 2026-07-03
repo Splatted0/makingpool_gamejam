@@ -31,9 +31,42 @@ metadata/_custom_type_script = "uid://b13lxgu1pog8m"
 
 [sub_resource type="Resource" id="Resource_0bhie"]
 script = ExtResource("7_yt1t0")
-Entries = Array[ExtResource("5_egww6")]([SubResource("Resource_egww6"), SubResource("Resource_m7vi4")])
+Entries = [SubResource("Resource_egww6"), SubResource("Resource_m7vi4")]
 Interval = 0.2
 metadata/_custom_type_script = "uid://brf2rmq1y1476"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjtai"]
+bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9767049, 0.77171063, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3204"]
+bg_color = Color(1, 0.33693364, 0.32751083, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0c07y"]
+bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96425396, 0.7770437, 0.11536012, 1)
+expand_margin_left = 2.0
+expand_margin_right = 2.0
 
 [node name="BattleWorld" type="CanvasLayer" unique_id=2120806126]
 
@@ -62,8 +95,79 @@ position = Vector2(312, 329)
 
 [node name="Spawner" parent="BattleCenter/EnemySpawner" unique_id=726345657 node_paths=PackedStringArray("Container", "Core") instance=ExtResource("4_0bhie")]
 position = Vector2(1133, 330)
+_testWave = SubResource("Resource_0bhie")
 Container = NodePath("../../EntityContainer")
 Core = NodePath("../../EntityContainer/Core")
-_testWave = SubResource("Resource_0bhie")
 
 [node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
+
+[node name="BattleUI" type="CanvasLayer" parent="." unique_id=1331853940]
+
+[node name="UIRoot" type="Control" parent="BattleUI" unique_id=1582633444]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoreStatus" type="Control" parent="BattleUI/UIRoot" unique_id=129841672]
+anchors_preset = 0
+offset_left = 42.0
+offset_top = 341.0
+offset_right = 173.0
+offset_bottom = 394.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BattleUI/UIRoot/CoreStatus" unique_id=239895195]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoreHpArea" type="Control" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer" unique_id=965978]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CoreHpBar" type="ProgressBar" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer/CoreHpArea" unique_id=1923452347]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.5
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kjtai")
+theme_override_styles/fill = SubResource("StyleBoxFlat_m3204")
+show_percentage = false
+
+[node name="CoreHpText" type="Label" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer/CoreHpArea" unique_id=1297434061]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "75/100 (75%)"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="GoldPanel" type="PanelContainer" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer" unique_id=1074364365]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0c07y")
+
+[node name="GoldText" type="Label" parent="BattleUI/UIRoot/CoreStatus/VBoxContainer/GoldPanel" unique_id=942591015]
+layout_mode = 2
+
+[node name="PauseButton" type="Button" parent="BattleUI/UIRoot" unique_id=330854470]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -41.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "||"
