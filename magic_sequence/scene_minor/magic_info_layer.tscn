@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://bwttwt3aa277d"]
-
-[node name="MagicInfoLayer" type="CanvasLayer" unique_id=754231825]
-
-[node name="Control" type="Control" parent="." unique_id=859323307]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0

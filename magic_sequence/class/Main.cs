@@ -14,7 +14,9 @@ public partial class Main : Node
     public int Gold { get; private set; }
 
     [Export] public Wand[] Wands;
-
+    [Export] public MagicPool MagicPool;
+    [Export] public WandPool WandPool;
+    
     public override void _EnterTree()
     {
         Blackboard.Main = this;
@@ -63,5 +65,13 @@ public partial class Main : Node
     {
         Wave = Math.Max(0, wave);
         EmitSignal(SignalName.WaveChanged, Wave);
+    }
+
+    public void AddWand(Wand wand)
+    {
+        var newWands = new Wand[Wands.Length + 1];
+        Wands.CopyTo(newWands, 0);
+        newWands[Wands.Length] = wand;
+        Wands = newWands;
     }
 }
