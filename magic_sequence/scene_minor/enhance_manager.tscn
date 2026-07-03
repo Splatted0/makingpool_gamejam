@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://2gnnv4ib1kds" path="res://scene_minor/wand_ui.tscn" id="1_8eo4g"]
 [ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="1_i0e1h"]
-[ext_resource type="Script" uid="uid://bsyfmjt7ht5i4" path="res://class/InhanceManager.cs" id="1_u3f34"]
+[ext_resource type="Script" uid="uid://csgf2ddedy3qk" path="res://class/EnhanceManager.cs" id="1_s5w6b"]
 [ext_resource type="StyleBox" uid="uid://cctlp0ml5uthl" path="res://resource_dev/get_style_box.tres" id="2_123qq"]
 [ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="2_u3f34"]
 [ext_resource type="Script" uid="uid://ouqakoep72ep" path="res://class/MagicChangeManager.cs" id="6_dk4am"]
@@ -11,14 +11,6 @@
 [sub_resource type="LabelSettings" id="LabelSettings_i8g4g"]
 font = ExtResource("2_u3f34")
 font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rluau"]
-bg_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8g4g"]
 bg_color = Color(0.98039216, 0.8745098, 0.3882353, 1)
@@ -36,12 +28,23 @@ expand_margin_bottom = 8.0
 font = ExtResource("2_u3f34")
 font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
-[node name="InhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton")]
-script = ExtResource("1_u3f34")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2jam4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2a3wx"]
+
+[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton")]
+script = ExtResource("1_s5w6b")
 MagicChanceManager = NodePath("MagicChangeManager")
-GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer/WandUi")
+GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/WandUi")
 ExitButton = NodePath("ExitButton")
-GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer/GetWandButton")
+GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/MainButton")
+
+[node name="Panel" type="Panel" parent="." unique_id=272553167]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=862891261]
 anchors_preset = 15
@@ -111,28 +114,17 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/GetContainer/CenterContainer2" unique_id=1972612673]
-layout_mode = 2
-theme_override_styles/panel = ExtResource("2_123qq")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer2/PanelContainer" unique_id=618405822]
-layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer" unique_id=1788454091]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2" unique_id=1788454091]
 layout_mode = 2
 
-[node name="WandUi" parent="HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer" unique_id=750007204 instance=ExtResource("1_8eo4g")]
+[node name="MainButton" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer" unique_id=1432610921 instance=ExtResource("7_s5w6b")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "완드 획득"
 
-[node name="GetWandButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer" unique_id=17715211]
+[node name="WandUi" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer" unique_id=750007204 instance=ExtResource("1_8eo4g")]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_rluau")
-text = "완드 획득 "
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer" unique_id=1103129779]
 layout_mode = 2
@@ -149,6 +141,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/CenterContainer/PanelContainer/WandContainer" unique_id=1183755921]
 layout_mode = 2
+size_flags_horizontal = 0
 text = "보유 완드"
 label_settings = SubResource("LabelSettings_1736y")
 
@@ -166,5 +159,7 @@ script = ExtResource("6_dk4am")
 GetMagicPanels = [NodePath("../HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MagicSlot"), NodePath("../HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/MagicSlot")]
 WandUis = [NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi"), NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi2"), NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi3")]
 
-[node name="ExitButton" parent="." unique_id=1432610921 instance=ExtResource("7_s5w6b")]
+[node name="ExitButton" parent="." unique_id=743153410 instance=ExtResource("7_s5w6b")]
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2jam4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2a3wx")
 text = "나가기"

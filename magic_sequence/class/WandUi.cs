@@ -25,6 +25,7 @@ public partial class WandUi : Control
 
     public void Setup(Wand wand)
     {
+        if  (wand == null) {return;}
         _wand = wand;
         wand.Setup();
         _name.Text = wand.WandName;

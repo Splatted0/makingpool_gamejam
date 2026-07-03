@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://rca5hjv0tuxw"]
+
+[ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_rky76"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rky76"]
+
+[sub_resource type="Gradient" id="Gradient_rky76"]
+colors = PackedColorArray(0.9019608, 0.6862745, 0.18039216, 1, 0.3882353, 0.16862746, 0.1882353, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5rn4k"]
+gradient = SubResource("Gradient_rky76")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ponlc"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 10, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = 180.00002
+angle_max = 180.00002
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+scale_min = 4.0
+scale_max = 7.0
+color_initial_ramp = SubResource("GradientTexture1D_5rn4k")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7kkq7"]
+radius = 50.0
+
+[sub_resource type="Gradient" id="Gradient_wba0q"]
+colors = PackedColorArray(0.3882353, 0.16862746, 0.1882353, 1, 0.80398566, 0.73655117, 0.019228427, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ponlc"]
+gradient = SubResource("Gradient_wba0q")
+
+[sub_resource type="Curve" id="Curve_3x55e"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.172043, 1), 0.0, 0.0, 0, 0, Vector2(0.6505376, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_yxgh7"]
+curve_y = SubResource("Curve_3x55e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5qvt3"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 50.0
+angle_min = 180.00002
+angle_max = 180.00002
+direction = Vector3(0, -1, 0)
+directional_velocity_min = -10.000016
+directional_velocity_max = -10.000016
+directional_velocity_curve = SubResource("CurveXYZTexture_yxgh7")
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 15.0
+color_initial_ramp = SubResource("GradientTexture1D_ponlc")
+
+[node name="MagicEarthQuake" type="Node2D" unique_id=1394220581]
+script = ExtResource("1_rky76")
+metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
+
+[node name="MoveArea" type="Area2D" parent="." unique_id=442114490]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=748512832]
+shape = SubResource("CircleShape2D_rky76")
+
+[node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea/CollisionShape2D" unique_id=567427728]
+amount = 16
+lifetime = 0.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ponlc")
+
+[node name="ArraivalArea" type="Area2D" parent="." unique_id=940115112]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=1576305598]
+shape = SubResource("CircleShape2D_7kkq7")
+
+[node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea/CollisionShape2D" unique_id=1052620908]
+amount = 64
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_5qvt3")

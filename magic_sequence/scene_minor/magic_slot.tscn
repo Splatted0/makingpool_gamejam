@@ -3,11 +3,20 @@
 [ext_resource type="StyleBox" uid="uid://722u55ry6i4b" path="res://resource_dev/magic_slot_box.tres" id="1_jk6bo"]
 [ext_resource type="Script" uid="uid://c6yqju33yb8iy" path="res://class/MagicPanel.cs" id="2_srqlr"]
 
-[node name="MagicSlot" type="Panel" unique_id=1128488414 node_paths=PackedStringArray("_icon")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8g4g"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+
+[node name="MagicSlot" type="Panel" unique_id=1128488414 node_paths=PackedStringArray("_icon", "_outline")]
 custom_minimum_size = Vector2(64, 64)
 theme_override_styles/panel = ExtResource("1_jk6bo")
 script = ExtResource("2_srqlr")
 _icon = NodePath("TextureRect")
+_outline = NodePath("Outline")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=703346237]
 layout_mode = 1
@@ -17,6 +26,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
+
+[node name="Outline" type="Panel" parent="." unique_id=940811148]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8g4g")
 
 [connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
 [connection signal="mouse_exited" from="." to="." method="OnMouseExit"]

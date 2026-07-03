@@ -8,7 +8,9 @@ public static class Blackboard
     public static int Wave => Main.Wave;
     public static int Gold => Main.Gold;
     
-    public static Node BattleWorld => Main.BattleWorld;
+    public static MainMenu MainMenu => Main.MainMenu;
+    public static CanvasLayer BattleWorld => Main.BattleWorld;
+    public static EnhanceManager EnhanceManager => Main.EnhanceManager;
     public static MagicInfoLayer MagicInfoLayer => Main.MagicInfoLayer;
     public static Wand[] Wands => Main.Wands;
     

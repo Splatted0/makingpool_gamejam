@@ -76,6 +76,12 @@ third_wand={
 ]
 }
 
+[layer_names]
+
+2d_navigation/layer_1="MoveMagic"
+2d_navigation/layer_2="ArrivalMagic"
+2d_navigation/layer_3="Monster"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

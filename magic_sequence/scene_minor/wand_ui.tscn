@@ -1,17 +1,25 @@
 [gd_scene format=3 uid="uid://2gnnv4ib1kds"]
 
 [ext_resource type="Script" uid="uid://bvrp1kun06mwf" path="res://class/WandUi.cs" id="1_tf1h3"]
-[ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/three_wand.tres" id="2_ghhmx"]
+[ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="2_ghhmx"]
 [ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="3_ghhmx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdxeg"]
+bg_color = Color(0.13333334, 0.45490196, 0.64705884, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
 [node name="WandUi" type="PanelContainer" unique_id=750007204 node_paths=PackedStringArray("_name", "_description", "MagicPanel")]
 offset_right = 344.0
 offset_bottom = 126.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fdxeg")
 script = ExtResource("1_tf1h3")
 _name = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Name")
 _description = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Description")
 MagicPanel = [NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot2"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot3"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot4"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot5")]
-_wand = ExtResource("2_ghhmx")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=236517999]
 layout_mode = 2
@@ -28,12 +36,19 @@ layout_mode = 2
 
 [node name="Name" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=910751212]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("2_ghhmx")
+theme_override_font_sizes/normal_font_size = 20
 text = "완드 이름"
 fit_content = true
 autowrap_mode = 0
 
 [node name="Description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=28563352]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/normal_font = ExtResource("2_ghhmx")
 text = "완드 설명 "
 fit_content = true
 autowrap_mode = 0

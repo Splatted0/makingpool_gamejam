@@ -4,6 +4,7 @@ using Godot;
 public partial class MagicPanel : Control
 {
     [Export] private TextureRect _icon;
+    [Export] private Control _outline;
 
     [Signal] public delegate void DraggedMagicEventHandler(Magic magic);
 
@@ -45,10 +46,12 @@ public partial class MagicPanel : Control
         {
             Blackboard.MagicInfoLayer.ShowInfo(_magic, GetGlobalMousePosition());
         }
+        _outline.Visible = true;
     }
 
     public void OnMouseExit()
     {
         Blackboard.MagicInfoLayer.HideInfo();
+        _outline.Visible = false;
     }
 }

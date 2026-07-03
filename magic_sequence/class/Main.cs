@@ -13,8 +13,11 @@ public partial class Main : Node
     public int Gold { get; private set; }
     
     [ExportCategory("Nodes")]
-    [Export] public Node BattleWorld;
+    [Export] public MainMenu MainMenu;
+    [Export] public CanvasLayer BattleWorld;
     [Export] public MagicInfoLayer MagicInfoLayer;
+    [Export] public EnhanceManager EnhanceManager;
+    [Export] public StateChanger StateChanger;
 
     [ExportCategory("Resources")]
     [Export] public Wand[] Wands;
@@ -25,8 +28,15 @@ public partial class Main : Node
     public override void _EnterTree()
     {
         Blackboard.Main = this;
+
     }
 
+    public override void _Ready()
+    {
+        StateChanger.Start();
+    }
+    
+    
     public void SetHealth(int health, int maxHealth)
     {
         MaxHealth = Math.Max(1, maxHealth);

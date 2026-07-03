@@ -1,7 +1,9 @@
 using Godot;
 
-public partial class InhanceManager : Node
+public partial class EnhanceManager : CanvasLayer
 {
+    [Signal] public delegate void EnhanceEndEventHandler();
+    
     [Export] public MagicChangeManager MagicChanceManager;
     [Export] public WandUi GetWandUi;
     [Export] public BaseButton ExitButton;
@@ -21,13 +23,16 @@ public partial class InhanceManager : Node
     {
         ExitButton.Visible = false;
 
+
         Magic[] magics = DropUtil.GetMagicDrops(Blackboard.MagicPool, 2);
-        Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1);
-
         MagicChanceManager.Setup(magics);
-
-        _getWand = wands[0];
+        
+        if (Blackboard.Wands.Length >= 3) {return;}
+        Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1);
+        _getWand = wands[0].Duplicate() as Wand;
         GetWandUi.Setup(_getWand);
+        GetWandUi.Visible = true;
+        GetWandButton.Visible = true;
     }
 
     private void OnMagicChangeEnd()
@@ -40,6 +45,7 @@ public partial class InhanceManager : Node
     {
         Blackboard.Main.AddWand(_getWand);
         GetWandUi.Visible = false;
+        GetWandButton.Visible = false;
         MagicChanceManager.Setup(new Magic[0]);
         ExitButton.Visible = true;
     }

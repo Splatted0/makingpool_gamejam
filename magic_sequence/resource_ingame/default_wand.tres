@@ -8,5 +8,6 @@
 script = ExtResource("3_741de")
 WandName = "기본 완드"
 Description = "한 번에 3발씩 발사합니다."
+Slot = 2
 Magics = Array[ExtResource("1_8546e")]([ExtResource("2_lskbu"), ExtResource("2_lskbu"), ExtResource("2_lskbu")])
 metadata/_custom_type_script = "uid://1s667kayv311"

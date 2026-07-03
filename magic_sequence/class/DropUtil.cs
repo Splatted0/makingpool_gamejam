@@ -23,11 +23,12 @@ public static class DropUtil
 
     public static Wand[] GetWandDrops(WandPool pool, int count)
     {
+        Wand[] ownedWands = Blackboard.Wands;
         var filters = new Func<Wand, bool>[count];
         for (int i = 0; i < count; i++)
         {
             Tier tier = RollTier();
-            filters[i] = w => w.Tier == tier;
+            filters[i] = w => w.Tier == tier && System.Array.IndexOf(ownedWands, w) < 0;
         }
         return pool.DrawFixedSlots(filters);
     }

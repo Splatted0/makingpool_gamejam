@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://d0sa7pujtxe08"]
+
+[ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_wsw0h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
+
+[sub_resource type="Gradient" id="Gradient_hv5tx"]
+offsets = PackedFloat32Array(0, 0.7875817)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sasbg"]
+gradient = SubResource("Gradient_hv5tx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i8g4g"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 10, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = 180.00002
+angle_max = 180.00002
+spread = 180.0
+angular_velocity_min = -3.000016
+angular_velocity_max = 2.9999838
+orbit_velocity_min = -0.99999994
+orbit_velocity_max = 1.0000001
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -1.0000023
+radial_accel_max = -1.0000023
+scale_min = 2.0
+scale_max = 3.0
+color = Color(0.93791914, 0, 0.2091747, 1)
+color_ramp = SubResource("GradientTexture1D_sasbg")
+hue_variation_min = -0.050000023
+hue_variation_max = -0.050000023
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i8g4g"]
+height = 50.0
+
+[sub_resource type="Gradient" id="Gradient_n0xlg"]
+offsets = PackedFloat32Array(0, 0.7614379, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.8784314, 0.02745098, 0, 1, 0.879189, 0.8209944, 1.1551381e-06, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uuls3"]
+gradient = SubResource("Gradient_n0xlg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t3nnn"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(8, 22, 1)
+angle_min = 180.00002
+angle_max = 180.00002
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+angular_velocity_min = -3.000016
+angular_velocity_max = 2.9999838
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -1.0000023
+radial_accel_max = -1.0000023
+scale_min = 3.0
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_uuls3")
+hue_variation_min = -0.050000023
+hue_variation_max = -0.050000023
+
+[node name="FireWall" type="Node2D" unique_id=895270177 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
+script = ExtResource("1_wsw0h")
+_moveArea = NodePath("MoveArea")
+_arrivalArea = NodePath("ArraivalArea")
+
+[node name="MoveArea" type="Area2D" parent="." unique_id=1506773723]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=18192612]
+shape = SubResource("CircleShape2D_i8g4g")
+
+[node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea/CollisionShape2D" unique_id=31773775]
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_i8g4g")
+
+[node name="ArraivalArea" type="Area2D" parent="." unique_id=1874273450]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=217446823]
+shape = SubResource("CapsuleShape2D_i8g4g")
+
+[node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea/CollisionShape2D" unique_id=246698336]
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_t3nnn")

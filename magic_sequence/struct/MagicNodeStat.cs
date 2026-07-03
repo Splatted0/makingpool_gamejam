@@ -3,7 +3,7 @@ public struct MagicStat
     public float Speed;
     public float MaxDistance;
     public float Range;
-    public float Damage;
+    public int Damage;
 
     public static MagicStat From(MagicSpell spell) => new MagicStat
     {

@@ -9,7 +9,7 @@ public abstract partial class MagicSpell : MagicEffect
     [Export] public float BaseMaxDistance { get; private set; }
     [Export] public float BaseRange { get; private set; }
     [Export] public float BaseSpeed { get; private set; }
-    [Export] public float BaseDamage { get; private set; }
+    [Export] public int BaseDamage { get; private set; }
 
     public abstract void SpawnEffect(MagicNode node);
 

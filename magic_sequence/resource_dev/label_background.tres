@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://ciyn587432kh8"]
+
+[ext_resource type="Texture2D" uid="uid://x83nuovhmfpw" path="res://Sprites/main_menu_button_background.svg" id="1_i6qj3"]
+
+[resource]
+texture = ExtResource("1_i6qj3")
+texture_margin_left = 32.0
+texture_margin_right = 32.0
+expand_margin_left = 32.0
+expand_margin_right = 32.0

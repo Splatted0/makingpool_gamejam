@@ -1,17 +1,24 @@
-﻿﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public partial class MagicNode : Area2D
+[GlobalClass]
+public partial class MagicNode : Node2D
 {
+    [Export] private Area2D _moveArea;
+    [Export] private Area2D _arrivalArea;
+    
     public MagicSpell MagicSpell { get; private set; }
-    public MagicStat Stat;
+    private MagicStat _stat;
+    public MagicStat Stat
+    {
+        get => _stat;
+        set { _stat = value; OnMagicStatSet(); }
+    }
     public Vector2 Direction { get; set; } = Vector2.Right;
     public List<Elemental> AffectedElementals;
 
     private Dictionary<Type, List<MagicPerk>> _perkMap;
     private bool _arrived;
     private float _distanceTraveled;
-    
 
     public void Setup(MagicSpell magicSpell, List<MagicPerk> magicPerks)
     {
@@ -42,6 +49,22 @@ public partial class MagicNode : Area2D
         Rotation = Direction.Angle();
     }
 
+    public HitInfo GetHitInfo()
+    {
+        HitInfo hitInfo =  new HitInfo();
+        hitInfo.Damage = Stat.Damage;
+        hitInfo.Element = MagicSpell.Elemental;
+        hitInfo.SourceTeam = Team.Player;
+        return hitInfo;
+    }
+
+    private void OnMagicStatSet()
+    {
+        float scaleValue =  Stat.Range * 0.1f;
+        _moveArea.Scale = new Vector2(scaleValue, scaleValue);
+        _arrivalArea.Scale = new Vector2(scaleValue, scaleValue);
+    }
+
     private static Type GetPerkKey(MagicPerk perk) => perk switch
     {
         MagicPerkSpawn   => typeof(MagicPerkSpawn),
@@ -52,6 +75,10 @@ public partial class MagicNode : Area2D
 
     public void OnSpawn()
     {
+        _arrivalArea.Visible = false;
+        _arrivalArea.Monitoring = false;
+        _arrivalArea.Monitorable = false;
+
         if (_perkMap.TryGetValue(typeof(MagicPerkSpawn), out var spawnPerks))
         {
             foreach (MagicPerk perk in spawnPerks)
@@ -66,7 +93,9 @@ public partial class MagicNode : Area2D
         if (!_arrived)
         {
             Move(fdelta);
-            OnMove(fdelta);
+            if (_distanceTraveled >= Stat.MaxDistance)
+                TriggerArrival();
+            else OnMove(fdelta);
         }
         else
             OnArrival(fdelta);
@@ -76,6 +105,14 @@ public partial class MagicNode : Area2D
     {
         if (_arrived) return;
         _arrived = true;
+
+        _moveArea.Visible = false;
+        _moveArea.Monitoring = false;
+        _moveArea.Monitorable = false;
+
+        _arrivalArea.Visible = true;
+        _arrivalArea.Monitoring = true;
+        _arrivalArea.Monitorable = true;
     }
 
     private void Move(float fdelta)
@@ -83,17 +120,14 @@ public partial class MagicNode : Area2D
         Vector2 step = Direction * Stat.Speed * fdelta;
         GlobalPosition += step;
         _distanceTraveled += step.Length();
-
-        if (_distanceTraveled >= Stat.MaxDistance)
-            TriggerArrival();
     }
     
     private void OnMove(float fdelta)
     {
         var targets = new List<Monster>();
-        foreach (Node2D body in GetOverlappingBodies())
+        foreach (Node2D body in _moveArea.GetOverlappingBodies())
         {
-            if (body is PhysicsBody2D physBody && physBody.GetCollisionLayerValue(4) && body is Monster monster)
+            if (body is Monster monster)
                 targets.Add(monster);
         }
 
@@ -109,9 +143,9 @@ public partial class MagicNode : Area2D
     private void OnArrival(float fdelta)
     {
         var targets = new List<Monster>();
-        foreach (Node2D body in GetOverlappingBodies())
+        foreach (Node2D body in _arrivalArea.GetOverlappingBodies())
         {
-            if (body is PhysicsBody2D physBody && physBody.GetCollisionLayerValue(4) && body is Monster monster)
+            if (body is Monster monster)
                 targets.Add(monster);
         }
 
