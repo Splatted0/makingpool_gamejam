@@ -17,7 +17,7 @@ public partial class BasicProjectileSpell : MagicSpell
         }
     }
 
-    public override void ArrivalEffect(MagicNode node, List<Monster> targetMonster, float fdelta)
+    public override void ArrivalEffect(MagicNode node, List<Monster> targetMonster, int progressedFrame)
     {
         node.QueueFree();
     }
