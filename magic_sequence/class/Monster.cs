@@ -9,27 +9,29 @@ public partial class Monster : CharacterBody2D, IEntity
 	public Team Team { get; set; } = Team.Enemy;	// 몬스터는 Team.Enemy, 플레이어는 Team.Player
 	public int Health { get; set; }                  // 런타임 현재 체력. _Ready에서 Data.MaxHealth로 초기화
 
+	private const float MELEE_ATTACK_RANGE = 50f;       // melee 공격 판정 거리. Core 콜리전 반지름(30)+몬스터 콜리전 반지름(10)보다 여유 있게
+
 	private bool _hasTarget;                          // 타깃이 정해졌는지 (Core)
 	private Vector2 _targetPosition;                 // 향할 Core 좌표. 스포너가 스폰 직후 1회 주입(SetTarget)
 	private Vector2 _direction;                       // 스폰 시 1회 계산한 직선 방향(본진 고정이라 갱신 안 함)
+	private IEntity _core;                            // 공격 대상. 스포너가 SetTarget으로 주입
+	private bool _isAttacking;                        // 사거리 안에 들어와 공격 중인지
+	private double _attackTimer;                      // 다음 공격까지 누적 시간
 
 	// 근거리 여부 — Data.AttackRange가 음수면 접촉 공격
 	protected bool IsMelee
 	{
-		get
-		{
-			if (Data.AttackRange < 0f)
-			{
-				return true;
-			}
+		get {
+			if (Data.AttackRange < 0f) {return true;}
 			return false;
 		}
 	}
 
-	// 스포너가 스폰 직후 본진 좌표를 넘긴다(주입 방식)
-	public void SetTarget(Vector2 target)
+	// 스포너가 스폰 직후 본진 좌표·객체를 넘긴다(주입 방식)
+	public void SetTarget(Vector2 target, IEntity core)
 	{
 		_targetPosition = target;
+		_core = core;
 		_hasTarget = true;
 	}
 
@@ -80,7 +82,25 @@ public partial class Monster : CharacterBody2D, IEntity
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Move(delta);
+		float range = IsMelee ? MELEE_ATTACK_RANGE : Data.AttackRange;
+		float distance = GlobalPosition.DistanceTo(_targetPosition);
+
+		if (distance <= range)
+		{
+			if (_isAttacking == false)
+			{
+				_isAttacking = true;
+				_attackTimer = 0;
+				Velocity = Vector2.Zero;
+				MoveAndSlide();
+			}
+			AttackInterval(delta);
+		}
+		else
+		{
+			_isAttacking = false;
+			Move(delta);
+		}
 		// 상태이상 처리(넉백, 스턴 등) 필요하면 여기서 처리
 	}
 
@@ -92,10 +112,27 @@ public partial class Monster : CharacterBody2D, IEntity
 		MoveAndSlide();
 	}
 
+	// 사거리 안에서 AttackInterval마다 한 번씩 Attack 호출
+	private void AttackInterval(double delta)
+	{
+		_attackTimer += delta;
+		if (_attackTimer >= Data.AttackInterval)
+		{
+			_attackTimer = 0;
+			Attack();
+		}
+	}
+
 	// 본진 공격. 근/원거리는 Data.AttackRange(IsMelee)로 갈린다.
-	// 실제 공격 방식은 서브클래스에서 override 해 구현한다.
+	// 공격 연출이 다른 몬스터는 이 메서드를 override 한다.
 	protected virtual void Attack()
 	{
+		_core.Hit(new HitInfo
+		{
+			Damage = Data.AttackDamage,
+			SourceTeam = Team,
+			Element = Elemental.None
+		});
 	}
 
 	// 사망 처리. 이펙트·드롭 등이 필요하면 override
