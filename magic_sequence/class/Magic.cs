@@ -1,4 +1,5 @@
 
+[GlobalClass]
 public partial class Magic : Resource, IDropObject
 { 
     [Export] public string Name { get; private set; }

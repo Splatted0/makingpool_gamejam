@@ -1,14 +1,14 @@
 
-using Godot;
 using Godot.Collections;
 
+[GlobalClass]
 public partial class Wand : Resource
 {
     [Export] public string WandName { get; private set; } = "";
     [Export] public string Description { get; private set; } = "";
     [Export] public int Slot { get; private set; } = 5;
     [Export] public MagicPerk WandPerk { get; private set; }
-    public Array<Magic> Magics { get; set; } = new();
+    [Export] public Array<Magic> Magics { get; set; } = new();
 
     public void Setup()
     {

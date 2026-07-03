@@ -6,9 +6,6 @@ public partial class WandNode : Control
 {
     public Wand Wand { get; set; }
 
-    // Wand의 Magics를 순회해 MagicNode 배열을 반환한다.
-    // MagicSpell을 만날 때마다 새 MagicNode를 시작하고,
-    // 그 뒤의 MagicPerk들을 모아 Setup 후 반환 배열에 추가한다.
     public Array<MagicNode> Active()
     {
         var result = new Array<MagicNode>();
@@ -28,6 +25,8 @@ public partial class WandNode : Control
                 pendingSpell = spell;
                 pendingNode = spell.MagicNodePack.Instantiate<MagicNode>();
                 pendingPerks.Clear();
+                if (Wand.WandPerk != null)
+                    pendingPerks.Add(Wand.WandPerk);
             }
             else if (magic.MagicEffect is MagicPerk perk && pendingNode != null)
             {

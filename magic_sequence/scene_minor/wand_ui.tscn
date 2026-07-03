@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://2gnnv4ib1kds"]
+
+[ext_resource type="Script" uid="uid://bvrp1kun06mwf" path="res://class/WandUi.cs" id="1_tf1h3"]
+[ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/three_wand.tres" id="2_ghhmx"]
+[ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="3_ghhmx"]
+
+[node name="WandUi" type="PanelContainer" unique_id=750007204 node_paths=PackedStringArray("_name", "_description", "_magicPanel")]
+offset_right = 412.0
+offset_bottom = 126.0
+script = ExtResource("1_tf1h3")
+_name = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Name")
+_description = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Description")
+_magicPanel = [NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot2"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot3"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot4"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot5"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot6")]
+_wand = ExtResource("2_ghhmx")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=236517999]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=535619405]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=165110693]
+layout_mode = 2
+
+[node name="Name" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=910751212]
+layout_mode = 2
+text = "완드 이름"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=28563352]
+layout_mode = 2
+text = "완드 설명 "
+fit_content = true
+autowrap_mode = 0
+
+[node name="MagicContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=635065174]
+layout_mode = 2
+
+[node name="MagicSlot" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=1128488414 instance=ExtResource("3_ghhmx")]
+layout_mode = 2
+
+[node name="MagicSlot2" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=715778376 instance=ExtResource("3_ghhmx")]
+layout_mode = 2
+
+[node name="MagicSlot3" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=927240082 instance=ExtResource("3_ghhmx")]
+layout_mode = 2
+
+[node name="MagicSlot4" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=1053316518 instance=ExtResource("3_ghhmx")]
+layout_mode = 2
+
+[node name="MagicSlot5" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=795842649 instance=ExtResource("3_ghhmx")]
+layout_mode = 2
+
+[node name="MagicSlot6" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=259310233 instance=ExtResource("3_ghhmx")]
+layout_mode = 2

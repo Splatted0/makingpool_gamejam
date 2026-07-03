@@ -5,7 +5,7 @@ public partial class MagicPanel : Control
 {
     [Export] private TextureRect _icon;
 
-    [Signal] public delegate void DragedMagicEventHandler(Magic magic);
+    [Signal] public delegate void DraggedMagicEventHandler(Magic magic);
 
     private Magic _magic;
     private bool _dragging;
@@ -25,7 +25,7 @@ public partial class MagicPanel : Control
         else if (@event is InputEventMouseMotion && _dragging && _magic != null)
         {
             _dragging = false;
-            EmitSignal(SignalName.DragedMagic, _magic);
+            EmitSignal(SignalName.DraggedMagic, _magic);
         }
     }
 }
