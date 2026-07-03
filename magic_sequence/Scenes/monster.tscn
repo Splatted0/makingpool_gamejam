@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://j26k3sobx3dd"]
+
+[ext_resource type="Script" uid="uid://bow6gk1hibufj" path="res://class/Monster.cs" id="1_s3gyj"]
+
+[node name="Monster" type="CharacterBody2D" unique_id=934036589 node_paths=PackedStringArray("_animatedSprite")]
+script = ExtResource("1_s3gyj")
+_animatedSprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=102912107]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=297662633]
