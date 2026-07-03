@@ -14,3 +14,12 @@ public enum Tier
     Epic = 2,
     Legendary = 3,
 }
+
+public enum Elemental
+{
+    None = 0,
+    Fire = 1,
+    Ice = 2,
+    Earth = 3,
+    Wind = 4,
+}

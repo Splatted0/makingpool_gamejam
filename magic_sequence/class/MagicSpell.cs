@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 
-public partial class MagicSpell : MagicEffect
+public abstract partial class MagicSpell : MagicEffect
 {
-    [Export] public float MaxDistance;
-    [Export] public float Range;
-    private Dictionary<Type, Node> MagicNodesByType = new Dictionary<Type, Node>();
-    
-    public void SpawnEffect(){}
-    
-    public void MoveEffect(float fdelta)
-    {
+    [ExportCategory("MagicPack")]
+    [Export] public PackedScene MagicNodePack { get; private set; }
+    [ExportCategory("MagicStat")]
+    [Export] public Elemental Elemental { get; private set; }
+    [Export] public float BaseMaxDistance { get; private set; }
+    [Export] public float BaseRange { get; private set; }
+    [Export] public float BaseSpeed { get; private set; }
+    [Export] public float BaseDamage { get; private set; }
 
-    }
+    public abstract void SpawnEffect(MagicNode node);
 
-    public void ArrivalEffect()
+    public abstract void MoveEffect(MagicNode node, float fdelta);
+
+    public abstract void ArrivalEffect(MagicNode node, float fdelta);
+
+    public void MagicEffect(MagicNode node, Elemental effectedElemental)
     {
         
     }
-    
 }
