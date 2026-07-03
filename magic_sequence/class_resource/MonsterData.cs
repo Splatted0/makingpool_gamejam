@@ -9,4 +9,5 @@ public partial class MonsterData : Resource
 	[Export] public float AttackRange { get; set; } = -1f;   // 음수=근거리(접촉), 0 이상=원거리 사거리
 	[Export] public float AttackInterval { get; set; } = 1f; // 공격 간격(초, 공격속도)
 	[Export] public SpriteFrames Frames { get; set; }        // 종류별 외형·애니메이션
+	[Export] public int GoldReward { get; set; } = 1;
 }
