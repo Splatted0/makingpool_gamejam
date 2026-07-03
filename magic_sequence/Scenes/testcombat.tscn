@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cpdu73rvnmw1u"]
+
+[ext_resource type="PackedScene" uid="uid://8ts3lb4x7jt8" path="res://Scenes/core.tscn" id="1_kye1y"]
+[ext_resource type="PackedScene" uid="uid://c5mjlu0ja5toy" path="res://Scenes/player.tscn" id="2_fql0l"]
+
+[node name="Testcombat" type="Node2D" unique_id=1218184740]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1172282640]
+
+[node name="Core" parent="." unique_id=326636362 instance=ExtResource("1_kye1y")]
+position = Vector2(38, 331)
+
+[node name="Player" parent="." unique_id=1271626603 instance=ExtResource("2_fql0l")]
+position = Vector2(177, 332)
