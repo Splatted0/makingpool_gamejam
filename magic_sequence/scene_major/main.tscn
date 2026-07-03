@@ -5,13 +5,21 @@
 [ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/three_wand.tres" id="2_du5p4"]
 [ext_resource type="Resource" uid="uid://banpxa2wpix51" path="res://resource_ingame/default_wand.tres" id="3_1ktro"]
 [ext_resource type="PackedScene" uid="uid://dt16jbqxdnhfy" path="res://scene_minor/inhance_manager.tscn" id="3_du5p4"]
+[ext_resource type="Resource" uid="uid://c6god3njjwfgq" path="res://resource_ingame/magic_pool.tres" id="4_jq05p"]
+[ext_resource type="Resource" uid="uid://uico6cp0vjnj" path="res://resource_ingame/wand_pool.tres" id="5_1k3cu"]
+[ext_resource type="PackedScene" uid="uid://bwttwt3aa277d" path="res://scene_major/magic_info_layer.tscn" id="6_1ktro"]
 
 [node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("BattleWorld")]
 script = ExtResource("1_aof71")
 BattleWorld = NodePath("BattleWorld")
 Wands = Array[Object]([ExtResource("2_du5p4"), ExtResource("3_1ktro")])
+MagicPool = ExtResource("4_jq05p")
+WandPool = ExtResource("5_1k3cu")
 
 [node name="BattleWorld" parent="." unique_id=2120806126 instance=ExtResource("2_0ag1k")]
 visible = false
 
 [node name="InhanceManager" parent="." unique_id=900625737 instance=ExtResource("3_du5p4")]
+
+[node name="MagicInfoLayer" parent="." unique_id=754231825 instance=ExtResource("6_1ktro")]
+visible = false

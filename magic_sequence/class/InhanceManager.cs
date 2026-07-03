@@ -14,6 +14,7 @@ public partial class InhanceManager : Node
         ExitButton.Pressed += OnExitButtonPressed;
         GetWandButton.Pressed += OnGetWandButtonPressed;
         MagicChanceManager.MagicChangeEnd += OnMagicChangeEnd;
+        Setup();
     }
 
     public void Setup()

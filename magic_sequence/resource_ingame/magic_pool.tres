@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MagicPool" format=3 uid="uid://c6god3njjwfgq"]
+
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_2bs4b"]
+[ext_resource type="Resource" uid="uid://dbg1cmmagic00" path="res://resource_ingame/common_magic.tres" id="2_2aqtl"]
+[ext_resource type="Script" uid="uid://s5av2w1p2afp" path="res://class_resource/MagicPool.cs" id="2_f3t1d"]
+[ext_resource type="Resource" uid="uid://dbg2remagic00" path="res://resource_ingame/rare_magic.tres" id="3_f1j75"]
+[ext_resource type="Resource" uid="uid://dbg3epmagic00" path="res://resource_ingame/epic_magic.tres" id="4_b6qlt"]
+[ext_resource type="Resource" uid="uid://dbg4lgmagic00" path="res://resource_ingame/legendary_magic.tres" id="5_sbw87"]
+
+[resource]
+script = ExtResource("2_f3t1d")
+_pool = Array[ExtResource("1_2bs4b")]([ExtResource("2_2aqtl"), ExtResource("3_f1j75"), ExtResource("4_b6qlt"), ExtResource("5_sbw87")])
+_fallbackDrop = ExtResource("2_2aqtl")
+metadata/_custom_type_script = "uid://s5av2w1p2afp"

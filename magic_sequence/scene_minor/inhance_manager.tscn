@@ -6,6 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://cctlp0ml5uthl" path="res://resource_dev/get_style_box.tres" id="2_123qq"]
 [ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="2_u3f34"]
 [ext_resource type="Script" uid="uid://ouqakoep72ep" path="res://class/MagicChangeManager.cs" id="6_dk4am"]
+[ext_resource type="PackedScene" uid="uid://cex0wvflkcg2e" path="res://scene_minor/main_button.tscn" id="7_s5w6b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i8g4g"]
 font = ExtResource("2_u3f34")
@@ -35,10 +36,12 @@ expand_margin_bottom = 8.0
 font = ExtResource("2_u3f34")
 font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
-[node name="InhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi")]
+[node name="InhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton")]
 script = ExtResource("1_u3f34")
 MagicChanceManager = NodePath("MagicChangeManager")
 GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer/WandUi")
+ExitButton = NodePath("ExitButton")
+GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/PanelContainer/MarginContainer/VBoxContainer/GetWandButton")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=862891261]
 anchors_preset = 15
@@ -162,3 +165,6 @@ layout_mode = 2
 script = ExtResource("6_dk4am")
 GetMagicPanels = [NodePath("../HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MagicSlot"), NodePath("../HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/MagicSlot")]
 WandUis = [NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi"), NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi2"), NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi3")]
+
+[node name="ExitButton" parent="." unique_id=1432610921 instance=ExtResource("7_s5w6b")]
+text = "나가기"

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://7w7eqt0uj323"]
+
+[ext_resource type="PackedScene" uid="uid://cex0wvflkcg2e" path="res://scene_minor/main_button.tscn" id="1_r1agc"]
+
+[node name="MainMenu" type="CanvasLayer" unique_id=1559025204]
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1711536123]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.0
+offset_top = -20.0
+offset_right = 74.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=648098686]
+layout_mode = 2
+
+[node name="MainButton" parent="CenterContainer/VBoxContainer" unique_id=1432610921 instance=ExtResource("1_r1agc")]
+layout_mode = 2

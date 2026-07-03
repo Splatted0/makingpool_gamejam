@@ -7,5 +7,11 @@ public partial class MagicInfoLayer : Node
     {
         _magicInfo.GlobalPosition = globalPosition;
         _magicInfo.Setup(magic);
+        _magicInfo.Visible = true;
+    }
+
+    public void HideInfo()
+    {
+        _magicInfo.Visible = false;
     }
 }

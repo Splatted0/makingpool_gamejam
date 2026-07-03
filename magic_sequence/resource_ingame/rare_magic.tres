@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://dbg2remagic00"]
+
+[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_3fg6o"]
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgre"]
+
+[resource]
+script = ExtResource("1_dbgre")
+Name = "rare_magic"
+Icon = ExtResource("1_3fg6o")
+Tier = 1
+metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

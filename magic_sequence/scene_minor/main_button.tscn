@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cex0wvflkcg2e"]
+
+[ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="1_uorv4"]
+[ext_resource type="Script" uid="uid://disqp1jsa76gn" path="res://class/ButtonHoverPanel.cs" id="1_v6n67"]
+[ext_resource type="Texture2D" uid="uid://x83nuovhmfpw" path="res://Sprites/main_menu_button_background.svg" id="2_htwkb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgm2j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v6n67"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_htwkb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rluau"]
+texture = ExtResource("2_htwkb")
+texture_margin_left = 32.0
+texture_margin_right = 32.0
+expand_margin_left = 32.0
+expand_margin_right = 32.0
+
+[node name="MainButton" type="Button" unique_id=1432610921 node_paths=PackedStringArray("_hoverPanel")]
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_uorv4")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lgm2j")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_v6n67")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_htwkb")
+text = "게임 시작 "
+script = ExtResource("1_v6n67")
+_hoverPanel = NodePath("Panel")
+
+[node name="Panel" type="Panel" parent="." unique_id=1697556224]
+show_behind_parent = true
+top_level = true
+z_index = -1
+layout_mode = 0
+pivot_offset_ratio = Vector2(0, 1)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_rluau")

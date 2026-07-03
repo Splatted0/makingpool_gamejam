@@ -51,7 +51,11 @@ public partial class MagicChangeManager : Node
     public void Setup(Magic[] magics)
     {
         Wand[] wands = Blackboard.Wands;
-        GetMagics = magics;
+        for (int i = 0; i < magics.Length && i < GetMagicPanels.Count; i++)
+        {
+            SetGetMagic(i, magics[i]);
+        }
+        
         for (int i = 0; i < WandUis.Count; i++)
         {
             Wand wand = i < wands.Length ? wands[i] : null;
