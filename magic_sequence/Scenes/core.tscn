@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://8ts3lb4x7jt8"]
+
+[ext_resource type="Script" uid="uid://dwnjguu20rscl" path="res://Scripts/Core.cs" id="1_pghlq"]
+[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="2_wtb72"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3204"]
+radius = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0c07y"]
+radius = 40.0
+
+[node name="Core" type="StaticBody2D" unique_id=326636362]
+position = Vector2(221, 119)
+script = ExtResource("1_pghlq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1383276095]
+shape = SubResource("CircleShape2D_m3204")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=949804163]
+position = Vector2(-1.5258789e-05, -1.5258789e-05)
+scale = Vector2(0.15833333, 0.14166667)
+texture = ExtResource("2_wtb72")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1888369803]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=850299921]
+shape = SubResource("CircleShape2D_0c07y")

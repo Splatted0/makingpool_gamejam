@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dpxu7xfy4jln2"]
+
+[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126]
+
+[node name="BattleCenter" type="Node2D" parent="." unique_id=614227833]
+
+[node name="Map" type="Node2D" parent="BattleCenter" unique_id=703075727]
+
+[node name="EntityContainer" type="Node2D" parent="BattleCenter" unique_id=845372466]
+
+[node name="EnemySpawner" type="Node" parent="BattleCenter" unique_id=275725980]
+
+[node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
