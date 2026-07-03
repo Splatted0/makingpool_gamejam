@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://dihix53mr5kyj"]
+
+[ext_resource type="Resource" uid="uid://dgr2vywejrt44" path="res://resource_ingame/resource_magic_spell/magic_spell_fire_bullet.tres" id="1_hqxcc"]
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="2_etdl8"]
+
+[resource]
+script = ExtResource("2_etdl8")
+Name = "불꽃탄"
+Description = "적중한 적에게 피해를 50 줍니다."
+MagicEffect = ExtResource("1_hqxcc")
+metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="WandPool" format=3 uid="uid://uico6cp0vjnj"]
 
-[ext_resource type="Resource" uid="uid://dbg5cmwand000" path="res://resource_ingame/common_wand.tres" id="1_3334k"]
+[ext_resource type="Resource" uid="uid://dbg5cmwand000" path="res://resource_ingame/resource_wand/common_wand.tres" id="1_3334k"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_kwqj1"]
 [ext_resource type="Script" uid="uid://bcfme4ovhetw4" path="res://class_resource/WandPool.cs" id="2_q6lad"]
-[ext_resource type="Resource" uid="uid://banpxa2wpix51" path="res://resource_ingame/default_wand.tres" id="3_odw4s"]
-[ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/three_wand.tres" id="4_1su0h"]
-[ext_resource type="Resource" uid="uid://dbg7epwand000" path="res://resource_ingame/epic_wand.tres" id="5_qhchx"]
-[ext_resource type="Resource" uid="uid://dbg6rewand000" path="res://resource_ingame/rare_wand.tres" id="6_6mgc1"]
-[ext_resource type="Resource" uid="uid://dbg8lgwand000" path="res://resource_ingame/legendary_wand.tres" id="7_fkj8w"]
+[ext_resource type="Resource" uid="uid://banpxa2wpix51" path="res://resource_ingame/resource_wand/default_wand.tres" id="3_odw4s"]
+[ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/resource_wand/three_wand.tres" id="4_1su0h"]
+[ext_resource type="Resource" uid="uid://dbg7epwand000" path="res://resource_ingame/resource_wand/epic_wand.tres" id="5_qhchx"]
+[ext_resource type="Resource" uid="uid://dbg6rewand000" path="res://resource_ingame/resource_wand/rare_wand.tres" id="6_6mgc1"]
+[ext_resource type="Resource" uid="uid://dbg8lgwand000" path="res://resource_ingame/resource_wand/legendary_wand.tres" id="7_fkj8w"]
 
 [resource]
 script = ExtResource("2_q6lad")

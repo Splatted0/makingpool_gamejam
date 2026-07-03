@@ -13,13 +13,15 @@ public partial class MagicNode : Node2D
         get => _stat;
         set { _stat = value; OnMagicStatSet(); }
     }
+    
     public Vector2 Direction { get; set; } = Vector2.Right;
     public List<Elemental> AffectedElementals;
 
     private Dictionary<Type, List<MagicPerk>> _perkMap;
     private bool _arrived;
     private float _distanceTraveled;
-
+    private int _progressedFrame;
+    
     public void Setup(MagicSpell magicSpell, List<MagicPerk> magicPerks)
     {
         MagicSpell = magicSpell;
@@ -96,9 +98,11 @@ public partial class MagicNode : Node2D
             if (_distanceTraveled >= Stat.MaxDistance)
                 TriggerArrival();
             else OnMove(fdelta);
+            return;
         }
-        else
-            OnArrival(fdelta);
+        OnArrival(fdelta);
+        _progressedFrame++;
+        if (_progressedFrame <= Stat.DurationFrame) QueueFree();
     }
 
     public void TriggerArrival()
@@ -129,6 +133,8 @@ public partial class MagicNode : Node2D
         {
             if (body is Monster monster)
                 targets.Add(monster);
+            else if (body.GetParent() is MagicNode magicNode)
+                AffectedElementals.Add(magicNode.MagicSpell.Elemental);
         }
 
         if (_perkMap.TryGetValue(typeof(MagicPerkMove), out var movePerks))
@@ -140,7 +146,7 @@ public partial class MagicNode : Node2D
         MagicSpell.MoveEffect(this, targets, fdelta);
     }
 
-    private void OnArrival(float fdelta)
+    private void OnArrival(float fdelta, bool isFirstTrigger = false)
     {
         var targets = new List<Monster>();
         foreach (Node2D body in _arrivalArea.GetOverlappingBodies())
@@ -154,6 +160,6 @@ public partial class MagicNode : Node2D
             foreach (MagicPerk perk in arrivalPerks)
                 ((MagicPerkArrival)perk).ArrivalEffect(MagicSpell, targets);
         }
-        MagicSpell.ArrivalEffect(this, targets, fdelta);
+        MagicSpell.ArrivalEffect(this, targets, _progressedFrame);
     }
 }
