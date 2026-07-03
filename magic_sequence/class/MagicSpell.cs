@@ -13,9 +13,9 @@ public abstract partial class MagicSpell : MagicEffect
 
     public abstract void SpawnEffect(MagicNode node);
 
-    public abstract void MoveEffect(MagicNode node, float fdelta);
+    public abstract void MoveEffect(MagicNode node, List<Monster> targets, float fdelta);
 
-    public abstract void ArrivalEffect(MagicNode node, float fdelta);
+    public abstract void ArrivalEffect(MagicNode node, List<Monster> targetMonster , float fdelta);
 
     public void MagicEffect(MagicNode node, Elemental effectedElemental)
     {

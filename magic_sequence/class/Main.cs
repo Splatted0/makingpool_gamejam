@@ -1,4 +1,6 @@
-﻿public partial class Main : Node
+﻿using System.Collections.Generic;
+
+public partial class Main : Node
 {
     [Export] public Node BattleWorld;
 
@@ -11,9 +13,7 @@
     public int MaxHealth { get; private set; } = 1;
     public int Gold { get; private set; }
 
-    public Wand FirstWand;
-    public Wand SecondWand;
-    public Wand ThirdWand;
+    [Export] public Wand[] Wands;
 
     public override void _EnterTree()
     {

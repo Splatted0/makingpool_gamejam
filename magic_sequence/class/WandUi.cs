@@ -11,7 +11,7 @@ public partial class WandUi : Control
     [Export] private RichTextLabel _description;
     [Export] public Array<MagicPanel> MagicPanel;
 
-    [Export] private Wand _wand;
+    private Wand _wand;
     public Wand Wand => _wand;
 
     public override void _Ready()
@@ -21,7 +21,6 @@ public partial class WandUi : Control
             int capturedIndex = i;
             MagicPanel[i].DraggedMagic += magic => OnMagicPanelDraggedMagic(magic, capturedIndex);
         }
-        Setup(_wand);
     }
 
     public void Setup(Wand wand)

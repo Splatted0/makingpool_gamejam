@@ -28,6 +28,17 @@ public partial class InhanceManager : Node
             WandUi captured = WandUis[i];
             WandUis[i].Dragged += (magic, panelIndex) => OnWandUiDragged(magic, panelIndex, captured);
         }
+
+        Setup();
+    }
+
+    public void Setup()
+    {
+        Wand[] wands = Blackboard.Wands;
+        for (int i = 0; i < WandUis.Count && i < wands.Length; i++)
+        {
+            WandUis[i].Setup(wands[i]);
+        }
     }
 
     public override void _Input(InputEvent @event)
@@ -99,29 +110,36 @@ public partial class InhanceManager : Node
         _hoveredIndex = newHoveredIndex;
     }
 
+    // Wand 데이터만 변경. UI 갱신은 EndDrag에서 일괄 처리.
     private void DropMagic()
     {
         if (_hoveredPanel == null) return;
 
         if (_sourceWand == null)
         {
-            _hoveredWand.Wand.Magics[_hoveredIndex] = _addMagic;
-            _hoveredWand.MagicPanel[_hoveredIndex].Setup(_hoveredWand.Wand.Get(_hoveredIndex));
+            if (_hoveredWand.Wand.IsEmpty(_hoveredIndex))
+                _hoveredWand.Wand.Add(_addMagic, _hoveredIndex);
+            else
+                _hoveredWand.Wand.Magics[_hoveredIndex] = _addMagic;
         }
         else if (_sourceWand == _hoveredWand)
         {
             if (_sourceIndex == _hoveredIndex) return;
             _sourceWand.Wand.Swap(_sourceIndex, _hoveredIndex);
-            _sourceWand.MagicPanel[_sourceIndex].Setup(_sourceWand.Wand.Get(_sourceIndex));
-            _sourceWand.MagicPanel[_hoveredIndex].Setup(_sourceWand.Wand.Get(_hoveredIndex));
         }
         else
         {
-            Magic targetMagic = _hoveredWand.Wand.Get(_hoveredIndex);
-            _hoveredWand.Wand.Magics[_hoveredIndex] = _draggedMagic;
-            _sourceWand.Wand.Magics[_sourceIndex] = targetMagic;
-            _hoveredWand.MagicPanel[_hoveredIndex].Setup(_hoveredWand.Wand.Get(_hoveredIndex));
-            _sourceWand.MagicPanel[_sourceIndex].Setup(_sourceWand.Wand.Get(_sourceIndex));
+            if (_hoveredWand.Wand.IsEmpty(_hoveredIndex))
+            {
+                _hoveredWand.Wand.Add(_draggedMagic, _hoveredIndex);
+                _sourceWand.Wand.Remove(_sourceIndex);
+            }
+            else
+            {
+                Magic targetMagic = _hoveredWand.Wand.Get(_hoveredIndex);
+                _hoveredWand.Wand.Magics[_hoveredIndex] = _draggedMagic;
+                _sourceWand.Wand.Magics[_sourceIndex] = targetMagic;
+            }
         }
     }
 
@@ -138,5 +156,15 @@ public partial class InhanceManager : Node
         _hoveredPanel = null;
         _hoveredWand = null;
         _hoveredIndex = -1;
+
+        RefreshAllWandUis();
+    }
+
+    private void RefreshAllWandUis()
+    {
+        foreach (WandUi wandUi in WandUis)
+        {
+            wandUi.Setup(wandUi.Wand);
+        }
     }
 }

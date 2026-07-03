@@ -1,7 +1,7 @@
 ﻿﻿
 using System.Collections.Generic;
 
-public partial class MagicNode : Node2D
+public partial class MagicNode : Area2D
 {
     public MagicSpell MagicSpell { get; private set; }
     public MagicStat Stat;
@@ -90,23 +90,36 @@ public partial class MagicNode : Node2D
     
     private void OnMove(float fdelta)
     {
+        var targets = new List<Monster>();
+        foreach (Node2D body in GetOverlappingBodies())
+        {
+            if (body is PhysicsBody2D physBody && physBody.GetCollisionLayerValue(4) && body is Monster monster)
+                targets.Add(monster);
+        }
+
         if (_perkMap.TryGetValue(typeof(MagicPerkMove), out var movePerks))
         {
             foreach (MagicPerk perk in movePerks)
-                ((MagicPerkMove)perk).MoveEffect(fdelta, MagicSpell);
+                ((MagicPerkMove)perk).MoveEffect(fdelta, MagicSpell, targets);
         }
 
-        MagicSpell.MoveEffect(this, fdelta);
+        MagicSpell.MoveEffect(this, targets, fdelta);
     }
 
     private void OnArrival(float fdelta)
     {
+        var targets = new List<Monster>();
+        foreach (Node2D body in GetOverlappingBodies())
+        {
+            if (body is PhysicsBody2D physBody && physBody.GetCollisionLayerValue(4) && body is Monster monster)
+                targets.Add(monster);
+        }
+
         if (_perkMap.TryGetValue(typeof(MagicPerkArrival), out var arrivalPerks))
         {
             foreach (MagicPerk perk in arrivalPerks)
-                ((MagicPerkArrival)perk).ArrivalEffect(MagicSpell);
+                ((MagicPerkArrival)perk).ArrivalEffect(MagicSpell, targets);
         }
-        MagicSpell.ArrivalEffect(this, fdelta);
-
+        MagicSpell.ArrivalEffect(this, targets, fdelta);
     }
 }
