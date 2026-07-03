@@ -10,6 +10,7 @@ public partial class Spawner : Node2D
 	[Export] public Core Core { get; set; }              // 본진 (SetTarget용, Hit 호출을 위해 Core 타입)
 
 	[Export] private WaveData _testWave;                     // 단독 테스트용(매니저 붙으면 제거)
+	[Export] public bool AutoStartTestWave { get; set; } = false;
 
 	private Timer _timer;
 	private CollisionShape2D _spawnCollision;                // SpawnArea의 사각 콜리전 캐싱
@@ -24,7 +25,12 @@ public partial class Spawner : Node2D
 		_timer.Timeout += OnSpawnTick;
 		AddChild(_timer);
 
-		_spawnCollision = FindCollisionShape(SpawnArea);
+		_spawnCollision = null;
+
+		if (SpawnArea != null)
+		{
+			_spawnCollision = FindCollisionShape(SpawnArea);
+		}
 
 		if (MonsterScene == null)
 		{
@@ -47,7 +53,13 @@ public partial class Spawner : Node2D
 			GD.PrintErr($"[Spawner] {Name}: Core가 비어있습니다.");
 		}
 
-		if (_testWave != null)
+		if (MonsterScene == null || SpawnArea == null || _spawnCollision == null || Container == null || Core == null)
+		{
+			GD.PrintErr($"[Spawner] {Name}: 필수 참조가 비어 있어서 스폰을 중단합니다.");
+			return;
+		}
+
+		if (AutoStartTestWave && _testWave != null)
 		{
 			SpawnStart(_testWave);
 		}
@@ -112,9 +124,15 @@ public partial class Spawner : Node2D
 	private void SpawnMonster(MonsterData data, Vector2 worldPos)
 	{
 		Monster monster = MonsterScene.Instantiate<Monster>();
+
 		monster.Data = data;
-		monster.SetTarget(Core.GlobalPosition, Core);
-		monster.Position = Container.ToLocal(worldPos);   // AddChild 후 GlobalPosition이 worldPos가 되도록
+
+		if (Core != null)
+			monster.SetTarget(Core);
+		else
+			GD.PrintErr($"[Spawner] {Name}: Core가 null이라 monster target을 지정하지 못했습니다.");
+
+		monster.Position = Container.ToLocal(worldPos);
 		Container.AddChild(monster);
 	}
 
@@ -145,5 +163,9 @@ public partial class Spawner : Node2D
 			}
 		}
 		return null;
+	}
+	public WaveData GetDefaultWave()
+	{
+		return _testWave;
 	}
 }

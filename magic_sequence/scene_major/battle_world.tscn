@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cxrvco7ce4fuv" path="res://class_resource/MonsterData.cs" id="6_m7vi4"]
 [ext_resource type="Script" uid="uid://brf2rmq1y1476" path="res://class_resource/WaveData.cs" id="7_yt1t0"]
 [ext_resource type="Script" uid="uid://bryasmnd8ejj8" path="res://class/BattleWorldHud.cs" id="8_m7vi4"]
+[ext_resource type="Script" uid="uid://b8cuf2svmc8xq" path="res://Scripts/RoundManager.cs" id="8_yt1t0"]
 
 [sub_resource type="Resource" id="Resource_yt1t0"]
 script = ExtResource("6_m7vi4")
@@ -96,11 +97,17 @@ position = Vector2(312, 329)
 
 [node name="Spawner" parent="BattleCenter/EnemySpawner" unique_id=726345657 node_paths=PackedStringArray("Container", "Core") instance=ExtResource("4_0bhie")]
 position = Vector2(1133, 330)
-_testWave = SubResource("Resource_0bhie")
 Container = NodePath("../../EntityContainer")
 Core = NodePath("../../EntityContainer/Core")
+_testWave = SubResource("Resource_0bhie")
 
 [node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
+
+[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud")]
+script = ExtResource("8_yt1t0")
+Spawner = NodePath("../EnemySpawner/Spawner")
+Hud = NodePath("../../BattleUI")
+MaxRounds = 4
 
 [node name="BattleUI" type="CanvasLayer" parent="." unique_id=1331853940]
 script = ExtResource("8_m7vi4")

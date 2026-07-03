@@ -1,19 +1,26 @@
 using Godot;
+using System.Threading.Tasks;
 
 public partial class BattleWorldHud : CanvasLayer
 {
     private Core _core;
+
+    private Control _uiRoot;
     private ProgressBar _coreHpBar;
     private Label _coreHpText;
     private Label _goldText;
     private Button _pauseButton;
 
+    private ColorRect _pauseDim;
+    private Label _roundLabel;
+
     private int _lastGold = int.MinValue;
 
     public override void _Ready()
     {
-        // pause 상태에서도 PauseButton이 눌려야 하므로 UI layer는 항상 processing.
         ProcessMode = Node.ProcessModeEnum.Always;
+
+        _uiRoot = GetNodeOrNull<Control>("UIRoot");
 
         _core = GetNodeOrNull<Core>("../BattleCenter/EntityContainer/Core");
 
@@ -31,6 +38,8 @@ public partial class BattleWorldHud : CanvasLayer
 
         _pauseButton = GetNodeOrNull<Button>("UIRoot/PauseButton");
 
+        CreateOverlayNodes();
+
         if (_core != null)
         {
             _core.HpChanged += OnCoreHpChanged;
@@ -44,7 +53,7 @@ public partial class BattleWorldHud : CanvasLayer
         if (_pauseButton != null)
         {
             _pauseButton.Pressed += OnPauseButtonPressed;
-            UpdatePauseButtonText();
+            UpdatePauseVisual();
         }
         else
         {
@@ -56,8 +65,6 @@ public partial class BattleWorldHud : CanvasLayer
 
     public override void _Process(double delta)
     {
-        // GoldChanged signal까지 연결하지 않고, Blackboard 값만 감시.
-        // 지금 구조에서는 이게 제일 덜 건드리는 방식임.
         if (_lastGold != Blackboard.Gold)
             UpdateGoldText(Blackboard.Gold);
     }
@@ -69,6 +76,36 @@ public partial class BattleWorldHud : CanvasLayer
 
         if (_pauseButton != null)
             _pauseButton.Pressed -= OnPauseButtonPressed;
+    }
+
+    private void CreateOverlayNodes()
+    {
+        if (_uiRoot == null)
+        {
+            GD.PrintErr("[BattleWorldHud] UIRoot not found.");
+            return;
+        }
+
+        _pauseDim = new ColorRect();
+        _pauseDim.Name = "PauseDim";
+        _pauseDim.Color = new Color(0f, 0f, 0f, 0.75f);
+        _pauseDim.Visible = false;
+        _pauseDim.MouseFilter = Control.MouseFilterEnum.Ignore;
+        _pauseDim.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+        _uiRoot.AddChild(_pauseDim);
+
+        _roundLabel = new Label();
+        _roundLabel.Name = "RoundLabel";
+        _roundLabel.Text = "";
+        _roundLabel.Visible = false;
+        _roundLabel.MouseFilter = Control.MouseFilterEnum.Ignore;
+        _roundLabel.HorizontalAlignment = HorizontalAlignment.Center;
+        _roundLabel.VerticalAlignment = VerticalAlignment.Center;
+        _roundLabel.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+        _roundLabel.AddThemeFontSizeOverride("font_size", 96);
+        _uiRoot.AddChild(_roundLabel);
+
+        _pauseButton?.MoveToFront();
     }
 
     private void OnCoreHpChanged(int health, int maxHp)
@@ -100,14 +137,35 @@ public partial class BattleWorldHud : CanvasLayer
     private void OnPauseButtonPressed()
     {
         GetTree().Paused = !GetTree().Paused;
-        UpdatePauseButtonText();
+        UpdatePauseVisual();
     }
 
-    private void UpdatePauseButtonText()
+    private void UpdatePauseVisual()
     {
-        if (_pauseButton == null)
+        bool paused = GetTree().Paused;
+
+        if (_pauseDim != null)
+            _pauseDim.Visible = paused;
+
+        if (_pauseButton != null)
+        {
+            _pauseButton.Text = paused ? "▶" : "||";
+            _pauseButton.MoveToFront();
+        }
+    }
+
+    public async Task ShowRoundIntro(int roundNumber, double seconds)
+    {
+        if (_roundLabel == null)
             return;
 
-        _pauseButton.Text = GetTree().Paused ? "▶" : "||";
+        _roundLabel.Text = $"Round {roundNumber}";
+        _roundLabel.Visible = true;
+        _roundLabel.MoveToFront();
+
+        await ToSignal(GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
+
+        if (IsInstanceValid(_roundLabel))
+            _roundLabel.Visible = false;
     }
 }

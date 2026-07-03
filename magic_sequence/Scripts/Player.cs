@@ -1,149 +1,100 @@
 using Godot;
-using System;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] public float Speed { get; set; } = 300.0f;
+    [Export] public float Speed { get; set; } = 300.0f;
 
-	[Export] public PackedScene MagicMissileScene { get; set; }
-	[Export] public float MissileSpawnDistance { get; set; } = 1.0f;
-	[Export] public double MissileCooldown { get; set; } = 0.5;
+    [Export] public PackedScene MagicMissileScene { get; set; }
+    [Export] public float MissileSpawnDistance { get; set; } = 50.0f;
+    [Export] public double MissileCooldown { get; set; } = 0.5;
 
-	private Core _core;
-	private double _missileCooldownLeft = 0.0;
+    private Core _core;
+    private double _missileCooldownLeft = 0.0;
 
-	public override void _Ready()
-	{
-		AddToGroup("player");
-		_core = GetTree().GetFirstNodeInGroup("core") as Core;
-	}
+    public override void _Ready()
+    {
+        AddToGroup("player");
 
-	public override void _PhysicsProcess(double delta)
-	{
-		Vector2 velocity = Velocity;
+        _core = GetTree().GetFirstNodeInGroup("core") as Core;
 
+        if (MagicMissileScene == null)
+        {
+            MagicMissileScene = GD.Load<PackedScene>("res://Scenes/magic_missile.tscn");
+            GD.Print("[Player] MagicMissileScene was null, loaded fallback Scenes/magic_missile.tscn");
+        }
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-		if (direction != Vector2.Zero)
-		{
-			velocity = direction * Speed;
-		}
-		else
-		{
-			velocity = velocity.MoveToward(Vector2.Zero, Speed);
-		}
+        if (!InputMap.HasAction("fire"))
+        {
+            GD.PrintErr("[Player] Input action 'fire' does not exist. Check Project Settings > Input Map.");
+        }
+    }
 
-		Velocity = velocity;
-		MoveAndSlide();
-	}
-	public override void _Process(double delta)
-	{
-		_missileCooldownLeft -= delta;
+    public override void _PhysicsProcess(double delta)
+    {
+        Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
 
-		if (Input.IsActionPressed("fire") && _missileCooldownLeft <= 0.0)
-		{
-			SpawnMagicMissile();
-			_missileCooldownLeft = MissileCooldown;
-		}
-	}
+        if (direction != Vector2.Zero)
+            Velocity = direction * Speed;
+        else
+            Velocity = Velocity.MoveToward(Vector2.Zero, Speed);
 
-	private void SpawnMagicMissile()
-	{
-		if (MagicMissileScene == null)
-		{
-			GD.PrintErr("MagicMissileScene is not assigned.");
-			return;
-		}
+        MoveAndSlide();
+    }
 
-		if (_core == null || !IsInstanceValid(_core))
-		{
-			_core = GetTree().GetFirstNodeInGroup("core") as Core;
-		}
+    public override void _Process(double delta)
+    {
+        _missileCooldownLeft -= delta;
 
-		Vector2 direction = GetAwayFromCoreDirection();
-		Vector2 spawnPosition = GlobalPosition + direction * MissileSpawnDistance;
+        if (Input.IsActionPressed("fire") && _missileCooldownLeft <= 0.0)
+        {
+            SpawnMagicMissile();
+            _missileCooldownLeft = MissileCooldown;
+        }
+    }
 
-		MagicMissile missile = MagicMissileScene.Instantiate<MagicMissile>();
+    private void SpawnMagicMissile()
+    {
+        if (MagicMissileScene == null)
+        {
+            GD.PrintErr("[Player] MagicMissileScene is not assigned and fallback load failed.");
+            return;
+        }
 
-		missile.Direction = direction;
-		missile.Rotation = direction.Angle();
+        if (_core == null || !IsInstanceValid(_core))
+            _core = GetTree().GetFirstNodeInGroup("core") as Core;
 
-		Node projectileParent = GetNodeOrNull<Node>("../Projectiles");
+        Vector2 direction = GetAwayFromCoreDirection();
+        Vector2 spawnPosition = GlobalPosition + direction * MissileSpawnDistance;
 
-		if (projectileParent == null)
-		{
-			GD.PrintErr("Projectiles node not found. Missile will be added to Player's parent.");
-			projectileParent = GetParent();
-		}
+        MagicMissile missile = MagicMissileScene.Instantiate<MagicMissile>();
 
-		projectileParent.AddChild(missile);
+        missile.Direction = direction;
+        missile.Rotation = direction.Angle();
 
-		// 중요: AddChild 이후에 GlobalPosition 설정
-		missile.GlobalPosition = spawnPosition;
+        Node projectileParent = GetNodeOrNull<Node>("../Projectiles");
 
-		GD.Print($"Spawn missile at {spawnPosition}, direction {direction}");
-	}
+        if (projectileParent == null)
+        {
+            GD.PrintErr("[Player] ../Projectiles not found. Missile will be added to player's parent.");
+            projectileParent = GetParent();
+        }
 
-	public void CastMagicAwayFromCore()
-	{
-		if (MagicMissileScene == null)
-		{
-			GD.PrintErr("MagicMissileScene is not assigned.");
-			return;
-		}
+        projectileParent.AddChild(missile);
+        missile.GlobalPosition = spawnPosition;
 
-		if (_core == null || !IsInstanceValid(_core))
-		{
-			_core = GetTree().GetFirstNodeInGroup("core") as Core;
-		}
+        GD.Print($"[Player] Spawn missile at {spawnPosition}, direction {direction}");
+    }
 
-		Vector2 direction = Vector2.Right;
+    private Vector2 GetAwayFromCoreDirection()
+    {
+        if (_core == null || !IsInstanceValid(_core))
+            return Vector2.Right;
 
-		if (_core != null)
-		{
-			direction = (GlobalPosition - _core.GlobalPosition).Normalized();
+        Vector2 direction = GlobalPosition - _core.GlobalPosition;
 
-			if (direction == Vector2.Zero)
-				direction = Vector2.Right;
-		}
+        if (direction.LengthSquared() < 0.001f)
+            return Vector2.Right;
 
-		Vector2 spawnPosition = GlobalPosition + direction * MissileSpawnDistance;
-
-		Node instance = MagicMissileScene.Instantiate();
-
-		if (instance is not MagicNode missile)
-		{
-			GD.PrintErr("MagicMissileScene root must have MagicNode.cs attached.");
-			instance.QueueFree();
-			return;
-		}
-
-		missile.GlobalPosition = spawnPosition;
-		missile.Fire(direction);
-
-		Node projectileParent = GetTree().CurrentScene.GetNodeOrNull<Node>("Projectiles");
-
-		if (projectileParent != null)
-		{
-			projectileParent.AddChild(missile);
-		}
-		else
-		{
-			GetTree().CurrentScene.AddChild(missile);
-		}
-	}
-	private Vector2 GetAwayFromCoreDirection()
-	{
-		if (_core == null || !IsInstanceValid(_core))
-			return Vector2.Right;
-
-		Vector2 direction = GlobalPosition - _core.GlobalPosition;
-
-		if (direction.LengthSquared() < 0.001f)
-			return Vector2.Right;
-
-		return direction.Normalized();
-	}
+        return direction.Normalized();
+    }
 }

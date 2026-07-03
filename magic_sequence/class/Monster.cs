@@ -1,146 +1,155 @@
-// 몬스터 베이스 클래스. 스탯·외형은 MonsterData 리소스에서, 행동(이동/공격/피격)은 여기서.
-// 스탯만 다른 종류는 .tres 교체로 끝. 특수 행동을 가진 종류만 이 클래스를 상속해 override 한다.
 public partial class Monster : CharacterBody2D, IEntity
 {
-	[Export] public MonsterData Data { get; set; }   // 종류별 스탯·외형. 인스펙터에서 .tres를 갈아끼운다
-	[Export] private AnimatedSprite2D _animatedSprite;   // 외형·애니메이션. 씬에서 연결
+    [Export] public MonsterData Data { get; set; }
+    [Export] private AnimatedSprite2D _animatedSprite;
 
-	// ── IEntity ──
-	public Team Team { get; set; } = Team.Enemy;	// 몬스터는 Team.Enemy, 플레이어는 Team.Player
-	public int Health { get; set; }                  // 런타임 현재 체력. _Ready에서 Data.MaxHealth로 초기화
+    public Team Team { get; set; } = Team.Enemy;
+    public int Health { get; set; }
 
-	private const float MELEE_ATTACK_RANGE = 50f;       // melee 공격 판정 거리. Core 콜리전 반지름(30)+몬스터 콜리전 반지름(10)보다 여유 있게
+    private bool _hasTarget;
+    private Node2D _targetNode;
+    private Vector2 _targetPosition;
 
-	private bool _hasTarget;                          // 타깃이 정해졌는지 (Core)
-	private Vector2 _targetPosition;                 // 향할 Core 좌표. 스포너가 스폰 직후 1회 주입(SetTarget)
-	private Vector2 _direction;                       // 스폰 시 1회 계산한 직선 방향(본진 고정이라 갱신 안 함)
-	private IEntity _core;                            // 공격 대상. 스포너가 SetTarget으로 주입
-	private bool _isAttacking;                        // 사거리 안에 들어와 공격 중인지
-	private double _attackTimer;                      // 다음 공격까지 누적 시간
+    private bool _hasHitCore;
 
-	// 근거리 여부 — Data.AttackRange가 음수면 접촉 공격
-	protected bool IsMelee
-	{
-		get {
-			if (Data.AttackRange < 0f) {return true;}
-			return false;
-		}
-	}
+    public void SetTarget(Node2D target)
+    {
+        _targetNode = target;
 
-	// 스포너가 스폰 직후 본진 좌표·객체를 넘긴다(주입 방식)
-	public void SetTarget(Vector2 target, IEntity core)
-	{
-		_targetPosition = target;
-		_core = core;
-		_hasTarget = true;
-	}
+        if (target != null)
+        {
+            _targetPosition = target.GlobalPosition;
+            _hasTarget = true;
+        }
+    }
 
-	public void Hit(HitInfo hitInfo)
-	{
-		if (hitInfo.SourceTeam == Team)
-			return;
+    public void SetTarget(Vector2 target)
+    {
+        _targetNode = null;
+        _targetPosition = target;
+        _hasTarget = true;
+    }
 
-		TakeDamage(hitInfo.Damage);
-	}
+    public void Hit(HitInfo hitInfo)
+    {
+        if (hitInfo.SourceTeam == Team)
+            return;
 
-	// 피격. 받은 데미지만큼 체력 감소.
-	public virtual void TakeDamage(int amount)
-	{
-		Health -= amount;
-		if (Health <= 0)
-		{
-			Die();
-		}
-	}
+        TakeDamage(hitInfo.Damage);
+    }
 
-	public override void _Ready()
-	{
-		if (Data == null)
-		{
-			GD.PrintErr($"[Monster] {Name}: Data가 비어있습니다. 인스펙터에서 MonsterData를 지정해야 합니다.");
-			return;
-		}
+    public virtual void TakeDamage(int amount)
+    {
+        if (amount <= 0)
+            return;
 
-		Health = Data.MaxHealth;
+        Health -= amount;
 
-		if (_animatedSprite != null && Data.Frames != null)
-		{
-			_animatedSprite.SpriteFrames = Data.Frames;
-			_animatedSprite.Play();
-		}
+        GD.Print($"[Monster] HP: {Health}");
 
-		// 본진 고정이라 방향은 여기서 한 번만 계산 → 이후 직선 유지
-		if (_hasTarget)
-		{
-			_direction = (_targetPosition - GlobalPosition).Normalized();
-		}
-		else
-		{
-			GD.PrintErr($"[Monster] {Name}: SetTarget이 호출되지 않았습니다. 스포너가 AddChild 전에 SetTarget을 호출해야 합니다.");
-		}
-	}
+        if (Health <= 0)
+            Die();
+    }
 
-	public override void _PhysicsProcess(double delta)
-	{
-		float range = IsMelee ? MELEE_ATTACK_RANGE : Data.AttackRange;
-		float distance = GlobalPosition.DistanceTo(_targetPosition);
+    public override void _Ready()
+    {
+        if (Data == null)
+        {
+            GD.PrintErr($"[Monster] {Name}: Data가 비어있습니다. MonsterData를 지정해야 합니다.");
+            return;
+        }
 
-		if (distance <= range)
-		{
-			if (_isAttacking == false)
-			{
-				_isAttacking = true;
-				_attackTimer = 0;
-				Velocity = Vector2.Zero;
-				MoveAndSlide();
-			}
-			AttackInterval(delta);
-		}
-		else
-		{
-			_isAttacking = false;
-			Move(delta);
-		}
-		// 상태이상 처리(넉백, 스턴 등) 필요하면 여기서 처리
-	}
+        Health = Data.MaxHealth;
 
-	// 이동 담당. 기본은 스폰 지점에서 본진으로 직선 이동.
-	// 특수 이동 패턴을 가진 몬스터는 이 메서드를 override 한다.
-	protected virtual void Move(double delta)
-	{
-		Velocity = _direction * Data.MoveSpeed;
-		MoveAndSlide();
-	}
+        if (_animatedSprite != null && Data.Frames != null)
+        {
+            _animatedSprite.SpriteFrames = Data.Frames;
+            _animatedSprite.Play();
+        }
 
-	// 사거리 안에서 AttackInterval마다 한 번씩 Attack 호출
-	private void AttackInterval(double delta)
-	{
-		_attackTimer += delta;
-		if (_attackTimer >= Data.AttackInterval)
-		{
-			_attackTimer = 0;
-			Attack();
-		}
-	}
+        if (!_hasTarget)
+        {
+            GD.PrintErr($"[Monster] {Name}: SetTarget이 호출되지 않았습니다.");
+        }
+    }
 
-	// 본진 공격. 근/원거리는 Data.AttackRange(IsMelee)로 갈린다.
-	// 공격 연출이 다른 몬스터는 이 메서드를 override 한다.
-	protected virtual void Attack()
-	{
-		_core.Hit(new HitInfo
-		{
-			Damage = Data.AttackDamage,
-			SourceTeam = Team,
-			Element = Elemental.None
-		});
-	}
+    public override void _PhysicsProcess(double delta)
+    {
+        MoveTowardCore();
+        CheckCoreCollision();
+    }
 
-	// 사망 처리. 이펙트·드롭 등이 필요하면 override
-	protected virtual void Die()
-	{
-		if (Data != null)
-        Blackboard.AddGold(Data.GoldReward);
+    private void MoveTowardCore()
+    {
+        if (Data == null || !_hasTarget)
+        {
+            Velocity = Vector2.Zero;
+            MoveAndSlide();
+            return;
+        }
 
-    	QueueFree();
-	}
+        Vector2 target = GetTargetPosition();
+        Vector2 toTarget = target - GlobalPosition;
+
+        if (toTarget.LengthSquared() < 4f)
+        {
+            Velocity = Vector2.Zero;
+        }
+        else
+        {
+            Velocity = toTarget.Normalized() * Data.MoveSpeed;
+        }
+
+        MoveAndSlide();
+    }
+
+    private Vector2 GetTargetPosition()
+    {
+        if (_targetNode != null && IsInstanceValid(_targetNode))
+        {
+            _targetPosition = _targetNode.GlobalPosition;
+        }
+
+        return _targetPosition;
+    }
+
+    private void CheckCoreCollision()
+    {
+        if (_hasHitCore)
+            return;
+
+        for (int i = 0; i < GetSlideCollisionCount(); i++)
+        {
+            KinematicCollision2D collision = GetSlideCollision(i);
+
+            if (collision.GetCollider() is Core core)
+            {
+                AttackCore(core);
+                return;
+            }
+        }
+    }
+
+    protected virtual void AttackCore(Core core)
+    {
+        if (_hasHitCore)
+            return;
+
+        if (core == null || !IsInstanceValid(core))
+            return;
+
+        _hasHitCore = true;
+
+        int damage = Data?.AttackDamage ?? 1;
+        core.TakeDamage(damage);
+
+        GD.Print($"[Monster] Hit core. Damage: {damage}");
+
+        QueueFree();
+    }
+
+    protected virtual void Die()
+    {
+        QueueFree();
+    }
 }
