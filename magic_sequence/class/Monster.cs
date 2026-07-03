@@ -111,10 +111,40 @@ public partial class Monster : CharacterBody2D, IEntity
 			return;
 		}
 
-		float range = IsMelee ? MELEE_ATTACK_RANGE : Data.AttackRange;
 		float distance = GlobalPosition.DistanceTo(_targetPosition);
 
-		if (distance <= range)
+		if (IsMelee)
+		{
+			MeleeUpdate(delta, distance);
+		}
+		else
+		{
+			RangedUpdate(delta, distance);
+		}
+	}
+
+	// 근거리: Core에 닿으면 남은 체력만큼 데미지 주고 자폭. 닿기 전엔 직선 이동.
+	// 자폭은 처치가 아니라 본진 관통이므로 골드 없이 QueueFree(Die 아님).
+	private void MeleeUpdate(double delta, float distance)
+	{
+		if (distance <= MELEE_ATTACK_RANGE)
+		{
+			_core.Hit(new HitInfo
+			{
+				Damage = Health,
+				SourceTeam = Team,
+				Element = Elemental.None
+			});
+			QueueFree();
+			return;
+		}
+		Move(delta);
+	}
+
+	// 원거리: 사거리 안에서 멈춰 AttackInterval마다 반복 공격.
+	private void RangedUpdate(double delta, float distance)
+	{
+		if (distance <= Data.AttackRange)
 		{
 			if (_isAttacking == false)
 			{
