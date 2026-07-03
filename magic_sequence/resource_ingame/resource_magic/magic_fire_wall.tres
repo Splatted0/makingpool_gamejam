@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://oafq4vvjpyu0"]
+
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_lbiji"]
+[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_xdf3t"]
+[ext_resource type="Resource" uid="uid://bjl5ixmm1w6hl" path="res://resource_ingame/resource_magic_spell/magic_spell_fire_wall.tres" id="2_ktg28"]
+
+[resource]
+script = ExtResource("1_lbiji")
+Name = "화염 벽"
+Icon = ExtResource("1_xdf3t")
+Description = "0.5초 동안 150의 피해를 주는 화염벽을 생성합니다.
+"
+MagicEffect = ExtResource("2_ktg28")
+metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

@@ -23,7 +23,7 @@ public partial class WandManager : Node
 
     public override void _Process(double delta)
     {
-        if (Blackboard.BattleWorld != null && !Blackboard.BattleWorld.Visible)
+        if (Blackboard.BattleWorldHud != null && !Blackboard.BattleWorldHud.Visible)
             return;
 
         _fireCooldownLeft -= delta;

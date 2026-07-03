@@ -9,7 +9,6 @@ public static class Blackboard
     public static int Gold => Main.Gold;
     
     public static MainMenu MainMenu => Main.MainMenu;
-    public static CanvasLayer BattleWorld => Main.BattleWorld;
     public static EnhanceManager EnhanceManager => Main.EnhanceManager;
     public static MagicInfoLayer MagicInfoLayer => Main.MagicInfoLayer;
     public static Wand[] Wands => Main.Wands;
@@ -17,6 +16,9 @@ public static class Blackboard
     public static MagicPool MagicPool => Main.MagicPool;
     public static WandPool WandPool => Main.WandPool;
 
+    public static BattleWorldHud BattleWorldHud => Main.BattleWorldHud;
+        public static RoundManager RoundManager => BattleWorldHud.RoundManager;
+    
     public static void SetHealth(int health, int maxHealth)
     {
         Main?.SetHealth(health, maxHealth);

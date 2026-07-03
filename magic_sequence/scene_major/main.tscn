@@ -4,17 +4,17 @@
 [ext_resource type="PackedScene" uid="uid://dpxu7xfy4jln2" path="res://scene_major/battle_world.tscn" id="2_0ag1k"]
 [ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/resource_wand/three_wand.tres" id="2_du5p4"]
 [ext_resource type="Resource" uid="uid://banpxa2wpix51" path="res://resource_ingame/resource_wand/default_wand.tres" id="3_1ktro"]
-[ext_resource type="PackedScene" uid="uid://dt16jbqxdnhfy" path="res://scene_minor/enhance_manager.tscn" id="3_du5p4"]
+[ext_resource type="PackedScene" uid="uid://dt16jbqxdnhfy" path="res://scene_major/enhance_manager.tscn" id="3_du5p4"]
 [ext_resource type="Resource" uid="uid://c6god3njjwfgq" path="res://resource_ingame/magic_pool.tres" id="4_jq05p"]
 [ext_resource type="Resource" uid="uid://uico6cp0vjnj" path="res://resource_ingame/wand_pool.tres" id="5_1k3cu"]
 [ext_resource type="PackedScene" uid="uid://7w7eqt0uj323" path="res://scene_major/main_menu.tscn" id="6_1k3cu"]
 [ext_resource type="PackedScene" uid="uid://bwttwt3aa277d" path="res://scene_major/magic_info_layer.tscn" id="6_1ktro"]
 [ext_resource type="Script" uid="uid://d1onj0qfoasyu" path="res://class/StateChanger.cs" id="6_6ah6l"]
 
-[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("MainMenu", "BattleWorld", "MagicInfoLayer", "EnhanceManager", "StateChanger")]
+[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("MainMenu", "BattleWorldHud", "MagicInfoLayer", "EnhanceManager", "StateChanger")]
 script = ExtResource("1_aof71")
 MainMenu = NodePath("MainMenu")
-BattleWorld = NodePath("BattleWorld")
+BattleWorldHud = NodePath("BattleWorldHud")
 MagicInfoLayer = NodePath("MagicInfoLayer")
 EnhanceManager = NodePath("EnhanceManager")
 StateChanger = NodePath("StateChanger")
@@ -25,7 +25,7 @@ WandPool = ExtResource("5_1k3cu")
 [node name="StateChanger" type="Node" parent="." unique_id=354889198]
 script = ExtResource("6_6ah6l")
 
-[node name="BattleWorld" parent="." unique_id=2120806126 instance=ExtResource("2_0ag1k")]
+[node name="BattleWorldHud" parent="." unique_id=2120806126 instance=ExtResource("2_0ag1k")]
 visible = false
 
 [node name="MainMenu" parent="." unique_id=1559025204 instance=ExtResource("6_1k3cu")]

@@ -158,7 +158,7 @@ public partial class MagicNode : Node2D
         if (_perkMap.TryGetValue(typeof(MagicPerkArrival), out var arrivalPerks))
         {
             foreach (MagicPerk perk in arrivalPerks)
-                ((MagicPerkArrival)perk).ArrivalEffect(MagicSpell, targets);
+                ((MagicPerkArrival)perk).ArrivalEffect(MagicSpell, targets, _progressedFrame);
         }
         MagicSpell.ArrivalEffect(this, targets, _progressedFrame);
     }

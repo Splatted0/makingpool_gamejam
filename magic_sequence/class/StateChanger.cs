@@ -5,9 +5,16 @@ public partial class StateChanger: Node
     public async void Start()
     {
         await MainMemuState();
-        await BattleState();
+        Flow();
     }
 
+    public async void Flow()
+    {
+        await EnhanceState();
+        await BattleState(); 
+        Flow();
+    }
+    
     public async Task MainMemuState()
     {
         Blackboard.MainMenu.Visible = true;
@@ -26,6 +33,9 @@ public partial class StateChanger: Node
 
     public async Task BattleState()
     {
-        Blackboard.BattleWorld.Visible = true;
+        RoundManager roundManager = Blackboard.RoundManager;
+        Blackboard.BattleWorldHud.Visible = true;
+        await ToSignal(roundManager, RoundManager.SignalName.RoundEnded);
+        Blackboard.BattleWorldHud.Visible = false;
     }
 }

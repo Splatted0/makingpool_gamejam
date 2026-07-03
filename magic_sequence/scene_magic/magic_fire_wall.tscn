@@ -78,9 +78,9 @@ amount = 16
 process_material = SubResource("ParticleProcessMaterial_i8g4g")
 
 [node name="ArraivalArea" type="Area2D" parent="." unique_id=1874273450]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=217446823]
-visible = false
 shape = SubResource("CapsuleShape2D_i8g4g")
 
 [node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea/CollisionShape2D" unique_id=246698336]
