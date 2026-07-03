@@ -3,10 +3,7 @@
 [GlobalClass]
 public partial class MagicSpellFireBullet: MagicSpell
 {
-    public override void SpawnEffect(MagicNode node)
-    {
-        throw new NotImplementedException();
-    }
+    public override void SpawnEffect(MagicNode node) { }
     public override void MoveEffect(MagicNode node, List<Monster> targets, float fdelta)
     {
         if (targets.Count == 0) {return;}
