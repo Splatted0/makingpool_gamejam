@@ -121,7 +121,7 @@ public partial class Player : CharacterBody2D
 		}
 
 		missile.GlobalPosition = spawnPosition;
-		missile.Setup(direction);
+		missile.Fire(direction);
 
 		Node projectileParent = GetTree().CurrentScene.GetNodeOrNull<Node>("Projectiles");
 

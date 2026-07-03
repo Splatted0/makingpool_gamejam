@@ -35,6 +35,14 @@ public partial class Monster : CharacterBody2D, IEntity
 		_hasTarget = true;
 	}
 
+	public void Hit(HitInfo hitInfo)
+    {
+        if (hitInfo.SourceTeam == Team)
+            return;
+
+        TakeDamage(hitInfo.Damage);
+    }
+
 	public override void _Ready()
 	{
 		Health = Data.MaxHealth;

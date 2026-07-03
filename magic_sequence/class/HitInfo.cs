@@ -4,5 +4,5 @@ public struct HitInfo
 {
     public int Damage;
     public Team SourceTeam;
-    public MagicElement Element;
+    public Elemental Element;
 }

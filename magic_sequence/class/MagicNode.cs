@@ -1,14 +1,54 @@
-﻿
+﻿﻿
 using System.Collections.Generic;
 
 public partial class MagicNode : Node2D
 {
-    private MagicSpell MagicSpell;
+    public MagicSpell MagicSpell { get; private set; }
+    public MagicStat Stat;
+    public Vector2 Direction { get; set; } = Vector2.Right;
+    public List<Elemental> AffectedElementals;
+
+    private Dictionary<Type, List<MagicPerk>> _perkMap;
+    private bool _arrived;
+    private float _distanceTraveled;
+    
 
     public void Setup(MagicSpell magicSpell, List<MagicPerk> magicPerks)
     {
-        
+        MagicSpell = magicSpell;
+        Stat = MagicStat.From(magicSpell);
+        _perkMap = new Dictionary<Type, List<MagicPerk>>();
+
+        foreach (MagicPerk perk in magicPerks)
+        {
+            Type key = GetPerkKey(perk);
+
+            if (!_perkMap.TryGetValue(key, out var list))
+            {
+                list = new List<MagicPerk>();
+                _perkMap[key] = list;
+            }
+            list.Add(perk);
+        }
     }
+
+    public void Fire(Vector2 direction)
+    {
+        Direction = direction.Normalized();
+
+        if (Direction == Vector2.Zero)
+            Direction = Vector2.Right;
+
+        Rotation = Direction.Angle();
+    }
+
+    private static Type GetPerkKey(MagicPerk perk) => perk switch
+    {
+        MagicPerkSpawn   => typeof(MagicPerkSpawn),
+        MagicPerkMove    => typeof(MagicPerkMove),
+        MagicPerkArrival => typeof(MagicPerkArrival),
+        _                => typeof(MagicPerk)
+    };
 
     public void OnSpawn()
     {
@@ -20,20 +60,34 @@ public partial class MagicNode : Node2D
         MagicSpell.SpawnEffect(this);
     }
 
-    public override void _Ready()
-    {
-        OnSpawn();
-    }
-
     public override void _PhysicsProcess(double delta)
     {
-        float fdelta  = (float)delta;
-        Move(fdelta);
-        OnMove(fdelta);
+        float fdelta = (float)delta;
+        if (!_arrived)
+        {
+            Move(fdelta);
+            OnMove(fdelta);
+        }
+        else
+            OnArrival(fdelta);
+    }
+
+    public void TriggerArrival()
+    {
+        if (_arrived) return;
+        _arrived = true;
+    }
+
+    private void Move(float fdelta)
+    {
+        Vector2 step = Direction * Stat.Speed * fdelta;
+        GlobalPosition += step;
+        _distanceTraveled += step.Length();
+
+        if (_distanceTraveled >= Stat.MaxDistance)
+            TriggerArrival();
     }
     
-    private void Move(float fdelta) {}
-
     private void OnMove(float fdelta)
     {
         if (_perkMap.TryGetValue(typeof(MagicPerkMove), out var movePerks))
