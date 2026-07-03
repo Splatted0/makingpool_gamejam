@@ -15,6 +15,17 @@ public partial class RoundManager : Node
 
     private bool _roundRunning;
 
+    // ==================== [디버그 테스트] 시작 ====================
+    // StateChanger.BattleState가 StartRound()를 호출하지 않아 라운드가 안 돌아가는 문제
+    // 확인용. 정상 흐름에서는 StateChanger가 StartRound를 불러야 하므로,
+    // 그쪽이 고쳐지면 이 _Ready 블록은 통째로 삭제할 것.
+    public override void _Ready()
+    {
+        GD.Print("[RoundManager][DEBUG] _Ready에서 StartRound 강제 호출");
+        StartRound();
+    }
+    // ==================== [디버그 테스트] 끝 ======================
+
     private void ResolveReferences()
     {
         if (Spawner == null)
