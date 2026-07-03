@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://drt3vfnkyfnyy"]
+
+[ext_resource type="Script" uid="uid://dqqe1n7qogkyf" path="res://class/Spawner.cs" id="1_mdv8j"]
+[ext_resource type="PackedScene" uid="uid://j26k3sobx3dd" path="res://Scenes/monster.tscn" id="2_mdv8j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b58md"]
+size = Vector2(20, 720)
+
+[node name="Spawner" type="Node2D" unique_id=726345657 node_paths=PackedStringArray("SpawnArea")]
+script = ExtResource("1_mdv8j")
+MonsterScene = ExtResource("2_mdv8j")
+SpawnArea = NodePath("SpawnArea2D")
+
+[node name="SpawnArea2D" type="Area2D" parent="." unique_id=2125737286]
+
+[node name="SpawnAreaBox" type="CollisionShape2D" parent="SpawnArea2D" unique_id=1667388015]
+shape = SubResource("RectangleShape2D_b58md")
