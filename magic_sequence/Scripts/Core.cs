@@ -19,7 +19,7 @@ public partial class Core : StaticBody2D, IEntity
         Health = MaxHp;
         AddToGroup("core");
 
-        EmitSignal(SignalName.HpChanged, Health, MaxHp);
+        SyncHp();
     }
 
     public void Hit(HitInfo hitInfo)
@@ -36,7 +36,8 @@ public partial class Core : StaticBody2D, IEntity
             return;
 
         Health = Mathf.Max(Health - damage, 0);
-        EmitSignal(SignalName.HpChanged, Health, MaxHp);
+
+        SyncHp();
 
         GD.Print($"Core HP: {Health}/{MaxHp}");
 
@@ -45,5 +46,11 @@ public partial class Core : StaticBody2D, IEntity
             EmitSignal(SignalName.Died);
             GD.Print("Core destroyed");
         }
+    }
+
+    private void SyncHp()
+    {
+        Blackboard.SetHealth(Health, MaxHp);
+        EmitSignal(SignalName.HpChanged, Health, MaxHp);
     }
 }

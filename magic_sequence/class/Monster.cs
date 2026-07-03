@@ -101,6 +101,9 @@ public partial class Monster : CharacterBody2D, IEntity
 	// 사망 처리. 이펙트·드롭 등이 필요하면 override
 	protected virtual void Die()
 	{
-		QueueFree();
+		if (Data != null)
+        Blackboard.AddGold(Data.GoldReward);
+
+    	QueueFree();
 	}
 }

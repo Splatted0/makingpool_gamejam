@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b13lxgu1pog8m" path="res://class_resource/SpawnEntry.cs" id="5_egww6"]
 [ext_resource type="Script" uid="uid://cxrvco7ce4fuv" path="res://class_resource/MonsterData.cs" id="6_m7vi4"]
 [ext_resource type="Script" uid="uid://brf2rmq1y1476" path="res://class_resource/WaveData.cs" id="7_yt1t0"]
+[ext_resource type="Script" uid="uid://bryasmnd8ejj8" path="res://class/BattleWorldHud.cs" id="8_m7vi4"]
 
 [sub_resource type="Resource" id="Resource_yt1t0"]
 script = ExtResource("6_m7vi4")
@@ -102,6 +103,7 @@ Core = NodePath("../../EntityContainer/Core")
 [node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
 
 [node name="BattleUI" type="CanvasLayer" parent="." unique_id=1331853940]
+script = ExtResource("8_m7vi4")
 
 [node name="UIRoot" type="Control" parent="BattleUI" unique_id=1582633444]
 layout_mode = 3
