@@ -37,7 +37,7 @@ public partial class EnhanceManager : CanvasLayer
         int idx = Math.Clamp(Blackboard.Wave, 0, Blackboard.EnhanceDataList.Length - 1);
         _enhanceData = Blackboard.EnhanceDataList[idx];
 
-        Magic[] magics = DropUtil.GetMagicDrops(Blackboard.MagicPool, _enhanceData.DropMagicCount);
+        Magic[] magics = DropUtil.GetMagicDrops(Blackboard.MagicPool, _enhanceData.DropMagicCount, _enhanceData);
         MagicChanceManager.Setup(magics);
         MagicChanceManager.Visible = true;
 
@@ -47,7 +47,7 @@ public partial class EnhanceManager : CanvasLayer
         bool showWand = _enhanceData.IsWandDrop && Blackboard.Wands.Length < 3;
         if (showWand)
         {
-            Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1);
+            Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1, _enhanceData);
             _getWand = wands[0].Duplicate() as Wand;
             GetWandUi.Setup(_getWand);
         }
@@ -85,7 +85,7 @@ public partial class EnhanceManager : CanvasLayer
         if (!Blackboard.TrySpendGold(_enhanceData.MagicRerollCost)) return;
 
         ExitButton.Visible = false;
-        Magic[] magics = DropUtil.GetMagicDrops(Blackboard.MagicPool, _enhanceData.DropMagicCount);
+        Magic[] magics = DropUtil.GetMagicDrops(Blackboard.MagicPool, _enhanceData.DropMagicCount, _enhanceData);
         MagicChanceManager.Setup(magics);
         MagicRerollButton.Visible = magics.Length > 0;
     }
@@ -94,7 +94,7 @@ public partial class EnhanceManager : CanvasLayer
     {
         if (!Blackboard.TrySpendGold(_enhanceData.WandRerollCost)) return;
 
-        Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1);
+        Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1, _enhanceData);
         _getWand = wands[0].Duplicate() as Wand;
         GetWandUi.Setup(_getWand);
     }

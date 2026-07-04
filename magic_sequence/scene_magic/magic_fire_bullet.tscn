@@ -1,11 +1,19 @@
 [gd_scene format=3 uid="uid://dl11hdsuas40"]
 
 [ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_wmt27"]
+[ext_resource type="Texture2D" uid="uid://b24pjug0vd1l6" path="res://Sprites/particle_fire2.png" id="2_stbfs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_35ie8"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = true
+
 [sub_resource type="Gradient" id="Gradient_hv5tx"]
-colors = PackedColorArray(0.28627452, 0, 0, 1, 0.9764706, 0.11764706, 0.22352941, 1)
+offsets = PackedFloat32Array(0, 0.994382)
+colors = PackedColorArray(0.68, 0.0408, 0.13667974, 1, 0.9717973, 0.64762205, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_idipm"]
 gradient = SubResource("Gradient_hv5tx")
@@ -23,18 +31,27 @@ angular_velocity_max = 0.9999839
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -1.0000023
 radial_accel_max = -1.0000023
-scale_min = 8.0
-scale_max = 12.0
+scale_min = 0.19999999
+scale_max = 0.25
 color_ramp = SubResource("GradientTexture1D_idipm")
 hue_variation_min = -0.050000023
 hue_variation_max = -0.050000023
+anim_speed_min = 0.5
+anim_speed_max = 1.0
+anim_offset_max = 0.39999998
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_umqpk"]
-radius = 30.0
+radius = 50.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_trprp"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = true
 
 [sub_resource type="Gradient" id="Gradient_n0xlg"]
-offsets = PackedFloat32Array(0, 0.7614379, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.8784314, 0.02745098, 0, 1, 0.879189, 0.8209944, 1.1551381e-06, 1)
+offsets = PackedFloat32Array(0.028089888, 0.51797754, 1)
+colors = PackedColorArray(0.96, 0.079999976, 0, 1, 0.879189, 0.8209944, 1.1551381e-06, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_uuls3"]
 gradient = SubResource("Gradient_n0xlg")
@@ -55,16 +72,18 @@ spread = 180.0
 angular_velocity_min = -3.000016
 angular_velocity_max = 2.9999838
 radial_velocity_min = 149.99997
-radial_velocity_max = 199.99997
+radial_velocity_max = 299.99997
 radial_velocity_curve = SubResource("CurveTexture_drkbu")
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -1.0000023
 radial_accel_max = -1.0000023
-scale_min = 5.0
-scale_max = 16.0
+scale_min = 0.75
 color_ramp = SubResource("GradientTexture1D_uuls3")
 hue_variation_min = -0.050000023
 hue_variation_max = -0.050000023
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 0.5
 
 [node name="FireBullet" type="Node2D" unique_id=895270177 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
 script = ExtResource("1_wmt27")
@@ -77,7 +96,11 @@ _arrivalArea = NodePath("ArraivalArea")
 shape = SubResource("CircleShape2D_i8g4g")
 
 [node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea" unique_id=31773775]
-amount = 16
+material = SubResource("CanvasItemMaterial_35ie8")
+amount = 32
+texture = ExtResource("2_stbfs")
+lifetime = 0.5
+explosiveness = 0.1
 process_material = SubResource("ParticleProcessMaterial_i8g4g")
 
 [node name="ArraivalArea" type="Area2D" parent="." unique_id=1874273450]
@@ -86,6 +109,8 @@ process_material = SubResource("ParticleProcessMaterial_i8g4g")
 shape = SubResource("CircleShape2D_umqpk")
 
 [node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea" unique_id=246698336]
+material = SubResource("CanvasItemMaterial_trprp")
 amount = 64
+texture = ExtResource("2_stbfs")
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_t3nnn")

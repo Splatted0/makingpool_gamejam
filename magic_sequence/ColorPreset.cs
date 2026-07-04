@@ -17,6 +17,9 @@ public static class ColorPreset
     public static readonly Color Yellow = new Color("FEC640");
     public static readonly Color BlackYellow = new Color("4D3C13");
     public static readonly Color Purple = new Color("E545DD");
+
+    public static readonly Color Brown = new Color("A52A2A");
+
     
     public static IReadOnlyDictionary<Tier, Color> TierColors => _tierColors;
     

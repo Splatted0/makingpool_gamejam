@@ -135,7 +135,6 @@ script = ExtResource("8_yt1t0")
 Spawner = NodePath("../EnemySpawner/Spawner")
 Hud = NodePath("../..")
 Projectiles = NodePath("../Projectiles")
-MaxRounds = 10
 
 [node name="UIRoot" type="Control" parent="." unique_id=1582633444]
 layout_mode = 3
@@ -237,17 +236,14 @@ size_flags_horizontal = 3
 [node name="SkillUI" parent="UIRoot/Arsenal/HBoxContainer" unique_id=510049030 instance=ExtResource("12_vg3xd")]
 layout_mode = 2
 size_flags_horizontal = 3
-script = null
 
 [node name="SkillUI2" parent="UIRoot/Arsenal/HBoxContainer" unique_id=1124993436 instance=ExtResource("12_vg3xd")]
 layout_mode = 2
 size_flags_horizontal = 3
-script = null
 
 [node name="SkillUI3" parent="UIRoot/Arsenal/HBoxContainer" unique_id=1725346933 instance=ExtResource("12_vg3xd")]
 layout_mode = 2
 size_flags_horizontal = 3
-script = null
 
 [node name="Roundinfo" type="PanelContainer" parent="UIRoot" unique_id=5342678]
 layout_mode = 1

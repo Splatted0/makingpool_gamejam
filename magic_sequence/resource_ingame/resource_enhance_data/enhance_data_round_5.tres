@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_x31lb")
+Tier1Weight = 0.5
+Tier2Weight = 0.5
 metadata/_custom_type_script = "uid://2npsgh2k1wgp"

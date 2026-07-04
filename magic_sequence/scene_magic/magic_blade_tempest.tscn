@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://bi6552fdql1ep"]
+
+[ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_gtx6j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
+
+[sub_resource type="Curve" id="Curve_gtx6j"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_aiar5"]
+curve = SubResource("Curve_gtx6j")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rluau"]
+particle_flag_disable_z = true
+angle_min = -89.99999
+angle_max = 90.000015
+initial_velocity_min = 12.0
+initial_velocity_max = 15.0
+orbit_velocity_min = -0.49999994
+orbit_velocity_max = 0.5000001
+radial_velocity_min = -0.10002235
+radial_velocity_max = 0.09997764
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 14.999997
+tangential_accel_max = 19.999998
+tangential_accel_curve = SubResource("CurveTexture_aiar5")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q7811"]
+radius = 50.0
+
+[sub_resource type="Curve" id="Curve_ea2h0"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 23.809525), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sbary"]
+curve = SubResource("Curve_ea2h0")
+
+[sub_resource type="Curve" id="Curve_lhavi"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(1e-05, 87.30159), 0.0, 0.0, 0, 0, Vector2(0.24476987, 1.5872955), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fgahb"]
+curve = SubResource("Curve_lhavi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0jcy0"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 40.0
+angle_min = -89.99999
+angle_max = 90.000015
+initial_velocity_min = -45.0
+initial_velocity_max = 45.0
+gravity = Vector3(0, 98, 0)
+radial_accel_min = -100.0
+radial_accel_max = -50.0
+radial_accel_curve = SubResource("CurveTexture_sbary")
+tangential_accel_min = 12.499997
+tangential_accel_max = 24.999998
+tangential_accel_curve = SubResource("CurveTexture_fgahb")
+
+[node name="MagicBladeTempest" type="Node2D" unique_id=2005120406 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
+script = ExtResource("1_gtx6j")
+_moveArea = NodePath("MoveArea")
+_arrivalArea = NodePath("ArrivalArea")
+metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
+
+[node name="MoveArea" type="Area2D" parent="." unique_id=1617669393]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=24250572]
+shape = SubResource("CircleShape2D_i8g4g")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MoveArea" unique_id=975783265]
+process_material = SubResource("ParticleProcessMaterial_rluau")
+
+[node name="ArrivalArea" type="Area2D" parent="." unique_id=1362848546]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArrivalArea" unique_id=1951525818]
+shape = SubResource("CircleShape2D_q7811")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ArrivalArea" unique_id=149882038]
+amount = 64
+lifetime = 0.7
+process_material = SubResource("ParticleProcessMaterial_0jcy0")
