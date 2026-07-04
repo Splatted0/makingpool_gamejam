@@ -14,6 +14,8 @@ public partial class Core : StaticBody2D, IEntity
 	[Export] public float LeashAccel { get; set; } = 8f;      // 목줄이 당기는 힘(스프링 상수)
 	[Export] public float LeashDamping { get; set; } = 0.85f; // 초당 속도 감쇠율(0~1, 클수록 안 줄어듦)
 	[Export] public float LeashMaxSpeed { get; set; } = 600f;
+	[Export] public Vector2 LeashOffset { get; set; } = new Vector2(-80f, 0f);  // 타깃 기준 목표 지점 오프셋(왼쪽에 매달린 느낌)
+	[Export] public float BossWaveScale { get; set; } = 0.6f;  // 목줄 걸릴 때(10웨이브) 코어 축소 배율
 
 	private bool _leashActive;
 	private Node2D _leashTarget;
@@ -41,6 +43,7 @@ public partial class Core : StaticBody2D, IEntity
 		_leashTarget = target;
 		_leashActive = target != null;
 		_leashVelocity = Vector2.Zero;
+		Scale = target != null ? new Vector2(BossWaveScale, BossWaveScale) : Vector2.One;
 	}
 
 	// 주사위4(속박) 동안 목줄 당김을 무시하고 제자리에 고정한다.
@@ -56,7 +59,7 @@ public partial class Core : StaticBody2D, IEntity
 		if (_rooted || !_leashActive || _leashTarget == null || !IsInstanceValid(_leashTarget))
 			return;
 
-		Vector2 toTarget = _leashTarget.GlobalPosition - GlobalPosition;
+		Vector2 toTarget = (_leashTarget.GlobalPosition + LeashOffset) - GlobalPosition;
 		_leashVelocity += toTarget * LeashAccel * (float)delta;
 		_leashVelocity *= Mathf.Pow(LeashDamping, (float)delta);
 		_leashVelocity = _leashVelocity.LimitLength(LeashMaxSpeed);

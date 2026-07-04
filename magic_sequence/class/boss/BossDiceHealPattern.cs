@@ -2,8 +2,10 @@
 public class BossDiceHealPattern : IBossPattern
 {
 	private bool _finished = true;
+	private bool _cancelled;
 
 	public bool IsFinished => _finished;
+	public bool WasCancelled => _cancelled;
 
 	public void Start(Boss boss)
 	{
@@ -13,12 +15,15 @@ public class BossDiceHealPattern : IBossPattern
 		if (missing <= 0)
 		{
 			GD.Print("[Dice5] 이미 풀피, 회복량 없음");
+			_cancelled = true;
 			_finished = true;
 			return;
 		}
 
+		_cancelled = false;
 		int amount = GD.RandRange(1, missing);
 		boss.Heal(amount);
+		Vfx.ExplanationHeal.Throw(new VfxExplanationHealData { GlobalPosition = boss.GlobalPosition });
 		GD.Print($"[Dice5] 자힐 {amount} (Health {boss.Health}/{boss.Data.MaxHealth})");
 		_finished = true;
 	}

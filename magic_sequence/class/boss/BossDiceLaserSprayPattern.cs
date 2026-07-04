@@ -15,6 +15,7 @@ public class BossDiceLaserSprayPattern : IBossPattern
 	private BossLaserSprayBeam _currentBeam;
 
 	public bool IsFinished => _finished;
+	public bool WasCancelled => false;
 
 	public void Start(Boss boss)
 	{

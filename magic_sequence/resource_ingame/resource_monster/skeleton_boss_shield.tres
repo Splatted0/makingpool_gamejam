@@ -7,7 +7,7 @@
 script = ExtResource("1_gg2js")
 MoveSpeed = 0.0
 AttackDamage = 0
-AttackRange = 9999.0
+AttackRange = 150.0
 AttackInterval = 0.0
 Frames = ExtResource("1_khg8d")
 metadata/_custom_type_script = "uid://cxrvco7ce4fuv"

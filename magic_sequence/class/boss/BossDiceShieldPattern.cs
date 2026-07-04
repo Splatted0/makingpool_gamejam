@@ -6,9 +6,12 @@ public class BossDiceShieldPattern : IBossPattern
 	private bool _finished = true;
 
 	public bool IsFinished => _finished;
+	public bool WasCancelled => false;
 
 	public void Start(Boss boss)
 	{
+		boss.ClearShields();   // 기존에 남아있던 방패병은 새로 세우기 전에 정리
+
 		BossData data = boss.Config;
 		int count = Mathf.Max(data.ShieldSummonCount, 1);
 		float totalHeight = (count - 1) * data.ShieldSummonSpacing;

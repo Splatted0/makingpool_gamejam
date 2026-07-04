@@ -5,6 +5,7 @@ public class BossDiceRootPattern : IBossPattern
 	private bool _finished = true;
 
 	public bool IsFinished => _finished;
+	public bool WasCancelled => false;
 
 	public void Start(Boss boss)
 	{

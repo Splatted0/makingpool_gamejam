@@ -4,17 +4,22 @@
 public class BossDiceShufflePattern : IBossPattern
 {
 	private bool _finished = true;
+	private bool _cancelled;
 
 	public bool IsFinished => _finished;
+	public bool WasCancelled => _cancelled;
 
 	public void Start(Boss boss)
 	{
 		if (Blackboard.Main == null)
 		{
 			GD.Print("[Dice2] 독립 씬이라 스킵");
+			_cancelled = true;
 			_finished = true;
 			return;
 		}
+
+		_cancelled = false;
 
 		Wand[] wands = Blackboard.Wands;
 		if (wands != null)

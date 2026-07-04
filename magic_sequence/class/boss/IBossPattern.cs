@@ -5,4 +5,7 @@ public interface IBossPattern
 	void Start(Boss boss);
 	void Tick(Boss boss, double delta);
 	bool IsFinished { get; }
+
+	// 조건 미충족 등으로 아무 효과 없이 취소됐는지. true면 컨트롤러가 다음 주사위 쿨다운을 스킵한다.
+	bool WasCancelled { get; }
 }
