@@ -56,6 +56,7 @@ public static class MagicCombo
         else if (previous == Elemental.Wind && current == Elemental.Earth)
             multiplier = 0.5f;
 
+        
         return Mathf.RoundToInt(baseDamage * multiplier);
     }
 
@@ -68,47 +69,88 @@ public static class MagicCombo
     {
         if (previous == Elemental.Fire && current == Elemental.Ice)
         {
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 1, GlobalPosition = node.GlobalPosition
+            });
             hit.SuppressElementEffect = true;
         }
         else if (previous == Elemental.Fire && current == Elemental.Earth)
         {
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 0, GlobalPosition = node.GlobalPosition
+            });
             hit.EarthDurationMultiplier = 1.5f;
             hit.ApplyFireEffect = true;
         }
         else if (previous == Elemental.Fire && current == Elemental.Wind)
         {
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 0, GlobalPosition = node.GlobalPosition
+            });
             hit.ApplyFireEffect = true;
         }
         else if (previous == Elemental.Ice && current == Elemental.Fire)
         {
+            
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 1, GlobalPosition = node.GlobalPosition
+            });
             hit.SuppressElementEffect = true;
         }
         else if (previous == Elemental.Ice && current == Elemental.Earth)
         {
             if (target != null && target != node.PrimaryTarget)
-            {
+            {            
+                Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+                {
+                    BuffIndex = 0, GlobalPosition = node.GlobalPosition
+                });
                 hit.SuppressElementEffect = true;
                 hit.ApplyIceEffect = true;
             }
         }
         else if (previous == Elemental.Ice && current == Elemental.Wind)
         {
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 0, GlobalPosition = node.GlobalPosition
+            });
             hit.ApplyIceEffect = true;
         }
         else if (previous == Elemental.Earth && current == Elemental.Fire)
-        {
+        {            
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 0, GlobalPosition = node.GlobalPosition
+            });
             hit.ApplyFireEffect = true;
         }
         else if (previous == Elemental.Wind && current == Elemental.Fire)
         {
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 0, GlobalPosition = node.GlobalPosition
+            });
             hit.FireDurationMultiplier = 1.5f;
         }
         else if (previous == Elemental.Wind && current == Elemental.Ice)
         {
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 0, GlobalPosition = node.GlobalPosition
+            });
             hit.ApplyVulnerableEffect = true;
         }
         else if (previous == Elemental.Wind && current == Elemental.Earth)
         {
+            Vfx.ExplanationBuff.Throw(new VfxExplanationBuffData
+            {
+                BuffIndex = 1, GlobalPosition = node.GlobalPosition
+            });
             hit.SuppressElementEffect = true;
         }
     }

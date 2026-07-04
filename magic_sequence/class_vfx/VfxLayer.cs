@@ -5,6 +5,7 @@ public partial class VfxLayer : CanvasLayer
     [Export] public VfxExplanationDamagePool ExplanationDamagePool { get; private set; }
     [Export] public VfxDeathParticlePool DeathParticlePool { get; private set; }
     [Export] public VfxExplanationHealPool ExplanationHealPool { get; private set; }
+    [Export] public VfxExplanationBuffPool ExplanationBuffPool { get; private set; }
     [Export] public VfxSpawnParticlePool SpawnParticlePool { get; private set; }
 
     private IEnumerable<IVfx> _vfxCollection;

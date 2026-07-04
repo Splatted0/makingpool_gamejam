@@ -2,11 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bco7ejg3b2fvt" path="res://class_vfx/VfxLayer.cs" id="1_2wie7"]
 [ext_resource type="Script" uid="uid://ctxbiufofdqqd" path="res://class_vfx/VfxExplanationDamagePool.cs" id="2_jbkbl"]
-[ext_resource type="PackedScene" uid="uid://g8qr3wbrrq2g" path="res://resource_ingame/vfx_explanation_damage.tscn" id="3_rrfq1"]
+[ext_resource type="PackedScene" uid="uid://g8qr3wbrrq2g" path="res://scene_minor/vfx_explanation_damage.tscn" id="3_rrfq1"]
 [ext_resource type="Script" uid="uid://dc1xppvbbmp3s" path="res://class_vfx/VfxDeathParticlePool.cs" id="4_e1ti7"]
 [ext_resource type="PackedScene" uid="uid://bp6n7m3ovl5ww" path="res://scene_minor/vfx_death_particle.tscn" id="5_goksr"]
+[ext_resource type="Script" uid="uid://b0pqugtk1pdvl" path="res://class_vfx/VfxExplanationBuffPool.cs" id="6_ckd3o"]
 [ext_resource type="Script" uid="uid://biiffutoay1n2" path="res://class_vfx/VfxExplanationHealPool.cs" id="6_e1ti7"]
+[ext_resource type="PackedScene" uid="uid://wlfdyjwk7g2f" path="res://scene_minor/vfx_explanation_buff.tscn" id="7_7drt7"]
 [ext_resource type="PackedScene" uid="uid://8hkn3s12wvye" path="res://scene_minor/vfx_explanation_heal.tscn" id="7_goksr"]
+[ext_resource type="Script" uid="uid://rrgt53qlghgs" path="res://class_vfx/VfxSpawnParticlePool.cs" id="8_jh6c7"]
+[ext_resource type="PackedScene" uid="uid://cq0oy4t27iffq" path="res://scene_minor/vfx_spawn_particle.tscn" id="9_33ok5"]
 
 [node name="VfxLayer" type="CanvasLayer" unique_id=1052624970 node_paths=PackedStringArray("ExplanationDamagePool", "DeathParticlePool", "ExplanationHealPool")]
 layer = 10
@@ -20,11 +24,19 @@ script = ExtResource("2_jbkbl")
 PackedVfx = ExtResource("3_rrfq1")
 PoolSize = 10
 
+[node name="ExplanationHeal" type="Node2D" parent="." unique_id=1803765799]
+script = ExtResource("6_e1ti7")
+PackedVfx = ExtResource("7_goksr")
+
+[node name="ExplanationBuff" type="Node2D" parent="." unique_id=655100893]
+script = ExtResource("6_ckd3o")
+PackedVfx = ExtResource("7_7drt7")
+
+[node name="SpawnParticle" type="Node2D" parent="." unique_id=938263769]
+script = ExtResource("8_jh6c7")
+PackedVfx = ExtResource("9_33ok5")
+
 [node name="DeathParticle" type="Node2D" parent="." unique_id=891497398]
 script = ExtResource("4_e1ti7")
 PackedVfx = ExtResource("5_goksr")
 PoolSize = 10
-
-[node name="ExplanationHeal" type="Node2D" parent="." unique_id=1803765799]
-script = ExtResource("6_e1ti7")
-PackedVfx = ExtResource("7_goksr")
