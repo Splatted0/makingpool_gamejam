@@ -10,6 +10,16 @@
 [ext_resource type="PackedScene" uid="uid://7w7eqt0uj323" path="res://scene_major/main_menu.tscn" id="6_1k3cu"]
 [ext_resource type="PackedScene" uid="uid://bwttwt3aa277d" path="res://scene_major/magic_info_layer.tscn" id="6_1ktro"]
 [ext_resource type="Script" uid="uid://d1onj0qfoasyu" path="res://class/StateChanger.cs" id="6_6ah6l"]
+[ext_resource type="Resource" uid="uid://bk4kqrp3b7n5c" path="res://resource_ingame/resource_enhance_data/enhance_data_round_1.tres" id="6_fvx2i"]
+[ext_resource type="Resource" uid="uid://cw40fvfd4ernw" path="res://resource_ingame/resource_enhance_data/enhance_data_round_2.tres" id="7_wywvw"]
+[ext_resource type="Resource" uid="uid://bjpov4nx0rofi" path="res://resource_ingame/resource_enhance_data/enhance_data_round_3.tres" id="8_vgjvj"]
+[ext_resource type="Resource" uid="uid://b0on4n3sn58f2" path="res://resource_ingame/resource_enhance_data/enhance_data_round_4.tres" id="9_7cque"]
+[ext_resource type="Resource" uid="uid://cvg0jbxdtvmaf" path="res://resource_ingame/resource_enhance_data/enhance_data_round_5.tres" id="10_prtxx"]
+[ext_resource type="Resource" uid="uid://cpy7y27htupd2" path="res://resource_ingame/resource_enhance_data/enhance_data_round_6.tres" id="11_acv28"]
+[ext_resource type="Resource" uid="uid://bj6dpci3bvnw4" path="res://resource_ingame/resource_enhance_data/enhance_data_round_7.tres" id="12_wx4fy"]
+[ext_resource type="Resource" uid="uid://wktdm10jgs8" path="res://resource_ingame/resource_enhance_data/enhance_data_round_8.tres" id="13_ffkeu"]
+[ext_resource type="Resource" uid="uid://drhrspc4qayxq" path="res://resource_ingame/resource_enhance_data/enhance_data_round_9.tres" id="14_rn1qq"]
+[ext_resource type="Resource" uid="uid://nubxtnu6upxi" path="res://resource_ingame/resource_enhance_data/enhance_data_round_10.tres" id="15_yjvlc"]
 
 [node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("MainMenu", "BattleWorldHud", "MagicInfoLayer", "EnhanceManager", "StateChanger")]
 script = ExtResource("1_aof71")
@@ -21,6 +31,7 @@ StateChanger = NodePath("StateChanger")
 Wands = Array[Object]([ExtResource("2_du5p4"), ExtResource("3_1ktro")])
 MagicPool = ExtResource("4_jq05p")
 WandPool = ExtResource("5_1k3cu")
+EnhanceDataList = Array[Object]([ExtResource("6_fvx2i"), ExtResource("7_wywvw"), ExtResource("8_vgjvj"), ExtResource("9_7cque"), ExtResource("10_prtxx"), ExtResource("11_acv28"), ExtResource("12_wx4fy"), ExtResource("13_ffkeu"), ExtResource("14_rn1qq"), ExtResource("15_yjvlc")])
 
 [node name="StateChanger" type="Node" parent="." unique_id=354889198]
 script = ExtResource("6_6ah6l")

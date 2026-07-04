@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="EnhanceData" format=3 uid="uid://cpy7y27htupd2"]
+
+[ext_resource type="Script" uid="uid://2npsgh2k1wgp" path="res://class_resource/EnhanceData.cs" id="1_t18hj"]
+
+[resource]
+script = ExtResource("1_t18hj")
+metadata/_custom_type_script = "uid://2npsgh2k1wgp"

@@ -5,12 +5,46 @@
 [ext_resource type="Script" uid="uid://csgf2ddedy3qk" path="res://class/EnhanceManager.cs" id="1_s5w6b"]
 [ext_resource type="StyleBox" uid="uid://cctlp0ml5uthl" path="res://resource_dev/get_style_box.tres" id="2_123qq"]
 [ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="2_u3f34"]
+[ext_resource type="Texture2D" uid="uid://6babpiixmtu1" path="res://Sprites/magic_button.svg" id="5_t1n0t"]
+[ext_resource type="Texture2D" uid="uid://ceeag2eu1elxi" path="res://Sprites/magic_button_pressed.svg" id="6_2272h"]
 [ext_resource type="Script" uid="uid://ouqakoep72ep" path="res://class/MagicChangeManager.cs" id="6_dk4am"]
+[ext_resource type="Texture2D" uid="uid://1bwag61axpae" path="res://Sprites/magic_reroll_icon.png" id="7_2272h"]
 [ext_resource type="PackedScene" uid="uid://cex0wvflkcg2e" path="res://scene_minor/main_button.tscn" id="7_s5w6b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i8g4g"]
 font = ExtResource("2_u3f34")
 font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3s86v"]
+texture = ExtResource("5_t1n0t")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sihjj"]
+texture = ExtResource("6_2272h")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vvfga"]
+texture = ExtResource("5_t1n0t")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i8g4g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rluau"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3s86v"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_20f4n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sihjj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8g4g"]
 bg_color = Color(0.98039216, 0.8745098, 0.3882353, 1)
@@ -32,12 +66,14 @@ font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2a3wx"]
 
-[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton")]
+[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton", "MagicRerollButton", "WandRerollButton")]
 script = ExtResource("1_s5w6b")
-MagicChanceManager = NodePath("MagicChangeManager")
-GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/WandUi")
+MagicChanceManager = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager")
+GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi")
 ExitButton = NodePath("ExitButton")
-GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/MainButton")
+GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton")
+MagicRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/MagicRerollButton")
+WandRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/WandRerollButton")
 
 [node name="Panel" type="Panel" parent="." unique_id=272553167]
 anchors_preset = 15
@@ -62,53 +98,72 @@ alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer" unique_id=868978019]
+[node name="MagicChangeManager" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer" unique_id=1569579143 node_paths=PackedStringArray("GetMagicPanels", "WandUis")]
+layout_mode = 2
+theme_override_constants/separation = 12
+script = ExtResource("6_dk4am")
+GetMagicPanels = [NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MagicSlot"), NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MagicSlot2"), NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MagicSlot3")]
+WandUis = [NodePath("../../../CenterContainer/PanelContainer/WandContainer/WandUi"), NodePath("../../../CenterContainer/PanelContainer/WandContainer/WandUi2"), NodePath("../../../CenterContainer/PanelContainer/WandContainer/WandUi3")]
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager" unique_id=1312682935]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_123qq")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer" unique_id=533405770]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer" unique_id=981521809]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer" unique_id=1312682935]
+[node name="Label" type="Label" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer" unique_id=412489152]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_123qq")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer" unique_id=621573501]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer" unique_id=591325420]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=400534150]
-layout_mode = 2
-text = "마법 획득"
+text = "● 마법 획득 ●"
 label_settings = SubResource("LabelSettings_i8g4g")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MagicSlot" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1128488414 instance=ExtResource("1_i0e1h")]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer" unique_id=868978019]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="MagicSlot" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1128488414 instance=ExtResource("1_i0e1h")]
 layout_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer" unique_id=1452533383]
-layout_mode = 2
-theme_override_styles/panel = ExtResource("2_123qq")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2" unique_id=759158520]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer" unique_id=1661327235]
+[node name="MagicSlot2" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=859107913 instance=ExtResource("1_i0e1h")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer" unique_id=599680051]
+[node name="MagicSlot3" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=511405917 instance=ExtResource("1_i0e1h")]
 layout_mode = 2
-text = "마법 획득"
-label_settings = SubResource("LabelSettings_i8g4g")
 
-[node name="MagicSlot" parent="HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer" unique_id=511405917 instance=ExtResource("1_i0e1h")]
+[node name="MagicRerollButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager" unique_id=2023745980]
+custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_fonts/font = ExtResource("2_u3f34")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3s86v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_sihjj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vvfga")
+text = "$5"
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/MagicRerollButton" unique_id=2137540898]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.1
+anchor_bottom = 1.0
+offset_top = 9.0
+offset_right = 25.0
+offset_bottom = -8.0
+grow_vertical = 2
+texture = ExtResource("7_2272h")
+stretch_mode = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer/GetContainer" unique_id=693741901]
 layout_mode = 2
@@ -117,14 +172,69 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2" unique_id=1788454091]
 layout_mode = 2
 
-[node name="MainButton" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer" unique_id=1432610921 instance=ExtResource("7_s5w6b")]
+[node name="GetWandButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer" unique_id=2132401888]
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i8g4g")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rluau")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_3s86v")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_20f4n")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sihjj")
+
+[node name="WandUi" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton" unique_id=750007204 instance=ExtResource("1_8eo4g")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.0
+offset_top = -65.0
+offset_right = 184.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer" parent_id_path=PackedInt32Array(750007204, 236517999) index="0" unique_id=535619405]
+mouse_filter = 2
+
+[node name="TierPanel" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer/HBoxContainer" index="0" unique_id=644569581]
+mouse_filter = 2
+
+[node name="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer/HBoxContainer" index="1" unique_id=165110693]
+mouse_filter = 2
+
+[node name="Name" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer/HBoxContainer/VBoxContainer" index="0" unique_id=910751212]
+mouse_filter = 2
+
+[node name="Description" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer/HBoxContainer/VBoxContainer" index="1" unique_id=28563352]
+mouse_filter = 2
+
+[node name="WandRerollButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer" unique_id=1520773962]
+custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "완드 획득"
+theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_fonts/font = ExtResource("2_u3f34")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3s86v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_sihjj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vvfga")
+text = "$5"
+icon_alignment = 1
 
-[node name="WandUi" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer" unique_id=750007204 instance=ExtResource("1_8eo4g")]
-layout_mode = 2
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/WandRerollButton" unique_id=2045022803]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.1
+anchor_bottom = 1.0
+offset_top = 9.0
+offset_right = 25.0
+offset_bottom = -8.0
+grow_vertical = 2
+texture = ExtResource("7_2272h")
+stretch_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer" unique_id=1103129779]
 layout_mode = 2
@@ -154,12 +264,9 @@ layout_mode = 2
 [node name="WandUi3" parent="HBoxContainer/CenterContainer/PanelContainer/WandContainer" unique_id=1934178586 instance=ExtResource("1_8eo4g")]
 layout_mode = 2
 
-[node name="MagicChangeManager" type="Node" parent="." unique_id=743292602 node_paths=PackedStringArray("GetMagicPanels", "WandUis")]
-script = ExtResource("6_dk4am")
-GetMagicPanels = [NodePath("../HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/MagicSlot"), NodePath("../HBoxContainer/GetContainer/CenterContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/MagicSlot")]
-WandUis = [NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi"), NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi2"), NodePath("../HBoxContainer/CenterContainer/PanelContainer/WandContainer/WandUi3")]
-
 [node name="ExitButton" parent="." unique_id=743153410 instance=ExtResource("7_s5w6b")]
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2jam4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_2a3wx")
 text = "나가기"
+
+[editable path="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi"]
