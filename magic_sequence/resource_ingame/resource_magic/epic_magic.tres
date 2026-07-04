@@ -1,11 +1,14 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://dbg3epmagic00"]
 
-[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgep"]
-[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_paaey"]
+[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_icon"]
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="2_script"]
+[ext_resource type="Resource" uid="uid://msearth0010000" path="res://resource_ingame/resource_magic_spell/magic_spell_rock_spike.tres" id="3_spell"]
 
 [resource]
-script = ExtResource("1_dbgep")
-Name = "epic_magic"
-Icon = ExtResource("1_paaey")
+script = ExtResource("2_script")
+Name = "Rock Spike"
+Description = "Deals 150 earth damage and stuns enemies for 1 second."
+Icon = ExtResource("1_icon")
 Tier = 2
+MagicEffect = ExtResource("3_spell")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

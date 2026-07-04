@@ -18,18 +18,16 @@ public partial class Arsenal : PanelContainer
         ResolveReferences();
 
         Wand[] wands = Blackboard.Wands;
-        WandNode[] wandNodes = WandManager?.GetWandNodes() ?? System.Array.Empty<WandNode>();
         Control[] skillUis = GetSkillUis();
 
         for (int i = 0; i < skillUis.Length; i++)
         {
             Wand wand = wands != null && i < wands.Length ? wands[i] : null;
-            WandNode wandNode = i < wandNodes.Length ? wandNodes[i] : null;
-            SetupSkillUi(skillUis[i], wand, wandNode);
+            SetupSkillUi(skillUis[i], wand);
         }
     }
 
-    private void SetupSkillUi(Control skillUi, Wand wand, WandNode wandNode)
+    private void SetupSkillUi(Control skillUi, Wand wand)
     {
         if (skillUi == null)
             return;
@@ -51,12 +49,6 @@ public partial class Arsenal : PanelContainer
             wandName.Text = wand.WandName;
 
         Array<MagicPanel> panels = GetMagicPanels(skillUi);
-        int chargedIndex = wandNode?.GetChargedMagicIndex() ?? -1;
-        Magic chargedMagic = chargedIndex >= 0 && chargedIndex < wand.Magics.Count ? wand.Magics[chargedIndex] : null;
-
-        Label loadedIndicator = skillUi.GetNodeOrNull<Label>("VBoxContainer/LoadedIndicator");
-        if (loadedIndicator != null)
-            loadedIndicator.Text = chargedMagic != null ? $"Loaded: {chargedMagic.Name}" : "Loaded: -";
 
         for (int i = 0; i < panels.Count; i++)
         {
@@ -73,10 +65,7 @@ public partial class Arsenal : PanelContainer
                 continue;
             }
 
-            if (i == chargedIndex)
-                panel.Selected();
-            else
-                panel.Unselected();
+            panel.Unselected();
         }
     }
 

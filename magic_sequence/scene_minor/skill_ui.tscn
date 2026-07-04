@@ -28,11 +28,6 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Wand Name"
 
-[node name="LoadedIndicator" type="Label" parent="VBoxContainer" unique_id=1203456789]
-layout_mode = 2
-text = "Loaded: -"
-horizontal_alignment = 1
-
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=892090199]
 layout_mode = 2
 size_flags_vertical = 3

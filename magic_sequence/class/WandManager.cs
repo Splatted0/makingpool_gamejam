@@ -1,3 +1,6 @@
+using Godot.Collections;
+using System.Collections.Generic;
+
 public partial class WandManager : Node
 {
     [Export] public Player Player { get; set; }
@@ -12,6 +15,14 @@ public partial class WandManager : Node
     [Export] public double FireCooldown { get; set; } = 0.5;
 
     private readonly double[] _fireCooldownLeft = new double[3];
+    private readonly bool[] _isFiringSequence = new bool[3];
+    private readonly double[] _sequenceDelayLeft = new double[3];
+    private readonly Queue<MagicNode>[] _queuedMagicNodes =
+    {
+        new Queue<MagicNode>(),
+        new Queue<MagicNode>(),
+        new Queue<MagicNode>()
+    };
 
     public override void _Ready()
     {
@@ -30,6 +41,8 @@ public partial class WandManager : Node
 
         for (int i = 0; i < _fireCooldownLeft.Length; i++)
             _fireCooldownLeft[i] -= delta;
+
+        UpdateFiringSequences(delta);
 
         if (Input.IsActionJustPressed("first_wand"))
             Fire(0);
@@ -62,7 +75,7 @@ public partial class WandManager : Node
         if (Player == null || Projectiles == null || wandIndex < 0 || wandIndex >= _fireCooldownLeft.Length)
             return;
 
-        if (_fireCooldownLeft[wandIndex] > 0.0)
+        if (_isFiringSequence[wandIndex] || _fireCooldownLeft[wandIndex] > 0.0)
             return;
 
         WandNode wandNode = GetWandNodes()[wandIndex];
@@ -70,23 +83,67 @@ public partial class WandManager : Node
         if (wandNode == null)
             return;
 
-        Vector2 direction = GetFireDirection();
-        Vector2 spawnPosition = Player.GlobalPosition + direction * SpawnDistance;
-        bool fired = false;
+        Array<MagicNode> magicNodes = wandNode.Active();
 
-        foreach (MagicNode magicNode in wandNode.Active())
+        if (magicNodes.Count == 0)
+            return;
+
+        _queuedMagicNodes[wandIndex].Clear();
+        foreach (MagicNode magicNode in magicNodes)
+            _queuedMagicNodes[wandIndex].Enqueue(magicNode);
+
+        _isFiringSequence[wandIndex] = true;
+        _sequenceDelayLeft[wandIndex] = 0.0;
+        LaunchNextInSequence(wandIndex);
+    }
+
+    private void UpdateFiringSequences(double delta)
+    {
+        for (int i = 0; i < _isFiringSequence.Length; i++)
         {
-            Projectiles.AddChild(magicNode);
-            magicNode.GlobalPosition = spawnPosition;
-            magicNode.Fire(direction);
-            magicNode.OnSpawn();
-            fired = true;
+            if (!_isFiringSequence[i])
+                continue;
+
+            _sequenceDelayLeft[i] -= delta;
+            if (_sequenceDelayLeft[i] <= 0.0)
+                LaunchNextInSequence(i);
+        }
+    }
+
+    private void LaunchNextInSequence(int wandIndex)
+    {
+        Queue<MagicNode> queue = _queuedMagicNodes[wandIndex];
+
+        if (queue.Count == 0)
+        {
+            _isFiringSequence[wandIndex] = false;
+            _fireCooldownLeft[wandIndex] = FireCooldown;
+            Arsenal?.Refresh();
+            return;
         }
 
-        if (fired)
-            _fireCooldownLeft[wandIndex] = FireCooldown;
-
+        Launch(queue.Dequeue());
         Arsenal?.Refresh();
+
+        if (queue.Count > 0)
+        {
+            _sequenceDelayLeft[wandIndex] = FireCooldown;
+            return;
+        }
+
+        _isFiringSequence[wandIndex] = false;
+        _fireCooldownLeft[wandIndex] = FireCooldown;
+    }
+
+    private void Launch(MagicNode magicNode)
+    {
+        Vector2 direction = GetFireDirection();
+        Vector2 spawnPosition = Player.GlobalPosition + direction * SpawnDistance;
+
+        Projectiles.AddChild(magicNode);
+        magicNode.GlobalPosition = spawnPosition;
+        magicNode.Fire(direction);
+        magicNode.OnSpawn();
     }
 
     public WandNode[] GetWandNodes() => new[] { WandNode1, WandNode2, WandNode3 };

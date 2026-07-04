@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MagicPerkSplitNextCast" format=3 uid="uid://splitnextcastpk"]
+
+[ext_resource type="Script" uid="uid://mpsplitnextcast" path="res://class_ability/MagicPerkSplitNextCast.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+SplitAngleDegrees = 15.0
+metadata/_custom_type_script = "uid://mpsplitnextcast"

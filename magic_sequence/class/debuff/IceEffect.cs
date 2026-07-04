@@ -1,29 +1,30 @@
-// 슬로우(Ice). 지속시간 동안 몬스터 이동속도 감소. 스택이 오를수록 감속량 증가.
 public class IceEffect : IDebuff
 {
-	private const float BASE_SLOW = 0.5f;   // 1스택 기준 감속량(0.5 = 속도 절반)
+    private readonly float _slow;
 
-	public float Duration { get; set; } = 3f;
-	public int Stacks { get; set; } = 1;
+    public float Duration { get; set; }
+    public int Stacks { get; set; } = 1;
 
-	public void OnApply(Monster monster)
-	{
-		float slow = BASE_SLOW * StackMultiplier();
-		monster.MoveSpeedMultiplier = Mathf.Max(1f - slow, 0f);
-	}
+    public IceEffect(float duration = 2f, float slow = 0.3f)
+    {
+        Duration = duration;
+        _slow = slow;
+    }
 
-	public void OnTick(Monster monster, float delta)
-	{
-	}
+    public void OnApply(Monster monster)
+    {
+        float slow = _slow * StackMultiplier();
+        monster.MoveSpeedMultiplier = Mathf.Max(1f - slow, 0f);
+    }
 
-	public void OnExpire(Monster monster)
-	{
-		monster.MoveSpeedMultiplier = 1f;
-	}
+    public void OnTick(Monster monster, float delta)
+    {
+    }
 
-	// 1스택 1배, 2스택 1.1배, 3스택 1.2배
-	private float StackMultiplier()
-	{
-		return 1f + (Stacks - 1) * 0.1f;
-	}
+    public void OnExpire(Monster monster)
+    {
+        monster.MoveSpeedMultiplier = 1f;
+    }
+
+    private float StackMultiplier() => 1f + (Stacks - 1) * 0.1f;
 }

@@ -1,15 +1,13 @@
-// 몬스터 종류별 스탯·외형 템플릿. .tres로 저장해 Monster에 갈아끼운다.
-// 스탯만 다른 종류는 이 리소스만 새로 만들면 되고 코드는 건드릴 필요 없다.
 [GlobalClass]
 public partial class MonsterData : Resource
 {
-	[Export] public int MaxHealth { get; set; } = 3;
-	[Export] public float MoveSpeed { get; set; } = 100f;
-	[Export] public int AttackDamage { get; set; } = 1;      // 본진에 주는 데미지
-	[Export] public float AttackRange { get; set; } = -1f;   // 음수=근거리(접촉), 0 이상=원거리 사거리
-	[Export] public float AttackInterval { get; set; } = 1f; // 공격 간격(초, 공격속도)
-	[Export] public int HealAmount { get; set; } = -1;       // 음수=힐 없음, 양수=아군 회복량(리치만)
-	[Export] public bool SpawnFront { get; set; } = false;   // 스폰 순서에서 앞으로 몰아 먼저 나옴(방패병 등)
-	[Export] public SpriteFrames Frames { get; set; }        // 종류별 외형·애니메이션
-	[Export] public int GoldReward { get; set; } = 1;
+    [Export] public int MaxHealth { get; set; } = 3;
+    [Export] public float MoveSpeed { get; set; } = 100f;
+    [Export] public int AttackDamage { get; set; } = 1;
+    [Export] public float AttackRange { get; set; } = -1f;
+    [Export] public float AttackInterval { get; set; } = 1f;
+    [Export] public int HealAmount { get; set; } = -1;
+    [Export] public bool SpawnFront { get; set; } = false;
+    [Export] public SpriteFrames Frames { get; set; }
+    [Export] public int GoldReward { get; set; } = 1;
 }

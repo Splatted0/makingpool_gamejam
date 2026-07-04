@@ -36,26 +36,50 @@ public partial class WandNode : Control
     {
         var result = new Array<MagicNode>();
 
-        int index = GetChargedMagicIndex();
+        int startIndex = GetChargedMagicIndex();
 
-        if (index < 0)
+        if (startIndex < 0)
             return result;
 
         int count = Wand.Magics.Count;
-        Magic magic = Wand.Magics[index];
-        MagicSpell spell = magic.MagicEffect as MagicSpell;
 
-        MagicNode node = spell.MagicNodePack.Instantiate<MagicNode>();
+        for (int offset = 0; offset < count; offset++)
+        {
+            int index = (startIndex + offset) % count;
 
-        var perks = new List<MagicPerk>();
-        if (Wand.WandPerk != null)
-            perks.Add(Wand.WandPerk);
+            if (Wand.Magics[index]?.MagicEffect is not MagicSpell spell)
+                continue;
 
-        node.Setup(spell, perks);
-        result.Add(node);
+            MagicNode node = spell.MagicNodePack.Instantiate<MagicNode>();
 
-        _loadedIndex = (index + 1) % count;
+            List<MagicPerk> perks = CollectQueuedPerks(index, count);
+            if (Wand.WandPerk != null)
+                perks.Add(Wand.WandPerk);
+
+            node.Setup(spell, perks);
+            result.Add(node);
+        }
+
+        _loadedIndex = startIndex;
 
         return result;
+    }
+
+    private List<MagicPerk> CollectQueuedPerks(int spellIndex, int count)
+    {
+        var perks = new List<MagicPerk>();
+
+        for (int offset = 1; offset < count; offset++)
+        {
+            int index = (spellIndex + offset) % count;
+
+            if (Wand.Magics[index]?.MagicEffect is MagicSpell)
+                break;
+
+            if (Wand.Magics[index]?.MagicEffect is MagicPerk perk)
+                perks.Add(perk);
+        }
+
+        return perks;
     }
 }

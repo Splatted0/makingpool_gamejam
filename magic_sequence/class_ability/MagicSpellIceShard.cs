@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 [GlobalClass]
-public partial class MagicSpellFireBullet : MagicSpell
+public partial class MagicSpellIceShard : MagicSpell
 {
     public override void SpawnEffect(MagicNode node)
     {
@@ -9,6 +9,8 @@ public partial class MagicSpellFireBullet : MagicSpell
 
     public override void MoveEffect(MagicNode node, List<Monster> targets, float fdelta)
     {
+        TryApplyProjectileSplit(node);
+
         if (targets.Count == 0)
             return;
 
@@ -22,6 +24,16 @@ public partial class MagicSpellFireBullet : MagicSpell
             return;
 
         foreach (Monster monster in targetMonster)
-            monster.Hit(MagicCombo.BuildHit(node, Elemental.Fire, monster));
+            monster.Hit(MagicCombo.BuildHit(node, Elemental.Ice, monster));
+    }
+
+    private static void TryApplyProjectileSplit(MagicNode node)
+    {
+        if (node.HasSplit || !MagicCombo.ShouldSplitProjectile(node, Elemental.Ice))
+            return;
+
+        node.HasSplit = true;
+        node.SpawnSibling(-15f);
+        node.SpawnSibling(15f);
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 [GlobalClass]
-public partial class MagicSpellFireBullet : MagicSpell
+public partial class MagicSpellRockSpike : MagicSpell
 {
     public override void SpawnEffect(MagicNode node)
     {
@@ -22,6 +22,6 @@ public partial class MagicSpellFireBullet : MagicSpell
             return;
 
         foreach (Monster monster in targetMonster)
-            monster.Hit(MagicCombo.BuildHit(node, Elemental.Fire, monster));
+            monster.Hit(MagicCombo.BuildHit(node, Elemental.Earth, monster));
     }
 }
