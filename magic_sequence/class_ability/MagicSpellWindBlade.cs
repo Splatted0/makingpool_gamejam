@@ -43,4 +43,10 @@ public partial class MagicSpellWindBlade : MagicSpell
             monster.Hit(MagicCombo.BuildHit(node, Elemental.Wind, monster));
         }
     }
+
+    public override void MagicEnhance()
+    {
+        //특정 값 = EnhanceValue;
+        IsEnhanced = true;
+    }
 }

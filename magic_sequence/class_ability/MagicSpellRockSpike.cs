@@ -24,4 +24,10 @@ public partial class MagicSpellRockSpike : MagicSpell
         foreach (Monster monster in targetMonster)
             monster.Hit(MagicCombo.BuildHit(node, Elemental.Earth, monster));
     }
+
+    public override void MagicEnhance()
+    {
+        //특정 값 = EnhanceValue;
+        IsEnhanced = true;
+    }
 }

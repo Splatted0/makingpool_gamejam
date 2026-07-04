@@ -3,6 +3,8 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class MagicSpellIceShard : MagicSpell
 {
+    [Export] public float EnhanceValue;
+    
     public override void SpawnEffect(MagicNode node)
     {
     }
@@ -35,5 +37,11 @@ public partial class MagicSpellIceShard : MagicSpell
         node.HasSplit = true;
         node.SpawnSibling(-15f);
         node.SpawnSibling(15f);
+    }
+
+    public override void MagicEnhance()
+    {
+        //특정 값 = EnhanceValue;
+        IsEnhanced = true;
     }
 }

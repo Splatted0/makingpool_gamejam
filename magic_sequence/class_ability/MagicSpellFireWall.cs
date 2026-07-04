@@ -3,6 +3,7 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class MagicSpellFireWall : MagicSpell
 {
+    [Export] public float EnhanceValue = 0;
     public override void SpawnEffect(MagicNode node) { }
 
     public override void MoveEffect(MagicNode node, List<Monster> targets, float fdelta) { }
@@ -13,5 +14,11 @@ public partial class MagicSpellFireWall : MagicSpell
         {
             monster.Hit(node.GetHitInfo());
         }
+    }
+
+    public override void MagicEnhance()
+    {
+        //특정 값 = EnhanceValue;
+        IsEnhanced = true;
     }
 }

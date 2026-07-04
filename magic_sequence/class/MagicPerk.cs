@@ -1,5 +1,2 @@
 ﻿
-public partial class MagicPerk : MagicEffect
-{
-    
-}
+public abstract partial class MagicPerk : MagicEffect;

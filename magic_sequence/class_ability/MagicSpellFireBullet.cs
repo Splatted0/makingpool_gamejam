@@ -3,6 +3,7 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class MagicSpellFireBullet : MagicSpell
 {
+    [Export] public float EnhanceValue = 0;
     public override void SpawnEffect(MagicNode node)
     {
     }
@@ -23,5 +24,11 @@ public partial class MagicSpellFireBullet : MagicSpell
 
         foreach (Monster monster in targetMonster)
             monster.Hit(MagicCombo.BuildHit(node, Elemental.Fire, monster));
+    }
+
+    public override void MagicEnhance()
+    {
+        //특정 값 = EnhanceValue;
+        IsEnhanced = true;
     }
 }
