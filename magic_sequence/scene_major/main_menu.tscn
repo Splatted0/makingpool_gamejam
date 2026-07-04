@@ -25,3 +25,7 @@ layout_mode = 2
 
 [node name="MainButton" parent="CenterContainer/VBoxContainer" unique_id=1432610921 instance=ExtResource("1_r1agc")]
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=160300324]
+offset_right = 40.0
+offset_bottom = 40.0
