@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://dqnpv3vix66ed"]
+
+[ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_pvmai"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
+
+[sub_resource type="Gradient" id="Gradient_neio3"]
+colors = PackedColorArray(0.49639755, 0.8552619, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rluau"]
+gradient = SubResource("Gradient_neio3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i8g4g"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+angular_velocity_min = -50.000015
+angular_velocity_max = 49.99998
+gravity = Vector3(0, 98, 0)
+scale_min = 2.5
+scale_max = 4.5
+color_ramp = SubResource("GradientTexture1D_rluau")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rluau"]
+radius = 50.0
+
+[sub_resource type="Gradient" id="Gradient_dmnpl"]
+colors = PackedColorArray(0.2732963, 0.8507094, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1m7lt"]
+gradient = SubResource("Gradient_dmnpl")
+
+[sub_resource type="Curve" id="Curve_sihjj"]
+_data = [Vector2(0.023012556, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.50396824), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_20f4n"]
+curve = SubResource("Curve_sihjj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3s86v"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 40.0
+emission_ring_cone_angle = 90.0
+angle_min = -4.9999895
+angle_max = 5.000011
+angular_velocity_min = -10.000016
+angular_velocity_max = 9.999984
+orbit_velocity_min = -0.49999994
+orbit_velocity_max = 0.5000001
+radial_velocity_min = -100.00002
+radial_velocity_max = -50.000023
+radial_velocity_curve = SubResource("CurveTexture_20f4n")
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 4.0
+color_ramp = SubResource("GradientTexture1D_1m7lt")
+
+[node name="MagicFreezingSphere" type="Node2D" unique_id=1234899191 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
+script = ExtResource("1_pvmai")
+_moveArea = NodePath("MoveArea")
+_arrivalArea = NodePath("ArrivalArea")
+metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
+
+[node name="MoveArea" type="Area2D" parent="." unique_id=1565113071]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=266133358]
+shape = SubResource("CircleShape2D_i8g4g")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MoveArea" unique_id=25019120]
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_i8g4g")
+
+[node name="ArrivalArea" type="Area2D" parent="." unique_id=1252238108]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArrivalArea" unique_id=364814492]
+shape = SubResource("CircleShape2D_rluau")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ArrivalArea" unique_id=2139712989]
+amount = 32
+lifetime = 0.5
+explosiveness = 0.9
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_3s86v")

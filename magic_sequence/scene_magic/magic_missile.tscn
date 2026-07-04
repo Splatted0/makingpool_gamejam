@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cp3y7o4nt1rp1"]
+[gd_scene format=3 uid="uid://d2n5ysjmdtwyl"]
 
 [ext_resource type="Script" uid="uid://7bqtovnjdvei" path="res://Scripts/MagicMissile.cs" id="1_lwd6k"]
 [ext_resource type="Texture2D" uid="uid://bqlfcju4dqymo" path="res://Sprites/missile.png" id="2_bphea"]
