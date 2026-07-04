@@ -34,6 +34,7 @@ public partial class MagicInfo : Control
         _enhanceDescription.Text = ResolveDescription(magic.EnhancedDescription, magic);
         _tier.SelfModulate = ColorPreset.TierColors[magic.Tier];
         _enhanceContainer.Visible = !magic.MagicEffect.IsEnhanced;
+        ResetSize();
         Visible = true;
     }
 

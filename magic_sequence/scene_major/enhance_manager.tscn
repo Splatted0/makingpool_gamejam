@@ -3,81 +3,37 @@
 [ext_resource type="PackedScene" uid="uid://2gnnv4ib1kds" path="res://scene_minor/wand_ui.tscn" id="1_8eo4g"]
 [ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="1_i0e1h"]
 [ext_resource type="Script" uid="uid://csgf2ddedy3qk" path="res://class/EnhanceManager.cs" id="1_s5w6b"]
-[ext_resource type="StyleBox" uid="uid://cctlp0ml5uthl" path="res://resource_dev/get_style_box.tres" id="2_123qq"]
 [ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="2_u3f34"]
-[ext_resource type="Texture2D" uid="uid://6babpiixmtu1" path="res://Sprites/magic_button.svg" id="5_t1n0t"]
-[ext_resource type="Texture2D" uid="uid://ceeag2eu1elxi" path="res://Sprites/magic_button_pressed.svg" id="6_2272h"]
+[ext_resource type="StyleBox" uid="uid://cybwwlnwqgfee" path="res://Sprites/ui1_box.tres" id="3_2272h"]
 [ext_resource type="Script" uid="uid://ouqakoep72ep" path="res://class/MagicChangeManager.cs" id="6_dk4am"]
-[ext_resource type="Texture2D" uid="uid://1bwag61axpae" path="res://Sprites/magic_reroll_icon.png" id="7_2272h"]
-[ext_resource type="PackedScene" uid="uid://cex0wvflkcg2e" path="res://scene_minor/main_button.tscn" id="7_s5w6b"]
-[ext_resource type="Texture2D" uid="uid://c5qijgjkmbcfx" path="res://Sprites/magic_heart_icon.png" id="10_vvfga"]
+[ext_resource type="StyleBox" uid="uid://c5fj51bv8ya05" path="res://Sprites/ui3_box.tres" id="6_vvfga"]
+[ext_resource type="StyleBox" uid="uid://cmnipwr0xn3p1" path="res://Sprites/ui4_box.tres" id="7_fwu30"]
+[ext_resource type="StyleBox" uid="uid://dtsv3jphid3no" path="res://Sprites/ui11_box.tres" id="9_c0ewi"]
+[ext_resource type="StyleBox" uid="uid://ba1swgy6nq2py" path="res://Sprites/ui9_box.tres" id="10_6am6y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_igu00"]
 bg_color = Color(0, 0, 0, 0.8)
 
 [sub_resource type="LabelSettings" id="LabelSettings_i8g4g"]
 font = ExtResource("2_u3f34")
-font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3s86v"]
-texture = ExtResource("5_t1n0t")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sihjj"]
-texture = ExtResource("6_2272h")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vvfga"]
-texture = ExtResource("5_t1n0t")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 4.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i8g4g"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rluau"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3s86v"]
+font_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_20f4n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sihjj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8g4g"]
-bg_color = Color(0.98039216, 0.8745098, 0.3882353, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-expand_margin_left = 16.0
-expand_margin_top = 8.0
-expand_margin_right = 16.0
-expand_margin_bottom = 8.0
-
 [sub_resource type="LabelSettings" id="LabelSettings_1736y"]
 font = ExtResource("2_u3f34")
-font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2jam4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2a3wx"]
+font_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 
 [node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton", "MagicRerollButton", "WandRerollButton", "AddHealthButton", "HealthLabel", "GoldLabel")]
 script = ExtResource("1_s5w6b")
 MagicChanceManager = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager")
-GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi")
+GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi")
 ExitButton = NodePath("ExitButton")
-GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton")
-MagicRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/MagicRerollButton")
-WandRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/WandRerollButton")
+GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/GetWandButton")
+MagicRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer/MagicRerollButton")
+WandRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandRerollButton")
 AddHealthButton = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/AddHealthButton")
 HealthLabel = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/HealthLabel")
 GoldLabel = NodePath("MoneyUi")
@@ -96,6 +52,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="GetContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1192003493]
 layout_mode = 2
@@ -115,18 +72,18 @@ WandUis = [NodePath("../../../CenterContainer/PanelContainer/WandContainer/WandU
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager" unique_id=1312682935]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_123qq")
+theme_override_styles/panel = ExtResource("3_2272h")
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer" unique_id=533405770]
 layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer" unique_id=981521809]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer" unique_id=412489152]
 layout_mode = 2
@@ -148,120 +105,77 @@ layout_mode = 2
 [node name="MagicSlot3" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=511405917 instance=ExtResource("1_i0e1h")]
 layout_mode = 2
 
-[node name="MagicRerollButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager" unique_id=2023745980]
+[node name="MagicRerollButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer" unique_id=2023745980]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_focus_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_focus_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
+theme_override_colors/font_pressed_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 theme_override_colors/font_hover_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
 theme_override_fonts/font = ExtResource("2_u3f34")
-theme_override_styles/normal = SubResource("StyleBoxTexture_3s86v")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_sihjj")
-theme_override_styles/hover = SubResource("StyleBoxTexture_vvfga")
-text = "$5"
+theme_override_styles/normal = ExtResource("6_vvfga")
+theme_override_styles/pressed = ExtResource("6_vvfga")
+theme_override_styles/hover = ExtResource("7_fwu30")
+text = "리롤 $5"
 icon_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/MagicRerollButton" unique_id=2137540898]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_right = 0.1
-anchor_bottom = 1.0
-offset_top = 9.0
-offset_right = 25.0
-offset_bottom = -8.0
-grow_vertical = 2
-texture = ExtResource("7_2272h")
-stretch_mode = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer/GetContainer" unique_id=693741901]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2" unique_id=1788454091]
+[node name="GetWandButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2" unique_id=2132401888]
+custom_minimum_size = Vector2(540, 296)
 layout_mode = 2
-
-[node name="GetWandButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer" unique_id=2132401888]
-custom_minimum_size = Vector2(400, 150)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_i8g4g")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_rluau")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_3s86v")
+theme_override_styles/normal = ExtResource("3_2272h")
+theme_override_styles/pressed = ExtResource("3_2272h")
+theme_override_styles/hover = ExtResource("3_2272h")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_20f4n")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_sihjj")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton" unique_id=1332566418]
-layout_mode = 0
-offset_top = -21.0
-offset_right = 400.0
-offset_bottom = -4.0
-theme_override_fonts/normal_font = ExtResource("2_u3f34")
-text = "● 완드 획득 ●"
-fit_content = true
-autowrap_mode = 0
-horizontal_alignment = 1
-
-[node name="WandUi" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton" unique_id=750007204 instance=ExtResource("1_8eo4g")]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton" unique_id=1420660557]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -184.0
-offset_top = -65.0
-offset_right = 184.0
-offset_bottom = 65.0
+offset_left = -211.0
+offset_top = -116.0
+offset_right = 211.0
+offset_bottom = 116.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer" unique_id=1788454091]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer" unique_id=1332566418]
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("2_u3f34")
+text = "● 완드 획득 ●"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="WandUi" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer" unique_id=750007204 instance=ExtResource("1_8eo4g")]
+layout_mode = 2
 mouse_filter = 2
 
-[node name="HBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer" parent_id_path=PackedInt32Array(750007204, 236517999) index="0" unique_id=535619405]
-mouse_filter = 2
-
-[node name="TierPanel" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer/HBoxContainer" index="0" unique_id=644569581]
-mouse_filter = 2
-
-[node name="VBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer/HBoxContainer" index="1" unique_id=165110693]
-mouse_filter = 2
-
-[node name="Name" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer/HBoxContainer/VBoxContainer" index="0" unique_id=910751212]
-mouse_filter = 2
-
-[node name="Description" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi/MarginContainer/HBoxContainer/VBoxContainer" index="1" unique_id=28563352]
-mouse_filter = 2
-
-[node name="WandRerollButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer" unique_id=1520773962]
+[node name="WandRerollButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer" unique_id=1520773962]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_focus_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
-theme_override_colors/font_hover_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_focus_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
 theme_override_fonts/font = ExtResource("2_u3f34")
-theme_override_styles/normal = SubResource("StyleBoxTexture_3s86v")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_sihjj")
-theme_override_styles/hover = SubResource("StyleBoxTexture_vvfga")
-text = "$5"
+theme_override_styles/normal = ExtResource("6_vvfga")
+theme_override_styles/pressed = ExtResource("6_vvfga")
+theme_override_styles/hover = ExtResource("7_fwu30")
+text = "리롤 $5"
 icon_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/WandRerollButton" unique_id=2045022803]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_right = 0.1
-anchor_bottom = 1.0
-offset_top = 9.0
-offset_right = 25.0
-offset_bottom = -8.0
-grow_vertical = 2
-texture = ExtResource("7_2272h")
-stretch_mode = 2
 
 [node name="CenterContainer3" type="CenterContainer" parent="HBoxContainer/GetContainer" unique_id=1381626654]
 layout_mode = 2
@@ -274,6 +188,7 @@ theme_override_constants/separation = 16
 
 [node name="HealthLabel" type="RichTextLabel" parent="HBoxContainer/GetContainer/CenterContainer3/HBoxContainer" unique_id=73304900]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("9_c0ewi")
 bbcode_enabled = true
 text = "현재 체력 10000/10000"
 fit_content = true
@@ -285,18 +200,13 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(128, 60)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_focus_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
-theme_override_colors/font_hover_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_focus_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
 theme_override_fonts/font = ExtResource("2_u3f34")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_3s86v")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_sihjj")
-theme_override_styles/hover = SubResource("StyleBoxTexture_vvfga")
+theme_override_styles/normal = ExtResource("6_vvfga")
+theme_override_styles/pressed = ExtResource("6_vvfga")
+theme_override_styles/hover = ExtResource("7_fwu30")
 text = "+1000 / $150"
-icon = ExtResource("10_vvfga")
 icon_alignment = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer" unique_id=1103129779]
@@ -305,7 +215,7 @@ size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/CenterContainer" unique_id=1317001771]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_i8g4g")
+theme_override_styles/panel = ExtResource("10_6am6y")
 
 [node name="WandContainer" type="VBoxContainer" parent="HBoxContainer/CenterContainer/PanelContainer" unique_id=816952931]
 layout_mode = 2
@@ -327,20 +237,24 @@ layout_mode = 2
 [node name="WandUi3" parent="HBoxContainer/CenterContainer/PanelContainer/WandContainer" unique_id=1934178586 instance=ExtResource("1_8eo4g")]
 layout_mode = 2
 
-[node name="ExitButton" parent="." unique_id=743153410 instance=ExtResource("7_s5w6b")]
-anchors_preset = 8
-anchor_left = 0.5
+[node name="ExitButton" type="Button" parent="." unique_id=1882080564]
+custom_minimum_size = Vector2(196, 96)
+anchors_preset = -1
+anchor_left = 0.25
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 0.25
 anchor_bottom = 0.5
-offset_left = -49.5
-offset_top = -16.5
-offset_right = 49.5
-offset_bottom = 16.5
+offset_left = -28.0
+offset_top = -15.5
+offset_right = 28.0
+offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_2jam4")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2a3wx")
+theme_override_fonts/font = ExtResource("2_u3f34")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("6_vvfga")
+theme_override_styles/pressed = ExtResource("6_vvfga")
+theme_override_styles/hover = ExtResource("7_fwu30")
 text = "나가기"
 
 [node name="MoneyUi" type="Label" parent="." unique_id=1886929435]
@@ -352,7 +266,6 @@ offset_top = 20.0
 offset_right = 50.0
 offset_bottom = 43.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_u3f34")
 theme_override_font_sizes/font_size = 24
 text = "보유 금액 : $0"
-
-[editable path="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi"]

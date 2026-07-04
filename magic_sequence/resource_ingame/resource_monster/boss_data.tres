@@ -6,8 +6,6 @@
 [resource]
 script = ExtResource("1_2motd")
 LaserSprayLength = 2000.0
-LaserSprayThinWidth = 2.0
-LaserSprayImpactWidth = 48.0
 MaxHealth = 5000
 AttackRange = 300.0
 HealAmount = 10

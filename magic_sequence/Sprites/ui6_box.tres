@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://cm4g0t7ogxybe"]
+
+[ext_resource type="Texture2D" uid="uid://1n12tx2expq7" path="res://Sprites/ui6.png" id="1_utevd"]
+
+[resource]
+texture = ExtResource("1_utevd")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0

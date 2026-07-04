@@ -3,6 +3,24 @@
 [ext_resource type="Script" uid="uid://c5p8tk5v13uxm" path="res://class/boss/MagicCircle.cs" id="1_mtdyq"]
 [ext_resource type="Texture2D" uid="uid://dx8pbc7rxk6k0" path="res://texture/boss/sprite-magical-spell-circle-64px.png" id="2_sprml"]
 
+[sub_resource type="Curve" id="Curve_dmowq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1m7lt"]
+curve = SubResource("Curve_dmowq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i8g4g"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 150.0
+angle_min = -89.99999
+angle_max = 90.000015
+scale_min = 5.0
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_1m7lt")
+color = Color(1, 0, 0, 1)
+
 [node name="MagicCircle" type="Node2D" unique_id=1100456688 node_paths=PackedStringArray("Visual")]
 script = ExtResource("1_mtdyq")
 Visual = NodePath("Visual")
@@ -13,3 +31,7 @@ texture_filter = 1
 position = Vector2(-1.0000001, 0)
 scale = Vector2(5, 5)
 texture = ExtResource("2_sprml")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1780548753]
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_i8g4g")

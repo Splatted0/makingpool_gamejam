@@ -1,49 +1,36 @@
 [gd_scene format=3 uid="uid://2gnnv4ib1kds"]
 
+[ext_resource type="StyleBox" uid="uid://bu2nflidervf7" path="res://Sprites/ui2_box.tres" id="1_dkrg7"]
 [ext_resource type="Script" uid="uid://bvrp1kun06mwf" path="res://class/WandUi.cs" id="1_tf1h3"]
 [ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="2_ghhmx"]
 [ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="3_ghhmx"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdxeg"]
-bg_color = Color(0.13333334, 0.45490196, 0.64705884, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8g4g"]
 bg_color = Color(1, 1, 1, 1)
 
 [node name="WandUi" type="PanelContainer" unique_id=750007204 node_paths=PackedStringArray("_name", "_description", "_tierPanel", "MagicPanel")]
-offset_right = 344.0
-offset_bottom = 126.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_fdxeg")
+offset_right = 422.0
+offset_bottom = 142.0
+theme_override_styles/panel = ExtResource("1_dkrg7")
 script = ExtResource("1_tf1h3")
-_name = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Name")
-_description = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Description")
-_tierPanel = NodePath("MarginContainer/HBoxContainer/TierPanel")
-MagicPanel = [NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot2"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot3"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot4"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot5")]
+_name = NodePath("HBoxContainer/VBoxContainer/Name")
+_description = NodePath("HBoxContainer/VBoxContainer/Description")
+_tierPanel = NodePath("HBoxContainer/TierPanel")
+MagicPanel = [NodePath("HBoxContainer/VBoxContainer/MagicContainer/MagicSlot"), NodePath("HBoxContainer/VBoxContainer/MagicContainer/MagicSlot2"), NodePath("HBoxContainer/VBoxContainer/MagicContainer/MagicSlot3"), NodePath("HBoxContainer/VBoxContainer/MagicContainer/MagicSlot4"), NodePath("HBoxContainer/VBoxContainer/MagicContainer/MagicSlot5")]
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=236517999]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=535619405]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/separation = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=535619405]
-layout_mode = 2
-
-[node name="TierPanel" type="Panel" parent="MarginContainer/HBoxContainer" unique_id=644569581]
+[node name="TierPanel" type="Panel" parent="HBoxContainer" unique_id=644569581]
 custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_i8g4g")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=165110693]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=165110693]
 layout_mode = 2
 
-[node name="Name" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=910751212]
+[node name="Name" type="RichTextLabel" parent="HBoxContainer/VBoxContainer" unique_id=910751212]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 theme_override_constants/outline_size = 4
@@ -53,7 +40,7 @@ text = "완드 이름"
 fit_content = true
 autowrap_mode = 0
 
-[node name="Description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=28563352]
+[node name="Description" type="RichTextLabel" parent="HBoxContainer/VBoxContainer" unique_id=28563352]
 custom_minimum_size = Vector2(300, 0)
 custom_maximum_size = Vector2(400, -1)
 layout_mode = 2
@@ -63,20 +50,20 @@ theme_override_fonts/normal_font = ExtResource("2_ghhmx")
 text = "완드 설명 "
 fit_content = true
 
-[node name="MagicContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=635065174]
+[node name="MagicContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=635065174]
 layout_mode = 2
 
-[node name="MagicSlot" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=1128488414 instance=ExtResource("3_ghhmx")]
+[node name="MagicSlot" parent="HBoxContainer/VBoxContainer/MagicContainer" unique_id=1128488414 instance=ExtResource("3_ghhmx")]
 layout_mode = 2
 
-[node name="MagicSlot2" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=715778376 instance=ExtResource("3_ghhmx")]
+[node name="MagicSlot2" parent="HBoxContainer/VBoxContainer/MagicContainer" unique_id=715778376 instance=ExtResource("3_ghhmx")]
 layout_mode = 2
 
-[node name="MagicSlot3" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=927240082 instance=ExtResource("3_ghhmx")]
+[node name="MagicSlot3" parent="HBoxContainer/VBoxContainer/MagicContainer" unique_id=927240082 instance=ExtResource("3_ghhmx")]
 layout_mode = 2
 
-[node name="MagicSlot4" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=1053316518 instance=ExtResource("3_ghhmx")]
+[node name="MagicSlot4" parent="HBoxContainer/VBoxContainer/MagicContainer" unique_id=1053316518 instance=ExtResource("3_ghhmx")]
 layout_mode = 2
 
-[node name="MagicSlot5" parent="MarginContainer/HBoxContainer/VBoxContainer/MagicContainer" unique_id=795842649 instance=ExtResource("3_ghhmx")]
+[node name="MagicSlot5" parent="HBoxContainer/VBoxContainer/MagicContainer" unique_id=795842649 instance=ExtResource("3_ghhmx")]
 layout_mode = 2

@@ -1,9 +1,20 @@
 [gd_scene format=3 uid="uid://bwttwt3aa277d"]
 
 [ext_resource type="Script" uid="uid://bbk8asqj0iub6" path="res://class/MagicInfoLayer.cs" id="1_pvu3l"]
-[ext_resource type="StyleBox" uid="uid://biig1kx67njfs" path="res://resource_dev/magic_info_box.tres" id="2_umlpb"]
+[ext_resource type="Texture2D" uid="uid://bx5ky8uadxbtj" path="res://Sprites/ui12.png" id="2_336nc"]
 [ext_resource type="Script" uid="uid://dg3m6iher5cea" path="res://class/MagicInfo.cs" id="2_uype8"]
 [ext_resource type="LabelSettings" uid="uid://c5tj5m4uapm65" path="res://resource_dev/default_label.tres" id="3_umlpb"]
+[ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="5_evotc"]
+[ext_resource type="Texture2D" uid="uid://bg1ajhddj3d4" path="res://Sprites/ui5.png" id="6_ep8lh"]
+[ext_resource type="Texture2D" uid="uid://drq2o0hx4qcpy" path="res://Sprites/ui4.png" id="6_ljl4i"]
+[ext_resource type="Texture2D" uid="uid://d0peow78c1gdu" path="res://Sprites/ui3.png" id="7_627lj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dmowq"]
+texture = ExtResource("2_336nc")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8g4g"]
 bg_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
@@ -11,14 +22,26 @@ bg_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7fjmo"]
 color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rluau"]
-bg_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_scoe5"]
+texture = ExtResource("6_ljl4i")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uype8"]
-bg_color = Color(0.54213995, 0.40476382, 0.07249642, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cqvo6"]
+texture = ExtResource("7_627lj")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umlpb"]
-bg_color = Color(0.99619967, 0.90955585, 0.74438864, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vnx28"]
+texture = ExtResource("6_ep8lh")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [node name="MagicInfoLayer" type="CanvasLayer" unique_id=754231825 node_paths=PackedStringArray("_magicInfo")]
 script = ExtResource("1_pvu3l")
@@ -26,10 +49,10 @@ _magicInfo = NodePath("MagicInfo")
 
 [node name="MagicInfo" type="PanelContainer" parent="." unique_id=494533344 node_paths=PackedStringArray("_name", "_description", "_tier", "_enhanceContainer", "_enhanceDescription", "_enhanceButton")]
 visible = false
-offset_right = 413.0
-offset_bottom = 199.0
+offset_right = 445.0
+offset_bottom = 257.0
 mouse_filter = 2
-theme_override_styles/panel = ExtResource("2_umlpb")
+theme_override_styles/panel = SubResource("StyleBoxTexture_dmowq")
 script = ExtResource("2_uype8")
 _name = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Name")
 _description = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Description")
@@ -99,12 +122,10 @@ fit_content = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_focus_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_pressed_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_hover_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_rluau")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_uype8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_umlpb")
+theme_override_colors/font_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_focus_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_fonts/font = ExtResource("5_evotc")
+theme_override_styles/normal = SubResource("StyleBoxTexture_scoe5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_cqvo6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vnx28")
 text = "강화 $200"
