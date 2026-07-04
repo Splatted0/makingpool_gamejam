@@ -1,6 +1,22 @@
 [gd_scene format=3 uid="uid://btse1kexhmk45"]
 
 [ext_resource type="Script" uid="uid://bco7ejg3b2fvt" path="res://class_vfx/VfxLayer.cs" id="1_2wie7"]
+[ext_resource type="Script" uid="uid://ctxbiufofdqqd" path="res://class_vfx/VfxExplanationDamagePool.cs" id="2_jbkbl"]
+[ext_resource type="PackedScene" uid="uid://g8qr3wbrrq2g" path="res://resource_ingame/vfx_explanation_damage.tscn" id="3_rrfq1"]
+[ext_resource type="Script" uid="uid://dc1xppvbbmp3s" path="res://class_vfx/VfxDeathParticlePool.cs" id="4_e1ti7"]
+[ext_resource type="PackedScene" uid="uid://bp6n7m3ovl5ww" path="res://scene_minor/vfx_death_particle.tscn" id="5_goksr"]
 
-[node name="VfxLayer" type="CanvasLayer" unique_id=1052624970]
+[node name="VfxLayer" type="CanvasLayer" unique_id=1052624970 node_paths=PackedStringArray("ExplanationDamagePool", "DeathParticlePool")]
 script = ExtResource("1_2wie7")
+ExplanationDamagePool = NodePath("ExplanationPool")
+DeathParticlePool = NodePath("DeathParticle")
+
+[node name="ExplanationPool" type="Node2D" parent="." unique_id=68312988]
+script = ExtResource("2_jbkbl")
+PackedVfx = ExtResource("3_rrfq1")
+PoolSize = 10
+
+[node name="DeathParticle" type="Node2D" parent="." unique_id=891497398]
+script = ExtResource("4_e1ti7")
+PackedVfx = ExtResource("5_goksr")
+PoolSize = 10

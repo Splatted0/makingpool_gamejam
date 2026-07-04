@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://g8qr3wbrrq2g"]
+
+[ext_resource type="Script" uid="uid://bih1l46f5228s" path="res://class_vfx/VfxExplanationDamage.cs" id="1_jfve8"]
+[ext_resource type="FontFile" uid="uid://c6o2gwg8omgwo" path="res://resource_dev/Vipnagorgialla Bd It.otf" id="2_8uri0"]
+
+[node name="VfxExplanationDamage" type="Node2D" unique_id=599586810 node_paths=PackedStringArray("_text", "_timer")]
+script = ExtResource("1_jfve8")
+_text = NodePath("RichTextLabel")
+_timer = NodePath("Timer")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=722721902]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 64.0
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("2_8uri0")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "-5"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=1631937640]

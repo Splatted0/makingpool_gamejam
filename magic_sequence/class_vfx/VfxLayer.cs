@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 public partial class VfxLayer : CanvasLayer
 {
-    [Export] public VfxCollisionParticlePool CollisionParticlePool { get; private set; }
     [Export] public VfxExplanationDamagePool ExplanationDamagePool { get; private set; }
     [Export] public VfxDeathParticlePool DeathParticlePool { get; private set; }
 
