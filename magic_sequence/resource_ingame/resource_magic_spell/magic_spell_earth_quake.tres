@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MagicSpellRockSpike" format=3 uid="uid://bi0emiuqt6bpg"]
+
+[ext_resource type="PackedScene" uid="uid://rca5hjv0tuxw" path="res://scene_magic/magic_earth_quake.tscn" id="1_scene"]
+[ext_resource type="Script" uid="uid://cx347a68ud25d" path="res://class_ability/MagicSpellRockSpike.cs" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+MagicNodePack = ExtResource("1_scene")
+Elemental = 3
+BaseMaxDistance = 1000.0
+BaseMoveRange = 50.0
+BaseArrivalRange = 100.0
+BaseSpeed = 500.0
+BaseDamage = 400
+BaseDurationFrame = 195
+metadata/_custom_type_script = "uid://cx347a68ud25d"

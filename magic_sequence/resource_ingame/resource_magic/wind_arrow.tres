@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://bsb32v805e7fj"]
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://b2jq7b4b7l5gr"]
 
 [ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]
-[ext_resource type="Resource" uid="uid://dgr2vywejrt44" path="res://resource_ingame/resource_magic_spell/magic_spell_fire_bullet.tres" id="2_ardot"]
+[ext_resource type="Resource" uid="uid://dknaw50fwwlss" path="res://resource_ingame/resource_magic_spell/magic_spell_wind_arrow.tres" id="2_egbgh"]
 
 [resource]
 script = ExtResource("1_dbgcm")
-Name = "common_magic"
+Name = "바람 칼날"
 Icon = ExtResource("1_7324p")
-MagicEffect = ExtResource("2_ardot")
+Tier = 1
+MagicEffect = ExtResource("2_egbgh")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"
