@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dnomtr1vlalfm"]
 
 [ext_resource type="Script" uid="uid://dwnjguu20rscl" path="res://Scripts/Core.cs" id="1_pghlq"]
-[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://Sprites/heart.jpg" id="2_wtb72"]
+[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="2_wtb72"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m3204"]
 radius = 30.0

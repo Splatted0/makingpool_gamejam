@@ -158,6 +158,7 @@ public partial class Monster : CharacterBody2D, IEntity
 		if (distance <= MELEE_ATTACK_RANGE)
 		{
 			_isDying = true;   // 이후 프레임은 _PhysicsProcess 상단에서 정지(재진입 방지)
+			DisableCollision();
 			_core.Hit(new HitInfo
 			{
 				Damage = Health,
@@ -241,6 +242,7 @@ public partial class Monster : CharacterBody2D, IEntity
 			return;
 		}
 		_isDying = true;
+		DisableCollision();
 
 		if (Data != null)
 		{
@@ -248,5 +250,13 @@ public partial class Monster : CharacterBody2D, IEntity
 		}
 
 		_animator.PlayDeath(QueueFree);
+	}
+
+	// 사망/자폭 진입 시 콜라이더 해제 — 죽어가는 몹끼리 서로 밀지 않고 그냥 겹치게.
+	// 물리 콜백 중 즉시 변경은 에러라 SetDeferred로 다음 프레임에 안전하게 끈다.
+	private void DisableCollision()
+	{
+		CollisionShape2D shape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+		shape?.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 	}
 }
