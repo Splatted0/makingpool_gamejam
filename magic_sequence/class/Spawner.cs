@@ -17,6 +17,39 @@ public partial class Spawner : Node2D
 	private Godot.Collections.Array<MonsterData> _spawnList = new();
 	private int _spawnIndex;
 	private MonsterData _pendingBoss;
+	private int _totalSpawnCount;
+
+	public int TotalSpawnCount => _totalSpawnCount;
+	public int PendingSpawnCount
+	{
+		get
+		{
+			int pending = Math.Max(_spawnList.Count - _spawnIndex, 0);
+			if (_pendingBoss != null)
+				pending++;
+			return pending;
+		}
+	}
+
+	public int AliveMonsterCount
+	{
+		get
+		{
+			if (Container == null)
+				return 0;
+
+			int count = 0;
+			foreach (Node child in Container.GetChildren())
+			{
+				if (child is Monster && IsInstanceValid(child))
+					count++;
+			}
+
+			return count;
+		}
+	}
+
+	public int RemainingMonsterCount => AliveMonsterCount + PendingSpawnCount;
 
 	public override void _Ready()
 	{
@@ -92,6 +125,7 @@ public partial class Spawner : Node2D
 
 		_spawnIndex = 0;
 		_pendingBoss = wave.Boss;
+		_totalSpawnCount = _spawnList.Count + (_pendingBoss != null ? 1 : 0);
 
 		_timer.WaitTime = wave.Interval;
 		_timer.Start();
@@ -129,6 +163,7 @@ public partial class Spawner : Node2D
 		_spawnList.Clear();
 		_spawnIndex = 0;
 		_pendingBoss = null;
+		_totalSpawnCount = 0;
 		EmitSignal(SignalName.SpawnFinished);
 	}
 

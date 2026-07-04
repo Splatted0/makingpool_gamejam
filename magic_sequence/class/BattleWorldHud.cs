@@ -12,6 +12,7 @@ public partial class BattleWorldHud : CanvasLayer
     private ProgressBar _coreHpBar;
     private Label _coreHpText;
     private Label _goldText;
+    private Label _roundStatusText;
     private Button _pauseButton;
 
     private ColorRect _pauseDim;
@@ -40,6 +41,7 @@ public partial class BattleWorldHud : CanvasLayer
             "UIRoot/CoreStatus/VBoxContainer/GoldPanel/GoldText"
         );
 
+        _roundStatusText = GetNodeOrNull<Label>("UIRoot/RoundStatusText");
         _pauseButton = GetNodeOrNull<Button>("UIRoot/PauseButton");
 
         CreateOverlayNodes();
@@ -71,6 +73,8 @@ public partial class BattleWorldHud : CanvasLayer
     {
         if (_lastGold != Blackboard.Gold)
             UpdateGoldText(Blackboard.Gold);
+
+        UpdateRoundStatusText();
     }
 
     public override void _ExitTree()
@@ -109,6 +113,17 @@ public partial class BattleWorldHud : CanvasLayer
         _roundLabel.AddThemeFontSizeOverride("font_size", 96);
         _uiRoot.AddChild(_roundLabel);
 
+        _roundStatusText ??= new Label();
+        _roundStatusText.Name = "RoundStatusText";
+        _roundStatusText.Text = "Round - | Monsters -/-";
+        _roundStatusText.MouseFilter = Control.MouseFilterEnum.Ignore;
+        _roundStatusText.HorizontalAlignment = HorizontalAlignment.Center;
+        _roundStatusText.SetAnchorsPreset(Control.LayoutPreset.TopWide);
+        _roundStatusText.OffsetTop = 8;
+        _roundStatusText.OffsetBottom = 36;
+        _roundStatusText.AddThemeFontSizeOverride("font_size", 24);
+        _uiRoot.AddChild(_roundStatusText);
+
         _pauseButton?.MoveToFront();
     }
 
@@ -136,6 +151,21 @@ public partial class BattleWorldHud : CanvasLayer
 
         if (_goldText != null)
             _goldText.Text = $"Gold: {gold}";
+    }
+
+    private void UpdateRoundStatusText()
+    {
+        if (_roundStatusText == null)
+            return;
+
+        RoundManager roundManager = RoundManager ?? Blackboard.RoundManager;
+        Spawner spawner = roundManager?.Spawner;
+        int roundNumber = roundManager?.RoundNumber ?? Blackboard.Wave;
+
+        int total = spawner?.TotalSpawnCount ?? 0;
+        int remaining = spawner?.RemainingMonsterCount ?? 0;
+
+        _roundStatusText.Text = $"Round {roundNumber} | Monsters {remaining}/{total}";
     }
 
     private void OnPauseButtonPressed()
