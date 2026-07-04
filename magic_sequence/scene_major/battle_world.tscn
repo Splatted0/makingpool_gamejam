@@ -48,11 +48,24 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.96425396, 0.7770437, 0.11536012, 1)
+expand_margin_left = 2.0
+expand_margin_right = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjtai"]
 bg_color = Color(0.13333334, 0.45490196, 0.64705884, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.9647059, 0.7764706, 0.11372549, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3204"]
 bg_color = Color(1, 0.33693364, 0.32751083, 1)
@@ -113,11 +126,12 @@ _testWave = SubResource("Resource_0bhie")
 
 [node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
 
-[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud", "Projectiles")]
+[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud", "Projectiles", "RoundStartLabel")]
 script = ExtResource("8_yt1t0")
 Spawner = NodePath("../EnemySpawner/Spawner")
 Hud = NodePath("../..")
 Projectiles = NodePath("../Projectiles")
+RoundStartLabel = NodePath("../../RoundStartLabel")
 
 [node name="UIRoot" type="Control" parent="." unique_id=1582633444]
 layout_mode = 3
