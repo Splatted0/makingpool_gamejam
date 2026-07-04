@@ -5,6 +5,7 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_vg3xd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b58md"]
+radius = 16.0
 
 [node name="Monster" type="CharacterBody2D" unique_id=934036589 node_paths=PackedStringArray("_animatedSprite")]
 script = ExtResource("1_s3gyj")
@@ -15,4 +16,5 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_vg3xd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=297662633]
+position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_b58md")

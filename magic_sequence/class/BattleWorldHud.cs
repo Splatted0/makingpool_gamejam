@@ -12,7 +12,7 @@ public partial class BattleWorldHud : CanvasLayer
     private ProgressBar _coreHpBar;
     private Label _coreHpText;
     private Label _goldText;
-    private Label _roundStatusText;
+    private Label _roundInfoText;
     private Button _pauseButton;
 
     private ColorRect _pauseDim;
@@ -41,7 +41,7 @@ public partial class BattleWorldHud : CanvasLayer
             "UIRoot/CoreStatus/VBoxContainer/GoldPanel/GoldText"
         );
 
-        _roundStatusText = GetNodeOrNull<Label>("UIRoot/RoundStatusText");
+        _roundInfoText = GetNodeOrNull<Label>("UIRoot/Roundinfo/RoundInfo");
         _pauseButton = GetNodeOrNull<Button>("UIRoot/PauseButton");
 
         CreateOverlayNodes();
@@ -67,6 +67,7 @@ public partial class BattleWorldHud : CanvasLayer
         }
 
         UpdateGoldText(Blackboard.Gold);
+        UpdateRoundInfoText();
     }
 
     public override void _Process(double delta)
@@ -74,7 +75,7 @@ public partial class BattleWorldHud : CanvasLayer
         if (_lastGold != Blackboard.Gold)
             UpdateGoldText(Blackboard.Gold);
 
-        UpdateRoundStatusText();
+        UpdateRoundInfoText();
     }
 
     public override void _ExitTree()
@@ -113,17 +114,6 @@ public partial class BattleWorldHud : CanvasLayer
         _roundLabel.AddThemeFontSizeOverride("font_size", 96);
         _uiRoot.AddChild(_roundLabel);
 
-        _roundStatusText ??= new Label();
-        _roundStatusText.Name = "RoundStatusText";
-        _roundStatusText.Text = "Round - | Monsters -/-";
-        _roundStatusText.MouseFilter = Control.MouseFilterEnum.Ignore;
-        _roundStatusText.HorizontalAlignment = HorizontalAlignment.Center;
-        _roundStatusText.SetAnchorsPreset(Control.LayoutPreset.TopWide);
-        _roundStatusText.OffsetTop = 8;
-        _roundStatusText.OffsetBottom = 36;
-        _roundStatusText.AddThemeFontSizeOverride("font_size", 24);
-        _uiRoot.AddChild(_roundStatusText);
-
         _pauseButton?.MoveToFront();
     }
 
@@ -139,7 +129,9 @@ public partial class BattleWorldHud : CanvasLayer
         if (_coreHpText != null)
         {
             int percent = maxHp <= 0 ? 0 : Mathf.RoundToInt(health * 100f / maxHp);
-            _coreHpText.Text = $"{health}/{maxHp} ({percent}%)";
+            double healthk = health/1000;
+            double maxHPk = maxHp/1000;
+            _coreHpText.Text = $"{System.Math.Truncate(healthk)}k/{System.Math.Truncate(maxHPk)}k ({percent}%)";
         }
     }
 
@@ -148,12 +140,12 @@ public partial class BattleWorldHud : CanvasLayer
         _lastGold = gold;
 
         if (_goldText != null)
-            _goldText.Text = $"Gold: {gold}";
+            _goldText.Text = $"Gold: ${gold}";
     }
 
-    private void UpdateRoundStatusText()
+    private void UpdateRoundInfoText()
     {
-        if (_roundStatusText == null)
+        if (_roundInfoText == null)
             return;
 
         RoundManager roundManager = RoundManager ?? Blackboard.RoundManager;
@@ -163,7 +155,7 @@ public partial class BattleWorldHud : CanvasLayer
         int total = spawner?.TotalSpawnCount ?? 0;
         int remaining = spawner?.RemainingMonsterCount ?? 0;
 
-        _roundStatusText.Text = $"Round {roundNumber} | Monsters {remaining}/{total}";
+        _roundInfoText.Text = $"Round {roundNumber}: {remaining}/{total}";
     }
 
     private void OnPauseButtonPressed()
