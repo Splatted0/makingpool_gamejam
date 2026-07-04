@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://wlfdyjwk7g2f"]
+
+[ext_resource type="Script" uid="uid://fcgekjxvan0v" path="res://class_vfx/VfxExplanationBuff.cs" id="1_se7wx"]
+[ext_resource type="Texture2D" uid="uid://dqf3f5ud808pd" path="res://Sprites/magic_buff.png" id="2_qimlv"]
+[ext_resource type="Texture2D" uid="uid://bpgtnchexbrnb" path="res://Sprites/magic_debuff.png" id="3_glnl4"]
+[ext_resource type="Texture2D" uid="uid://cgd4ycr6i78mi" path="res://Sprites/magic_chain.png" id="4_mt14k"]
+
+[node name="VfxExplanationBuff" type="Node2D" unique_id=85453912 node_paths=PackedStringArray("_spriteNode", "_timer")]
+script = ExtResource("1_se7wx")
+_buffTextures = Array[Texture2D]([ExtResource("2_qimlv"), ExtResource("3_glnl4"), ExtResource("4_mt14k")])
+_spriteNode = NodePath("Sprite2D")
+_timer = NodePath("Timer")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=436736294]
+
+[node name="Timer" type="Timer" parent="." unique_id=1265517871]

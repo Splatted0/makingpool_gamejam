@@ -11,7 +11,8 @@ public static class Vfx
         => Instance.ExplanationHealPool;
     public static VfxSpawnParticlePool SpawnParticle
         => Instance.SpawnParticlePool;
-
+    public static VfxExplanationBuffPool ExplanationBuff
+        => Instance.ExplanationBuffPool;
     
     public static void Clear()
         => Instance.Clear();

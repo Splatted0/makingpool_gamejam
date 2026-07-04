@@ -21,4 +21,5 @@ public partial class VfxExplanationHeal :  VfxExplanation, IVfxNode<VfxExplanati
         SetupAlphaTween(duration);
         SetupScaleTween(duration, 1);
     }
+    
 }
