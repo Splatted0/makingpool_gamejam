@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 public partial class BattleWorldHud : CanvasLayer
 {
     [Export] public RoundManager RoundManager { get; private set; }
+    [Export] public Node2D EntityContainer { get; private set; } 
+    
     private Core _core;
 
     private Control _uiRoot;

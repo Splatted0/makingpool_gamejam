@@ -18,6 +18,7 @@ public static class Blackboard
 
     public static BattleWorldHud BattleWorldHud => Main.BattleWorldHud;
         public static RoundManager RoundManager => BattleWorldHud.RoundManager;
+        public static Node2D EntityContainer => BattleWorldHud.EntityContainer;
     
     public static void SetHealth(int health, int maxHealth)
     {

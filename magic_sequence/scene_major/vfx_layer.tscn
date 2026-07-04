@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://btse1kexhmk45"]
+
+[ext_resource type="Script" uid="uid://bco7ejg3b2fvt" path="res://class_vfx/VfxLayer.cs" id="1_2wie7"]
+
+[node name="VfxLayer" type="CanvasLayer" unique_id=1052624970]
+script = ExtResource("1_2wie7")

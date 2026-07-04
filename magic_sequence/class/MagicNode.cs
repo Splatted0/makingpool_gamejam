@@ -102,7 +102,7 @@ public partial class MagicNode : Node2D
         }
         OnArrival(fdelta);
         _progressedFrame++;
-        if (_progressedFrame <= Stat.DurationFrame) QueueFree();
+        if (_progressedFrame >= Stat.DurationFrame) QueueFree();
     }
 
     public void TriggerArrival()
