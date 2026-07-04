@@ -590,7 +590,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle",
-"speed": 30.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
