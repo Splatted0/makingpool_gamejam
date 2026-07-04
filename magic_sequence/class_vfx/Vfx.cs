@@ -9,6 +9,8 @@ public static class Vfx
         => Instance.DeathParticlePool;
     public static VfxExplanationHealPool ExplanationHeal
         => Instance.ExplanationHealPool;
+    public static VfxSpawnParticlePool SpawnParticle
+        => Instance.SpawnParticlePool;
 
     
     public static void Clear()

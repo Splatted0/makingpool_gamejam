@@ -157,7 +157,10 @@ public partial class WandManager : Node
     private double GetSlotDelay(int wandIndex)
     {
         Wand wand = GetWandNodes()[wandIndex]?.Wand;
-        float multiplier = wand?.WandPerk?.GetSlotDelayMultiplier() ?? 1f;
+        float multiplier = 1f;
+        if (wand?.WandPerks != null)
+            foreach (var perk in wand.WandPerks)
+                multiplier *= perk.GetSlotDelayMultiplier();
         return FireCooldown * multiplier;
     }
 

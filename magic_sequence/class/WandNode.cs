@@ -53,8 +53,7 @@ public partial class WandNode : Control
             MagicNode node = spell.MagicNodePack.Instantiate<MagicNode>();
 
             List<MagicPerk> perks = CollectQueuedPerks(index, count);
-            if (Wand.WandPerk != null)
-                perks.Add(Wand.WandPerk);
+            perks.AddRange(Wand.WandPerks);
 
             node.Setup(spell, perks, index);
             result.Add(node);

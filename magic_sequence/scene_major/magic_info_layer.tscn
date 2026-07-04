@@ -11,11 +11,20 @@ bg_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7fjmo"]
 color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rluau"]
+bg_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uype8"]
+bg_color = Color(0.54213995, 0.40476382, 0.07249642, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umlpb"]
+bg_color = Color(0.99619967, 0.90955585, 0.74438864, 1)
+
 [node name="MagicInfoLayer" type="CanvasLayer" unique_id=754231825 node_paths=PackedStringArray("_magicInfo")]
 script = ExtResource("1_pvu3l")
 _magicInfo = NodePath("MagicInfo")
 
-[node name="MagicInfo" type="PanelContainer" parent="." unique_id=494533344 node_paths=PackedStringArray("_name", "_description", "_tier")]
+[node name="MagicInfo" type="PanelContainer" parent="." unique_id=494533344 node_paths=PackedStringArray("_name", "_description", "_tier", "_enhanceContainer", "_enhanceDescription", "_enhanceButton")]
 visible = false
 offset_right = 40.0
 offset_bottom = 40.0
@@ -23,8 +32,11 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_umlpb")
 script = ExtResource("2_uype8")
 _name = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Name")
-_description = NodePath("MarginContainer/HBoxContainer/VBoxContainer/RichTextLabel")
+_description = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Description")
 _tier = NodePath("MarginContainer/HBoxContainer/Tier")
+_enhanceContainer = NodePath("MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer")
+_enhanceDescription = NodePath("MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer/EnhanceDescription")
+_enhanceButton = NodePath("MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer/EnhanceButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="MagicInfo" unique_id=1125459883]
 layout_mode = 2
@@ -59,10 +71,41 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_7fjmo")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer" unique_id=765397269]
+[node name="Description" type="RichTextLabel" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer" unique_id=765397269]
 layout_mode = 2
 mouse_filter = 2
+bbcode_enabled = true
 text = "투사체의 개별 데미지가 30%감소하는 대신, 
 부채꼴 모양으로 3갈래로 분열되어 발사됩니다."
 fit_content = true
 autowrap_mode = 0
+
+[node name="EnhanceContainer" type="VBoxContainer" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2025082322]
+custom_maximum_size = Vector2(337, -1)
+layout_mode = 2
+
+[node name="UnderArrow" type="Label" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer" unique_id=864288610]
+layout_mode = 2
+text = "▼"
+horizontal_alignment = 1
+
+[node name="EnhanceDescription" type="RichTextLabel" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer" unique_id=384528858]
+layout_mode = 2
+bbcode_enabled = true
+text = "투사체의 개별 대미지가 20% 감소하는 대신, 부채꼴 모양으로 3갈래로 분열되어 발사됩니다."
+fit_content = true
+autowrap_mode = 0
+
+[node name="EnhanceButton" type="Button" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer" unique_id=1089947244]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_focus_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_pressed_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_hover_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_rluau")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uype8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_umlpb")
+text = "강화 $50"

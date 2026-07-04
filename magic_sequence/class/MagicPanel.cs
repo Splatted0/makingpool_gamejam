@@ -7,6 +7,7 @@ public partial class MagicPanel : Control
     [Export] private Control _outline;
 
     [Signal] public delegate void DraggedMagicEventHandler(Magic magic);
+    [Signal] public delegate void ClickedMagicEventHandler(Magic magic);
 
     private Magic _magic;
     private bool _dragging;
@@ -31,7 +32,16 @@ public partial class MagicPanel : Control
     {
         if (@event is InputEventMouseButton mouseBtn && mouseBtn.ButtonIndex == MouseButton.Left)
         {
-            _dragging = mouseBtn.Pressed;
+            if (mouseBtn.Pressed)
+            {
+                _dragging = true;
+            }
+            else if (_dragging)
+            {
+                _dragging = false;
+                if (_magic != null)
+                    EmitSignal(SignalName.ClickedMagic, _magic);
+            }
         }
         else if (@event is InputEventMouseMotion && _dragging && _magic != null)
         {
