@@ -19,6 +19,9 @@ public partial class Core : StaticBody2D, IEntity
         Health = MaxHp;
         AddToGroup("core");
 
+        // idle 애니 자동 재생(Autoplay 대체). default 애니가 loop라 계속 재생됨.
+        GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D")?.Play();
+
         SyncHp();
     }
 
