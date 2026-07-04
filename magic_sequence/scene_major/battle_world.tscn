@@ -66,9 +66,10 @@ border_color = Color(0.96425396, 0.7770437, 0.11536012, 1)
 expand_margin_left = 2.0
 expand_margin_right = 2.0
 
-[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager")]
+[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer")]
 script = ExtResource("8_m7vi4")
 RoundManager = NodePath("BattleCenter/RoundManager")
+EntityContainer = NodePath("BattleCenter/EntityContainer")
 
 [node name="BattleCenter" type="Node2D" parent="." unique_id=614227833]
 
@@ -83,19 +84,19 @@ texture = ExtResource("1_0bhie")
 
 [node name="EntityContainer" type="Node2D" parent="BattleCenter" unique_id=845372466]
 
-[node name="Core" parent="BattleCenter/EntityContainer" unique_id=326636362 instance=ExtResource("2_1bjxy")]
+[node name="Core" parent="BattleCenter" unique_id=326636362 instance=ExtResource("2_1bjxy")]
 position = Vector2(105, 306)
 
-[node name="Player" parent="BattleCenter/EntityContainer" unique_id=1271626603 instance=ExtResource("3_1j1wl")]
+[node name="Player" parent="BattleCenter" unique_id=1271626603 instance=ExtResource("3_1j1wl")]
 position = Vector2(312, 329)
 
-[node name="Projectiles" type="Node2D" parent="BattleCenter/EntityContainer" unique_id=1015432122]
+[node name="Projectiles" type="Node2D" parent="BattleCenter" unique_id=1015432122]
 
 [node name="WandManager" type="Node" parent="BattleCenter" unique_id=120000001 node_paths=PackedStringArray("Player", "Core", "Projectiles", "WandNode1", "WandNode2", "WandNode3")]
 script = ExtResource("9_wandmanager")
-Player = NodePath("../EntityContainer/Player")
-Core = NodePath("../EntityContainer/Core")
-Projectiles = NodePath("../EntityContainer/Projectiles")
+Player = NodePath("../Player")
+Core = NodePath("../Core")
+Projectiles = NodePath("../Projectiles")
 WandNode1 = NodePath("WandNode1")
 WandNode2 = NodePath("WandNode2")
 WandNode3 = NodePath("WandNode3")
@@ -111,15 +112,16 @@ WandNode3 = NodePath("WandNode3")
 [node name="Spawner" parent="BattleCenter/EnemySpawner" unique_id=726345657 node_paths=PackedStringArray("Container", "Core") instance=ExtResource("4_0bhie")]
 position = Vector2(1133, 330)
 Container = NodePath("../../EntityContainer")
-Core = NodePath("../../EntityContainer/Core")
+Core = NodePath("../../Core")
 _testWave = SubResource("Resource_0bhie")
 
 [node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
 
-[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud")]
+[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud", "Projectiles")]
 script = ExtResource("8_yt1t0")
 Spawner = NodePath("../EnemySpawner/Spawner")
 Hud = NodePath("../..")
+Projectiles = NodePath("../Projectiles")
 MaxRounds = 4
 
 [node name="UIRoot" type="Control" parent="." unique_id=1582633444]

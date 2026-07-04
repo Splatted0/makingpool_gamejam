@@ -52,6 +52,11 @@ public partial class Arsenal : PanelContainer
 
         Array<MagicPanel> panels = GetMagicPanels(skillUi);
         int chargedIndex = wandNode?.GetChargedMagicIndex() ?? -1;
+        Magic chargedMagic = chargedIndex >= 0 && chargedIndex < wand.Magics.Count ? wand.Magics[chargedIndex] : null;
+
+        Label loadedIndicator = skillUi.GetNodeOrNull<Label>("VBoxContainer/LoadedIndicator");
+        if (loadedIndicator != null)
+            loadedIndicator.Text = chargedMagic != null ? $"Loaded: {chargedMagic.Name}" : "Loaded: -";
 
         for (int i = 0; i < panels.Count; i++)
         {

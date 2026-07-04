@@ -7,6 +7,8 @@ public partial class StateChanger : Node
             await MainMemuState();
 
             bool gameOver = false;
+            await EnhanceState();
+
             while (!gameOver)
             {
                 gameOver = await BattleState();
@@ -37,7 +39,7 @@ public partial class StateChanger : Node
     {
         RoundManager roundManager = Blackboard.RoundManager;
         BattleWorldHud battleWorldHud = Blackboard.BattleWorldHud;
-        Core core = battleWorldHud.GetNodeOrNull<Core>("BattleCenter/EntityContainer/Core");
+        Core core = battleWorldHud.GetNodeOrNull<Core>("BattleCenter/Core");
         WandManager wandManager = battleWorldHud.GetNodeOrNull<WandManager>("BattleCenter/WandManager");
 
         battleWorldHud.Visible = true;

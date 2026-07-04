@@ -70,7 +70,7 @@ public partial class WandManager : Node
         if (wandNode == null)
             return;
 
-        Vector2 direction = GetAwayFromCoreDirection();
+        Vector2 direction = GetFireDirection();
         Vector2 spawnPosition = Player.GlobalPosition + direction * SpawnDistance;
         bool fired = false;
 
@@ -93,9 +93,9 @@ public partial class WandManager : Node
 
     private void ResolveReferences()
     {
-        Player ??= GetNodeOrNull<Player>("../EntityContainer/Player");
-        Core ??= GetNodeOrNull<Core>("../EntityContainer/Core");
-        Projectiles ??= GetNodeOrNull<Node>("../EntityContainer/Projectiles");
+        Player ??= GetNodeOrNull<Player>("../Player");
+        Core ??= GetNodeOrNull<Core>("../Core");
+        Projectiles ??= GetNodeOrNull<Node>("../Projectiles");
         Arsenal ??= GetNodeOrNull<Arsenal>("../../UIRoot/Arsenal");
     }
 
@@ -105,16 +105,5 @@ public partial class WandManager : Node
             GD.PrintErr($"[WandManager] Input action '{action}' does not exist. Check Project Settings > Input Map.");
     }
 
-    private Vector2 GetAwayFromCoreDirection()
-    {
-        if (Core == null || !IsInstanceValid(Core))
-            return Vector2.Right;
-
-        Vector2 direction = Player.GlobalPosition - Core.GlobalPosition;
-
-        if (direction.LengthSquared() < 0.001f)
-            return Vector2.Right;
-
-        return direction.Normalized();
-    }
+    private static Vector2 GetFireDirection() => Vector2.Right;
 }
