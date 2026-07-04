@@ -4,10 +4,17 @@ using Godot;
 
 public partial class MagicInfo : Control
 {
+    [Signal] public delegate void EnhanceButtonPressedEventHandler(Magic magic);
+    
     [Export] private Label _name;
     [Export] private RichTextLabel _description;
     [Export] private Panel _tier;
-
+    [Export] private Control _enhanceContainer;
+    [Export] private RichTextLabel _enhanceDescription;
+    [Export] private Button _enhanceButton;
+    
+    private Magic _currentMagic;
+    
     public void Setup(Magic magic)
     {
         if (magic == null)
@@ -15,11 +22,14 @@ public partial class MagicInfo : Control
             Visible = false;
             return;
         }
-
+        
+        _name.Text = magic.Name;
+        string description = magic.MagicEffect.IsEnhanced ? magic.EnhancedDescription : magic.Description;
+        _description.Text = ResolveDescription(description, magic);
+        _enhanceDescription.Text = ResolveDescription(magic.EnhancedDescription, magic);
+        _tier.SelfModulate = ColorPreset.TierColors[magic.Tier];
+        _enhanceContainer.Visible = !magic.MagicEffect.IsEnhanced;
         Visible = true;
-        if (_name != null) _name.Text = magic.Name;
-        if (_description != null) _description.Text = ResolveDescription(magic.Description, magic);
-        if (_tier != null) _tier.SelfModulate = ColorPreset.TierColors[magic.Tier];
     }
 
     private static string ResolveDescription(string template, Magic magic)
@@ -47,5 +57,13 @@ public partial class MagicInfo : Control
         if (prop == "BaseDurationFrame")
             return (value.As<int>() / 60f).ToString("0.##");
         return value.ToString();
+    }
+
+    private void OnEnhanceButtonPressed()
+    {
+        if (_currentMagic != null)
+        {
+            EmitSignalEnhanceButtonPressed(_currentMagic);
+        }
     }
 }

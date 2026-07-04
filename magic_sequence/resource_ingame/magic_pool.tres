@@ -12,5 +12,4 @@
 [resource]
 script = ExtResource("2_f3t1d")
 _pool = Array[ExtResource("1_2bs4b")]([ExtResource("1_f1j75"), ExtResource("3_b6qlt"), ExtResource("4_sbw87"), ExtResource("5_v6hc6"), ExtResource("6_f46rm"), ExtResource("7_b6qlt")])
-_fallbackDrop = ExtResource("1_f1j75")
 metadata/_custom_type_script = "uid://s5av2w1p2afp"

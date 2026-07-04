@@ -5,6 +5,7 @@ using Godot.Collections;
 public partial class WandUi : Control
 {
     [Signal] public delegate void DraggedEventHandler(Magic magic, int panelIndex);
+    [Signal] public delegate void ClickedEventHandler(Magic magic, int panelIndex);
 
     [ExportCategory("Node")]
     [Export] private RichTextLabel _name;
@@ -21,6 +22,7 @@ public partial class WandUi : Control
         {
             int capturedIndex = i;
             MagicPanel[i].DraggedMagic += magic => OnMagicPanelDraggedMagic(magic, capturedIndex);
+            MagicPanel[i].ClickedMagic += magic => OnMagicPanelClickedMagic(magic, capturedIndex);
         }
     }
 
@@ -52,5 +54,10 @@ public partial class WandUi : Control
     private void OnMagicPanelDraggedMagic(Magic magic, int panelIndex)
     {
         EmitSignal(SignalName.Dragged, magic, panelIndex);
+    }
+
+    private void OnMagicPanelClickedMagic(Magic magic, int panelIndex)
+    {
+        EmitSignal(SignalName.Clicked, magic, panelIndex);
     }
 }
