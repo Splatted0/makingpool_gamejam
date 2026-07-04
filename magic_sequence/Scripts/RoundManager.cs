@@ -67,6 +67,7 @@ public partial class RoundManager : Node
             return;
         }
 
+        Blackboard.SetWave(RoundNumber);
         GD.Print($"[RoundManager] Round {RoundNumber} intro.");
 
         if (Hud != null)
