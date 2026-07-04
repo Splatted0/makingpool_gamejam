@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cpdu73rvnmw1u"]
+
+[ext_resource type="PackedScene" uid="uid://8ts3lb4x7jt8" path="res://Scenes/core.tscn" id="1_tkifu"]
+[ext_resource type="PackedScene" uid="uid://c5mjlu0ja5toy" path="res://Scenes/player.tscn" id="2_s3wyt"]
+[ext_resource type="PackedScene" uid="uid://jy5l3vsctdhx" path="res://Scenes/boss.tscn" id="3_s3wyt"]
+
+[node name="Testcombat" type="Node2D" unique_id=1218184740]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1172282640]
+
+[node name="Core" parent="." unique_id=326636362 instance=ExtResource("1_tkifu")]
+position = Vector2(35, 330)
+scale = Vector2(0.5, 0.5)
+LeashAccel = 100.0
+LeashDamping = 3.0
+LeashMaxSpeed = 100.0
+
+[node name="Player" parent="." unique_id=1271626603 instance=ExtResource("2_s3wyt")]
+position = Vector2(177, 332)
+
+[node name="Boss" parent="." unique_id=934036589 instance=ExtResource("3_s3wyt")]
+position = Vector2(1051, 328)
+scale = Vector2(2, 2)

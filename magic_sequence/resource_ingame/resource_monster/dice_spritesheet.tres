@@ -1,0 +1,56 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://q5iwlotb6uep"]
+
+[ext_resource type="Texture2D" uid="uid://b02vvj2lkrt16" path="res://texture/boss/dice.png" id="1_70bie"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26r8c"]
+atlas = ExtResource("1_70bie")
+region = Rect2(0, 0, 98, 101)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kluyr"]
+atlas = ExtResource("1_70bie")
+region = Rect2(102, 0, 98, 101)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5q0k"]
+atlas = ExtResource("1_70bie")
+region = Rect2(204, 0, 98, 101)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mubj"]
+atlas = ExtResource("1_70bie")
+region = Rect2(306, 0, 98, 101)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_appai"]
+atlas = ExtResource("1_70bie")
+region = Rect2(408, 0, 98, 101)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu6c0"]
+atlas = ExtResource("1_70bie")
+region = Rect2(510, 0, 98, 101)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26r8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kluyr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5q0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mubj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_appai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xu6c0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26r8c")
+}],
+"loop": 1,
+"name": &"dice",
+"speed": 5.0
+}]
