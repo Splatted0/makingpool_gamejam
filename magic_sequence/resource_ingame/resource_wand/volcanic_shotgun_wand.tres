@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_efqat"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 
 [resource]
 script = ExtResource("1_wand")
 WandName = "화산암 산탄 지팡이"
-Description = "[슬롯 3개 / 쿨타임 2.5초]
-응축된 마력을 거칠게 흩뿌리는 지팡이로, 마법의 사거리가 40%, 개별 위력이 15% 감소하는 대신 모든 투사체를 부채꼴 모양으로 2개 더 분열시켜 발사합니다."
+Description = "[슬롯 3개 / 쿨타임 1.25초]
+마법의 사거리가 40%, 개별 위력이 15% 감소, 모든 투사체를  2개 더 분열시켜 발사"
 Tier = 1
 Slot = 3
-BaseCooldown = 2.5
+BaseCooldown = 1.25
 metadata/_custom_type_script = "uid://1s667kayv311"

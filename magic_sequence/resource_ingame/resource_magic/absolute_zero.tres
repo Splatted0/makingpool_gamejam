@@ -8,8 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "절대 영도"
 Icon = ExtResource("1_7324p")
-Description = "극한의 추위를 선사하여 250의 피해를 가하고, 5초 동안 적을 얼어붙게 만들어 이동속도를 50% 감소시킵니다."
-EnhancedDescription = "극한의 추위를 선사하여 [b]320[/b]의 피해를 가하고, 5초 동안 적을 얼어붙게 만들어 이동속도를 [b]60%[/b] 감소시킵니다."
+Description = "250의 피해를 가하고, 5초 동안 이동속도를 50% 감소시킵니다."
+EnhancedDescription = "[b]320[/b]의 피해를 가하고, 5초 동안 이동속도를 [b]60%[/b] 감소시킵니다."
 Tier = 3
 MagicEffect = ExtResource("2_0mbax")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

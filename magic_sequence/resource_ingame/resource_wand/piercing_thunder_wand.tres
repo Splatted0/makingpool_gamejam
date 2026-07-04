@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_t0k1k"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 
 [resource]
 script = ExtResource("1_wand")
 WandName = "꿰뚫는 뇌전의 지팡이"
-Description = "[슬롯 3개 / 쿨타임 1.5초] 
-번개처럼 전열을 꿰뚫는 날카로운 지팡이로, 모든 투사체의 비행 속도를 100% 증가시키고 관통 효과를 추가로 부여합니다."
+Description = "[슬롯 3개 / 쿨타임 0.75초] 
+ 투사체의 속도를 100% 증가, 관통 효과를 부여"
 Tier = 3
 Slot = 3
-BaseCooldown = 1.5
+BaseCooldown = 0.75
 metadata/_custom_type_script = "uid://1s667kayv311"

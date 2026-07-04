@@ -8,8 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "대지 파편"
 Icon = ExtResource("1_7324p")
-Description = "거대한 바위 파편을 날려 400의 피해와 함께 1초 동안 기절시키며, 남겨진 장판 내의 적들에게 1초마다 0.5초의 추가 기절을 지속적으로 부여합니다."
-EnhancedDescription = "거대한 바위 파편을 날려 [b]520[/b]의 피해와 함께 1초 동안 기절시키며, 남겨진 장판 내의 적들에게 1초마다 [b]0.7초[/b]의 추가 기절을 지속적으로 부여합니다."
+Description = "400의 피해를 가하며, 1초 동안 기절시키고,  1초마다 0.5초의 기절을 부여하는 장판이 생성됩니다."
+EnhancedDescription = "[b]520[/b]의 피해를 가하며, 1초 동안 기절시키고,  1초마다 [b]0.7초[/b]의 기절을 부여하는 장판이 생성됩니다."
 Tier = 3
 MagicEffect = ExtResource("2_g5ng8")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

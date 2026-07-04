@@ -8,8 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "바람 칼날"
 Icon = ExtResource("1_7324p")
-Description = "예리한 바람의 칼날을 날려 궤도상의 모든 적을 관통하며 120의 피해를 가합니다."
-EnhancedDescription = "예리한 바람의 칼날을 날려 궤도상의 모든 적을 관통하며 [b]160[/b]의 피해를 가합니다."
+Description = "궤도상의 모든 적을 관통하며 120의 피해를 가합니다."
+EnhancedDescription = "궤도상의 모든 적을 관통하며 [b]160[/b]의 피해를 가합니다."
 Tier = 1
 MagicEffect = ExtResource("2_egbgh")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

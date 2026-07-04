@@ -8,8 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "냉기 구체"
 Icon = ExtResource("1_7324p")
-Description = "날카로운 얼음 조각을 쏘아보내 80의 피해를 가하고 2초 동안 적의 이동속도를 20% 감소시킵니다."
-EnhancedDescription = "날카로운 얼음 조각을 쏘아보내 [b]120[/b]의 피해를 가하고 2초 동안 적의 이동속도를 20% 감소시킵니다."
+Description = "150의 피해를 가하고 2초 동안 적의 이동속도를 30% 감소시킵니다."
+EnhancedDescription = "[b]200[/b]의 피해를 가하고 2초 동안 적의 이동속도를 [b]40%[/b] 감소시킵니다."
 Tier = 2
 MagicEffect = ExtResource("2_e5un5")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

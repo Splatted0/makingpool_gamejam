@@ -8,8 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "불꽃탄 "
 Icon = ExtResource("1_7324p")
-Description = "기본적인 형태의 화염 응축탄을 발사하여 100의 피해를 가하고, 2초간 화상을 부여합니다."
-EnhancedDescription = "기본적인 형태의 화염 응축탄을 발사하여 [b]140[/b]의 피해를 가하고, 2초간 화상을 부여합니다."
+Description = "100의 피해를 가하고, 2초간 화상을 부여합니다."
+EnhancedDescription = "[b]140[/b]의 피해를 가하고, 2초간 화상을 부여합니다."
 Tier = 1
 MagicEffect = ExtResource("2_b5u35")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

@@ -8,8 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "서리 파편"
 Icon = ExtResource("1_7324p")
-Description = "주변의 온도를 급격히 낮추는 얼음 구체를 날려 150의 피해를 가하고 2초 동안 적의 이동속도를 30% 감소시킵니다."
-EnhancedDescription = "주변의 온도를 급격히 낮추는 얼음 구체를 날려 [b]200[/b]의 피해를 가하고 2초 동안 적의 이동속도를 [b]40%[/b] 감소시킵니다."
+Description = "80의 피해를 가하고 2초 동안 적의 이동속도를 20% 감소시킵니다."
+EnhancedDescription = "[b]120[/b]의 피해를 가하고 2초 동안 적의 이동속도를 20% 감소시킵니다."
 Tier = 1
 MagicEffect = ExtResource("2_05xgy")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

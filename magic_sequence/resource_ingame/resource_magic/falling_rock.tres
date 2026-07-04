@@ -8,8 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "낙석 "
 Icon = ExtResource("1_7324p")
-Description = "무거운 돌덩이를 떨어뜨려 150의 피해를 가하고 1초 동안 적을 기절(스턴)시킵니다."
-EnhancedDescription = "무거운 돌덩이를 발사하여 [b]200[/b]의 피해를 가하고 1초 동안 적을 기절(스턴)시킵니다."
+Description = "150의 피해를 가하고 1초 동안 적을 기절(스턴)시킵니다."
+EnhancedDescription = " [b]200[/b]의 피해를 가하고 1초 동안 적을 기절(스턴)시킵니다."
 Tier = 1
 MagicEffect = ExtResource("2_1tqsr")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

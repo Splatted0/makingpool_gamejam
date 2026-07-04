@@ -8,8 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "칼날 돌풍"
 Icon = ExtResource("1_7324p")
-Description = "거친 돌풍을 쏘아내 모든 적을 관통하며 180의 피해를 가하고, 균형을 무너뜨려 적이 받는 대미지를 10% 증가시킵니다."
-EnhancedDescription = "거친 돌풍을 쏘아내 모든 적을 관통하며 [b]240[/b]의 피해를 가하고, 균형을 무너뜨려 적이 받는 대미지를 [b]20%[/b] 증가시킵니다."
+Description = "궤도상의 모든 적을 관통하며 180의 피해를 가하고, 받는 대미지를 10% 증가시킵니다."
+EnhancedDescription = "궤도상의 모든 적을 관통하며 [b]240[/b]의 피해를 가하고, 받는 대미지를 [b]20%[/b] 증가시킵니다."
 Tier = 2
 MagicEffect = ExtResource("2_ujqa2")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"
