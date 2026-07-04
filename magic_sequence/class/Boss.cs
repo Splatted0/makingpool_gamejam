@@ -8,6 +8,8 @@ public partial class Boss : Monster
 	[Export] public PackedScene MonsterScene { get; set; }   // Monster.cs가 붙은 범용 몬스터 씬(스포너와 동일)
 	[Export] public MonsterData ShieldData { get; set; }     // 방패병 데이터(MoveSpeed=0, 원거리형+데미지0 권장)
 
+	private const string ShieldGroup = "boss_shield";
+
 	private BossData _bossData;
 	private Line2D _beam;               // 보스↔코어 상시 빨간 예고선
 	private BossPatternController _patterns;
@@ -76,6 +78,14 @@ public partial class Boss : Monster
 		Node parent = Blackboard.Main != null ? (Node)Blackboard.EntityContainer : GetParent();
 		parent.AddChild(shield);
 		shield.GlobalPosition = worldPosition;
+		shield.AddToGroup(ShieldGroup);
+	}
+
+	// 이전에 소환된 방패병을 전부 정리한다. 재소환 직전에 호출해 벽이 계속 쌓이지 않게 한다.
+	public void ClearShields()
+	{
+		foreach (Node node in GetTree().GetNodesInGroup(ShieldGroup))
+			node.QueueFree();
 	}
 
 	// 씬에 직접 배치된 경우 코어를 그룹에서 찾아 타깃으로 잡는다.
@@ -113,13 +123,12 @@ public partial class Boss : Monster
 		_patterns?.Tick(delta);
 	}
 
-	// 스턴 상태이상 재해석: debuff 애니 재생(예고선은 계속 코어 추적).
-	// 주기적 레이저 패턴 자체가 없어져서 더 이상 캔슬할 대상이 없음 — 필요하면 진행 중인
-	// 주사위 효과를 캔슬하는 로직을 여기에 추가할 것.
+	// 스턴 상태이상 재해석: debuff 애니만 재생하고, 주사위 굴림·시전은 스턴과 무관하게 계속 진행한다.
 	protected override void OnStunned(float delta)
 	{
 		UpdateBeamGeometry();
 		_bossAnimator?.PlayDebuff();
+		_patterns?.Tick(delta);
 	}
 
 	private void SetupBeam()

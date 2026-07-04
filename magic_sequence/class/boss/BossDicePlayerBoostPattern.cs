@@ -7,8 +7,10 @@ public class BossDicePlayerBoostPattern : IBossPattern
 	private double _originalFireCooldown;
 	private WandManager _wandManager;
 	private bool _finished = true;
+	private bool _cancelled;
 
 	public bool IsFinished => _finished;
+	public bool WasCancelled => _cancelled;
 
 	public void Start(Boss boss)
 	{
@@ -17,6 +19,7 @@ public class BossDicePlayerBoostPattern : IBossPattern
 		if (Blackboard.Main == null)
 		{
 			GD.Print("[Dice7] 독립 씬이라 스킵");
+			_cancelled = true;
 			_finished = true;
 			return;
 		}
@@ -25,10 +28,12 @@ public class BossDicePlayerBoostPattern : IBossPattern
 		if (_wandManager == null)
 		{
 			GD.Print("[Dice7] WandManager 없음, 스킵");
+			_cancelled = true;
 			_finished = true;
 			return;
 		}
 
+		_cancelled = false;
 		BossData data = boss.Config;
 		_originalFireCooldown = _wandManager.FireCooldown;
 		_wandManager.FireCooldown = _originalFireCooldown / Mathf.Max(data.PlayerAttackSpeedMultiplier, 0.01f);
