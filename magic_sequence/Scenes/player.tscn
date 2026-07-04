@@ -13,4 +13,5 @@ script = ExtResource("1_cvnsp")
 shape = SubResource("RectangleShape2D_4flbx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=36138772]
+scale = Vector2(0.53125, 0.53125)
 texture = ExtResource("2_6t5aa")
