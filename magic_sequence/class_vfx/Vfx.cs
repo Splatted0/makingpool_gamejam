@@ -2,9 +2,7 @@
 public static class Vfx
 {
     public static VfxLayer Instance { private get; set; }
-
-    public static VfxCollisionParticlePool CollisionParticle
-        => Instance.CollisionParticlePool;
+    
     public static VfxExplanationDamagePool ExplanationDamage
         => Instance.ExplanationDamagePool;
     public static VfxDeathParticlePool DeathParticle

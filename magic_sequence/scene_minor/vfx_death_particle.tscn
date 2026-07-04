@@ -1,3 +1,29 @@
 [gd_scene format=3 uid="uid://bp6n7m3ovl5ww"]
 
+[sub_resource type="Curve" id="Curve_3s86v"]
+_data = [Vector2(0.36021504, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rluau"]
+curve = SubResource("Curve_3s86v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i8g4g"]
+particle_flag_disable_z = true
+angle_min = -4.9999895
+angle_max = 5.000011
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 30.0
+radial_velocity_min = 14.999977
+radial_velocity_max = 59.999977
+radial_velocity_curve = SubResource("CurveTexture_rluau")
+gravity = Vector3(0, 98, 0)
+scale_min = 1.5
+scale_max = 2.0
+
 [node name="VfxDeathParticle" type="GPUParticles2D" unique_id=558404605]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_i8g4g")
