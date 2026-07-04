@@ -54,8 +54,10 @@ scale_min = 5.0
 scale_max = 15.0
 color_initial_ramp = SubResource("GradientTexture1D_ponlc")
 
-[node name="MagicEarthQuake" type="Node2D" unique_id=1394220581]
+[node name="MagicEarthQuake" type="Node2D" unique_id=1394220581 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
 script = ExtResource("1_rky76")
+_moveArea = NodePath("MoveArea")
+_arrivalArea = NodePath("ArraivalArea")
 metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 
 [node name="MoveArea" type="Area2D" parent="." unique_id=442114490]

@@ -17,8 +17,11 @@ public partial class MagicNode : Node2D
     
     public Vector2 Direction { get; set; } = Vector2.Right;
     public List<Elemental> AffectedElementals;
+    public Monster PrimaryTarget { get; set; }
+    public bool HasSplit { get; set; }
 
     private Dictionary<Type, List<MagicPerk>> _perkMap;
+    private readonly HashSet<ulong> _moveHitIds = new();
     private bool _arrived;
     private float _distanceTraveled;
     private int _progressedFrame;
@@ -64,9 +67,8 @@ public partial class MagicNode : Node2D
 
     private void OnMagicStatSet()
     {
-        float scaleValue =  Stat.Range * 0.1f;
-        _moveArea.Scale = new Vector2(scaleValue, scaleValue);
-        _arrivalArea.Scale = new Vector2(scaleValue, scaleValue);
+        SetAreaRange(_moveArea, Stat.Range);
+        SetAreaRange(_arrivalArea, Stat.Range);
     }
 
     private static Type GetPerkKey(MagicPerk perk) => perk switch
@@ -142,7 +144,13 @@ public partial class MagicNode : Node2D
             if (body is Monster monster)
                 targets.Add(monster);
             else if (body.GetParent() is MagicNode magicNode)
-                AffectedElementals.Add(magicNode.MagicSpell.Elemental);
+                AddAffectedElemental(magicNode.MagicSpell.Elemental);
+        }
+
+        foreach (Area2D area in _moveArea.GetOverlappingAreas())
+        {
+            if (area.GetParent() is MagicNode magicNode)
+                AddAffectedElemental(magicNode.MagicSpell.Elemental);
         }
 
         if (_perkMap.TryGetValue(typeof(MagicPerkMove), out var movePerks))
@@ -172,6 +180,71 @@ public partial class MagicNode : Node2D
                 ((MagicPerkArrival)perk).ArrivalEffect(MagicSpell, targets, _progressedFrame);
         }
         MagicSpell.ArrivalEffect(this, targets, _progressedFrame);
+    }
+
+    public bool TryMarkMoveHit(Monster monster)
+    {
+        ulong id = monster.GetInstanceId();
+        if (_moveHitIds.Contains(id))
+            return false;
+
+        _moveHitIds.Add(id);
+        return true;
+    }
+
+    public MagicNode SpawnSibling(float angleDegrees)
+    {
+        MagicNode sibling = MagicSpell.MagicNodePack.Instantiate<MagicNode>();
+        sibling.Setup(MagicSpell, new List<MagicPerk>());
+        GetParent().AddChild(sibling);
+        sibling.GlobalPosition = GlobalPosition;
+        sibling.Fire(Direction.Rotated(Mathf.DegToRad(angleDegrees)));
+        sibling.OnSpawn();
+        sibling.AffectedElementals.AddRange(AffectedElementals);
+        sibling.HasSplit = true;
+        return sibling;
+    }
+
+    private void AddAffectedElemental(Elemental elemental)
+    {
+        if (elemental == Elemental.None || elemental == MagicSpell.Elemental)
+            return;
+
+        if (AffectedElementals.Count > 0 && AffectedElementals[^1] == elemental)
+            return;
+
+        AffectedElementals.Add(elemental);
+    }
+
+    private static void SetAreaRange(Area2D area, float range)
+    {
+        if (area == null)
+            return;
+
+        area.Scale = Vector2.One;
+
+        foreach (Node child in area.GetChildren())
+        {
+            if (child is not CollisionShape2D collision || collision.Shape == null)
+                continue;
+
+            Shape2D shape = collision.Shape.Duplicate() as Shape2D;
+            switch (shape)
+            {
+                case CircleShape2D circle:
+                    circle.Radius = range;
+                    break;
+                case CapsuleShape2D capsule:
+                    capsule.Radius = range;
+                    capsule.Height = range * 2f;
+                    break;
+                case RectangleShape2D rectangle:
+                    rectangle.Size = new Vector2(range * 2f, range * 2f);
+                    break;
+            }
+
+            collision.Shape = shape;
+        }
     }
 
     private bool QueueFreeIfOutsideViewport()

@@ -59,8 +59,10 @@ color_ramp = SubResource("GradientTexture1D_tadjl")
 hue_variation_min = -0.050000023
 hue_variation_max = -0.050000023
 
-[node name="MagicIceShard" type="Node2D" unique_id=264117190]
+[node name="MagicIceShard" type="Node2D" unique_id=264117190 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
 script = ExtResource("1_603lt")
+_moveArea = NodePath("MoveArea")
+_arrivalArea = NodePath("ArraivalArea")
 metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 
 [node name="MoveArea" type="Area2D" parent="." unique_id=551570335]

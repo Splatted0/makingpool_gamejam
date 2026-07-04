@@ -1,10 +1,14 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://yle2o4q2kv4j"]
 
-[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_hkco1"]
-[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_tvj8d"]
+[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_icon"]
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="2_script"]
+[ext_resource type="Resource" uid="uid://dgr2vywejrt44" path="res://resource_ingame/resource_magic_spell/magic_spell_fire_bullet.tres" id="3_spell"]
 
 [resource]
-script = ExtResource("1_tvj8d")
-Name = "test_magic"
-Icon = ExtResource("1_hkco1")
+script = ExtResource("2_script")
+Name = "Fire Bullet"
+Description = "Deals 50 fire damage and burns enemies for 40 damage every 0.5 seconds for 2 seconds."
+Icon = ExtResource("1_icon")
+Tier = 0
+MagicEffect = ExtResource("3_spell")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

@@ -44,9 +44,25 @@ public partial class Monster : CharacterBody2D, IEntity
 
         TakeDamage(hitInfo.Damage);
 
-        IDebuff debuff = DebuffController.Create(hitInfo.Element);
-        if (debuff != null)
-            _debuffs.Apply(debuff);
+        ApplyDebuffs(hitInfo);
+    }
+
+    private void ApplyDebuffs(HitInfo hitInfo)
+    {
+        if (!hitInfo.SuppressElementEffect)
+            ApplyElementEffect(hitInfo.Element, hitInfo);
+
+        if (hitInfo.ApplyFireEffect)
+            ApplyFireBurn(hitInfo.FireDurationMultiplier);
+
+        if (hitInfo.ApplyIceEffect)
+            ApplyIceSlow();
+
+        if (hitInfo.ApplyEarthEffect)
+            ApplyEarthStun(hitInfo.EarthDurationMultiplier);
+
+        if (hitInfo.ApplyVulnerableEffect)
+            _debuffs.Apply(new VulnerableEffect(2f, 1.1f));
     }
 
     public virtual void TakeDamage(int amount)
@@ -241,5 +257,42 @@ public partial class Monster : CharacterBody2D, IEntity
 
         QueueFree();
         return true;
+    }
+
+    private void ApplyElementEffect(Elemental element, HitInfo hitInfo)
+    {
+        switch (element)
+        {
+            case Elemental.Fire:
+                ApplyFireBurn(hitInfo.FireDurationMultiplier);
+                break;
+            case Elemental.Ice:
+                ApplyIceSlow();
+                break;
+            case Elemental.Earth:
+                ApplyEarthStun(hitInfo.EarthDurationMultiplier);
+                break;
+        }
+    }
+
+    private void ApplyFireBurn(float durationMultiplier = 1f)
+    {
+        if (durationMultiplier <= 0f)
+            durationMultiplier = 1f;
+
+        _debuffs.Apply(new FireEffect(2f * durationMultiplier, 40));
+    }
+
+    private void ApplyIceSlow()
+    {
+        _debuffs.Apply(new IceEffect(2f, 0.3f));
+    }
+
+    private void ApplyEarthStun(float durationMultiplier = 1f)
+    {
+        if (durationMultiplier <= 0f)
+            durationMultiplier = 1f;
+
+        _debuffs.Apply(new EarthEffect(1f * durationMultiplier));
     }
 }

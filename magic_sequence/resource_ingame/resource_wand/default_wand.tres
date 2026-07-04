@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="Wand" format=3 uid="uid://banpxa2wpix51"]
 
-[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_8546e"]
-[ext_resource type="Resource" uid="uid://yle2o4q2kv4j" path="res://resource_ingame/resource_magic/test_magic.tres" id="2_lskbu"]
-[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="3_741de"]
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
+[ext_resource type="Resource" uid="uid://dbg1cmmagic00" path="res://resource_ingame/resource_magic/common_magic.tres" id="2_fire"]
+[ext_resource type="Resource" uid="uid://dbg2remagic00" path="res://resource_ingame/resource_magic/rare_magic.tres" id="3_ice"]
+[ext_resource type="Resource" uid="uid://dbg3epmagic00" path="res://resource_ingame/resource_magic/epic_magic.tres" id="4_earth"]
+[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="5_wand"]
 
 [resource]
-script = ExtResource("3_741de")
-WandName = "기본 완드"
-Description = "한 번에 3발씩 발사합니다."
-Slot = 2
-Magics = Array[ExtResource("1_8546e")]([ExtResource("2_lskbu"), ExtResource("2_lskbu"), ExtResource("2_lskbu")])
+script = ExtResource("5_wand")
+WandName = "Default Wand"
+Description = "A basic wand loaded with tier 1 spells."
+Slot = 3
+Magics = Array[ExtResource("1_magic")]([ExtResource("2_fire"), ExtResource("3_ice"), ExtResource("4_earth")])
 metadata/_custom_type_script = "uid://1s667kayv311"
