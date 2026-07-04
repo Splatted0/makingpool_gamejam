@@ -6,4 +6,7 @@
 script = ExtResource("1_cjs5g")
 MustGetMagicCount = 2
 IsWandDrop = true
+Tier1Weight = 0.2
+Tier2Weight = 0.6
+Tier3Weight = 0.2
 metadata/_custom_type_script = "uid://2npsgh2k1wgp"

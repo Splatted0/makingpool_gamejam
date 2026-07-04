@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource("1_msay5")
 MustGetMagicCount = 2
+Tier1Weight = 0.1
+Tier2Weight = 0.5
+Tier3Weight = 0.4
 metadata/_custom_type_script = "uid://2npsgh2k1wgp"

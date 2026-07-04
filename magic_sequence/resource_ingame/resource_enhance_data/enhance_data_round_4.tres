@@ -5,4 +5,6 @@
 [resource]
 script = ExtResource("1_65o4t")
 IsWandDrop = true
+Tier1Weight = 0.7
+Tier2Weight = 0.3
 metadata/_custom_type_script = "uid://2npsgh2k1wgp"
