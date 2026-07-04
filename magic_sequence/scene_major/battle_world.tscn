@@ -74,10 +74,15 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer")]
+[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer", "Core", "_coreHpBar", "_coreHpText", "_goldText", "_roundInfoText")]
 script = ExtResource("8_m7vi4")
 RoundManager = NodePath("BattleCenter/RoundManager")
 EntityContainer = NodePath("BattleCenter/EntityContainer")
+Core = NodePath("BattleCenter/Core")
+_coreHpBar = NodePath("UIRoot/CoreStatus/VBoxContainer/CoreHpBar")
+_coreHpText = NodePath("UIRoot/CoreStatus/VBoxContainer/CoreHpBar/CoreHpText")
+_goldText = NodePath("UIRoot/CoreStatus/VBoxContainer/GoldText")
+_roundInfoText = NodePath("UIRoot/RoundInfo")
 
 [node name="BattleCenter" type="Node2D" parent="." unique_id=614227833]
 
@@ -126,12 +131,11 @@ _testWave = SubResource("Resource_0bhie")
 
 [node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
 
-[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud", "Projectiles", "RoundStartLabel")]
+[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud", "Projectiles")]
 script = ExtResource("8_yt1t0")
 Spawner = NodePath("../EnemySpawner/Spawner")
 Hud = NodePath("../..")
 Projectiles = NodePath("../Projectiles")
-RoundStartLabel = NodePath("../../RoundStartLabel")
 
 [node name="UIRoot" type="Control" parent="." unique_id=1582633444]
 layout_mode = 3
@@ -178,16 +182,6 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("14_xoob8")
 theme_override_font_sizes/font_size = 12
-
-[node name="PauseButton" type="Button" parent="UIRoot" unique_id=330854470]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -41.0
-offset_bottom = 31.0
-grow_horizontal = 0
-text = "||"
 
 [node name="Arsenal" type="PanelContainer" parent="UIRoot" unique_id=940329243 node_paths=PackedStringArray("WandManager", "SkillUI1", "SkillUI2", "SkillUI3")]
 layout_mode = 1
