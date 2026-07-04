@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bp6n7m3ovl5ww" path="res://scene_minor/vfx_death_particle.tscn" id="5_goksr"]
 
 [node name="VfxLayer" type="CanvasLayer" unique_id=1052624970 node_paths=PackedStringArray("ExplanationDamagePool", "DeathParticlePool")]
+layer = 10
 script = ExtResource("1_2wie7")
 ExplanationDamagePool = NodePath("ExplanationPool")
 DeathParticlePool = NodePath("DeathParticle")
