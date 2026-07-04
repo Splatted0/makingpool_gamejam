@@ -11,6 +11,7 @@ script = ExtResource("1_s3gyj")
 _animatedSprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=102912107]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_vg3xd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=297662633]
