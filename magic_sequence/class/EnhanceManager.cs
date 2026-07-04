@@ -12,6 +12,7 @@ public partial class EnhanceManager : CanvasLayer
     [Export] public Button WandRerollButton;
     [Export] public BaseButton AddHealthButton;
     [Export] public RichTextLabel HealthLabel;
+    [Export] public Label GoldLabel;
 
     private Wand _getWand;
     private EnhanceData _enhanceData;
@@ -26,6 +27,7 @@ public partial class EnhanceManager : CanvasLayer
         MagicChanceManager.MagicChangeEnd += OnMagicChangeEnd;
         AddHealthButton.Pressed += OnAddHealthButtonPressed;
         Blackboard.Core.HealthChanged += OnHealthChanged;
+        Blackboard.Main.GoldChanged += OnGoldChanged;
         Setup();
     }
 
@@ -36,7 +38,7 @@ public partial class EnhanceManager : CanvasLayer
 
         int idx = Math.Clamp(Blackboard.Wave, 0, Blackboard.EnhanceDataList.Length - 1);
         _enhanceData = Blackboard.EnhanceDataList[idx];
-
+        
         Magic[] magics = DropUtil.GetMagicDrops(Blackboard.MagicPool, _enhanceData.DropMagicCount, _enhanceData);
         MagicChanceManager.Setup(magics);
         MagicChanceManager.Visible = true;
@@ -115,5 +117,10 @@ public partial class EnhanceManager : CanvasLayer
     {
         Blackboard.MagicInfoLayer.OutPressed();
         EmitSignal(SignalName.EnhanceEnd);
+    }
+
+    private void OnGoldChanged(int gold)
+    {
+        GoldLabel.Text = "보유 금액 : $" + gold.ToString();
     }
 }

@@ -14,7 +14,12 @@ public partial class MagicInfo : Control
     [Export] private Button _enhanceButton;
     
     private Magic _currentMagic;
-    
+
+    public override void _Ready()
+    {
+        _enhanceButton.Pressed += OnEnhanceButtonPressed;
+    }
+
     public void Setup(Magic magic)
     {
         if (magic == null)
@@ -22,7 +27,7 @@ public partial class MagicInfo : Control
             Visible = false;
             return;
         }
-        
+        _currentMagic = magic;
         _name.Text = magic.Name;
         string description = magic.MagicEffect.IsEnhanced ? magic.EnhancedDescription : magic.Description;
         _description.Text = ResolveDescription(description, magic);

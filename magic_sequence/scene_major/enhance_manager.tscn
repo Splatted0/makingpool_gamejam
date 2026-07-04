@@ -70,7 +70,7 @@ font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2a3wx"]
 
-[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton", "MagicRerollButton", "WandRerollButton", "AddHealthButton", "HealthLabel")]
+[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton", "MagicRerollButton", "WandRerollButton", "AddHealthButton", "HealthLabel", "GoldLabel")]
 script = ExtResource("1_s5w6b")
 MagicChanceManager = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager")
 GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi")
@@ -80,6 +80,7 @@ MagicRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicCh
 WandRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/WandRerollButton")
 AddHealthButton = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/AddHealthButton")
 HealthLabel = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/HealthLabel")
+GoldLabel = NodePath("MoneyUi")
 
 [node name="Background" type="Panel" parent="." unique_id=272553167]
 anchors_preset = 15
@@ -341,5 +342,17 @@ grow_vertical = 2
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2jam4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_2a3wx")
 text = "나가기"
+
+[node name="MoneyUi" type="Label" parent="." unique_id=1886929435]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = 20.0
+offset_right = 50.0
+offset_bottom = 43.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "보유 금액 : $0"
 
 [editable path="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi"]

@@ -152,7 +152,6 @@ public partial class MagicNode : Node2D
         _arrived = true;
         _progressedFrame = 0;
 
-        _moveArea.Visible = false;
         _moveArea.Monitoring = false;
         _moveArea.Monitorable = false;
 
