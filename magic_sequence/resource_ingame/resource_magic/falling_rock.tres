@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://dbg1cmmagic00"]
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://bllbh373lkmlp"]
 
 [ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]

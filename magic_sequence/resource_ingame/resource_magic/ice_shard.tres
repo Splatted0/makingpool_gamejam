@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://m7fndg4jh4kr"]
+
+[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]
+
+[resource]
+script = ExtResource("1_dbgcm")
+Name = "common_magic"
+Icon = ExtResource("1_7324p")
+metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

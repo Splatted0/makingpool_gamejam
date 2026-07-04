@@ -1,10 +1,7 @@
 using Godot;
-using System.Threading.Tasks;
 
 public partial class BattleWorldHud : CanvasLayer
 {
-    private const string RoundIntroFontPath = "res://resource_dev/Vipnagorgialla Bd.otf";
-
     [Export] public RoundManager RoundManager { get; private set; }
     [Export] public Node2D EntityContainer { get; private set; }
 
@@ -18,7 +15,6 @@ public partial class BattleWorldHud : CanvasLayer
     private Button _pauseButton;
 
     private ColorRect _pauseDim;
-    private Label _roundLabel;
 
     private int _lastGold = int.MinValue;
 
@@ -105,18 +101,6 @@ public partial class BattleWorldHud : CanvasLayer
         _pauseDim.SetAnchorsPreset(Control.LayoutPreset.FullRect);
         _uiRoot.AddChild(_pauseDim);
 
-        _roundLabel = new Label();
-        _roundLabel.Name = "RoundLabel";
-        _roundLabel.Text = "";
-        _roundLabel.Visible = false;
-        _roundLabel.MouseFilter = Control.MouseFilterEnum.Ignore;
-        _roundLabel.HorizontalAlignment = HorizontalAlignment.Center;
-        _roundLabel.VerticalAlignment = VerticalAlignment.Center;
-        _roundLabel.SetAnchorsPreset(Control.LayoutPreset.FullRect);
-        _roundLabel.AddThemeFontOverride("font", GD.Load<FontFile>(RoundIntroFontPath));
-        _roundLabel.AddThemeFontSizeOverride("font_size", 96);
-        _uiRoot.AddChild(_roundLabel);
-
         _pauseButton?.MoveToFront();
     }
 
@@ -181,18 +165,4 @@ public partial class BattleWorldHud : CanvasLayer
         }
     }
 
-    public async Task ShowRoundIntro(int roundNumber, double seconds)
-    {
-        if (_roundLabel == null)
-            return;
-
-        _roundLabel.Text = $"Round {roundNumber}";
-        _roundLabel.Visible = true;
-        _roundLabel.MoveToFront();
-
-        await ToSignal(GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
-
-        if (IsInstanceValid(_roundLabel))
-            _roundLabel.Visible = false;
-    }
 }

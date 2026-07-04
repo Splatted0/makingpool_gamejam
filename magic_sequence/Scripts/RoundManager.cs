@@ -14,8 +14,9 @@ public partial class RoundManager : Node
     [Export] public Spawner Spawner { get; set; }
     [Export] public BattleWorldHud Hud { get; set; }
     [Export] public Node Projectiles { get; set; }
+    [Export] public Label RoundStartLabel { get; set; }
 
-    [Export] public double IntroSeconds { get; set; } = 2.0;
+    [Export] public double IntroSeconds { get; set; } = 1.0;
     [Export] public double BetweenRoundSeconds { get; set; } = 1.0;
 
     [Export] public int RoundNumber { get; set; } = 1;
@@ -40,6 +41,9 @@ public partial class RoundManager : Node
 
         if (Projectiles == null)
             Projectiles = GetNodeOrNull<Node>("../Projectiles");
+
+        if (RoundStartLabel == null)
+            RoundStartLabel = GetNodeOrNull<Label>("../../RoundStartLabel");
     }
 
     public async void StartRound()
@@ -61,8 +65,8 @@ public partial class RoundManager : Node
             return;
         }
 
-        if (Hud == null)
-            GD.PrintErr("[RoundManager] Hud not found. Round label will be skipped.");
+        if (RoundStartLabel == null)
+            GD.PrintErr("[RoundManager] RoundStartLabel not found. Round intro label will be skipped.");
 
         if (MaxRounds > 0 && RoundNumber > MaxRounds)
         {
@@ -83,10 +87,7 @@ public partial class RoundManager : Node
         Blackboard.SetWave(RoundNumber);
         GD.Print($"[RoundManager] Round {RoundNumber} intro.");
 
-        if (Hud != null)
-            await Hud.ShowRoundIntro(RoundNumber, IntroSeconds);
-        else
-            await ToSignal(GetTree().CreateTimer(IntroSeconds), SceneTreeTimer.SignalName.Timeout);
+        await ShowRoundStartLabel(RoundNumber);
 
         if (_cancelRequested)
             return;
@@ -127,9 +128,29 @@ public partial class RoundManager : Node
         _cancelRequested = true;
         _roundRunning = false;
         ResolveReferences();
+        if (RoundStartLabel != null)
+            RoundStartLabel.Visible = false;
         Spawner?.StopSpawning();
         ClearMonsters();
         ClearProjectiles();
+    }
+
+    private async Task ShowRoundStartLabel(int roundNumber)
+    {
+        if (RoundStartLabel == null)
+        {
+            await ToSignal(GetTree().CreateTimer(IntroSeconds), SceneTreeTimer.SignalName.Timeout);
+            return;
+        }
+
+        RoundStartLabel.Text = $"Round {roundNumber}";
+        RoundStartLabel.Visible = true;
+        RoundStartLabel.MoveToFront();
+
+        await ToSignal(GetTree().CreateTimer(IntroSeconds), SceneTreeTimer.SignalName.Timeout);
+
+        if (IsInstanceValid(RoundStartLabel))
+            RoundStartLabel.Visible = false;
     }
 
     public void ClearProjectiles()

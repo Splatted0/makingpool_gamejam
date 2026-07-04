@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MagicSpellWindBlade" format=3 uid="uid://bp5aql63tw7b3"]
+
+[ext_resource type="PackedScene" uid="uid://coohebjf604o4" path="res://scene_magic/magic_wind_arrow.tscn" id="1_scene"]
+[ext_resource type="Script" uid="uid://da5oy71jdts15" path="res://class_ability/MagicSpellWindBlade.cs" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+MagicNodePack = ExtResource("1_scene")
+Elemental = 4
+BaseMaxDistance = 1000.0
+BaseRange = 50.0
+BaseSpeed = 700.0
+BaseDamage = 120
+BaseDurationFrame = 30
+metadata/_custom_type_script = "uid://da5oy71jdts15"
