@@ -47,6 +47,7 @@ public partial class MagicChangeManager : Control
         {
             WandUi captured = WandUis[i];
             WandUis[i].Dragged += (magic, panelIndex) => OnWandUiDragged(magic, panelIndex, captured);
+            WandUis[i].Clicked += OnWandUiClicked;
         }
 
         Blackboard.Main.WandsChanged += SyncWandUisFromBlackboard;
@@ -98,6 +99,12 @@ public partial class MagicChangeManager : Control
         }
     }
 
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true })
+            Blackboard.MagicInfoLayer.OutPressed();
+    }
+
     public override void _Input(InputEvent @event)
     {
         if (!_isDragging) return;
@@ -108,8 +115,8 @@ public partial class MagicChangeManager : Control
         }
         else if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: false })
         {
-            DropMagic();
-            EndDrag();
+            bool dropped = DropMagic();
+            EndDrag(dropped);
             GetViewport().SetInputAsHandled();
         }
     }
@@ -122,6 +129,11 @@ public partial class MagicChangeManager : Control
     private void OnWandUiDragged(Magic magic, int panelIndex, WandUi sourceWand)
     {
         StartDrag(magic, sourceWand.MagicPanel[panelIndex], sourceWand, panelIndex);
+    }
+
+    private void OnWandUiClicked(Magic magic, int panelIndex)
+    {
+        Blackboard.MagicInfoLayer.MagicPressed(magic, GetGlobalMousePosition());
     }
 
     private void StartDrag(Magic magic, MagicPanel sourcePanel, WandUi sourceWand, int sourceIndex)
@@ -168,34 +180,37 @@ public partial class MagicChangeManager : Control
     }
 
     // Wand 데이터만 변경. UI 갱신은 EndDrag에서 일괄 처리.
-    private void DropMagic()
+    // 실제로 배치가 이뤄진 경우 true 반환.
+    private bool DropMagic()
     {
-        if (_hoveredPanel == null) return;
+        if (_hoveredPanel == null) return false;
 
         if (_sourceWand == null)
-            DropFromGetPanel();
+            return DropFromGetPanel();
         else if (_sourceWand == _hoveredWand)
-            DropWithinSameWand();
+            return DropWithinSameWand();
         else
-            DropBetweenWands();
+            return DropBetweenWands();
     }
 
-    private void DropFromGetPanel()
+    private bool DropFromGetPanel()
     {
-        if (!_hoveredWand.Wand.IsEmpty(_hoveredIndex)) return;
+        if (!_hoveredWand.Wand.IsEmpty(_hoveredIndex)) return false;
 
         _hoveredWand.Wand.Add(_draggedMagic, _hoveredIndex);
         int idx = GetMagicPanels.IndexOf(_sourcePanel);
         if (idx >= 0) SetGetMagic(idx, null);
+        return true;
     }
 
-    private void DropWithinSameWand()
+    private bool DropWithinSameWand()
     {
-        if (_sourceIndex == _hoveredIndex) return;
+        if (_sourceIndex == _hoveredIndex) return false;
         _sourceWand.Wand.Swap(_sourceIndex, _hoveredIndex);
+        return true;
     }
 
-    private void DropBetweenWands()
+    private bool DropBetweenWands()
     {
         if (_hoveredWand.Wand.IsEmpty(_hoveredIndex))
         {
@@ -208,13 +223,14 @@ public partial class MagicChangeManager : Control
             _hoveredWand.Wand.Magics[_hoveredIndex] = _draggedMagic;
             _sourceWand.Wand.Magics[_sourceIndex] = targetMagic;
         }
+        return true;
     }
 
-    private void EndDrag()
+    private void EndDrag(bool dropped = false)
     {
         _hoveredPanel?.Unselected();
         _sourcePanel?.Able();
-        
+
         _isDragging = false;
         _draggedMagic = null;
         _sourcePanel = null;
@@ -225,7 +241,7 @@ public partial class MagicChangeManager : Control
         _hoveredIndex = -1;
 
         RefreshAllWandUis();
-        EmitSignal(SignalName.MagicChangeEnd);
+        if (dropped) EmitSignal(SignalName.MagicChangeEnd);
     }
 
     public void RefreshAllWandUis()
