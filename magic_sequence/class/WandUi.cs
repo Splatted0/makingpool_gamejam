@@ -9,6 +9,7 @@ public partial class WandUi : Control
     [ExportCategory("Node")]
     [Export] private RichTextLabel _name;
     [Export] private RichTextLabel _description;
+    [Export] private Panel _tierPanel;
     [Export] public Array<MagicPanel> MagicPanel;
 
     private Wand _wand;
@@ -30,6 +31,7 @@ public partial class WandUi : Control
         wand.Setup();
         _name.Text = wand.WandName;
         _description.Text = wand.Description;
+        _tierPanel.SelfModulate = ColorPreset.TierColors[wand.Tier];
 
         for (int i = 0; i < MagicPanel.Count; i++)
         {

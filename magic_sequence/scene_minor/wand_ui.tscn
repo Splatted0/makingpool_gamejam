@@ -12,13 +12,17 @@ border_width_right = 6
 border_width_bottom = 6
 border_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
-[node name="WandUi" type="PanelContainer" unique_id=750007204 node_paths=PackedStringArray("_name", "_description", "MagicPanel")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8g4g"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="WandUi" type="PanelContainer" unique_id=750007204 node_paths=PackedStringArray("_name", "_description", "_tierPanel", "MagicPanel")]
 offset_right = 344.0
 offset_bottom = 126.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_fdxeg")
 script = ExtResource("1_tf1h3")
 _name = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Name")
 _description = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Description")
+_tierPanel = NodePath("MarginContainer/HBoxContainer/TierPanel")
 MagicPanel = [NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot2"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot3"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot4"), NodePath("MarginContainer/HBoxContainer/VBoxContainer/MagicContainer/MagicSlot5")]
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=236517999]
@@ -30,6 +34,11 @@ theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=535619405]
 layout_mode = 2
+
+[node name="TierPanel" type="Panel" parent="MarginContainer/HBoxContainer" unique_id=644569581]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8g4g")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=165110693]
 layout_mode = 2

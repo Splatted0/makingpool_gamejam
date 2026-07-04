@@ -24,7 +24,7 @@ public static class ColorPreset
     {
         { Tier.Common, Gray },
         { Tier.Rare, Blue },
-        { Tier.Epic, Purple },
+        { Tier.Epic, Yellow },
         { Tier.Legendary, Yellow },
     };
     
