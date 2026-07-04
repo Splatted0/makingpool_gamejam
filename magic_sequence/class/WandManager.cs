@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public partial class WandManager : Node
 {
+    [Signal] public delegate void LanchedWandEventHandler(Wand wand);
     [Export] public Player Player { get; set; }
     [Export] public Core Core { get; set; }
     [Export] public Node Projectiles { get; set; }
@@ -103,6 +104,8 @@ public partial class WandManager : Node
         _isFiringSequence[wandIndex] = true;
         _sequenceDelayLeft[wandIndex] = 0.0;
         LaunchNextInSequence(wandIndex);
+        
+        EmitSignal(SignalName.LanchedWand, Blackboard.Wands[wandIndex]);
     }
 
     private void UpdateFiringSequences(double delta)

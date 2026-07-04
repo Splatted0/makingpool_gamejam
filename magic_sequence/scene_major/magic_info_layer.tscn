@@ -25,6 +25,7 @@ script = ExtResource("1_pvu3l")
 _magicInfo = NodePath("MagicInfo")
 
 [node name="MagicInfo" type="PanelContainer" parent="." unique_id=494533344 node_paths=PackedStringArray("_name", "_description", "_tier", "_enhanceContainer", "_enhanceDescription", "_enhanceButton")]
+visible = false
 offset_right = 413.0
 offset_bottom = 199.0
 mouse_filter = 2

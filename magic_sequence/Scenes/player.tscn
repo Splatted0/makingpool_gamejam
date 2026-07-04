@@ -1,17 +1,59 @@
 [gd_scene format=3 uid="uid://c5mjlu0ja5toy"]
 
 [ext_resource type="Script" uid="uid://dwij0dkgltkfi" path="res://Scripts/Player.cs" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://ddxmxgyyfy8mn" path="res://icon.svg" id="2_6t5aa"]
+[ext_resource type="SpriteFrames" uid="uid://biw7kk8akt3am" path="res://texture/player/player_sprite_frame.tres" id="2_6t5aa"]
+[ext_resource type="Resource" uid="uid://cpmbqf2rmhvlg" path="res://resource_ingame/resource_wand/alchemist_fusion_wand.tres" id="2_wpjfl"]
+[ext_resource type="SpriteFrames" uid="uid://bbugga6tip3g2" path="res://texture/player/guardian_mace_wand_sprite.tres" id="3_6t5aa"]
+[ext_resource type="SpriteFrames" uid="uid://doph8jg3agmhf" path="res://texture/player/alchemist_fusion_wand_sprite.tres" id="3_bi64h"]
+[ext_resource type="SpriteFrames" uid="uid://bgnktapsb251r" path="res://texture/player/beginner_wand_sprite.tres" id="3_vgqql"]
+[ext_resource type="Resource" uid="uid://cxl0ufwiglm77" path="res://resource_ingame/resource_wand/amplifying_spiral_wand.tres" id="4_2ijsl"]
+[ext_resource type="SpriteFrames" uid="uid://cyyq1jrw7pkfs" path="res://texture/player/amplifying_spiral_wand_sprite.tres" id="5_p1odr"]
+[ext_resource type="Resource" uid="uid://cxl0chp7r82l7" path="res://resource_ingame/resource_wand/archmage_void_wand.tres" id="6_0gysh"]
+[ext_resource type="SpriteFrames" uid="uid://blhvfotcfapei" path="res://texture/player/archmage_void_wand_sprite.tres" id="7_vfarp"]
+[ext_resource type="Resource" uid="uid://cpmcjj31ndurg" path="res://resource_ingame/resource_wand/beginner_wand.tres" id="8_y6uwr"]
+[ext_resource type="Resource" uid="uid://cxl0ikoijhvu7" path="res://resource_ingame/resource_wand/guardian_mace_wand.tres" id="10_83xs0"]
+[ext_resource type="Resource" uid="uid://cxl0p068jhvu7" path="res://resource_ingame/resource_wand/obsidian_giant_wand.tres" id="12_ypfnu"]
+[ext_resource type="SpriteFrames" uid="uid://btqrb2d33o5ga" path="res://texture/player/obsidian_giant_wand_sprite.tres" id="13_xuaoq"]
+[ext_resource type="Resource" uid="uid://cpmumx8qeq3rg" path="res://resource_ingame/resource_wand/piercing_thunder_wand.tres" id="14_wohnl"]
+[ext_resource type="SpriteFrames" uid="uid://bfa2p202en57v" path="res://texture/player/piercing_thunder_wand_sprite.tres" id="15_36dho"]
+[ext_resource type="Resource" uid="uid://cpmsfs3qfht5g" path="res://resource_ingame/resource_wand/rapid_fire_wand.tres" id="16_yh6i2"]
+[ext_resource type="SpriteFrames" uid="uid://bi5sujpgmw0ik" path="res://texture/player/rapid_fire_wand_sprite.tres" id="17_nv4vc"]
+[ext_resource type="Resource" uid="uid://cxl0xey2gm4j7" path="res://resource_ingame/resource_wand/volcanic_shotgun_wand.tres" id="18_8gxox"]
+[ext_resource type="SpriteFrames" uid="uid://1uiqxp0lci23" path="res://texture/player/volcanic_shotgun_wand_sprite.tres" id="19_11gg7"]
+[ext_resource type="Resource" uid="uid://cpmxtu6qtqg5g" path="res://resource_ingame/resource_wand/world_tree_branch_wand.tres" id="20_qpa8y"]
+[ext_resource type="SpriteFrames" uid="uid://dfx3irrtgybni" path="res://texture/player/world_tree_branch_wand_sprite.tres" id="21_sbwqj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4flbx"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1271626603]
-position = Vector2(552, 297)
+[node name="Player" type="CharacterBody2D" unique_id=1271626603 node_paths=PackedStringArray("_basePlayerSprite", "_handSprite")]
+texture_filter = 1
+scale = Vector2(2, 2)
 script = ExtResource("1_cvnsp")
+_handsByWand = Dictionary[Object, SpriteFrames]({
+ExtResource("2_wpjfl"): ExtResource("3_bi64h"),
+ExtResource("4_2ijsl"): ExtResource("5_p1odr"),
+ExtResource("6_0gysh"): ExtResource("7_vfarp"),
+ExtResource("8_y6uwr"): ExtResource("3_vgqql"),
+ExtResource("10_83xs0"): ExtResource("3_6t5aa"),
+ExtResource("12_ypfnu"): ExtResource("13_xuaoq"),
+ExtResource("14_wohnl"): ExtResource("15_36dho"),
+ExtResource("16_yh6i2"): ExtResource("17_nv4vc"),
+ExtResource("18_8gxox"): ExtResource("19_11gg7"),
+ExtResource("20_qpa8y"): ExtResource("21_sbwqj")
+})
+_basePlayerSprite = NodePath("BasePlayer")
+_handSprite = NodePath("PlayerHand")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1183584375]
 shape = SubResource("RectangleShape2D_4flbx")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=36138772]
-scale = Vector2(0.53125, 0.53125)
-texture = ExtResource("2_6t5aa")
+[node name="BasePlayer" type="AnimatedSprite2D" parent="." unique_id=226725656]
+sprite_frames = ExtResource("2_6t5aa")
+animation = &"attack"
+autoplay = "idle"
+frame = 12
+
+[node name="PlayerHand" type="AnimatedSprite2D" parent="." unique_id=977787362]
+sprite_frames = ExtResource("3_vgqql")
+animation = &"attack"
+autoplay = "idle"
