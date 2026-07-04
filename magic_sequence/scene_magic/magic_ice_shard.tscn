@@ -70,7 +70,7 @@ metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1337405865]
 shape = SubResource("CircleShape2D_603lt")
 
-[node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea/CollisionShape2D" unique_id=624538901]
+[node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea" unique_id=624538901]
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_m4m0d")
 
@@ -79,7 +79,7 @@ process_material = SubResource("ParticleProcessMaterial_m4m0d")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=84313476]
 shape = SubResource("CircleShape2D_6yyeb")
 
-[node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea/CollisionShape2D" unique_id=2048656310]
+[node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea" unique_id=2048656310]
 amount = 64
 lifetime = 0.3
 explosiveness = 1.0

@@ -74,7 +74,7 @@ metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1180152413]
 shape = SubResource("CircleShape2D_srcxt")
 
-[node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea/CollisionShape2D" unique_id=1241741050]
+[node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea" unique_id=1241741050]
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_ec4ad")
 
@@ -83,6 +83,6 @@ process_material = SubResource("ParticleProcessMaterial_ec4ad")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=1789332359]
 shape = SubResource("CircleShape2D_rluau")
 
-[node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea/CollisionShape2D" unique_id=1884600055]
+[node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea" unique_id=1884600055]
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_q53ey")
