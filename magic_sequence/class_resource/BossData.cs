@@ -4,18 +4,12 @@
 [GlobalClass]
 public partial class BossData : MonsterData
 {
-    // === 레이저: 상시 예고선(보스↔코어) → 차지(굵어짐) → 직격 ===
+    // === 예고선: 보스↔코어 상시 연결선(항상 idle 두께로 표시, 더 이상 자체적으로 차지·발사하지 않음) ===
     [ExportGroup("Laser")]
-    [Export] public float LaserInterval { get; set; } = 5f;        // 발사 주기(초)
-    [Export] public float LaserChargeTime { get; set; } = 1.5f;    // 예고선이 굵어지며 차징하는 시간
-    [Export] public int LaserDamage { get; set; } = 300;
-    [Export] public bool LaserLockAtChargeStart { get; set; } = false;  // true: 차지 시작 위치 고정, false: 발사 순간까지 코어 추적
     [Export] public float LaserWidthIdle { get; set; } = 2f;       // 평상시 예고선 두께
-    [Export] public float LaserWidthMax { get; set; } = 16f;       // 발사 직전(차지 완료) 두께
 
-    // === 탄막: 코어 방향 부채꼴 확산 ===
+    // === 탄막: 코어 방향 부채꼴 확산(주사위3에서만 발사) ===
     [ExportGroup("Barrage")]
-    [Export] public float BarrageInterval { get; set; } = 4f;      // 발사 주기(초)
     [Export] public int BarrageBulletCount { get; set; } = 7;
     [Export] public float BarrageSpreadDegrees { get; set; } = 60f; // 부채꼴 전체 각도
     [Export] public float BarrageBulletSpeed { get; set; } = 220f;  // 슬로우 상태이상 시 이 값에 배율이 곱해짐
@@ -42,7 +36,7 @@ public partial class BossData : MonsterData
 
     // 3: 탄막 패턴을 연속 발사
     [ExportSubgroup("Dice3 BarrageBurst")]
-    [Export] public int BarrageBurstCount { get; set; } = 3;
+    [Export] public int BarrageBurstCount { get; set; } = 9;
     [Export] public float BarrageBurstGap { get; set; } = 0.3f;  // 연발 사이 간격(초)
     [Export] public float BarrageBurstAngleJitter { get; set; } = 15f;  // 매 연발마다 기준 각도에 더해지는 무작위 오차(도)
 
@@ -50,7 +44,7 @@ public partial class BossData : MonsterData
 
     // 6: 전방에 랜덤 방향 레이저 여러 발
     [ExportSubgroup("Dice6 LaserSpray")]
-    [Export] public int LaserSprayCount { get; set; } = 6;
+    [Export] public int LaserSprayCount { get; set; } = 12;
     [Export] public float LaserSprayArcDegrees { get; set; } = 90f;  // 전방(-X) 기준 랜덤 분포 각도
     [Export] public int LaserSprayDamage { get; set; } = 150;
     [Export] public float LaserSprayLength { get; set; } = 1200f;   // 레이저 길이

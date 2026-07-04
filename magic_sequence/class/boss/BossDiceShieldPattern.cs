@@ -20,6 +20,7 @@ public class BossDiceShieldPattern : IBossPattern
 			boss.SummonShield(position);
 		}
 
+		boss.PlayBuffAnim();
 		GD.Print($"[Dice1] 방패병 {count}마리 소환");
 		_finished = true;
 	}

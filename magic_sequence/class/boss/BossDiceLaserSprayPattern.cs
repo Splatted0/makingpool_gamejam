@@ -64,6 +64,7 @@ public class BossDiceLaserSprayPattern : IBossPattern
 		_currentBeam?.SetWidth(FireWidth);
 		_currentBeam?.Fire(data.LaserSprayFadeDuration);
 		_currentBeam = null;
+		boss.PlayAttackAnim();
 
 		_shotsFired++;
 		int total = Mathf.Max(data.LaserSprayCount, 1);

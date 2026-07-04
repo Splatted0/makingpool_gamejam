@@ -7,10 +7,12 @@ public class BossDiceHealPattern : IBossPattern
 
 	public void Start(Boss boss)
 	{
+		boss.PlayBuffAnim();
+
 		int missing = boss.Data.MaxHealth - boss.Health;
 		if (missing <= 0)
 		{
-			GD.Print("[Dice5] 이미 풀피, 자힐 스킵");
+			GD.Print("[Dice5] 이미 풀피, 회복량 없음");
 			_finished = true;
 			return;
 		}

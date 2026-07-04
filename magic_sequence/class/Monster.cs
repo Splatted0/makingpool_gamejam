@@ -36,6 +36,7 @@ public partial class Monster : CharacterBody2D, IEntity
 	protected bool HasTarget => _hasTarget;
 	protected IEntity Core => _core;
 	protected Node2D TargetNode => _targetNode;
+	protected AnimatedSprite2D AnimatedSprite => _animatedSprite;
 
 	public void SetTarget(Vector2 target, IEntity core)
 	{

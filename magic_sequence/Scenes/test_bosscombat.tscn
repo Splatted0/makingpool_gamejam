@@ -10,6 +10,7 @@
 
 [node name="Core" parent="." unique_id=326636362 instance=ExtResource("1_tkifu")]
 position = Vector2(35, 330)
+scale = Vector2(0.5, 0.5)
 LeashAccel = 100.0
 LeashDamping = 3.0
 LeashMaxSpeed = 100.0
@@ -18,4 +19,5 @@ LeashMaxSpeed = 100.0
 position = Vector2(177, 332)
 
 [node name="Boss" parent="." unique_id=934036589 instance=ExtResource("3_s3wyt")]
-position = Vector2(1081, 328)
+position = Vector2(1051, 328)
+scale = Vector2(2, 2)

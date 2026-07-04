@@ -11,6 +11,7 @@ public partial class Boss : Monster
 	private BossData _bossData;
 	private Line2D _beam;               // 보스↔코어 상시 빨간 예고선
 	private BossPatternController _patterns;
+	private BossAnimator _bossAnimator;  // idle 기본 + 패턴 이벤트 시 단발 애니(die는 상속받은 MonsterAnimator가 처리)
 
 	// 패턴 조각이 참조하는 공개 API
 	public BossData Config => _bossData;
@@ -42,11 +43,11 @@ public partial class Boss : Monster
 		bullet.Fire(direction, speed, damage, Team, TargetNode);
 	}
 
-	public void SetBeamWidth(float width)
-	{
-		if (_beam != null)
-			_beam.Width = width;
-	}
+	public void PlayAttackAnim() => _bossAnimator?.PlayAttack();
+	public void PlayBuffAnim() => _bossAnimator?.PlayBuff();
+	public void PlayDebuffAnim() => _bossAnimator?.PlayDebuff();
+	public void PlayDiceRollAnim() => _bossAnimator?.PlayDiceRoll();
+	public void PlayLuckyAnim() => _bossAnimator?.PlayLucky();
 
 	public void SetDiceFace(int face)
 	{
@@ -90,6 +91,7 @@ public partial class Boss : Monster
 		SetupBeam();
 		SetupDiceSprite();
 		StartCoreLeash();
+		_bossAnimator = new BossAnimator(AnimatedSprite);
 		_patterns = new BossPatternController(this);
 	}
 
@@ -103,18 +105,21 @@ public partial class Boss : Monster
 		core.StartLeash(player);
 	}
 
-	// 오른쪽 고정. 행군 대신 예고선 갱신 + 패턴 스케줄러 tick.
+	// 오른쪽 고정. 행군 대신 예고선 갱신 + 패턴 스케줄러 tick. 기본 애니는 idle(단발 재생 중이면 무시됨).
 	protected override void UpdateBehavior(double delta)
 	{
 		UpdateBeamGeometry();
+		_bossAnimator?.PlayIdle();
 		_patterns?.Tick(delta);
 	}
 
-	// 스턴 상태이상 재해석: 레이저 차지 캔슬(예고선은 계속 코어 추적).
+	// 스턴 상태이상 재해석: debuff 애니 재생(예고선은 계속 코어 추적).
+	// 주기적 레이저 패턴 자체가 없어져서 더 이상 캔슬할 대상이 없음 — 필요하면 진행 중인
+	// 주사위 효과를 캔슬하는 로직을 여기에 추가할 것.
 	protected override void OnStunned(float delta)
 	{
 		UpdateBeamGeometry();
-		_patterns?.OnStunned();
+		_bossAnimator?.PlayDebuff();
 	}
 
 	private void SetupBeam()

@@ -385,7 +385,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack",
-"speed": 5.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -429,7 +429,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"buff",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -476,7 +476,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"debuff",
-"speed": 5.0
+"speed": 13.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -511,7 +511,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"diceroll",
-"speed": 5.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -590,7 +590,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -631,5 +631,5 @@ animations = [{
 }],
 "loop": 0,
 "name": &"lucky",
-"speed": 5.0
+"speed": 11.0
 }]

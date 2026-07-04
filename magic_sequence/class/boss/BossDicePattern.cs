@@ -18,6 +18,7 @@ public class BossDicePattern : IBossPattern
 		_rollElapsed = 0f;
 		_flickerElapsed = 0f;
 		_finished = false;
+		boss.PlayDiceRollAnim();
 		GD.Print("[Dice] 굴림 시작");
 	}
 

@@ -29,7 +29,7 @@ animation = &"dice"
 [node name="AnimatedSprite2D_bossanim" type="AnimatedSprite2D" parent="." unique_id=102912107]
 texture_filter = 1
 sprite_frames = ExtResource("5_mh6p8")
-animation = &"attack"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=297662633]
 shape = SubResource("CircleShape2D_b58md")

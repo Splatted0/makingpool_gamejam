@@ -11,6 +11,7 @@ public class BossDiceRootPattern : IBossPattern
 		_elapsed = 0f;
 		_finished = false;
 		boss.SetCoreRooted(true);
+		boss.PlayDebuffAnim();
 		GD.Print("[Dice4] 코어 속박");
 	}
 

@@ -24,6 +24,7 @@ public class BossDiceShufflePattern : IBossPattern
 		WandManager wandManager = Blackboard.BattleWorldHud?.GetNodeOrNull<WandManager>("BattleCenter/WandManager");
 		wandManager?.SetupWands();
 
+		boss.PlayDebuffAnim();
 		GD.Print("[Dice2] 지팡이 셔플");
 		_finished = true;
 	}
