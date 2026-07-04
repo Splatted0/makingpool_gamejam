@@ -5,6 +5,9 @@
 
 [resource]
 script = ExtResource("1_ypgyh")
-MaxHealth = 100000
+MaxHealth = 200
+MoveSpeed = 75.0
+AttackDamage = 0
+AttackInterval = 0.0
 Frames = ExtResource("1_p83uf")
 metadata/_custom_type_script = "uid://cxrvco7ce4fuv"
