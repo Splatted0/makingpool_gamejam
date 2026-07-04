@@ -11,6 +11,7 @@ public partial class Main : Node
     
     [ExportCategory("Nodes")]
     [Export] public MainMenu MainMenu;
+    [Export] public Tutorial Tutorial;
     [Export] public BattleWorldHud BattleWorldHud;
     [Export] public MagicInfoLayer MagicInfoLayer;
     [Export] public EnhanceManager EnhanceManager;

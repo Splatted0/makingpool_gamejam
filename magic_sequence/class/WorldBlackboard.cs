@@ -8,6 +8,8 @@ public static class Blackboard
     public static int Gold => Main.Gold;
     
     public static MainMenu MainMenu => Main.MainMenu;
+
+    public static Tutorial Tutorial => Main.Tutorial;
     public static EnhanceManager EnhanceManager => Main.EnhanceManager;
     public static MagicInfoLayer MagicInfoLayer => Main.MagicInfoLayer;
     public static Wand[] Wands => Main.Wands;
