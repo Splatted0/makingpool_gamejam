@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cq0oy4t27iffq"]
+
+[node name="VfxSpawnParticle" type="GPUParticles2D" unique_id=2009721058]

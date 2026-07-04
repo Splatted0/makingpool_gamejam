@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_ppmx7"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
+[ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 [ext_resource type="Resource" uid="uid://b0e4g6pu3nuee" path="res://resource_ingame/resource_magic_perk/wand_perk_obsidian_giant.tres" id="2_perk"]
 
 [resource]
@@ -11,5 +12,5 @@ Description = "묵직한 한 방. 모든 마법 위력 +40%, 사거리 +40%, 투
 Tier = 1
 Slot = 4
 BaseCooldown = 4.0
-WandPerk = ExtResource("2_perk")
+WandPerks = Array[ExtResource("3_magicperk")]([ExtResource("2_perk")])
 metadata/_custom_type_script = "uid://1s667kayv311"

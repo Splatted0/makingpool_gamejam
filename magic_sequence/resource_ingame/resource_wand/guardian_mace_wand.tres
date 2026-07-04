@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_balh6"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
+[ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 [ext_resource type="Resource" uid="uid://b0e38p643nuee" path="res://resource_ingame/resource_magic_perk/wand_perk_guardian_mace.tres" id="2_perk"]
 
 [resource]
@@ -11,5 +12,5 @@ Description = "위기 상황 화력. 코어 근처 가로 10% 안쪽에서 공�
 Tier = 1
 Slot = 4
 BaseCooldown = 2.5
-WandPerk = ExtResource("2_perk")
+WandPerks = Array[ExtResource("3_magicperk")]([ExtResource("2_perk")])
 metadata/_custom_type_script = "uid://1s667kayv311"
