@@ -1,0 +1,148 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dt7622u7ydhae"]
+
+[ext_resource type="Texture2D" uid="uid://do0dhfpiq7vkj" path="res://texture/slime/slime_die.png" id="1_0m2jr"]
+[ext_resource type="Texture2D" uid="uid://dyid54e5u06rn" path="res://texture/slime/slime_attack.png" id="1_y6qov"]
+[ext_resource type="Texture2D" uid="uid://bjahn8wgfheii" path="res://texture/slime/slime_hit.png" id="2_k75tm"]
+[ext_resource type="Texture2D" uid="uid://novgofqfiqth" path="res://texture/slime/slime_walk.png" id="4_u5hql"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78cq1"]
+atlas = ExtResource("1_y6qov")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyikc"]
+atlas = ExtResource("1_y6qov")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bc087"]
+atlas = ExtResource("1_y6qov")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bspj"]
+atlas = ExtResource("1_y6qov")
+region = Rect2(0, 96, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0skmv"]
+atlas = ExtResource("1_y6qov")
+region = Rect2(0, 128, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig3vs"]
+atlas = ExtResource("1_y6qov")
+region = Rect2(0, 160, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k75tm"]
+atlas = ExtResource("1_0m2jr")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6qov"]
+atlas = ExtResource("1_0m2jr")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5hql"]
+atlas = ExtResource("1_0m2jr")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftoo2"]
+atlas = ExtResource("1_0m2jr")
+region = Rect2(0, 96, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r8d7"]
+atlas = ExtResource("1_0m2jr")
+region = Rect2(0, 128, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32vw7"]
+atlas = ExtResource("2_k75tm")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arjkw"]
+atlas = ExtResource("2_k75tm")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5w84"]
+atlas = ExtResource("4_u5hql")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cj7i"]
+atlas = ExtResource("4_u5hql")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqvp4"]
+atlas = ExtResource("4_u5hql")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_247au"]
+atlas = ExtResource("4_u5hql")
+region = Rect2(0, 96, 64, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78cq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyikc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bc087")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bspj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0skmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ig3vs")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k75tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6qov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5hql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftoo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7r8d7")
+}],
+"loop": 0,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32vw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arjkw")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5w84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cj7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqvp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_247au")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]

@@ -173,9 +173,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jck3w")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -195,7 +195,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"die",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -276,5 +276,5 @@ animations = [{
 }],
 "loop": 1,
 "name": &"walk",
-"speed": 5.0
+"speed": 15.0
 }]

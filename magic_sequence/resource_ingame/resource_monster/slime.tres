@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://2wxpyyq5w8ix"]
+
+[ext_resource type="SpriteFrames" uid="uid://dt7622u7ydhae" path="res://resource_ingame/resource_monster/slime_spriteframe.tres" id="1_p83uf"]
+[ext_resource type="Script" uid="uid://cxrvco7ce4fuv" path="res://class_resource/MonsterData.cs" id="1_ypgyh"]
+
+[resource]
+script = ExtResource("1_ypgyh")
+Frames = ExtResource("1_p83uf")
+metadata/_custom_type_script = "uid://cxrvco7ce4fuv"
