@@ -17,16 +17,18 @@ emission_shape = 1
 emission_sphere_radius = 1.0
 angle_min = 180.00002
 angle_max = 180.00002
-spread = 180.0
+spread = 15.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
 angular_velocity_min = -5.000016
 angular_velocity_max = 4.999984
-orbit_velocity_min = -3.0
-orbit_velocity_max = 3.0000002
+orbit_velocity_min = -0.009999906
+orbit_velocity_max = 0.010000096
 radial_velocity_min = -1.0000223
 radial_velocity_max = 0.99997765
 gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 3.0
+scale_min = 5.0
+scale_max = 10.0
 color = Color(0.13333334, 0.45490196, 0.64705884, 1)
 color_ramp = SubResource("GradientTexture1D_rluau")
 hue_variation_min = -0.050000023
@@ -79,6 +81,7 @@ amount = 16
 process_material = SubResource("ParticleProcessMaterial_ec4ad")
 
 [node name="ArraivalArea" type="Area2D" parent="." unique_id=1830287559]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=1789332359]
 shape = SubResource("CircleShape2D_rluau")
