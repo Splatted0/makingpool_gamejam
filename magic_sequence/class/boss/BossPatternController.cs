@@ -71,6 +71,9 @@ public class BossPatternController
 			case 6:
 				_activeDiceEffect = new BossDiceLaserSprayPattern();
 				break;
+			case 7:
+				_activeDiceEffect = new BossDicePlayerBoostPattern();
+				break;
 			default:
 				GD.Print($"[Dice] {_dice.ResultFace} 미구현");
 				_diceCooldown = _boss.Config.DiceInterval;
