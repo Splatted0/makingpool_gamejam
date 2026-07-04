@@ -18,9 +18,9 @@ script = ExtResource("1_pghlq")
 shape = SubResource("CircleShape2D_m3204")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=585714632]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("3_lstiq")
-frame_progress = 0.28367642
+frame_progress = 0.27179506
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=949804163]
 visible = false
