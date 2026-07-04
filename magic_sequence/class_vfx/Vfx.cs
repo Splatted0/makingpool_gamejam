@@ -7,7 +7,10 @@ public static class Vfx
         => Instance.ExplanationDamagePool;
     public static VfxDeathParticlePool DeathParticle
         => Instance.DeathParticlePool;
+    public static VfxExplanationHealPool ExplanationHeal
+        => Instance.ExplanationHealPool;
 
+    
     public static void Clear()
         => Instance.Clear();
 }

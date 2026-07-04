@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://g8qr3wbrrq2g" path="res://resource_ingame/vfx_explanation_damage.tscn" id="3_rrfq1"]
 [ext_resource type="Script" uid="uid://dc1xppvbbmp3s" path="res://class_vfx/VfxDeathParticlePool.cs" id="4_e1ti7"]
 [ext_resource type="PackedScene" uid="uid://bp6n7m3ovl5ww" path="res://scene_minor/vfx_death_particle.tscn" id="5_goksr"]
+[ext_resource type="Script" uid="uid://biiffutoay1n2" path="res://class_vfx/VfxExplanationHealPool.cs" id="6_e1ti7"]
+[ext_resource type="PackedScene" uid="uid://8hkn3s12wvye" path="res://scene_minor/vfx_explanation_heal.tscn" id="7_goksr"]
 
 [node name="VfxLayer" type="CanvasLayer" unique_id=1052624970 node_paths=PackedStringArray("ExplanationDamagePool", "DeathParticlePool")]
 layer = 10
@@ -21,3 +23,7 @@ PoolSize = 10
 script = ExtResource("4_e1ti7")
 PackedVfx = ExtResource("5_goksr")
 PoolSize = 10
+
+[node name="ExplanationHeal" type="Node2D" parent="." unique_id=1803765799]
+script = ExtResource("6_e1ti7")
+PackedVfx = ExtResource("7_goksr")

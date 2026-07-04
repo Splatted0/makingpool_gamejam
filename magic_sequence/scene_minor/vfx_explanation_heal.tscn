@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://8hkn3s12wvye"]
+
+[ext_resource type="Script" uid="uid://dvg6o5b01xe0b" path="res://class_vfx/VfxExplanationHeal.cs" id="1_ljc6u"]
+
+[node name="VfxParticleHeal" type="Node2D" unique_id=1004587781 node_paths=PackedStringArray("_text", "_timer")]
+script = ExtResource("1_ljc6u")
+_text = NodePath("RichTextLabel")
+_timer = NodePath("Timer")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1570878661]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(0.02745098, 0.9647059, 0.08627451, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 32
+text = "+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=706706059]
