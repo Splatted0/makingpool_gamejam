@@ -29,7 +29,6 @@ public partial class MagicNode : Node2D
     public void Setup(MagicSpell magicSpell, List<MagicPerk> magicPerks)
     {
         MagicSpell = magicSpell;
-        ResolveAreas();
         Stat = MagicStat.From(magicSpell);
         AffectedElementals = new List<Elemental>();
         _perkMap = new Dictionary<Type, List<MagicPerk>>();
@@ -83,7 +82,6 @@ public partial class MagicNode : Node2D
 
     public void OnSpawn()
     {
-        ResolveAreas();
         OnMagicStatSet();
 
         if (_moveArea == null || _arrivalArea == null)
@@ -257,34 +255,35 @@ public partial class MagicNode : Node2D
 
         foreach (Node child in area.GetChildren())
         {
-            if (child is not CollisionShape2D collision || collision.Shape == null)
-                continue;
-
-            Shape2D shape = collision.Shape.Duplicate() as Shape2D;
-            switch (shape)
+            if (child is CollisionShape2D collision && collision.Shape != null)
             {
-                case CircleShape2D circle:
-                    circle.Radius = range;
-                    break;
-                case CapsuleShape2D capsule:
-                    capsule.Radius = range;
-                    capsule.Height = range * 2f;
-                    break;
-                case RectangleShape2D rectangle:
-                    rectangle.Size = new Vector2(range * 2f, range * 2f);
-                    break;
+                Shape2D shape = collision.Shape.Duplicate() as Shape2D;
+                switch (shape)
+                {
+                    case CircleShape2D circle:
+                        circle.Radius = range;
+                        break;
+                    case CapsuleShape2D capsule:
+                        capsule.Radius = range;
+                        capsule.Height = range * 2f;
+                        break;
+                    case RectangleShape2D rectangle:
+                        rectangle.Size = new Vector2(range * 2f, range * 2f);
+                        break;
+                }
+                collision.Shape = shape;
             }
-
-            collision.Shape = shape;
+            else if (child is GpuParticles2D gpu)
+            {
+                gpu.Scale = Vector2.One * (range / 10f);
+            }
+            else if (child is CpuParticles2D cpu)
+            {
+                cpu.Scale = Vector2.One * (range / 10f);
+            }
         }
     }
 
-    private void ResolveAreas()
-    {
-        _moveArea ??= GetNodeOrNull<Area2D>("MoveArea");
-        _arrivalArea ??= GetNodeOrNull<Area2D>("ArraivalArea");
-        _arrivalArea ??= GetNodeOrNull<Area2D>("ArrivalArea");
-    }
 
     private bool QueueFreeIfOutsideViewport()
     {

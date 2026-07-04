@@ -2,15 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="2_wand"]
-[ext_resource type="Resource" uid="uid://dihix53mr5kyj" path="res://resource_ingame/resource_magic/magic_fire_bullet.tres" id="3_fire"]
-[ext_resource type="Resource" uid="uid://dbg2remagic00" path="res://resource_ingame/resource_magic/rare_magic.tres" id="4_ice"]
-[ext_resource type="Resource" uid="uid://dbg3epmagic00" path="res://resource_ingame/resource_magic/epic_magic.tres" id="5_earth"]
-[ext_resource type="Resource" uid="uid://bhft28104inqg" path="res://resource_ingame/resource_magic/split_next_cast_magic.tres" id="6_split"]
-[ext_resource type="Resource" uid="uid://dbg4lgmagic00" path="res://resource_ingame/resource_magic/legendary_magic.tres" id="7_wind"]
 
 [resource]
 script = ExtResource("2_wand")
 WandName = "Combo Test Wand"
-Description = "Starts with Fire, Ice, Earth, a split perk, and Wind for combination testing."
-Magics = Array[ExtResource("1_magic")]([ExtResource("3_fire"), ExtResource("4_ice"), ExtResource("5_earth"), ExtResource("6_split"), ExtResource("7_wind")])
 metadata/_custom_type_script = "uid://1s667kayv311"
