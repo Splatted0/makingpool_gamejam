@@ -67,11 +67,12 @@ shape = SubResource("CircleShape2D_rky76")
 
 [node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea" unique_id=567427728]
 amount = 16
-lifetime = 0.5
+lifetime = 0.09999999999999999
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_ponlc")
 
 [node name="ArraivalArea" type="Area2D" parent="." unique_id=940115112]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=1576305598]
 shape = SubResource("CircleShape2D_7kkq7")

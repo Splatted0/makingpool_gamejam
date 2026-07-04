@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://b8b3detivj5t8"]
+
+[ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_rc2nb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
+
+[sub_resource type="Gradient" id="Gradient_rc2nb"]
+offsets = PackedFloat32Array(0, 0.8191011)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rluau"]
+gradient = SubResource("Gradient_rc2nb")
+
+[sub_resource type="Curve" id="Curve_l6km6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7343096, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3s86v"]
+curve = SubResource("Curve_l6km6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i8g4g"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_min = -89.99999
+angle_max = 90.000015
+gravity = Vector3(0, 98, 0)
+scale_curve = SubResource("CurveTexture_3s86v")
+color_ramp = SubResource("GradientTexture1D_rluau")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rluau"]
+radius = 50.0
+
+[sub_resource type="Gradient" id="Gradient_jcd17"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_aiar5"]
+gradient = SubResource("Gradient_jcd17")
+
+[sub_resource type="Curve" id="Curve_3n4l1"]
+_data = [Vector2(0.49581587, 1), 0.0, 0.0, 0, 0, Vector2(0.92050207, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_sihjj"]
+curve_y = SubResource("Curve_3n4l1")
+
+[sub_resource type="Curve" id="Curve_ly42e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.49372387, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1m7lt"]
+curve = SubResource("Curve_ly42e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rluau"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 50.0
+angle_min = -89.99999
+angle_max = 90.000015
+direction = Vector3(0, 1, 0)
+spread = 15.0
+directional_velocity_min = 24.999983
+directional_velocity_max = 49.99998
+directional_velocity_curve = SubResource("CurveXYZTexture_sihjj")
+gravity = Vector3(0, 98, 0)
+scale_curve = SubResource("CurveTexture_1m7lt")
+color_ramp = SubResource("GradientTexture1D_aiar5")
+
+[node name="MagicFallingRock" type="Node2D" unique_id=609884901 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
+script = ExtResource("1_rc2nb")
+_moveArea = NodePath("MoveArea")
+_arrivalArea = NodePath("ArrivalArea")
+metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
+
+[node name="MoveArea" type="Area2D" parent="." unique_id=2068018074]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=293493975]
+shape = SubResource("CircleShape2D_i8g4g")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MoveArea" unique_id=1355029604]
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_i8g4g")
+
+[node name="ArrivalArea" type="Area2D" parent="." unique_id=1093008446]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArrivalArea" unique_id=1000845555]
+shape = SubResource("CircleShape2D_rluau")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ArrivalArea" unique_id=365280331]
+amount = 32
+lifetime = 0.5
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_rluau")
