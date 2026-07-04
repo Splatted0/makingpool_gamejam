@@ -139,6 +139,12 @@ public partial class Monster : CharacterBody2D, IEntity
 			return;
 		}
 
+		// 힐러(리치)는 이동·공격과 별개로 HEAL_INTERVAL마다 주변 아군을 회복
+		if (IsHealer)
+		{
+			HealTick(delta);
+		}
+
 		float distance = GlobalPosition.DistanceTo(_targetPosition);
 
 		if (IsMelee)
@@ -258,5 +264,86 @@ public partial class Monster : CharacterBody2D, IEntity
 	{
 		CollisionShape2D shape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
 		shape?.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+	}
+
+
+
+
+
+
+
+
+
+
+
+	/////////////////////////////////////////////////////////////////////////////
+	// 힐러(리치) 전용 로직 — 힐 관련 코드 전부 여기 모음.
+	// 호출 지점은 _PhysicsProcess의 `if (IsHealer) HealTick(delta);` 한 곳뿐.
+	/////////////////////////////////////////////////////////////////////////////
+
+	private const float HEAL_INTERVAL = 1f;    // 힐 발동 간격(초). 리치만 써서 코드 상수로 고정
+	private const float HEAL_RANGE = 400f;     // 힐 사거리(px). 이 안의 다른 몬스터를 회복
+	private double _healTimer;                  // 다음 힐까지 누적 시간
+
+	// 힐러 여부 — Data.HealAmount가 양수면 주기적으로 주변 아군을 회복(리치)
+	protected bool IsHealer
+	{
+		get
+		{
+			if (Data.HealAmount > 0)
+			{
+				return true;
+			}
+			return false;
+		}
+	}
+
+	// 힐러(리치) 전용. HEAL_INTERVAL마다 사거리 내 다른 몬스터를 회복한다.
+	private void HealTick(double delta)
+	{
+		_healTimer += delta;
+		if (_healTimer < HEAL_INTERVAL)
+		{
+			return;
+		}
+		_healTimer = 0;
+		HealNearbyAllies();
+	}
+
+	// EntityContainer의 몬스터 중 자신을 뺀 사거리 내 대상을 Data.HealAmount만큼 회복.
+	// 몬스터는 Core·Player·Projectiles와 함께 EntityContainer의 직접 자식으로 붙는다.
+	private void HealNearbyAllies()
+	{
+		Node2D container = Blackboard.EntityContainer;
+		if (container == null)
+		{
+			return;
+		}
+
+		foreach (Node node in container.GetChildren())
+		{
+			if (node is Monster ally && ally != this && ally._isDying == false)
+			{
+				float distance = GlobalPosition.DistanceTo(ally.GlobalPosition);
+				if (distance <= HEAL_RANGE)
+				{
+					ally.Heal(Data.HealAmount);
+				}
+			}
+		}
+	}
+
+	// 힐러에게 회복받을 때. MaxHealth를 넘지 않게 캡.
+	public void Heal(int amount)
+	{
+		if (amount <= 0)
+		{
+			return;
+		}
+		Health += amount;
+		if (Health > Data.MaxHealth)
+		{
+			Health = Data.MaxHealth;
+		}
 	}
 }
