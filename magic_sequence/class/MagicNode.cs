@@ -68,8 +68,8 @@ public partial class MagicNode : Node2D
 
     private void OnMagicStatSet()
     {
-        SetAreaRange(_moveArea, Stat.MoveRange);
-        SetAreaRange(_arrivalArea, Stat.ArrivalRange);
+        SetAreaRange(_moveArea, Stat.MoveRange, 10f);
+        SetAreaRange(_arrivalArea, Stat.ArrivalRange, 50f);
     }
 
     private static Type GetPerkKey(MagicPerk perk) => perk switch
@@ -246,7 +246,7 @@ public partial class MagicNode : Node2D
         AffectedElementals.Add(elemental);
     }
 
-    private static void SetAreaRange(Area2D area, float range)
+    private void SetAreaRange(Area2D area, float range, float particleRatio)
     {
         if (area == null)
             return;
@@ -275,11 +275,7 @@ public partial class MagicNode : Node2D
             }
             else if (child is GpuParticles2D gpu)
             {
-                gpu.Scale = Vector2.One * (range / 10f);
-            }
-            else if (child is CpuParticles2D cpu)
-            {
-                cpu.Scale = Vector2.One * (range / 10f);
+                gpu.Scale = Vector2.One * (range / particleRatio);
             }
         }
     }

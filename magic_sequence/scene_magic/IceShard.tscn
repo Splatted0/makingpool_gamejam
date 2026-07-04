@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dqnpv3vix66ed"]
+
+[ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_neio3"]
+
+[node name="IceShard" type="Node2D" unique_id=1234899191]
+script = ExtResource("1_neio3")
+metadata/_custom_type_script = "uid://0ma1wfpeg5cq"

@@ -24,7 +24,7 @@ public partial class MagicInfo : Control
 
     private static string ResolveDescription(string template, Magic magic)
     {
-        if (magic == null) return template;
+        if (magic == null || template == null) return template;
         return Regex.Replace(template, @"\{(\w+)\}", match =>
         {
             string prop = match.Groups[1].Value;
