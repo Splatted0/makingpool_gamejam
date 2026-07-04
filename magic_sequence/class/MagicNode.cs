@@ -29,6 +29,7 @@ public partial class MagicNode : Node2D
     public void Setup(MagicSpell magicSpell, List<MagicPerk> magicPerks)
     {
         MagicSpell = magicSpell;
+        ResolveAreas();
         Stat = MagicStat.From(magicSpell);
         AffectedElementals = new List<Elemental>();
         _perkMap = new Dictionary<Type, List<MagicPerk>>();
@@ -82,6 +83,15 @@ public partial class MagicNode : Node2D
 
     public void OnSpawn()
     {
+        ResolveAreas();
+        OnMagicStatSet();
+
+        if (_moveArea == null || _arrivalArea == null)
+        {
+            QueueFree();
+            return;
+        }
+
         _arrivalArea.Visible = false;
         _arrivalArea.Monitoring = false;
         _arrivalArea.Monitorable = false;
@@ -92,6 +102,15 @@ public partial class MagicNode : Node2D
                 ((MagicPerkSpawn)perk).SpawnEffect(MagicSpell);
         }
         MagicSpell.SpawnEffect(this);
+
+        if (_perkMap.TryGetValue(typeof(MagicPerk), out var genericPerks))
+        {
+            foreach (MagicPerk perk in genericPerks)
+            {
+                if (perk is MagicPerkSplitNextCast splitPerk)
+                    splitPerk.SpawnEffect(this);
+            }
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -122,6 +141,7 @@ public partial class MagicNode : Node2D
             return;
 
         _arrived = true;
+        _progressedFrame = 0;
 
         _moveArea.Visible = false;
         _moveArea.Monitoring = false;
@@ -141,6 +161,9 @@ public partial class MagicNode : Node2D
 
     private void OnMove(float fdelta)
     {
+        if (_moveArea == null)
+            return;
+
         var targets = new List<Monster>();
         foreach (Node2D body in _moveArea.GetOverlappingBodies())
         {
@@ -149,23 +172,14 @@ public partial class MagicNode : Node2D
 
             if (body is Monster monster)
                 targets.Add(monster);
-            else if (body.GetParent() is MagicNode magicNode)
+            else if (body.GetParent() is MagicNode { MagicSpell: not null } magicNode)
                 AddAffectedElemental(magicNode.MagicSpell.Elemental);
         }
 
         foreach (Area2D area in _moveArea.GetOverlappingAreas())
         {
-            if (area.GetParent() is MagicNode magicNode)
+            if (area.GetParent() is MagicNode { MagicSpell: not null } magicNode)
                 AddAffectedElemental(magicNode.MagicSpell.Elemental);
-        }
-
-        if (_perkMap.TryGetValue(typeof(MagicPerk), out var genericPerks))
-        {
-            foreach (MagicPerk perk in genericPerks)
-            {
-                if (perk is MagicPerkSplitNextCast splitPerk)
-                    splitPerk.MoveEffect(this, targets, fdelta);
-            }
         }
 
         if (_perkMap.TryGetValue(typeof(MagicPerkMove), out var movePerks))
@@ -179,6 +193,9 @@ public partial class MagicNode : Node2D
 
     private void OnArrival(float fdelta, bool isFirstTrigger = false)
     {
+        if (_arrivalArea == null)
+            return;
+
         var targets = new List<Monster>();
         foreach (Node2D body in _arrivalArea.GetOverlappingBodies())
         {
@@ -260,6 +277,13 @@ public partial class MagicNode : Node2D
 
             collision.Shape = shape;
         }
+    }
+
+    private void ResolveAreas()
+    {
+        _moveArea ??= GetNodeOrNull<Area2D>("MoveArea");
+        _arrivalArea ??= GetNodeOrNull<Area2D>("ArraivalArea");
+        _arrivalArea ??= GetNodeOrNull<Area2D>("ArrivalArea");
     }
 
     private bool QueueFreeIfOutsideViewport()

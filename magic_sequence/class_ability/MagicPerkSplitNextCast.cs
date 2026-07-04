@@ -5,7 +5,7 @@ public partial class MagicPerkSplitNextCast : MagicPerk
 {
     [Export] public float SplitAngleDegrees { get; private set; } = 15f;
 
-    public void MoveEffect(MagicNode node, List<Monster> targets, float fdelta)
+    public void SpawnEffect(MagicNode node)
     {
         if (node.HasSplit)
             return;
