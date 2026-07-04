@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 public partial class BattleWorldHud : CanvasLayer
 {
+    private const string RoundIntroFontPath = "res://resource_dev/Vipnagorgialla Bd.otf";
+
     [Export] public RoundManager RoundManager { get; private set; }
     [Export] public Node2D EntityContainer { get; private set; }
 
@@ -111,6 +113,7 @@ public partial class BattleWorldHud : CanvasLayer
         _roundLabel.HorizontalAlignment = HorizontalAlignment.Center;
         _roundLabel.VerticalAlignment = VerticalAlignment.Center;
         _roundLabel.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+        _roundLabel.AddThemeFontOverride("font", GD.Load<FontFile>(RoundIntroFontPath));
         _roundLabel.AddThemeFontSizeOverride("font_size", 96);
         _uiRoot.AddChild(_roundLabel);
 
