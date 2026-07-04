@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://ba0i4hewmym5x"]
 
-[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]
+[ext_resource type="Texture2D" uid="uid://cakb4lu4t0y2s" path="res://texture/magicIcon/wind3.png" id="1_o5fwk"]
 [ext_resource type="Resource" uid="uid://bp5aql63tw7b3" path="res://resource_ingame/resource_magic_spell/magic_spell_typhoon.tres" id="2_o5fwk"]
 
 [resource]
 script = ExtResource("1_dbgcm")
 Name = "태풍"
-Icon = ExtResource("1_7324p")
+Icon = ExtResource("1_o5fwk")
 Description = "궤도상의 모든 적을 관통하며 240의 피해를 가하고, 1초마다 바깥으로 밀어냅니다."
 EnhancedDescription = "궤도상의 모든 적을 관통하며 [b]320[/b]의 피해를 가하고, [b]0.5초[/b]마다 바깥으로 밀어냅니다."
 Tier = 3

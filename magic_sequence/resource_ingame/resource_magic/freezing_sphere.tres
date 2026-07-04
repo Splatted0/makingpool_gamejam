@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://s1vxawh3qewi"]
 
-[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]
+[ext_resource type="Texture2D" uid="uid://cmoxci22nf2ec" path="res://texture/magicIcon/ice2.png" id="1_e5un5"]
 [ext_resource type="Resource" uid="uid://c4l3qdm4gjof5" path="res://resource_ingame/resource_magic_spell/magic_spell_freezing_sphere.tres" id="2_e5un5"]
 
 [resource]
 script = ExtResource("1_dbgcm")
 Name = "냉기 구체"
-Icon = ExtResource("1_7324p")
+Icon = ExtResource("1_e5un5")
 Description = "150의 피해를 가하고 2초 동안 적의 이동속도를 30% 감소시킵니다."
 EnhancedDescription = "[b]200[/b]의 피해를 가하고 2초 동안 적의 이동속도를 [b]40%[/b] 감소시킵니다."
 Tier = 2

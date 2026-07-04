@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://c0eri7qbckibi"]
 
-[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
+[ext_resource type="Texture2D" uid="uid://bsyt5wf6db6qe" path="res://texture/magicIcon/fire2.png" id="1_cxemi"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]
 [ext_resource type="Resource" uid="uid://b33dkve6aowvw" path="res://resource_ingame/resource_magic_spell/magic_spell_soy_bullet.tres" id="2_cxemi"]
 
 [resource]
 script = ExtResource("1_dbgcm")
 Name = "소이탄"
-Icon = ExtResource("1_7324p")
+Icon = ExtResource("1_cxemi")
 Description = "180의 피해를 가하고, 화상을 부여하며, 피해의 20%만큼 대미지를 주는 장판이 생성됩니다."
 EnhancedDescription = "[b]240[/b]의 피해를 가하고, 화상을 부여하며,  피해의 [b]25%[/b]만큼 대미지를 주는 장판이 생성됩니다."
 Tier = 2

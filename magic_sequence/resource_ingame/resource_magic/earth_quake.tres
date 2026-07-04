@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://dfq7dt8md4men"]
 
-[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]
+[ext_resource type="Texture2D" uid="uid://dotacq3bye7b4" path="res://texture/magicIcon/ground3.png" id="1_g5ng8"]
 [ext_resource type="Resource" uid="uid://bi0emiuqt6bpg" path="res://resource_ingame/resource_magic_spell/magic_spell_earth_quake.tres" id="2_g5ng8"]
 
 [resource]
 script = ExtResource("1_dbgcm")
 Name = "대지 파편"
-Icon = ExtResource("1_7324p")
+Icon = ExtResource("1_g5ng8")
 Description = "400의 피해를 가하며, 1초 동안 기절시키고,  1초마다 0.5초의 기절을 부여하는 장판이 생성됩니다."
 EnhancedDescription = "[b]520[/b]의 피해를 가하며, 1초 동안 기절시키고,  1초마다 [b]0.7초[/b]의 기절을 부여하는 장판이 생성됩니다."
 Tier = 3
