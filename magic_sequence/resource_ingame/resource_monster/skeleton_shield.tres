@@ -5,7 +5,9 @@
 [resource]
 script = ExtResource("1_ar67p")
 MaxHealth = 500
-MoveSpeed = 75.0
+MoveSpeed = 80.0
 AttackDamage = 0
+AttackRange = 400.0
 AttackInterval = 0.0
+SpawnFront = true
 metadata/_custom_type_script = "uid://cxrvco7ce4fuv"

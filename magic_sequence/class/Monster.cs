@@ -9,6 +9,9 @@ public partial class Monster : CharacterBody2D, IEntity
 
 	private const float MELEE_ATTACK_RANGE = 50f;       // melee 공격 판정 거리. Core 콜리전 반지름(30)+몬스터 콜리전 반지름(10)보다 여유 있게
 
+	private const int MELEE_COLLISION_LAYER = 5;        // 근거리끼리 충돌용 물리 레이어(1·2 마법, 4 몬스터와 겹치지 않게)
+	private const int RANGED_COLLISION_LAYER = 6;       // 원거리끼리 충돌용 물리 레이어
+
 	private bool _hasTarget;                          // 타깃이 정해졌는지 (Core)
 	private Vector2 _targetPosition;                 // 향할 Core 좌표. 스포너가 스폰 직후 1회 주입(SetTarget)
 	private Vector2 _direction;                       // 스폰 시 1회 계산한 직선 방향(Core 고정이라 갱신 안 함)
@@ -54,7 +57,7 @@ public partial class Monster : CharacterBody2D, IEntity
 		if (hitInfo.SourceTeam == Team)
 			return;
 
-		TakeDamage(hitInfo.Damage);
+		TakeDamage(hitInfo.Damage, ColorPreset.White);
 
 		// 원소로 대응 디버프 적용. 콤보(다중 원소)는 HitInfo가 리스트가 되면 순회로 확장.
 		IDebuff debuff = DebuffController.Create(hitInfo.Element);
@@ -64,8 +67,8 @@ public partial class Monster : CharacterBody2D, IEntity
 		}
 	}
 
-	// 피격. 받은 데미지에 최종뎀 배율 적용 후 체력 감소.
-	public virtual void TakeDamage(int amount)
+	// 피격 + 데미지 팝업 색 지정. 일반 피해는 흰색, 화상 등 지속뎀은 색을 다르게 넘겨 종류를 구분한다.
+	public virtual void TakeDamage(int amount, Color color)
 	{
 		// 이미 죽는 중이면 무시 — 화상 등 지속뎀이 자폭/사망 시퀀스를 끊는 것 방지
 		if (_isDying)
@@ -76,11 +79,12 @@ public partial class Monster : CharacterBody2D, IEntity
 		int damage = Mathf.RoundToInt(amount * DamageTakenMultiplier);
 		Health -= damage;
 
-		// 데미지 팝업(잃은 체력 표시)
+		// 데미지 팝업(잃은 체력 표시, 색으로 피해 종류 구분)
 		Vfx.ExplanationDamage.Throw(new VfxExplanationDamageData
 		{
 			GlobalPosition = GlobalPosition,
-			Damage = damage
+			Damage = damage,
+			Color = color
 		});
 
 		if (Health <= 0)
@@ -102,6 +106,17 @@ public partial class Monster : CharacterBody2D, IEntity
 		}
 
 		Health = Data.MaxHealth;
+
+		// 근거리끼리 / 원거리끼리만 충돌하고, 근↔원은 서로 통과.
+		// 타입별 레이어에 소속시키고 마스크를 자기 타입만으로 잡는다(기존 레이어=마법 감지 등은 유지).
+		int typeLayer = RANGED_COLLISION_LAYER;
+		if (IsMelee)
+		{
+			typeLayer = MELEE_COLLISION_LAYER;
+		}
+		SetCollisionLayerValue(typeLayer, true);
+		CollisionMask = 0;
+		SetCollisionMaskValue(typeLayer, true);
 
 		if (_animatedSprite != null && Data.Frames != null)
 		{

@@ -20,7 +20,7 @@ public class FireEffect : IDebuff
 		{
 			_tickTimer -= TICK_INTERVAL;
 			int damage = Mathf.RoundToInt(BASE_TICK_DAMAGE * StackMultiplier());
-			monster.TakeDamage(damage);
+			monster.TakeDamage(damage, ColorPreset.Red);   // 화상 데미지는 빨간 팝업
 		}
 	}
 

@@ -9,6 +9,7 @@ public partial class MonsterData : Resource
 	[Export] public float AttackRange { get; set; } = -1f;   // 음수=근거리(접촉), 0 이상=원거리 사거리
 	[Export] public float AttackInterval { get; set; } = 1f; // 공격 간격(초, 공격속도)
 	[Export] public int HealAmount { get; set; } = -1;       // 음수=힐 없음, 양수=아군 회복량(리치만)
+	[Export] public bool SpawnFront { get; set; } = false;   // 스폰 순서에서 앞으로 몰아 먼저 나옴(방패병 등)
 	[Export] public SpriteFrames Frames { get; set; }        // 종류별 외형·애니메이션
 	[Export] public int GoldReward { get; set; } = 1;
 }

@@ -7,5 +7,5 @@ script = ExtResource("1_kpq0u")
 MaxHealth = 250
 MoveSpeed = 75.0
 AttackDamage = 150
-AttackRange = 200.0
+AttackRange = 600.0
 metadata/_custom_type_script = "uid://cxrvco7ce4fuv"

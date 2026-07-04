@@ -13,23 +13,30 @@
 [ext_resource type="Resource" uid="uid://iixjd210kydr" path="res://resource_ingame/resource_monster/wolf.tres" id="10_vg3xd"]
 [ext_resource type="PackedScene" uid="uid://v06jyj3rh1iu" path="res://scene_minor/wand_node.tscn" id="10_wandnode"]
 [ext_resource type="Script" uid="uid://br1nd3epdarsn" path="res://class/Arsenal.cs" id="11_arsenal"]
+[ext_resource type="Resource" uid="uid://c4ive6egd7no1" path="res://resource_ingame/resource_monster/skeleton_shield.tres" id="11_tkjpb"]
 [ext_resource type="PackedScene" uid="uid://dd113ruslkslg" path="res://scene_minor/skill_ui.tscn" id="12_vg3xd"]
 
 [sub_resource type="Resource" id="Resource_egww6"]
 script = ExtResource("5_egww6")
 Data = ExtResource("10_vg3xd")
-Count = 20
+Count = 10
 metadata/_custom_type_script = "uid://b13lxgu1pog8m"
 
 [sub_resource type="Resource" id="Resource_m7vi4"]
 script = ExtResource("5_egww6")
 Data = ExtResource("10_0522j")
-Count = 50
+Count = 0
+metadata/_custom_type_script = "uid://b13lxgu1pog8m"
+
+[sub_resource type="Resource" id="Resource_xhoai"]
+script = ExtResource("5_egww6")
+Data = ExtResource("11_tkjpb")
+Count = 15
 metadata/_custom_type_script = "uid://b13lxgu1pog8m"
 
 [sub_resource type="Resource" id="Resource_0bhie"]
 script = ExtResource("7_yt1t0")
-Entries = Array[ExtResource("5_egww6")]([SubResource("Resource_egww6"), SubResource("Resource_m7vi4")])
+Entries = Array[ExtResource("5_egww6")]([SubResource("Resource_egww6"), SubResource("Resource_m7vi4"), SubResource("Resource_xhoai")])
 Interval = 0.2
 metadata/_custom_type_script = "uid://brf2rmq1y1476"
 

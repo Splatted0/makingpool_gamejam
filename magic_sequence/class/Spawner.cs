@@ -87,7 +87,9 @@ public partial class Spawner : Node2D
 			}
 		}
 
-		_spawnList.Shuffle();   // 몬스터 소환 순서는 항상 섞는다
+		_spawnList.Shuffle();   // 기본 소환 순서는 랜덤
+		MoveFrontMonstersFirst();   // 방패병 등 SpawnFront 몬스터를 앞으로 몰아 먼저 나오게
+
 		_spawnIndex = 0;
 		_pendingBoss = wave.Boss;
 
@@ -95,6 +97,30 @@ public partial class Spawner : Node2D
 		_timer.Start();
 
 		GD.Print($"[Spawner] {Name}: 스폰 시작 (총 {_spawnList.Count}마리, 보스 {_pendingBoss != null}, interval {wave.Interval})");
+	}
+
+	// SpawnFront 몬스터를 앞으로 정렬. 셔플된 순서를 유지한 채 front/rest로만 안정 분리하므로
+	// 각 그룹 내부는 여전히 랜덤이다(방패병 먼저 몰아 나오고, 나머지는 무작위).
+	private void MoveFrontMonstersFirst()
+	{
+		Godot.Collections.Array<MonsterData> ordered = new();
+
+		foreach (MonsterData data in _spawnList)
+		{
+			if (data.SpawnFront)
+			{
+				ordered.Add(data);
+			}
+		}
+		foreach (MonsterData data in _spawnList)
+		{
+			if (data.SpawnFront == false)
+			{
+				ordered.Add(data);
+			}
+		}
+
+		_spawnList = ordered;
 	}
 
 	public void StopSpawning()
@@ -111,8 +137,15 @@ public partial class Spawner : Node2D
 	{
 		if (_spawnIndex < _spawnList.Count)
 		{
-			SpawnMonster(_spawnList[_spawnIndex], RandomPointInArea());
-			_spawnIndex++;
+			if (_spawnList[_spawnIndex].SpawnFront)
+			{
+				SpawnFrontLine();   // 큐 앞쪽 방패병 전체를 세로 1자 대형으로 한 번에 소환
+			}
+			else
+			{
+				SpawnMonster(_spawnList[_spawnIndex], RandomPointInArea());
+				_spawnIndex++;
+			}
 		}
 		else if (_pendingBoss != null)
 		{
@@ -154,6 +187,30 @@ public partial class Spawner : Node2D
 		float x = center.X + (float)GD.RandRange(-size.X * 0.5, size.X * 0.5);
 		float y = center.Y + (float)GD.RandRange(-size.Y * 0.5, size.Y * 0.5);
 		return new Vector2(x, y);
+	}
+
+	// 큐 앞쪽의 연속된 방패병 전체를 세로 1자 대형으로 한 번에 소환한다(쫙 등장).
+	// 같은 X(같은 깊이)에, 스폰 영역 Y범위 전체를 수량으로 균등 분배해 일정 간격으로 펼친다.
+	private void SpawnFrontLine()
+	{
+		int count = 0;
+		while (_spawnIndex + count < _spawnList.Count && _spawnList[_spawnIndex + count].SpawnFront)
+		{
+			count++;
+		}
+
+		RectangleShape2D rect = (RectangleShape2D)_spawnCollision.Shape;
+		Vector2 center = _spawnCollision.GlobalPosition;
+		float top = center.Y - rect.Size.Y * 0.5f;
+		float spacing = rect.Size.Y / count;   // 각 방패병이 차지하는 세로 칸(범위/수량)
+
+		for (int i = 0; i < count; i++)
+		{
+			float y = top + (i + 0.5f) * spacing;   // 칸 중앙에 배치 → 위아래 균등 마진
+			Vector2 pos = new Vector2(center.X, y);
+			SpawnMonster(_spawnList[_spawnIndex], pos);
+			_spawnIndex++;
+		}
 	}
 
 	// 보스 위치 = 영역 중앙(우측 밴드 X, Y 중앙).
