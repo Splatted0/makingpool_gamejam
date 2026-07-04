@@ -27,6 +27,8 @@ public partial class Monster : CharacterBody2D, IEntity
 	public float DamageTakenMultiplier { get; set; } = 1f;  // 최종뎀 디버프(후속)용 배율
 
 	private DebuffController _debuffs;                       // 걸린 디버프 관리
+	private MonsterAnimator _animator;                       // 애니메이션 재생 담당
+	private bool _isDying;                                   // 사망 애니 재생 중이면 이동·공격·넉백 정지
 
 	// 근거리 여부 — Data.AttackRange가 음수면 접촉 공격
 	protected bool IsMelee
@@ -71,7 +73,9 @@ public partial class Monster : CharacterBody2D, IEntity
 		if (Health <= 0)
 		{
 			Die();
+			return;
 		}
+		_animator.PlayHit();
 	}
 
 	public override void _Ready()
@@ -89,13 +93,15 @@ public partial class Monster : CharacterBody2D, IEntity
 		if (_animatedSprite != null && Data.Frames != null)
 		{
 			_animatedSprite.SpriteFrames = Data.Frames;
-			_animatedSprite.Play();
 		}
+
+		_animator = new MonsterAnimator(_animatedSprite);
 
 		// Core 고정이라 방향은 여기서 한 번만 계산 → 이후 직선 유지
 		if (_hasTarget)
 		{
 			_direction = (_targetPosition - GlobalPosition).Normalized();
+			_animator.PlayWalk();
 		}
 		else
 		{
@@ -106,6 +112,14 @@ public partial class Monster : CharacterBody2D, IEntity
 	public override void _PhysicsProcess(double delta)
 	{
 		_debuffs.Tick((float)delta);   // 지속 감소·틱데미지·만료(스턴/슬로우 해제)를 먼저 반영
+
+		// 사망 애니 재생 중엔 아무 행동도 하지 않고 멈춘다(die 애니가 끝나면 QueueFree).
+		if (_isDying)
+		{
+			Velocity = Vector2.Zero;
+			MoveAndSlide();
+			return;
+		}
 
 		// 넉백 중에는 전진·공격을 멈추고 넉백만 적용한다(밀려나는 게 온전히 보이게).
 		// 매 프레임 속도를 0으로 감쇠시키고, 0에 도달하면 아래 일반 로직으로 복귀한다.
@@ -137,19 +151,20 @@ public partial class Monster : CharacterBody2D, IEntity
 		}
 	}
 
-	// 근거리: Core에 닿으면 남은 체력만큼 데미지 주고 자폭. 닿기 전엔 직선 이동.
+	// 근거리: Core에 닿으면 남은 체력만큼 데미지 주고, 공격→사망 애니 후 파괴. 닿기 전엔 직선 이동.
 	// 자폭은 처치가 아니라 본진 관통이므로 골드 없이 QueueFree(Die 아님).
 	private void MeleeUpdate(double delta, float distance)
 	{
 		if (distance <= MELEE_ATTACK_RANGE)
 		{
+			_isDying = true;   // 이후 프레임은 _PhysicsProcess 상단에서 정지(재진입 방지)
 			_core.Hit(new HitInfo
 			{
 				Damage = Health,
 				SourceTeam = Team,
 				Element = Elemental.None
 			});
-			QueueFree();
+			_animator.PlaySelfDestruct(QueueFree);
 			return;
 		}
 		Move(delta);
@@ -160,6 +175,7 @@ public partial class Monster : CharacterBody2D, IEntity
 	{
 		if (distance <= Data.AttackRange)
 		{
+			_animator.PlayAttack();   // 매 프레임 호출해도 loop 가드로 안전(피격 후 복귀도 여기서)
 			if (_isAttacking == false)
 			{
 				_isAttacking = true;
@@ -180,6 +196,7 @@ public partial class Monster : CharacterBody2D, IEntity
 	// 특수 이동 패턴을 가진 몬스터는 이 메서드를 override 한다.
 	protected virtual void Move(double delta)
 	{
+		_animator.PlayWalk();   // 매 프레임 호출해도 loop 가드로 안전(피격 후 복귀도 여기서)
 		Velocity = _direction * Data.MoveSpeed * MoveSpeedMultiplier;
 		MoveAndSlide();
 	}
@@ -215,14 +232,21 @@ public partial class Monster : CharacterBody2D, IEntity
 		});
 	}
 
-	// 사망 처리. 이펙트·드롭 등이 필요하면 override
+	// 사망 처리. 사망 애니를 재생하고, 애니가 끝나면 QueueFree.
+	// 이펙트·드롭 등이 필요하면 override
 	protected virtual void Die()
 	{
+		if (_isDying)
+		{
+			return;
+		}
+		_isDying = true;
+
 		if (Data != null)
 		{
 			Blackboard.AddGold(Data.GoldReward);
 		}
 
-		QueueFree();
+		_animator.PlayDeath(QueueFree);
 	}
 }
