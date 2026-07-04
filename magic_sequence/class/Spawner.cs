@@ -97,6 +97,15 @@ public partial class Spawner : Node2D
 		GD.Print($"[Spawner] {Name}: 스폰 시작 (총 {_spawnList.Count}마리, 보스 {_pendingBoss != null}, interval {wave.Interval})");
 	}
 
+	public void StopSpawning()
+	{
+		_timer?.Stop();
+		_spawnList.Clear();
+		_spawnIndex = 0;
+		_pendingBoss = null;
+		EmitSignal(SignalName.SpawnFinished);
+	}
+
 	// 타이머 tick마다 한 마리씩 소환. 큐 소진 후 보스, 그 뒤 종료.
 	private void OnSpawnTick()
 	{

@@ -6,6 +6,7 @@ public partial class RoundManager : Node
 
     [Export] public Spawner Spawner { get; set; }
     [Export] public BattleWorldHud Hud { get; set; }
+    [Export] public Node Projectiles { get; set; }
 
     [Export] public double IntroSeconds { get; set; } = 2.0;
     [Export] public double BetweenRoundSeconds { get; set; } = 1.0;
@@ -14,17 +15,7 @@ public partial class RoundManager : Node
     [Export] public int MaxRounds { get; set; } = 0;
 
     private bool _roundRunning;
-
-    // ==================== [디버그 테스트] 시작 ====================
-    // StateChanger.BattleState가 StartRound()를 호출하지 않아 라운드가 안 돌아가는 문제
-    // 확인용. 정상 흐름에서는 StateChanger가 StartRound를 불러야 하므로,
-    // 그쪽이 고쳐지면 이 _Ready 블록은 통째로 삭제할 것.
-    public override void _Ready()
-    {
-        GD.Print("[RoundManager][DEBUG] _Ready에서 StartRound 강제 호출");
-        StartRound();
-    }
-    // ==================== [디버그 테스트] 끝 ======================
+    private bool _cancelRequested;
 
     private void ResolveReferences()
     {
@@ -33,6 +24,9 @@ public partial class RoundManager : Node
 
         if (Hud == null)
             Hud = GetNodeOrNull<BattleWorldHud>("../..");
+
+        if (Projectiles == null)
+            Projectiles = GetNodeOrNull<Node>("../EntityContainer/Projectiles");
     }
 
     public async void StartRound()
@@ -41,6 +35,7 @@ public partial class RoundManager : Node
             return;
 
         _roundRunning = true;
+        _cancelRequested = false;
 
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
@@ -79,15 +74,24 @@ public partial class RoundManager : Node
         else
             await ToSignal(GetTree().CreateTimer(IntroSeconds), SceneTreeTimer.SignalName.Timeout);
 
+        if (_cancelRequested)
+            return;
+
         GD.Print($"[RoundManager] Round {RoundNumber} spawn start.");
 
         Spawner.SpawnStart(wave);
 
         await ToSignal(Spawner, Spawner.SignalName.SpawnFinished);
 
+        if (_cancelRequested)
+            return;
+
         GD.Print($"[RoundManager] Round {RoundNumber} spawn finished. Waiting for monsters.");
 
         await WaitUntilAllMonstersGone();
+
+        if (_cancelRequested)
+            return;
 
         GD.Print($"[RoundManager] Round {RoundNumber} cleared.");
 
@@ -95,16 +99,52 @@ public partial class RoundManager : Node
 
         await ToSignal(GetTree().CreateTimer(BetweenRoundSeconds), SceneTreeTimer.SignalName.Timeout);
 
+        if (_cancelRequested)
+            return;
+
+        ClearProjectiles();
+
         _roundRunning = false;
         EmitSignal(SignalName.RoundEnded);
     }
 
+    public void CancelRound()
+    {
+        _cancelRequested = true;
+        _roundRunning = false;
+        ResolveReferences();
+        Spawner?.StopSpawning();
+        ClearMonsters();
+        ClearProjectiles();
+    }
+
+    public void ClearProjectiles()
+    {
+        ResolveReferences();
+
+        if (Projectiles == null)
+            return;
+
+        foreach (Node child in Projectiles.GetChildren())
+            child.QueueFree();
+    }
+
+    private void ClearMonsters()
+    {
+        if (Spawner == null || Spawner.Container == null)
+            return;
+
+        foreach (Node child in Spawner.Container.GetChildren())
+        {
+            if (child is Monster)
+                child.QueueFree();
+        }
+    }
+
     private async Task WaitUntilAllMonstersGone()
     {
-        while (CountAliveMonsters() > 0)
-        {
+        while (!_cancelRequested && CountAliveMonsters() > 0)
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        }
     }
 
     private int CountAliveMonsters()

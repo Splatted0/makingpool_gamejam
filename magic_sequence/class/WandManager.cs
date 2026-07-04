@@ -6,19 +6,21 @@ public partial class WandManager : Node
     [Export] public WandNode WandNode1 { get; set; }
     [Export] public WandNode WandNode2 { get; set; }
     [Export] public WandNode WandNode3 { get; set; }
+    [Export] public Arsenal Arsenal { get; set; }
 
     [Export] public float SpawnDistance { get; set; } = 50.0f;
     [Export] public double FireCooldown { get; set; } = 0.5;
 
-    private double _fireCooldownLeft;
+    private readonly double[] _fireCooldownLeft = new double[3];
 
     public override void _Ready()
     {
         ResolveReferences();
         SetupWands();
 
-        if (!InputMap.HasAction("fire"))
-            GD.PrintErr("[WandManager] Input action 'fire' does not exist. Check Project Settings > Input Map.");
+        ValidateInputAction("first_wand");
+        ValidateInputAction("second_wand");
+        ValidateInputAction("third_wand");
     }
 
     public override void _Process(double delta)
@@ -26,13 +28,17 @@ public partial class WandManager : Node
         if (Blackboard.BattleWorldHud != null && !Blackboard.BattleWorldHud.Visible)
             return;
 
-        _fireCooldownLeft -= delta;
+        for (int i = 0; i < _fireCooldownLeft.Length; i++)
+            _fireCooldownLeft[i] -= delta;
 
-        if (Input.IsActionPressed("fire") && _fireCooldownLeft <= 0.0)
-        {
-            Fire();
-            _fireCooldownLeft = FireCooldown;
-        }
+        if (Input.IsActionJustPressed("first_wand"))
+            Fire(0);
+
+        if (Input.IsActionJustPressed("second_wand"))
+            Fire(1);
+
+        if (Input.IsActionJustPressed("third_wand"))
+            Fire(2);
     }
 
     public void SetupWands()
@@ -45,40 +51,58 @@ public partial class WandManager : Node
             Wand wand = wands != null && i < wands.Length ? wands[i] : null;
             nodes[i]?.Setup(wand);
         }
+
+        Arsenal?.Refresh();
     }
 
-    private void Fire()
+    private void Fire(int wandIndex)
     {
         ResolveReferences();
 
-        if (Player == null || Projectiles == null)
+        if (Player == null || Projectiles == null || wandIndex < 0 || wandIndex >= _fireCooldownLeft.Length)
+            return;
+
+        if (_fireCooldownLeft[wandIndex] > 0.0)
+            return;
+
+        WandNode wandNode = GetWandNodes()[wandIndex];
+
+        if (wandNode == null)
             return;
 
         Vector2 direction = GetAwayFromCoreDirection();
         Vector2 spawnPosition = Player.GlobalPosition + direction * SpawnDistance;
+        bool fired = false;
 
-        foreach (WandNode wandNode in GetWandNodes())
+        foreach (MagicNode magicNode in wandNode.Active())
         {
-            if (wandNode == null)
-                continue;
-
-            foreach (MagicNode magicNode in wandNode.Active())
-            {
-                Projectiles.AddChild(magicNode);
-                magicNode.GlobalPosition = spawnPosition;
-                magicNode.Fire(direction);
-                magicNode.OnSpawn();
-            }
+            Projectiles.AddChild(magicNode);
+            magicNode.GlobalPosition = spawnPosition;
+            magicNode.Fire(direction);
+            magicNode.OnSpawn();
+            fired = true;
         }
+
+        if (fired)
+            _fireCooldownLeft[wandIndex] = FireCooldown;
+
+        Arsenal?.Refresh();
     }
 
-    private WandNode[] GetWandNodes() => new[] { WandNode1, WandNode2, WandNode3 };
+    public WandNode[] GetWandNodes() => new[] { WandNode1, WandNode2, WandNode3 };
 
     private void ResolveReferences()
     {
         Player ??= GetNodeOrNull<Player>("../EntityContainer/Player");
         Core ??= GetNodeOrNull<Core>("../EntityContainer/Core");
         Projectiles ??= GetNodeOrNull<Node>("../EntityContainer/Projectiles");
+        Arsenal ??= GetNodeOrNull<Arsenal>("../../UIRoot/Arsenal");
+    }
+
+    private static void ValidateInputAction(string action)
+    {
+        if (!InputMap.HasAction(action))
+            GD.PrintErr($"[WandManager] Input action '{action}' does not exist. Check Project Settings > Input Map.");
     }
 
     private Vector2 GetAwayFromCoreDirection()

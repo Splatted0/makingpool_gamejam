@@ -14,35 +14,47 @@ public partial class WandNode : Control
         Visible = wand != null;
     }
 
-    public Array<MagicNode> Active()
+    public int GetChargedMagicIndex()
     {
-        var result = new Array<MagicNode>();
-
         if (Wand == null || Wand.Magics == null || Wand.Magics.Count == 0)
-            return result;
+            return -1;
 
         int count = Wand.Magics.Count;
 
         for (int attempt = 0; attempt < count; attempt++)
         {
             int index = (_loadedIndex + attempt) % count;
-            Magic magic = Wand.Magics[index];
 
-            if (magic?.MagicEffect is not MagicSpell spell)
-                continue;
-
-            MagicNode node = spell.MagicNodePack.Instantiate<MagicNode>();
-
-            var perks = new List<MagicPerk>();
-            if (Wand.WandPerk != null)
-                perks.Add(Wand.WandPerk);
-
-            node.Setup(spell, perks);
-            result.Add(node);
-
-            _loadedIndex = (index + 1) % count;
-            return result;
+            if (Wand.Magics[index]?.MagicEffect is MagicSpell)
+                return index;
         }
+
+        return -1;
+    }
+
+    public Array<MagicNode> Active()
+    {
+        var result = new Array<MagicNode>();
+
+        int index = GetChargedMagicIndex();
+
+        if (index < 0)
+            return result;
+
+        int count = Wand.Magics.Count;
+        Magic magic = Wand.Magics[index];
+        MagicSpell spell = magic.MagicEffect as MagicSpell;
+
+        MagicNode node = spell.MagicNodePack.Instantiate<MagicNode>();
+
+        var perks = new List<MagicPerk>();
+        if (Wand.WandPerk != null)
+            perks.Add(Wand.WandPerk);
+
+        node.Setup(spell, perks);
+        result.Add(node);
+
+        _loadedIndex = (index + 1) % count;
 
         return result;
     }
