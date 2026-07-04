@@ -55,8 +55,8 @@ public partial class BossData : MonsterData
     [ExportSubgroup("Dice4 CoreRoot")]
     [Export] public float CoreRootDuration { get; set; } = 3f;
 
-    // 7: 플레이어 공격속도 급증(반전 조커)
+    // 7: 재발사 대기시간을 잠깐 거의 없애서 연타하면 연사되게(반전 조커)
     [ExportSubgroup("Dice7 PlayerBoost")]
-    [Export] public float PlayerAttackSpeedMultiplier { get; set; } = 100f;
-    [Export] public float PlayerBoostDuration { get; set; } = 2f;
+    [Export] public float PlayerCooldownMultiplier { get; set; } = 0.05f;  // 재발사 대기시간에 곱해질 배율(작을수록 빠름)
+    [Export] public float PlayerRapidFireDuration { get; set; } = 3f;      // 지속시간(초)
 }

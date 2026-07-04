@@ -9,6 +9,7 @@ public partial class Spawner : Node2D
 	[Export] public Area2D SpawnArea { get; set; }           // 랜덤 스폰 영역(사각 CollisionShape2D 가정)
 	[Export] public Node2D Container { get; set; }           // 소환한 몬스터를 붙일 부모
 	[Export] public Core Core { get; set; }              // 본진 (SetTarget용, Hit 호출을 위해 Core 타입)
+	[Export] public Node2D BossSpawnPoint { get; set; }       // 보스 전용 스폰 위치. 비어있으면 SpawnArea 중앙으로 폴백
 
 	[Export] private WaveData _testWave;                     // 단독 테스트용(매니저 붙으면 제거)
 	[Export] public bool AutoStartTestWave { get; set; } = false;
@@ -186,7 +187,8 @@ public partial class Spawner : Node2D
 		}
 		else if (_pendingBoss != null)
 		{
-			SpawnBoss(_pendingBoss, SpawnAreaCenter());
+			Vector2 bossPos = BossSpawnPoint != null ? BossSpawnPoint.GlobalPosition : SpawnAreaCenter();
+			SpawnBoss(_pendingBoss, bossPos);
 			_pendingBoss = null;
 		}
 

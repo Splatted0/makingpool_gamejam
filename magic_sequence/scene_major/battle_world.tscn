@@ -126,12 +126,16 @@ WandNode3 = NodePath("WandNode3")
 
 [node name="EnemySpawner" type="Node" parent="BattleCenter" unique_id=275725980]
 
-[node name="Spawner" parent="BattleCenter/EnemySpawner" unique_id=726345657 node_paths=PackedStringArray("Container", "Core") instance=ExtResource("4_0bhie")]
-position = Vector2(1133, 330)
+[node name="Spawner" parent="BattleCenter/EnemySpawner" unique_id=726345657 node_paths=PackedStringArray("Container", "Core", "BossSpawnPoint") instance=ExtResource("4_0bhie")]
+position = Vector2(1171, 331)
 BossScene = ExtResource("8_2q4sl")
 Container = NodePath("../../EntityContainer")
 Core = NodePath("../../Core")
+BossSpawnPoint = NodePath("../BossSpawnArea")
 _testWave = SubResource("Resource_0bhie")
+
+[node name="BossSpawnArea" type="Node2D" parent="BattleCenter/EnemySpawner" unique_id=2128878999]
+position = Vector2(996, 287)
 
 [node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
 

@@ -23,6 +23,7 @@ public partial class WandManager : Node
         new Queue<MagicNode>(),
         new Queue<MagicNode>()
     };
+    private double _cooldownMultiplier = 1.0;   // 주사위7(조커) 등이 재발사 대기시간을 잠시 스케일링할 때 사용
 
     public override void _Ready()
     {
@@ -66,6 +67,13 @@ public partial class WandManager : Node
         }
 
         Arsenal?.Refresh();
+    }
+
+    // 재발사 대기시간(GetBaseCooldown) 스케일링. 0에 가까울수록 연타 시 거의 바로 재발사된다.
+    // 진행 중인 발사 시퀀스(_isFiringSequence)는 건드리지 않으므로 콤보 내부 흐름은 그대로다.
+    public void SetCooldownMultiplier(double multiplier)
+    {
+        _cooldownMultiplier = Math.Max(multiplier, 0.0);
     }
 
     private void Fire(int wandIndex)
@@ -151,7 +159,8 @@ public partial class WandManager : Node
     private double GetBaseCooldown(int wandIndex)
     {
         Wand wand = GetWandNodes()[wandIndex]?.Wand;
-        return wand?.BaseCooldown ?? FireCooldown;
+        double baseCooldown = wand?.BaseCooldown ?? FireCooldown;
+        return baseCooldown * _cooldownMultiplier;
     }
 
     private double GetSlotDelay(int wandIndex)

@@ -8,7 +8,9 @@
 [ext_resource type="Resource" uid="uid://b7yguprnaarl5" path="res://resource_ingame/resource_monster/skeleton_boss_shield.tres" id="4_qtle2"]
 [ext_resource type="SpriteFrames" uid="uid://cpy7qgbv8fd07" path="res://resource_ingame/resource_monster/boss_spritesheet.tres" id="5_mh6p8"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_b58md"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2q4sl"]
+radius = 31.0
+height = 144.0
 
 [node name="Boss" type="CharacterBody2D" unique_id=934036589 node_paths=PackedStringArray("DiceSprite", "_animatedSprite")]
 script = ExtResource("1_0154r")
@@ -21,15 +23,17 @@ _animatedSprite = NodePath("AnimatedSprite2D_bossanim")
 
 [node name="AnimatedSprite2D_dice" type="AnimatedSprite2D" parent="." unique_id=1760940110]
 texture_filter = 1
-position = Vector2(0, -83)
+position = Vector2(0, -138)
 scale = Vector2(0.3469388, 0.3469388)
 sprite_frames = ExtResource("4_n725y")
 animation = &"dice"
 
 [node name="AnimatedSprite2D_bossanim" type="AnimatedSprite2D" parent="." unique_id=102912107]
 texture_filter = 1
+scale = Vector2(2, 2)
 sprite_frames = ExtResource("5_mh6p8")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=297662633]
-shape = SubResource("CircleShape2D_b58md")
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_2q4sl")

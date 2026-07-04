@@ -1,10 +1,9 @@
-// 주사위 7(조커): 플레이어 공격속도를 PlayerAttackSpeedMultiplier배로 PlayerBoostDuration초 동안 버프.
-// WandManager.FireCooldown(발사 간격의 기준값)을 낮췄다가 시간 다 되면 원래대로 복원한다.
-// 진행 중인 발사 시퀀스도 슬롯 딜레이가 매 발사마다 새로 계산되므로 즉시 반영된다.
+// 주사위 7(조커): WandManager의 재발사 대기시간(GetBaseCooldown)에 PlayerCooldownMultiplier를
+// 곱해 거의 없앤 채로 PlayerRapidFireDuration초 동안 유지한다 — 연타하면 그대로 연사됨.
+// 시간이 다 되면 배율을 1.0으로 복원한다.
 public class BossDicePlayerBoostPattern : IBossPattern
 {
 	private float _elapsed;
-	private double _originalFireCooldown;
 	private WandManager _wandManager;
 	private bool _finished = true;
 	private bool _cancelled;
@@ -34,13 +33,11 @@ public class BossDicePlayerBoostPattern : IBossPattern
 		}
 
 		_cancelled = false;
-		BossData data = boss.Config;
-		_originalFireCooldown = _wandManager.FireCooldown;
-		_wandManager.FireCooldown = _originalFireCooldown / Mathf.Max(data.PlayerAttackSpeedMultiplier, 0.01f);
+		_wandManager.SetCooldownMultiplier(boss.Config.PlayerCooldownMultiplier);
 
 		_elapsed = 0f;
 		_finished = false;
-		GD.Print($"[Dice7] 공속 {data.PlayerAttackSpeedMultiplier}배 버프 시작");
+		GD.Print("[Dice7] 연사 조커 시작");
 	}
 
 	public void Tick(Boss boss, double delta)
@@ -49,10 +46,10 @@ public class BossDicePlayerBoostPattern : IBossPattern
 			return;
 
 		_elapsed += (float)delta;
-		if (_elapsed >= boss.Config.PlayerBoostDuration)
+		if (_elapsed >= boss.Config.PlayerRapidFireDuration)
 		{
-			_wandManager.FireCooldown = _originalFireCooldown;
-			GD.Print("[Dice7] 공속 버프 종료");
+			_wandManager.SetCooldownMultiplier(1.0);
+			GD.Print("[Dice7] 연사 조커 종료");
 			_finished = true;
 		}
 	}

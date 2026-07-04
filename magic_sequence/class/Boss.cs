@@ -11,7 +11,6 @@ public partial class Boss : Monster
 	private const string ShieldGroup = "boss_shield";
 
 	private BossData _bossData;
-	private Line2D _beam;               // 보스↔코어 상시 빨간 예고선
 	private BossPatternController _patterns;
 	private BossAnimator _bossAnimator;  // idle 기본 + 패턴 이벤트 시 단발 애니(die는 상속받은 MonsterAnimator가 처리)
 
@@ -98,7 +97,6 @@ public partial class Boss : Monster
 		base._Ready();
 
 		_bossData = Data as BossData;
-		SetupBeam();
 		SetupDiceSprite();
 		StartCoreLeash();
 		_bossAnimator = new BossAnimator(AnimatedSprite);
@@ -115,10 +113,9 @@ public partial class Boss : Monster
 		core.StartLeash(player);
 	}
 
-	// 오른쪽 고정. 행군 대신 예고선 갱신 + 패턴 스케줄러 tick. 기본 애니는 idle(단발 재생 중이면 무시됨).
+	// 오른쪽 고정. 행군 대신 패턴 스케줄러 tick. 기본 애니는 idle(단발 재생 중이면 무시됨).
 	protected override void UpdateBehavior(double delta)
 	{
-		UpdateBeamGeometry();
 		_bossAnimator?.PlayIdle();
 		_patterns?.Tick(delta);
 	}
@@ -126,19 +123,8 @@ public partial class Boss : Monster
 	// 스턴 상태이상 재해석: debuff 애니만 재생하고, 주사위 굴림·시전은 스턴과 무관하게 계속 진행한다.
 	protected override void OnStunned(float delta)
 	{
-		UpdateBeamGeometry();
 		_bossAnimator?.PlayDebuff();
 		_patterns?.Tick(delta);
-	}
-
-	private void SetupBeam()
-	{
-		_beam = new Line2D();
-		_beam.DefaultColor = new Color(1f, 0.15f, 0.25f, 0.85f);
-		_beam.Width = _bossData != null ? _bossData.LaserWidthIdle : 2f;
-		_beam.AddPoint(Vector2.Zero);   // 보스 원점
-		_beam.AddPoint(Vector2.Zero);   // 코어(매 프레임 갱신)
-		AddChild(_beam);
 	}
 
 	// autoplay로 SpriteFrames가 자체 재생하는 걸 막고, SetDiceFace로만 프레임을 제어한다.
@@ -149,12 +135,6 @@ public partial class Boss : Monster
 
 		DiceSprite.Stop();
 		DiceSprite.Frame = 0;
-	}
-
-	private void UpdateBeamGeometry()
-	{
-		if (_beam != null)
-			_beam.SetPointPosition(1, ToLocal(CorePosition));
 	}
 
 	protected override void Die()
