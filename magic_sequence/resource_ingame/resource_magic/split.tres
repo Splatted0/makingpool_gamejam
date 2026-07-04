@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://dcw6w858gtd2h"]
 
-[ext_resource type="Texture2D" uid="uid://c5om8xio75bd2" path="res://texture/magicIcon/support2.png" id="1_5wisg"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
 [ext_resource type="Resource" uid="uid://dy3l1gljdynf5" path="res://resource_ingame/resource_magic_perk/magic_perk_split.tres" id="2_perk"]
+
+[sub_resource type="Resource" id="Resource_nvq4o"]
+metadata/__load_path__ = "res://texture/magicIcon/support2.png"
 
 [resource]
 script = ExtResource("1_magic")
 Name = "분열 발"
-Icon = ExtResource("1_5wisg")
+Icon = SubResource("Resource_nvq4o")
 Description = "투사체의 개별 대미지가 30% 감소하는 대신,  3갈래로 분열시켜 발사합니다."
 EnhancedDescription = "투사체의 개별 대미지가 [b]15%[/b] 감소하는 대신,  3갈래로 분열시켜 발사합니다."
 Tier = 2

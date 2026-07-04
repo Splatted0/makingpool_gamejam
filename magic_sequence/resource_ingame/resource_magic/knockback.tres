@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://c6cjq81uf4rpu"]
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
-[ext_resource type="Texture2D" uid="uid://c5om8xio75bd2" path="res://texture/magicIcon/support2.png" id="1_qgqhe"]
 [ext_resource type="Resource" uid="uid://dbyoq24m5cut4" path="res://resource_ingame/resource_magic_perk/magic_perk_knockback.tres" id="2_perk"]
+
+[sub_resource type="Resource" id="Resource_3trcp"]
+metadata/__load_path__ = "res://texture/magicIcon/support2.png"
 
 [resource]
 script = ExtResource("1_magic")
 Name = "넉백 추가"
-Icon = ExtResource("1_qgqhe")
+Icon = SubResource("Resource_3trcp")
 Description = "마법 발현 시 적중한 적을 코어 반대 방향으로 밀어냅니다."
 EnhancedDescription = "마법 발현 시 적중한 적을 코어 반대 방향으로 [b]50% 더 멀리[/b] 밀어냅니다."
 Tier = 2

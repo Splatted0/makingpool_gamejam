@@ -13,7 +13,9 @@ public static class DropUtil
         for (int i = 0; i < count; i++)
         {
             Tier tier = RollTier(enhanceData);
-            filters[i] = m => m.Tier == tier;
+            filters[i] = i == 0
+                ? m => m.Tier == tier && m.MagicEffect is MagicSpell
+                : m => m.Tier == tier;
         }
         return pool.DrawFixedSlots(filters);
     }

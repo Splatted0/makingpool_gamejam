@@ -5,7 +5,3 @@
 [resource]
 script = ExtResource("1_script")
 TickIntervalSeconds = 0.3
-DamageMultiplier = 1.0
-EnhancedDamageMultiplier = 1.0
-DurationFrameMultiplier = 1.0
-EnhancedDurationFrameMultiplier = 1.5

@@ -7,5 +7,4 @@ script = ExtResource("1_script")
 DamageMultiplier = 0.7
 EnhancedDamageMultiplier = 0.85
 ExtraFanProjectiles = 2
-FanAngleDegrees = 15.0
 metadata/_custom_type_script = "uid://wandstatmodifier"
