@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://coc2ntnyxkrn3"]
+
+[ext_resource type="Script" uid="uid://ckntm35x8jkex" path="res://class/boss/BossBullet.cs" id="1_bxm02"]
+[ext_resource type="Texture2D" uid="uid://ddxmxgyyfy8mn" path="res://icon.svg" id="2_u23ew"]
+
+[node name="BossBullet" type="Node2D" unique_id=1315329362]
+script = ExtResource("1_bxm02")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1066716168]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1305374553]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_u23ew")

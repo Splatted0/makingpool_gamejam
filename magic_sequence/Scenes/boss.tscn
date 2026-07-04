@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://jy5l3vsctdhx"]
+
+[ext_resource type="Script" uid="uid://bpr64nhb8b5qp" path="res://class/Boss.cs" id="1_0154r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vg3xd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b58md"]
+
+[node name="Boss" type="CharacterBody2D" unique_id=934036589]
+script = ExtResource("1_0154r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=102912107]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_vg3xd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=297662633]
+shape = SubResource("CircleShape2D_b58md")

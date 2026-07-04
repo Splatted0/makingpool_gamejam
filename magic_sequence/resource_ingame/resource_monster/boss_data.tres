@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BossData" format=3 uid="uid://dbyr50s8rq4ev"]
+
+[ext_resource type="Script" uid="uid://bkambmluuumf1" path="res://class_resource/BossData.cs" id="1_2motd"]
+
+[resource]
+script = ExtResource("1_2motd")
+MaxHealth = 5000
+AttackRange = 300.0
+HealAmount = 10
+metadata/_custom_type_script = "uid://bkambmluuumf1"

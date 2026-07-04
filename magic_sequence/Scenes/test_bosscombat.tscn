@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cpdu73rvnmw1u"]
+
+[ext_resource type="PackedScene" uid="uid://8ts3lb4x7jt8" path="res://Scenes/core.tscn" id="1_tkifu"]
+[ext_resource type="PackedScene" uid="uid://c5mjlu0ja5toy" path="res://Scenes/player.tscn" id="2_s3wyt"]
+[ext_resource type="PackedScene" uid="uid://jy5l3vsctdhx" path="res://Scenes/boss.tscn" id="3_s3wyt"]
+[ext_resource type="Resource" uid="uid://dbyr50s8rq4ev" path="res://resource_ingame/resource_monster/boss_data.tres" id="4_bmceq"]
+[ext_resource type="PackedScene" uid="uid://coc2ntnyxkrn3" path="res://Scenes/boss_bullet.tscn" id="4_n674e"]
+
+[node name="Testcombat" type="Node2D" unique_id=1218184740]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1172282640]
+
+[node name="Core" parent="." unique_id=326636362 instance=ExtResource("1_tkifu")]
+position = Vector2(38, 331)
+
+[node name="Player" parent="." unique_id=1271626603 instance=ExtResource("2_s3wyt")]
+position = Vector2(177, 332)
+
+[node name="Boss" parent="." unique_id=934036589 instance=ExtResource("3_s3wyt")]
+position = Vector2(1081, 328)
+BulletScene = ExtResource("4_n674e")
+Data = ExtResource("4_bmceq")
