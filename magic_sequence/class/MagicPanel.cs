@@ -44,14 +44,14 @@ public partial class MagicPanel : Control
     {
         if (_magic != null)
         {
-            Blackboard.MagicInfoLayer.ShowInfo(_magic, GetGlobalMousePosition());
+            Blackboard.MagicInfoLayer.ShowMagicInfo(_magic, GetGlobalMousePosition());
         }
         _outline.Visible = true;
     }
 
     public void OnMouseExit()
     {
-        Blackboard.MagicInfoLayer.HideInfo();
+        Blackboard.MagicInfoLayer.HideMagicInfo();
         _outline.Visible = false;
     }
 }

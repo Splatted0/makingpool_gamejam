@@ -10,6 +10,8 @@ public partial class EnhanceManager : CanvasLayer
     [Export] public BaseButton GetWandButton;
     [Export] public Button MagicRerollButton;
     [Export] public Button WandRerollButton;
+    [Export] public BaseButton AddHealthButton;
+    [Export] public RichTextLabel HealthLabel;
 
     private Wand _getWand;
     private EnhanceData _enhanceData;
@@ -22,6 +24,8 @@ public partial class EnhanceManager : CanvasLayer
         MagicRerollButton.Pressed += OnMagicRerollButtonPressed;
         WandRerollButton.Pressed += OnWandRerollButtonPressed;
         MagicChanceManager.MagicChangeEnd += OnMagicChangeEnd;
+        AddHealthButton.Pressed += OnAddHealthButtonPressed;
+        Blackboard.Core.HealthChanged += OnHealthChanged;
         Setup();
     }
 
@@ -95,6 +99,18 @@ public partial class EnhanceManager : CanvasLayer
         GetWandUi.Setup(_getWand);
     }
 
+    private void OnAddHealthButtonPressed()
+    {
+        if (!Blackboard.TrySpendGold(0)) return;
+
+        Blackboard.Core.Health = Mathf.Min(Blackboard.Health + 1000, Blackboard.Core.MaxHp);
+    }
+
+    private void OnHealthChanged(int health, int _maxhp)
+    {
+        HealthLabel.Text = "현재 체력" +  health+ "/"+ _maxhp;   
+    }
+    
     private void OnExitButtonPressed()
     {
         EmitSignal(SignalName.EnhanceEnd);

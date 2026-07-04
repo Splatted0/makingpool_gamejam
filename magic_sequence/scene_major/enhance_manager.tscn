@@ -10,6 +10,10 @@
 [ext_resource type="Script" uid="uid://ouqakoep72ep" path="res://class/MagicChangeManager.cs" id="6_dk4am"]
 [ext_resource type="Texture2D" uid="uid://1bwag61axpae" path="res://Sprites/magic_reroll_icon.png" id="7_2272h"]
 [ext_resource type="PackedScene" uid="uid://cex0wvflkcg2e" path="res://scene_minor/main_button.tscn" id="7_s5w6b"]
+[ext_resource type="Texture2D" uid="uid://c5qijgjkmbcfx" path="res://Sprites/magic_heart_icon.png" id="10_vvfga"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_igu00"]
+bg_color = Color(0, 0, 0, 0.8)
 
 [sub_resource type="LabelSettings" id="LabelSettings_i8g4g"]
 font = ExtResource("2_u3f34")
@@ -66,7 +70,7 @@ font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2a3wx"]
 
-[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton", "MagicRerollButton", "WandRerollButton")]
+[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton", "MagicRerollButton", "WandRerollButton", "AddHealthButton", "HealthLabel")]
 script = ExtResource("1_s5w6b")
 MagicChanceManager = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager")
 GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton/WandUi")
@@ -74,13 +78,16 @@ ExitButton = NodePath("ExitButton")
 GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton")
 MagicRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/MagicRerollButton")
 WandRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/WandRerollButton")
+AddHealthButton = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/AddHealthButton")
+HealthLabel = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/HealthLabel")
 
-[node name="Panel" type="Panel" parent="." unique_id=272553167]
+[node name="Background" type="Panel" parent="." unique_id=272553167]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_igu00")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=862891261]
 anchors_preset = 15
@@ -145,6 +152,10 @@ custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_focus_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_hover_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
 theme_override_fonts/font = ExtResource("2_u3f34")
 theme_override_styles/normal = SubResource("StyleBoxTexture_3s86v")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_sihjj")
@@ -181,6 +192,17 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_3s86v")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_20f4n")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_sihjj")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton" unique_id=1332566418]
+layout_mode = 0
+offset_top = -21.0
+offset_right = 400.0
+offset_bottom = -4.0
+theme_override_fonts/normal_font = ExtResource("2_u3f34")
+text = "● 완드 획득 ●"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
 [node name="WandUi" parent="HBoxContainer/GetContainer/CenterContainer2/VBoxContainer/GetWandButton" unique_id=750007204 instance=ExtResource("1_8eo4g")]
 layout_mode = 1
 anchors_preset = 8
@@ -216,6 +238,10 @@ custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_focus_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_hover_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
 theme_override_fonts/font = ExtResource("2_u3f34")
 theme_override_styles/normal = SubResource("StyleBoxTexture_3s86v")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_sihjj")
@@ -235,6 +261,42 @@ offset_bottom = -8.0
 grow_vertical = 2
 texture = ExtResource("7_2272h")
 stretch_mode = 2
+
+[node name="CenterContainer3" type="CenterContainer" parent="HBoxContainer/GetContainer" unique_id=1381626654]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/GetContainer/CenterContainer3" unique_id=1773924511]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HealthLabel" type="RichTextLabel" parent="HBoxContainer/GetContainer/CenterContainer3/HBoxContainer" unique_id=73304900]
+layout_mode = 2
+bbcode_enabled = true
+text = "현재 체력 10000/10000"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AddHealthButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer3/HBoxContainer" unique_id=1642912932]
+custom_minimum_size = Vector2(128, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_focus_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+theme_override_colors/font_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_hover_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9019608, 0.6862745, 0.18039216, 1)
+theme_override_fonts/font = ExtResource("2_u3f34")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_3s86v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_sihjj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vvfga")
+text = "+1000 / $150"
+icon = ExtResource("10_vvfga")
+icon_alignment = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer" unique_id=1103129779]
 layout_mode = 2
@@ -265,6 +327,17 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ExitButton" parent="." unique_id=743153410 instance=ExtResource("7_s5w6b")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -16.5
+offset_right = 49.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2jam4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_2a3wx")
 text = "나가기"

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public static class Blackboard
 {
     public static Main Main { get; set; }
-    public static int Health => Main.Health;
     public static int Wave => Main.Wave;
     public static int Gold => Main.Gold;
     
@@ -20,11 +19,9 @@ public static class Blackboard
     public static BattleWorldHud BattleWorldHud => Main.BattleWorldHud;
         public static RoundManager RoundManager => BattleWorldHud.RoundManager;
         public static Node2D EntityContainer => BattleWorldHud.EntityContainer;
+        public static Core Core => BattleWorldHud.Core;
+        public static int Health => BattleWorldHud.Core.Health;
     
-    public static void SetHealth(int health, int maxHealth)
-    {
-        Main?.SetHealth(health, maxHealth);
-    }
 
     public static void SetGold(int gold)
     {

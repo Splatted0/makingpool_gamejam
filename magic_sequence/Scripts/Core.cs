@@ -2,24 +2,26 @@ using Godot;
 
 public partial class Core : StaticBody2D, IEntity
 {
+
+	[Signal] public delegate void HealthChangedEventHandler(int health, int maxhp);
+	[Signal] public delegate void DiedEventHandler();
+
 	[Export] public Team Team { get; set; } = Team.Player;
 
 	[Export] public int MaxHp { get; set; } = 10000;
 
-	public int Health { get; set; }
-
-	[Signal]
-	public delegate void HpChangedEventHandler(int health, int maxHp);
-
-	[Signal]
-	public delegate void DiedEventHandler();
+	private int _health;
+	public int Health
+	{
+		get => _health;
+		set { _health = value; OnHealthChanged(); }
+	}
 
 	public override void _Ready()
 	{
 		Health = MaxHp;
 		AddToGroup("core");
 
-		SyncHp();
 	}
 
 	public void Hit(HitInfo hitInfo)
@@ -37,8 +39,6 @@ public partial class Core : StaticBody2D, IEntity
 
 		Health = Mathf.Max(Health - damage, 0);
 
-		SyncHp();
-
 		GD.Print($"Core HP: {Health}/{MaxHp}");
 
 		if (Health <= 0)
@@ -48,9 +48,8 @@ public partial class Core : StaticBody2D, IEntity
 		}
 	}
 
-	private void SyncHp()
+	private void OnHealthChanged()
 	{
-		Blackboard.SetHealth(Health, MaxHp);
-		EmitSignal(SignalName.HpChanged, Health, MaxHp);
+		EmitSignalHealthChanged(Health,  MaxHp);
 	}
 }

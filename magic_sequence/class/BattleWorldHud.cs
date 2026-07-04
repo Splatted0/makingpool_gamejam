@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 public partial class BattleWorldHud : CanvasLayer
 {
     [Export] public RoundManager RoundManager { get; private set; }
-    [Export] public Node2D EntityContainer { get; private set; } 
-    
-    private Core _core;
+    [Export] public Node2D EntityContainer { get; private set; }
+
+    public Core Core { get; private set; }
 
     private Control _uiRoot;
     private ProgressBar _coreHpBar;
@@ -26,7 +26,7 @@ public partial class BattleWorldHud : CanvasLayer
 
         _uiRoot = GetNodeOrNull<Control>("UIRoot");
 
-        _core = GetNodeOrNull<Core>("BattleCenter/Core")
+        Core = GetNodeOrNull<Core>("BattleCenter/Core")
             ?? GetTree().GetFirstNodeInGroup("core") as Core;
 
         _coreHpBar = GetNodeOrNull<ProgressBar>(
@@ -46,10 +46,10 @@ public partial class BattleWorldHud : CanvasLayer
 
         CreateOverlayNodes();
 
-        if (_core != null)
+        if (Core != null)
         {
-            _core.HpChanged += OnCoreHpChanged;
-            OnCoreHpChanged(_core.Health, _core.MaxHp);
+            Core.HealthChanged += OnCoreHpChanged;
+            OnCoreHpChanged(Core.Health, Core.MaxHp);
         }
         else
         {
@@ -79,8 +79,8 @@ public partial class BattleWorldHud : CanvasLayer
 
     public override void _ExitTree()
     {
-        if (_core != null)
-            _core.HpChanged -= OnCoreHpChanged;
+        if (Core != null)
+            Core.HealthChanged -= OnCoreHpChanged;
 
         if (_pauseButton != null)
             _pauseButton.Pressed -= OnPauseButtonPressed;
@@ -129,8 +129,6 @@ public partial class BattleWorldHud : CanvasLayer
 
     private void OnCoreHpChanged(int health, int maxHp)
     {
-        Blackboard.SetHealth(health, maxHp);
-
         if (_coreHpBar != null)
         {
             _coreHpBar.MinValue = 0;

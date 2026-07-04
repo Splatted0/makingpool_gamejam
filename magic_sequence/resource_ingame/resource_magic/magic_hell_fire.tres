@@ -8,7 +8,7 @@
 script = ExtResource("1_lbiji")
 Name = "화염 벽"
 Icon = ExtResource("1_xdf3t")
-Description = "0.5초 동안 150의 피해를 주는 화염벽을 생성합니다.
+Description = "{BaseDurationFrame}초 동안 {BaseDamage}의 피해를 주는 화염벽을 생성합니다.
 "
 MagicEffect = ExtResource("2_ktg28")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

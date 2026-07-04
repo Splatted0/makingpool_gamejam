@@ -2,15 +2,11 @@
 
 public partial class Main : Node
 {
-    
-    [Signal] public delegate void HealthChangedEventHandler(int health, int maxHealth);
     [Signal] public delegate void GoldChangedEventHandler(int gold);
     [Signal] public delegate void WaveChangedEventHandler(int wave);
     [Signal] public delegate void WandsChangedEventHandler();
 
     public int Wave { get; private set; }
-    public int Health { get; private set; }
-    public int MaxHealth { get; private set; } = 1;
     public int Gold { get; private set; }
     
     [ExportCategory("Nodes")]
@@ -35,15 +31,6 @@ public partial class Main : Node
     public override void _Ready()
     {
         StateChanger.Start();
-    }
-    
-    
-    public void SetHealth(int health, int maxHealth)
-    {
-        MaxHealth = Math.Max(1, maxHealth);
-        Health = Math.Clamp(health, 0, MaxHealth);
-
-        EmitSignal(SignalName.HealthChanged, Health, MaxHealth);
     }
 
     public void SetGold(int gold)

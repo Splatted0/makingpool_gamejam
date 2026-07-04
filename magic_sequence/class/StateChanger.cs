@@ -24,6 +24,7 @@ public partial class StateChanger : Node
         Blackboard.MainMenu.Visible = true;
         await ToSignal(Blackboard.MainMenu, MainMenu.SignalName.GameStartPressed);
         Blackboard.MainMenu.Visible = false;
+        Blackboard.BattleWorldHud.Visible = true;
     }
 
     public async Task EnhanceState()
@@ -57,12 +58,8 @@ public partial class StateChanger : Node
         {
             roundManager.CancelRound();
             await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
-            battleWorldHud.Visible = false;
-            Blackboard.EnhanceManager.Visible = false;
             return true;
         }
-
-        battleWorldHud.Visible = false;
         return false;
     }
 

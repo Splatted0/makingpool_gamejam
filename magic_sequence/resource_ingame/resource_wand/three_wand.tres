@@ -2,11 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="2_wand"]
-[ext_resource type="Resource" uid="uid://dihix53mr5kyj" path="res://resource_ingame/resource_magic/magic_fire_bullet.tres" id="3_fire"]
 
 [resource]
 script = ExtResource("2_wand")
 WandName = "Combo Test Wand"
 Description = "S"
-Magics = Array[ExtResource("1_magic")]([ExtResource("3_fire")])
 metadata/_custom_type_script = "uid://1s667kayv311"
