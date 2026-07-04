@@ -2,6 +2,6 @@
 [GlobalClass]
 public partial class SpawnEntry : Resource
 {
-    [Export] public MonsterData Data { get; set; }   // 소환할 몬스터 종류
-    [Export] public int Count { get; set; } = 1;     // 마리 수
+	[Export] public MonsterData Data { get; set; }   // 소환할 몬스터 종류
+	[Export] public int Count { get; set; } = 1;     // 마리 수
 }

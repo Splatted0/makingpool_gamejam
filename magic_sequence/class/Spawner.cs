@@ -5,6 +5,7 @@ public partial class Spawner : Node2D
 	[Signal] public delegate void SpawnFinishedEventHandler();   // 큐+보스 다 소환하면 방출
 
 	[Export] public PackedScene MonsterScene { get; set; }   // Monster.tscn
+	[Export] public PackedScene BossScene { get; set; }      // 보스 전용 씬(Boss.cs). 비어있으면 MonsterScene로 폴백
 	[Export] public Area2D SpawnArea { get; set; }           // 랜덤 스폰 영역(사각 CollisionShape2D 가정)
 	[Export] public Node2D Container { get; set; }           // 소환한 몬스터를 붙일 부모
 	[Export] public Core Core { get; set; }              // 본진 (SetTarget용, Hit 호출을 위해 Core 타입)
@@ -185,7 +186,7 @@ public partial class Spawner : Node2D
 		}
 		else if (_pendingBoss != null)
 		{
-			SpawnMonster(_pendingBoss, SpawnAreaCenter());
+			SpawnBoss(_pendingBoss, SpawnAreaCenter());
 			_pendingBoss = null;
 		}
 
@@ -212,6 +213,23 @@ public partial class Spawner : Node2D
 
 		monster.Position = Container.ToLocal(worldPos);
 		Container.AddChild(monster);
+	}
+
+	// 보스는 일반 몬스터 씬이 아니라 BossScene(Boss.cs)으로 소환한다. 비어있으면 MonsterScene로 폴백.
+	private void SpawnBoss(MonsterData data, Vector2 worldPos)
+	{
+		PackedScene scene = BossScene != null ? BossScene : MonsterScene;
+		Monster boss = scene.Instantiate<Monster>();
+
+		boss.Data = data;
+
+		if (Core != null)
+			boss.SetTarget(Core.GlobalPosition, Core);
+		else
+			GD.PrintErr($"[Spawner] {Name}: Core가 null이라 boss target을 지정하지 못했습니다.");
+
+		boss.Position = Container.ToLocal(worldPos);
+		Container.AddChild(boss);
 	}
 
 	// SpawnArea 사각 영역 내 랜덤 좌표(월드).
