@@ -5,39 +5,31 @@
 [ext_resource type="PackedScene" uid="uid://c5mjlu0ja5toy" path="res://Scenes/player.tscn" id="3_1j1wl"]
 [ext_resource type="PackedScene" uid="uid://drt3vfnkyfnyy" path="res://Scenes/spawner.tscn" id="4_0bhie"]
 [ext_resource type="Script" uid="uid://b13lxgu1pog8m" path="res://class_resource/SpawnEntry.cs" id="5_egww6"]
-[ext_resource type="Script" uid="uid://cxrvco7ce4fuv" path="res://class_resource/MonsterData.cs" id="6_m7vi4"]
 [ext_resource type="Script" uid="uid://brf2rmq1y1476" path="res://class_resource/WaveData.cs" id="7_yt1t0"]
 [ext_resource type="Script" uid="uid://bryasmnd8ejj8" path="res://class/BattleWorldHud.cs" id="8_m7vi4"]
 [ext_resource type="Script" uid="uid://b8cuf2svmc8xq" path="res://Scripts/RoundManager.cs" id="8_yt1t0"]
 [ext_resource type="Script" uid="uid://dd3sy43j8qy70" path="res://class/WandManager.cs" id="9_wandmanager"]
+[ext_resource type="Resource" uid="uid://2wxpyyq5w8ix" path="res://resource_ingame/resource_monster/slime.tres" id="10_0522j"]
+[ext_resource type="Resource" uid="uid://iixjd210kydr" path="res://resource_ingame/resource_monster/wolf.tres" id="10_vg3xd"]
 [ext_resource type="PackedScene" uid="uid://v06jyj3rh1iu" path="res://scene_minor/wand_node.tscn" id="10_wandnode"]
 [ext_resource type="Script" uid="uid://br1nd3epdarsn" path="res://class/Arsenal.cs" id="11_arsenal"]
 [ext_resource type="PackedScene" uid="uid://dd113ruslkslg" path="res://scene_minor/skill_ui.tscn" id="12_vg3xd"]
 
-[sub_resource type="Resource" id="Resource_yt1t0"]
-script = ExtResource("6_m7vi4")
-MoveSpeed = 20.0
-metadata/_custom_type_script = "uid://cxrvco7ce4fuv"
-
 [sub_resource type="Resource" id="Resource_egww6"]
 script = ExtResource("5_egww6")
-Data = SubResource("Resource_yt1t0")
+Data = ExtResource("10_vg3xd")
 Count = 20
 metadata/_custom_type_script = "uid://b13lxgu1pog8m"
 
-[sub_resource type="Resource" id="Resource_7entx"]
-script = ExtResource("6_m7vi4")
-metadata/_custom_type_script = "uid://cxrvco7ce4fuv"
-
 [sub_resource type="Resource" id="Resource_m7vi4"]
 script = ExtResource("5_egww6")
-Data = SubResource("Resource_7entx")
+Data = ExtResource("10_0522j")
 Count = 50
 metadata/_custom_type_script = "uid://b13lxgu1pog8m"
 
 [sub_resource type="Resource" id="Resource_0bhie"]
 script = ExtResource("7_yt1t0")
-Entries = [SubResource("Resource_egww6"), SubResource("Resource_m7vi4")]
+Entries = Array[ExtResource("5_egww6")]([SubResource("Resource_egww6"), SubResource("Resource_m7vi4")])
 Interval = 0.2
 metadata/_custom_type_script = "uid://brf2rmq1y1476"
 
@@ -99,7 +91,7 @@ position = Vector2(312, 329)
 
 [node name="Projectiles" type="Node2D" parent="BattleCenter/EntityContainer" unique_id=1015432122]
 
-[node name="WandManager" type="Node" parent="BattleCenter" unique_id=120000001 node_paths=PackedStringArray("Player", "Core", "Projectiles", "WandNode1", "WandNode2", "WandNode3", "Arsenal")]
+[node name="WandManager" type="Node" parent="BattleCenter" unique_id=120000001 node_paths=PackedStringArray("Player", "Core", "Projectiles", "WandNode1", "WandNode2", "WandNode3")]
 script = ExtResource("9_wandmanager")
 Player = NodePath("../EntityContainer/Player")
 Core = NodePath("../EntityContainer/Core")
@@ -107,7 +99,6 @@ Projectiles = NodePath("../EntityContainer/Projectiles")
 WandNode1 = NodePath("WandNode1")
 WandNode2 = NodePath("WandNode2")
 WandNode3 = NodePath("WandNode3")
-Arsenal = NodePath("../../UIRoot/Arsenal")
 
 [node name="WandNode1" parent="BattleCenter/WandManager" unique_id=120000002 instance=ExtResource("10_wandnode")]
 
@@ -125,11 +116,10 @@ _testWave = SubResource("Resource_0bhie")
 
 [node name="DeadZone" type="Node2D" parent="BattleCenter" unique_id=1770908580]
 
-[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud", "Projectiles")]
+[node name="RoundManager" type="Node" parent="BattleCenter" unique_id=70910384 node_paths=PackedStringArray("Spawner", "Hud")]
 script = ExtResource("8_yt1t0")
 Spawner = NodePath("../EnemySpawner/Spawner")
 Hud = NodePath("../..")
-Projectiles = NodePath("../EntityContainer/Projectiles")
 MaxRounds = 4
 
 [node name="UIRoot" type="Control" parent="." unique_id=1582633444]
