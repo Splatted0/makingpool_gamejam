@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://br1nd3epdarsn" path="res://class/Arsenal.cs" id="11_arsenal"]
 [ext_resource type="Resource" uid="uid://c4ive6egd7no1" path="res://resource_ingame/resource_monster/skeleton_shield.tres" id="11_tkjpb"]
 [ext_resource type="PackedScene" uid="uid://dd113ruslkslg" path="res://scene_minor/skill_ui.tscn" id="12_vg3xd"]
+[ext_resource type="FontFile" uid="uid://c6o2gwg8omgwo" path="res://resource_dev/Vipnagorgialla Bd It.otf" id="14_xoob8"]
 
 [sub_resource type="Resource" id="Resource_egww6"]
 script = ExtResource("5_egww6")
@@ -72,6 +73,10 @@ border_width_bottom = 2
 border_color = Color(0.96425396, 0.7770437, 0.11536012, 1)
 expand_margin_left = 2.0
 expand_margin_right = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2q4sl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7yqp"]
 
 [node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer")]
 script = ExtResource("8_m7vi4")
@@ -183,6 +188,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_xoob8")
+theme_override_font_sizes/font_size = 10
 text = "75/100 (75%)"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -194,6 +201,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0c07y")
 
 [node name="GoldText" type="Label" parent="UIRoot/CoreStatus/VBoxContainer/GoldPanel" unique_id=942591015]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("14_xoob8")
+theme_override_font_sizes/font_size = 12
 
 [node name="PauseButton" type="Button" parent="UIRoot" unique_id=330854470]
 layout_mode = 1
@@ -208,10 +217,11 @@ text = "||"
 [node name="Arsenal" type="PanelContainer" parent="UIRoot" unique_id=940329243 node_paths=PackedStringArray("WandManager", "SkillUI1", "SkillUI2", "SkillUI3")]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.87500006
+anchor_top = 0.85600007
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -6.1035156e-05
+offset_left = 1.0
+offset_top = 0.31195068
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("11_arsenal")
@@ -227,11 +237,31 @@ size_flags_horizontal = 3
 [node name="SkillUI" parent="UIRoot/Arsenal/HBoxContainer" unique_id=510049030 instance=ExtResource("12_vg3xd")]
 layout_mode = 2
 size_flags_horizontal = 3
+script = null
 
 [node name="SkillUI2" parent="UIRoot/Arsenal/HBoxContainer" unique_id=1124993436 instance=ExtResource("12_vg3xd")]
 layout_mode = 2
 size_flags_horizontal = 3
+script = null
 
 [node name="SkillUI3" parent="UIRoot/Arsenal/HBoxContainer" unique_id=1725346933 instance=ExtResource("12_vg3xd")]
 layout_mode = 2
 size_flags_horizontal = 3
+script = null
+
+[node name="Roundinfo" type="PanelContainer" parent="UIRoot" unique_id=5342678]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.052
+offset_bottom = 0.30400085
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2q4sl")
+
+[node name="RoundInfo" type="Label" parent="UIRoot/Roundinfo" unique_id=584256267]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("14_xoob8")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2q4sl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e7yqp")
+text = "Round 0: 0/0"
+horizontal_alignment = 1
