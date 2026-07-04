@@ -74,11 +74,12 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer", "Core", "_coreHpBar", "_coreHpText", "_goldText", "_roundInfoText")]
+[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer", "Core", "WandManager", "_coreHpBar", "_coreHpText", "_goldText", "_roundInfoText")]
 script = ExtResource("8_m7vi4")
 RoundManager = NodePath("BattleCenter/RoundManager")
 EntityContainer = NodePath("BattleCenter/EntityContainer")
 Core = NodePath("BattleCenter/Core")
+WandManager = NodePath("BattleCenter/WandManager")
 _coreHpBar = NodePath("UIRoot/CoreStatus/VBoxContainer/CoreHpBar")
 _coreHpText = NodePath("UIRoot/CoreStatus/VBoxContainer/CoreHpBar/CoreHpText")
 _goldText = NodePath("UIRoot/CoreStatus/VBoxContainer/GoldText")
@@ -149,7 +150,7 @@ grow_vertical = 2
 layout_mode = 0
 offset_left = 11.0
 offset_top = 337.0
-offset_right = 120.0
+offset_right = 131.0
 offset_bottom = 388.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0c07y")
 
@@ -173,7 +174,7 @@ grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("14_xoob8")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "75/100 (75%)"
 horizontal_alignment = 2
 vertical_alignment = 1

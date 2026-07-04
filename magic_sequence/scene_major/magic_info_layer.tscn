@@ -26,8 +26,8 @@ _magicInfo = NodePath("MagicInfo")
 
 [node name="MagicInfo" type="PanelContainer" parent="." unique_id=494533344 node_paths=PackedStringArray("_name", "_description", "_tier", "_enhanceContainer", "_enhanceDescription", "_enhanceButton")]
 visible = false
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 400.0
+offset_bottom = 199.0
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_umlpb")
 script = ExtResource("2_uype8")
@@ -39,6 +39,7 @@ _enhanceDescription = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Enha
 _enhanceButton = NodePath("MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer/EnhanceButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="MagicInfo" unique_id=1125459883]
+custom_maximum_size = Vector2(400, -1)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 8
@@ -72,16 +73,15 @@ mouse_filter = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_7fjmo")
 
 [node name="Description" type="RichTextLabel" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer" unique_id=765397269]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 mouse_filter = 2
 bbcode_enabled = true
 text = "투사체의 개별 데미지가 30%감소하는 대신, 
 부채꼴 모양으로 3갈래로 분열되어 발사됩니다."
 fit_content = true
-autowrap_mode = 0
 
 [node name="EnhanceContainer" type="VBoxContainer" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2025082322]
-custom_maximum_size = Vector2(337, -1)
 layout_mode = 2
 
 [node name="UnderArrow" type="Label" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer" unique_id=864288610]
@@ -94,7 +94,6 @@ layout_mode = 2
 bbcode_enabled = true
 text = "투사체의 개별 대미지가 20% 감소하는 대신, 부채꼴 모양으로 3갈래로 분열되어 발사됩니다."
 fit_content = true
-autowrap_mode = 0
 
 [node name="EnhanceButton" type="Button" parent="MagicInfo/MarginContainer/HBoxContainer/VBoxContainer/EnhanceContainer" unique_id=1089947244]
 custom_minimum_size = Vector2(150, 0)

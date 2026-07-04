@@ -113,6 +113,7 @@ public partial class EnhanceManager : CanvasLayer
     
     private void OnExitButtonPressed()
     {
+        Blackboard.MagicInfoLayer.OutPressed();
         EmitSignal(SignalName.EnhanceEnd);
     }
 }
