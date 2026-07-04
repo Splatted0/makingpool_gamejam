@@ -2,15 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_ppmx7"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://b0e4g6pu3nuee" path="res://resource_ingame/resource_magic_perk/wand_perk_obsidian_giant.tres" id="2_perk"]
-[ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 
 [resource]
 script = ExtResource("1_wand")
 WandName = "거인의 흑요석 지팡이"
-Description = "묵직한 한 방. 모든 마법 위력 +40%, 사거리 +40%, 투사체 비행 속도 -20%."
+Description = "[슬롯 4개 / 쿨타임 4.0초] 
+묵직하고 파괴적인 일격을 날리는 원거리 특화 지팡이로, 투사체 비행 속도가 20% 감소하지만 모든 마법의 위력과 사거리를 40% 증가시킵니다."
 Tier = 1
 Slot = 4
 BaseCooldown = 4.0
-WandPerks = Array[ExtResource("3_magicperk")]([ExtResource("2_perk")])
 metadata/_custom_type_script = "uid://1s667kayv311"

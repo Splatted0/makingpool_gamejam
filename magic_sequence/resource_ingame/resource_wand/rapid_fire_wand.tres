@@ -2,14 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_ceurs"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://bf0ibr3b32dek" path="res://resource_ingame/resource_magic_perk/wand_perk_rapid_fire.tres" id="2_perk"]
-[ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 
 [resource]
 script = ExtResource("1_wand")
 WandName = "연사의 지팡이"
-Description = "마법을 난사하는 지팡이. 슬롯 사이 발사 딜레이 -50%, 마법 데미지 -20%."
+Description = "[슬롯 3개 / 쿨타임 1.0초] 
+쉴 새 없이 마력을 뿜어내는 가벼운 지팡이로, 마법 대미지가 20% 감소하는 대신 슬롯 간 발사 딜레이를 50% 단축시켜 빠른 연사를 가능하게 합니다."
 Slot = 3
 BaseCooldown = 2.0
-WandPerks = Array[ExtResource("3_magicperk")]([ExtResource("2_perk")])
 metadata/_custom_type_script = "uid://1s667kayv311"
