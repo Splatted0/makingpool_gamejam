@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_t0k1k"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://bf0kiw8b3cl0k" path="res://resource_ingame/resource_magic_perk/wand_perk_piercing_thunder.tres" id="2_perk"]
 [ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 
 [resource]
 script = ExtResource("1_wand")
 WandName = "꿰뚫는 뇌전의 지팡이"
-Description = "방패 뒤의 적 저격용. 투사체 비행 속도 +100%, 모든 투사체 관통, 바람 속성 효과 제외."
+Description = "[슬롯 3개 / 쿨타임 1.5초] 
+번개처럼 전열을 꿰뚫는 날카로운 지팡이로, 모든 투사체의 비행 속도를 100% 증가시키고 관통 효과를 추가로 부여합니다."
 Tier = 3
 Slot = 3
 BaseCooldown = 1.5
-WandPerks = Array[ExtResource("3_magicperk")]([ExtResource("2_perk")])
 metadata/_custom_type_script = "uid://1s667kayv311"

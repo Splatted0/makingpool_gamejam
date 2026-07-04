@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_n0kbn"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://bfy0me2db2etk" path="res://resource_ingame/resource_magic_perk/wand_perk_alchemist_fusion.tres" id="2_perk"]
 [ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 
 [resource]
 script = ExtResource("1_wand")
 WandName = "연금술사의 융합 지팡이"
-Description = "5슬롯과 긴 장판 유지력. 생성되는 모든 장판의 지속시간 +2초."
+Description = "[슬롯 5개 / 쿨타임 3.5초] 
+상호작용의 극의를 깨우친 연금술사의 지팡이로, 시전된 모든 마법이 남기는 장판의 지속시간을 2초 증가시켜 시너지 콤보를 유도합니다."
 Tier = 2
 BaseCooldown = 3.5
-WandPerks = Array[ExtResource("3_magicperk")]([ExtResource("2_perk")])
 metadata/_custom_type_script = "uid://1s667kayv311"

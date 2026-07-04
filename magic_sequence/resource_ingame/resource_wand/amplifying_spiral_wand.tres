@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_gwcwh"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://b0e4llf40rlqe" path="res://resource_ingame/resource_magic_perk/wand_perk_amplifying_spiral.tres" id="2_perk"]
 [ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 
 [resource]
 script = ExtResource("1_wand")
 WandName = "증폭의 나선 지팡이"
-Description = "뒤쪽 슬롯일수록 위력 증폭. 1번 0%, 2번 +15%, 3번 +30%, 4번 +50%."
+Description = "[슬롯 4개 / 쿨타임 3.0초] 
+순차적으로 마력을 공명시키는 나선형 지팡이로, 장착된 마법이 뒤쪽 슬롯일수록 위력을 크게 증폭시킵니다. ( 0% /  15% /  30% /  50% )"
 Tier = 2
 Slot = 4
-WandPerks = Array[ExtResource("3_magicperk")]([ExtResource("2_perk")])
 metadata/_custom_type_script = "uid://1s667kayv311"

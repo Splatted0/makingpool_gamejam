@@ -5,7 +5,8 @@ public partial class BattleWorldHud : CanvasLayer
     [Export] public RoundManager RoundManager { get; private set; }
     [Export] public Node2D EntityContainer { get; private set; }
     [Export] public Core Core { get; private set; }
-
+    [Export] public WandManager WandManager { get; private set; }
+    
     [Export] private ProgressBar _coreHpBar;
     [Export] private Label _coreHpText;
     [Export] private Label _goldText;

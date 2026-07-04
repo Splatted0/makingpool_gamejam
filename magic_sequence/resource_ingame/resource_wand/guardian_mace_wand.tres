@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_balh6"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://b0e38p643nuee" path="res://resource_ingame/resource_magic_perk/wand_perk_guardian_mace.tres" id="2_perk"]
 [ext_resource type="Script" uid="uid://xt4romfxqj7a" path="res://class/MagicPerk.cs" id="3_magicperk"]
 
 [resource]
 script = ExtResource("1_wand")
 WandName = "수호자의 철퇴 지팡이"
-Description = "위기 상황 화력. 코어 근처 가로 10% 안쪽에서 공격 마법 대미지 +30%."
+Description = "[슬롯 4개 / 쿨타임 2.5초] 
+수호의 의지가 담긴 지팡이로, 방어선(맵의 코어 반경 10% 이내)에서 적을 타격할 때 대미지를 30% 증가시킵니다."
 Tier = 1
 Slot = 4
 BaseCooldown = 2.5
-WandPerks = Array[ExtResource("3_magicperk")]([ExtResource("2_perk")])
 metadata/_custom_type_script = "uid://1s667kayv311"

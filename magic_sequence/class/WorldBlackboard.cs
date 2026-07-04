@@ -21,6 +21,7 @@ public static class Blackboard
         public static Node2D EntityContainer => BattleWorldHud.EntityContainer;
         public static Core Core => BattleWorldHud.Core;
         public static int Health => BattleWorldHud.Core.Health;
+        public static WandManager WandManager => BattleWorldHud.WandManager;
     
 
     public static void SetGold(int gold)

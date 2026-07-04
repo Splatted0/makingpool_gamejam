@@ -54,13 +54,14 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="Description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=28563352]
+custom_minimum_size = Vector2(300, 0)
+custom_maximum_size = Vector2(400, -1)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_fonts/normal_font = ExtResource("2_ghhmx")
 text = "완드 설명 "
 fit_content = true
-autowrap_mode = 0
 
 [node name="MagicContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=635065174]
 layout_mode = 2
