@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Magic" format=3]
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://dc77oljldok2g"]
 
+[ext_resource type="Texture2D" uid="uid://bctg8jagkljqa" path="res://texture/magicIcon/support3.png" id="1_3fjth"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
 [ext_resource type="Resource" uid="uid://bdw3gpq2ijr3h" path="res://resource_ingame/resource_magic_perk/magic_perk_waveform.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_magic")
-Name = "Waveform"
-Description = "Projectile path periodically applies the same attack magic effect to enemies it overlaps."
-EnhancedDescription = "Projectile path periodically applies the same attack magic effect, and lingering duration is increased by 1.5x."
+Name = "파동 방출"
+Icon = ExtResource("1_3fjth")
+Description = "투사체가 날아가는 경로 전체에 공격 마법과 동일한 효과를 지닌 장판을 생성합니다."
+EnhancedDescription = "투사체 경로 전체에 공격 마법과 동일한 효과를 지니고 [b]지속시간이 1.5배 증가[/b]된 장판을 생성합니다."
 Tier = 3
 MagicEffect = ExtResource("2_perk")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

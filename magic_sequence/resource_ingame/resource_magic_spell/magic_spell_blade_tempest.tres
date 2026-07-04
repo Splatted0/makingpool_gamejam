@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="MagicSpellBladeTempest" format=3 uid="uid://brmwhswcvrqnv"]
 
 [ext_resource type="PackedScene" uid="uid://bi6552fdql1ep" path="res://scene_magic/magic_blade_tempest.tscn" id="1_scene"]
-[ext_resource type="Script" path="res://class_ability/MagicSpellBladeTempest.cs" id="2_script"]
+[ext_resource type="Script" uid="uid://vqocul0r6op4" path="res://class_ability/MagicSpellBladeTempest.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
+VulnerableDamageMultiplier = 1.1
+EnhancedVulnerableDamageMultiplier = 1.2
 MagicNodePack = ExtResource("1_scene")
 Elemental = 4
 BaseMaxDistance = 1000.0
@@ -14,7 +16,4 @@ BaseSpeed = 700.0
 BaseDamage = 180
 BaseDurationFrame = 150
 EnhancedDamage = 240
-VulnerableDamageMultiplier = 1.1
-EnhancedVulnerableDamageMultiplier = 1.2
-VulnerableDuration = 2.0
 metadata/_custom_type_script = "res://class_ability/MagicSpellBladeTempest.cs"

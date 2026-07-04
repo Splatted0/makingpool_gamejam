@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Magic" format=3]
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://c6cjq81uf4rpu"]
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
+[ext_resource type="Texture2D" uid="uid://c5om8xio75bd2" path="res://texture/magicIcon/support2.png" id="1_qgqhe"]
 [ext_resource type="Resource" uid="uid://dbyoq24m5cut4" path="res://resource_ingame/resource_magic_perk/magic_perk_knockback.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_magic")
-Name = "Knockback Weight"
-Description = "On magic arrival, hit enemies are pushed away from the core."
-EnhancedDescription = "On magic arrival, hit enemies are pushed 50% farther away from the core."
+Name = "넉백 추가"
+Icon = ExtResource("1_qgqhe")
+Description = "마법 발현 시 적중한 적을 코어 반대 방향으로 밀어냅니다."
+EnhancedDescription = "마법 발현 시 적중한 적을 코어 반대 방향으로 [b]50% 더 멀리[/b] 밀어냅니다."
 Tier = 2
 MagicEffect = ExtResource("2_perk")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

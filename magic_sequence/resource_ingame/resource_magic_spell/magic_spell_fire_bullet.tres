@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="MagicSpellFireBullet" format=3 uid="uid://dgr2vywejrt44"]
 
 [ext_resource type="PackedScene" uid="uid://dl11hdsuas40" path="res://scene_magic/magic_fire_bullet.tscn" id="1_scene"]
-[ext_resource type="Script" path="res://class_ability/MagicSpellFireBullet.cs" id="2_script"]
+[ext_resource type="Script" uid="uid://bmwn06e42qw3p" path="res://class_ability/MagicSpellFireBullet.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -11,5 +11,4 @@ BaseMaxDistance = 500.0
 BaseSpeed = 500.0
 BaseDamage = 100
 BaseDurationFrame = 60
-EnhancedDamage = 140
 metadata/_custom_type_script = "res://class_ability/MagicSpellFireBullet.cs"

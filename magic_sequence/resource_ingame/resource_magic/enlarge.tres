@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Magic" format=3]
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://8rr3mieykkme"]
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
+[ext_resource type="Texture2D" uid="uid://e8u5polbhu23" path="res://texture/magicIcon/support1.png" id="1_qkvib"]
 [ext_resource type="Resource" uid="uid://bre1a4g5d638d" path="res://resource_ingame/resource_magic_perk/magic_perk_enlarge.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_magic")
-Name = "Enlarge"
-Description = "Projectile size is increased by 30%."
-EnhancedDescription = "Projectile size is increased by 50%."
+Name = "거대화"
+Icon = ExtResource("1_qkvib")
+Description = "투사체에 크기를 30% 증가시킵니다."
+EnhancedDescription = "투사체에 크기를 [b]50%[/b] 증가시킵니다."
 Tier = 1
 MagicEffect = ExtResource("2_perk")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

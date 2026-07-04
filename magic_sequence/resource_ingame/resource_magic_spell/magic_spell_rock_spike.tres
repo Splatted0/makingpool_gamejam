@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="MagicSpellRockSpike" format=3 uid="uid://8e1xawbwrqnv"]
 
 [ext_resource type="PackedScene" uid="uid://dcibi66tfbvoh" path="res://scene_magic/magic_spire_rock.tscn" id="1_scene"]
-[ext_resource type="Script" path="res://class_ability/MagicSpellRockSpike.cs" id="2_script"]
+[ext_resource type="Script" uid="uid://cx347a68ud25d" path="res://class_ability/MagicSpellRockSpike.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
+VulnerableDamageMultiplier = 1.1
+EnhancedVulnerableDamageMultiplier = 1.2
 MagicNodePack = ExtResource("1_scene")
 Elemental = 3
 BaseMaxDistance = 500.0
@@ -13,7 +15,4 @@ BaseSpeed = 500.0
 BaseDamage = 250
 BaseDurationFrame = 30
 EnhancedDamage = 320
-VulnerableDamageMultiplier = 1.1
-EnhancedVulnerableDamageMultiplier = 1.2
-VulnerableDuration = 2.0
 metadata/_custom_type_script = "res://class_ability/MagicSpellRockSpike.cs"

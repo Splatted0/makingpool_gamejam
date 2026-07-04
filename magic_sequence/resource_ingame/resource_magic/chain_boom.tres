@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Magic" format=3]
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://c3nahxck10eq6"]
 
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
+[ext_resource type="Texture2D" uid="uid://bctg8jagkljqa" path="res://texture/magicIcon/support3.png" id="1_nn4of"]
 [ext_resource type="Resource" uid="uid://1noper07jlva" path="res://resource_ingame/resource_magic_perk/magic_perk_chain_boom.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_magic")
-Name = "Chain Boom"
-Description = "On magic arrival, immediately hits 3 random enemies on the field with the same magic."
-EnhancedDescription = "On magic arrival, immediately hits 5 random enemies on the field with the same magic."
+Name = "연쇄 폭발"
+Icon = ExtResource("1_nn4of")
+Description = "마법 발현 시 필드 위의 무작위 적 3명에게 즉시 마법을 추가 적중시킵니다."
+EnhancedDescription = "마법 발현 시 필드 위의 무작위 적 [b]5[/b]명에게 즉시 마법을 추가 적중시킵니다."
 Tier = 3
 MagicEffect = ExtResource("2_perk")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

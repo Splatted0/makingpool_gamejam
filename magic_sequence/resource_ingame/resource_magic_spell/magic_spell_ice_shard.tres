@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="MagicSpellIceShard" format=3 uid="uid://bdgn4sxbvrqnv"]
 
 [ext_resource type="PackedScene" uid="uid://c6tv5ybn5njli" path="res://scene_magic/magic_ice_shard.tscn" id="1_scene"]
-[ext_resource type="Script" path="res://class_ability/MagicSpellIceShard.cs" id="2_script"]
+[ext_resource type="Script" uid="uid://vymir3jlcsrp" path="res://class_ability/MagicSpellIceShard.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -11,7 +11,4 @@ BaseMaxDistance = 250.0
 BaseSpeed = 500.0
 BaseDamage = 80
 BaseDurationFrame = 60
-EnhancedDamage = 120
-SlowAmount = 0.2
-SlowDuration = 2.0
 metadata/_custom_type_script = "res://class_ability/MagicSpellIceShard.cs"

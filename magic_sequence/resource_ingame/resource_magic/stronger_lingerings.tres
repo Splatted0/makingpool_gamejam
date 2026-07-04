@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Magic" format=3]
+[gd_resource type="Resource" script_class="Magic" format=3 uid="uid://dby0qtamrpm35"]
 
+[ext_resource type="Texture2D" uid="uid://e8u5polbhu23" path="res://texture/magicIcon/support1.png" id="1_jvfjo"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
 [ext_resource type="Resource" uid="uid://byl1iyua3hkqt" path="res://resource_ingame/resource_magic_perk/magic_perk_stronger_lingerings.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_magic")
-Name = "Stronger Lingerings"
-Description = "Arrival area size and duration are increased by 1.2x."
-EnhancedDescription = "Arrival area size and duration are increased by 1.5x."
+Name = "잔유물 강화"
+Icon = ExtResource("1_jvfjo")
+Description = "효과 발현 시 생성되는 장판의 크기와 지속시간을 1.2배로 증가시킵니다."
+EnhancedDescription = "효과 발현 시 생성되는 장판의 크기와 지속시간을 [b]1.5배[/b]로 증가시킵니다."
 Tier = 1
 MagicEffect = ExtResource("2_perk")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

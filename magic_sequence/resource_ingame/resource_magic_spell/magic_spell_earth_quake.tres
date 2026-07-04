@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="MagicSpellEarthQuake" format=3 uid="uid://bi0emiuqt6bpg"]
 
 [ext_resource type="PackedScene" uid="uid://rca5hjv0tuxw" path="res://scene_magic/magic_earth_quake.tscn" id="1_scene"]
-[ext_resource type="Script" path="res://class_ability/MagicSpellEarthQuake.cs" id="2_script"]
+[ext_resource type="Script" uid="uid://dbibh3c6f5k0d" path="res://class_ability/MagicSpellEarthQuake.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
+EnhancedLingerStunDuration = 0.7
 MagicNodePack = ExtResource("1_scene")
 Elemental = 3
 BaseMaxDistance = 1000.0
@@ -14,6 +15,4 @@ BaseSpeed = 500.0
 BaseDamage = 400
 BaseDurationFrame = 195
 EnhancedDamage = 520
-LingerStunDuration = 0.5
-EnhancedLingerStunDuration = 0.7
 metadata/_custom_type_script = "res://class_ability/MagicSpellEarthQuake.cs"

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="MagicSpellHellFire" format=3 uid="uid://bjl5ixmm1w6hl"]
 
 [ext_resource type="PackedScene" uid="uid://d0sa7pujtxe08" path="res://scene_magic/magic_hell_fire.tscn" id="1_scene"]
-[ext_resource type="Script" path="res://class_ability/MagicSpellHellFire.cs" id="2_script"]
+[ext_resource type="Script" uid="uid://bebsmptinqqeb" path="res://class_ability/MagicSpellHellFire.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -12,5 +12,4 @@ BaseArrivalRange = 100.0
 BaseSpeed = 500.0
 BaseDamage = 350
 BaseDurationFrame = 195
-EnhancedDamage = 450
 metadata/_custom_type_script = "res://class_ability/MagicSpellHellFire.cs"
