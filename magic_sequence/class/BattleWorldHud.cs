@@ -4,15 +4,12 @@ public partial class BattleWorldHud : CanvasLayer
 {
     [Export] public RoundManager RoundManager { get; private set; }
     [Export] public Node2D EntityContainer { get; private set; }
+    [Export] public Core Core { get; private set; }
 
-    public Core Core { get; private set; }
-
-    private Control _uiRoot;
-    private ProgressBar _coreHpBar;
-    private Label _coreHpText;
-    private Label _goldText;
-    private Label _roundInfoText;
-    private Button _pauseButton;
+    [Export] private ProgressBar _coreHpBar;
+    [Export] private Label _coreHpText;
+    [Export] private Label _goldText;
+    [Export] private Label _roundInfoText;
 
     private ColorRect _pauseDim;
 
@@ -22,28 +19,6 @@ public partial class BattleWorldHud : CanvasLayer
     {
         ProcessMode = Node.ProcessModeEnum.Always;
 
-        _uiRoot = GetNodeOrNull<Control>("UIRoot");
-
-        Core = GetNodeOrNull<Core>("BattleCenter/Core")
-            ?? GetTree().GetFirstNodeInGroup("core") as Core;
-
-        _coreHpBar = GetNodeOrNull<ProgressBar>(
-            "UIRoot/CoreStatus/VBoxContainer/CoreHpArea/CoreHpBar"
-        );
-
-        _coreHpText = GetNodeOrNull<Label>(
-            "UIRoot/CoreStatus/VBoxContainer/CoreHpArea/CoreHpText"
-        );
-
-        _goldText = GetNodeOrNull<Label>(
-            "UIRoot/CoreStatus/VBoxContainer/GoldPanel/GoldText"
-        );
-
-        _roundInfoText = GetNodeOrNull<Label>("UIRoot/Roundinfo/RoundInfo");
-        _pauseButton = GetNodeOrNull<Button>("UIRoot/PauseButton");
-
-        CreateOverlayNodes();
-
         if (Core != null)
         {
             Core.HealthChanged += OnCoreHpChanged;
@@ -52,16 +27,6 @@ public partial class BattleWorldHud : CanvasLayer
         else
         {
             GD.PrintErr("[BattleWorldHud] Core node not found.");
-        }
-
-        if (_pauseButton != null)
-        {
-            _pauseButton.Pressed += OnPauseButtonPressed;
-            UpdatePauseVisual();
-        }
-        else
-        {
-            GD.PrintErr("[BattleWorldHud] PauseButton node not found.");
         }
 
         UpdateGoldText(Blackboard.Gold);
@@ -74,34 +39,6 @@ public partial class BattleWorldHud : CanvasLayer
             UpdateGoldText(Blackboard.Gold);
 
         UpdateRoundInfoText();
-    }
-
-    public override void _ExitTree()
-    {
-        if (Core != null)
-            Core.HealthChanged -= OnCoreHpChanged;
-
-        if (_pauseButton != null)
-            _pauseButton.Pressed -= OnPauseButtonPressed;
-    }
-
-    private void CreateOverlayNodes()
-    {
-        if (_uiRoot == null)
-        {
-            GD.PrintErr("[BattleWorldHud] UIRoot not found.");
-            return;
-        }
-
-        _pauseDim = new ColorRect();
-        _pauseDim.Name = "PauseDim";
-        _pauseDim.Color = new Color(0f, 0f, 0f, 0.75f);
-        _pauseDim.Visible = false;
-        _pauseDim.MouseFilter = Control.MouseFilterEnum.Ignore;
-        _pauseDim.SetAnchorsPreset(Control.LayoutPreset.FullRect);
-        _uiRoot.AddChild(_pauseDim);
-
-        _pauseButton?.MoveToFront();
     }
 
     private void OnCoreHpChanged(int health, int maxHp)
@@ -144,25 +81,4 @@ public partial class BattleWorldHud : CanvasLayer
 
         _roundInfoText.Text = $"Round {roundNumber}: {remaining}/{total}";
     }
-
-    private void OnPauseButtonPressed()
-    {
-        GetTree().Paused = !GetTree().Paused;
-        UpdatePauseVisual();
-    }
-
-    private void UpdatePauseVisual()
-    {
-        bool paused = GetTree().Paused;
-
-        if (_pauseDim != null)
-            _pauseDim.Visible = paused;
-
-        if (_pauseButton != null)
-        {
-            _pauseButton.Text = paused ? "▶" : "||";
-            _pauseButton.MoveToFront();
-        }
-    }
-
 }
