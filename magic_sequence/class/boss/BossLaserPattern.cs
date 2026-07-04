@@ -14,6 +14,13 @@ public class BossLaserPattern : IBossPattern
 		GD.Print("[Laser] 충전");
 	}
 
+	// 스턴 등으로 차지 중단. 다음 사이클은 컨트롤러가 쿨다운 뒤 새로 Start.
+	public void Cancel()
+	{
+		_charge = 0f;
+		_finished = true;
+	}
+
 	public void Tick(Boss boss, double delta)
 	{
 		if (_finished)

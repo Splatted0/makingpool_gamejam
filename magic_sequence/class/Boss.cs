@@ -60,6 +60,13 @@ public partial class Boss : Monster
 		_patterns?.Tick(delta);
 	}
 
+	// 스턴 상태이상 재해석: 레이저 차지 캔슬(예고선은 계속 코어 추적).
+	protected override void OnStunned(float delta)
+	{
+		UpdateBeamGeometry();
+		_patterns?.OnStunned();
+	}
+
 	private void SetupBeam()
 	{
 		_beam = new Line2D();

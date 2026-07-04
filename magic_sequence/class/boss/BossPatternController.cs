@@ -3,7 +3,7 @@
 public class BossPatternController
 {
 	private readonly Boss _boss;
-	private readonly IBossPattern _laser = new BossLaserPattern();
+	private readonly BossLaserPattern _laser = new BossLaserPattern();   // 스턴 캔슬 위해 구체 타입
 	private readonly IBossPattern _barrage = new BossBarragePattern();
 	private double _laserCooldown;
 	private double _barrageCooldown;
@@ -22,6 +22,20 @@ public class BossPatternController
 
 		TickLaser(delta);
 		TickBarrage(delta);
+	}
+
+	// 스턴 중 호출(매 프레임). 충전 중인 레이저를 캔슬하고 쿨다운을 새로 잡는다.
+	public void OnStunned()
+	{
+		if (_boss.Config == null)
+			return;
+
+		if (!_laser.IsFinished)
+			GD.Print("[Laser] 캔슬(스턴)");
+
+		_laser.Cancel();
+		_boss.SetBeamWidth(_boss.Config.LaserWidthIdle);
+		_laserCooldown = _boss.Config.LaserInterval;   // 스턴 풀리면 새 주기부터 다시 충전
 	}
 
 	// 레이저를 주기(LaserInterval)마다 재실행. 진행 중이면 tick, 끝나면 쿨다운 후 재시작.

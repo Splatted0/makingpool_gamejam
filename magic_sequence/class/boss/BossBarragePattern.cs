@@ -16,15 +16,18 @@ public class BossBarragePattern : IBossPattern
 		int count = Mathf.Max(data.BarrageBulletCount, 1);
 		float halfSpread = data.BarrageSpreadDegrees * 0.5f;
 
+		// 슬로우(Ice) 상태이상 재해석: MoveSpeedMultiplier(슬로우 시 <1)를 탄속에 곱해 탄막을 느리게.
+		float speed = data.BarrageBulletSpeed * boss.MoveSpeedMultiplier;
+
 		for (int i = 0; i < count; i++)
 		{
 			float t = count == 1 ? 0.5f : (float)i / (count - 1);
 			float angleDeg = Mathf.Lerp(-halfSpread, halfSpread, t);
 			Vector2 direction = baseDirection.Rotated(Mathf.DegToRad(angleDeg));
-			boss.SpawnBullet(direction, data.BarrageBulletSpeed, data.BarrageDamage);
+			boss.SpawnBullet(direction, speed, data.BarrageDamage);
 		}
 
-		GD.Print($"[Barrage] 발사 {count}발");
+		GD.Print($"[Barrage] 발사 {count}발 (탄속 {speed:F0})");
 		_finished = true;
 	}
 

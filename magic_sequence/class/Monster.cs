@@ -155,6 +155,7 @@ public partial class Monster : CharacterBody2D, IEntity
         {
             Velocity = Vector2.Zero;
             MoveAndSlide();
+            OnStunned((float)delta);
             return;
         }
 
@@ -187,6 +188,12 @@ public partial class Monster : CharacterBody2D, IEntity
         }
 
         Move(delta);
+    }
+
+    // 스턴 중 매 프레임 호출(멈춘 상태에서도 돎). 기본은 아무 동작 없음.
+    // 보스는 이걸 오버라이드해 레이저 차지 캔슬 등에 쓴다.
+    protected virtual void OnStunned(float delta)
+    {
     }
 
     private void RangedUpdate(double delta, float distance)
