@@ -67,7 +67,22 @@ public partial class Monster : CharacterBody2D, IEntity
 	// 피격. 받은 데미지에 최종뎀 배율 적용 후 체력 감소.
 	public virtual void TakeDamage(int amount)
 	{
-		Health -= Mathf.RoundToInt(amount * DamageTakenMultiplier);
+		// 이미 죽는 중이면 무시 — 화상 등 지속뎀이 자폭/사망 시퀀스를 끊는 것 방지
+		if (_isDying)
+		{
+			return;
+		}
+
+		int damage = Mathf.RoundToInt(amount * DamageTakenMultiplier);
+		Health -= damage;
+
+		// 데미지 팝업(잃은 체력 표시)
+		Vfx.ExplanationDamage.Throw(new VfxExplanationDamageData
+		{
+			GlobalPosition = GlobalPosition,
+			Damage = damage
+		});
+
 		if (Health <= 0)
 		{
 			Die();
@@ -247,6 +262,12 @@ public partial class Monster : CharacterBody2D, IEntity
 		}
 		_isDying = true;
 		DisableCollision();
+
+		// 죽음 이펙트
+		Vfx.DeathParticle.Throw(new VfxDeathParticleData
+		{
+			GlobalPosition = GlobalPosition
+		});
 
 		if (Data != null)
 		{
