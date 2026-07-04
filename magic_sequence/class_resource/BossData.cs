@@ -45,11 +45,14 @@ public partial class BossData : MonsterData
     // 6: 전방에 랜덤 방향 레이저 여러 발
     [ExportSubgroup("Dice6 LaserSpray")]
     [Export] public int LaserSprayCount { get; set; } = 12;
-    [Export] public float LaserSprayArcDegrees { get; set; } = 90f;  // 전방(-X) 기준 랜덤 분포 각도
+    [Export] public float LaserSprayArcDegrees { get; set; } = 60f;  // 전방(-X) 기준 랜덤 분포 각도(위아래 각 절반씩)
     [Export] public int LaserSprayDamage { get; set; } = 150;
     [Export] public float LaserSprayLength { get; set; } = 1200f;   // 레이저 길이
-    [Export] public float LaserSprayChargeTime { get; set; } = 0.15f;  // 발당 짧은 전조(가늘게→굵게) 시간
+    [Export] public float LaserSprayChargeTime { get; set; } = 0.8f;   // 발마다 얇은 선행 레이저가 나온 뒤 임팩트까지 걸리는 시간(길수록 얇은 선만으로 압박감)
+    [Export] public float LaserSprayShotInterval { get; set; } = 0.08f; // 다음 발의 얇은 선이 나오기까지 간격(다라락 연속 발사)
     [Export] public float LaserSprayFadeDuration { get; set; } = 0.25f;  // 발사 후 사라지는 시간
+    [Export] public float LaserSprayThinWidth { get; set; } = 3f;      // 선행 얇은 레이저 두께
+    [Export] public float LaserSprayImpactWidth { get; set; } = 32f;   // 격발 순간 확 굵어지는 임팩트 레이저 두께
 
     // 4: 코어를 잠깐 속박(목줄 무시, 제자리 고정)해 회피 이동을 무력화
     [ExportSubgroup("Dice4 CoreRoot")]
@@ -64,10 +67,10 @@ public partial class BossData : MonsterData
     [ExportGroup("GroundZone")]
     [Export] public float GroundZoneInterval { get; set; } = 5f;          // 발동 주기(초)
     [Export] public int GroundZoneCount { get; set; } = 5;                // 한 번에 까는 장판 개수
-    [Export] public float GroundZoneRadius { get; set; } = 130f;          // 장판 판정 반지름(px)
+    [Export] public float GroundZoneRadius { get; set; } = 80f;           // 장판 판정 반지름(px)
     [Export] public int GroundZoneDamage { get; set; } = 20;
     [Export] public float GroundZoneTelegraphDuration { get; set; } = 1f;   // 예고 시간
     [Export] public float GroundZoneActiveDuration { get; set; } = 0.5f;    // 활성화 후 페이드아웃 시간
     [Export] public float GroundZoneSpreadRange { get; set; } = 220f;     // 플레이어 위치 기준 최대 배치 반경
-    [Export] public float GroundZoneMinSpacing { get; set; } = 160f;      // 장판끼리 최소 이 거리(반지름 2배보다 작게 잡아 살짝 겹치는 건 허용)
+    [Export] public float GroundZoneMinSpacing { get; set; } = 100f;      // 장판끼리 최소 이 거리(반지름 2배보다 작게 잡아 살짝 겹치는 건 허용)
 }

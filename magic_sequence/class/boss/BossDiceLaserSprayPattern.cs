@@ -1,80 +1,100 @@
-// 주사위 6: 왼쪽(-X) 기준 ±(LaserSprayArcDegrees/2) 안에서 방향을 무작위로 뽑아
-// 한 발씩 순차로 쏜다(6발 동시 아님). 발마다 짧게 차징(가늘게→굵게)한 뒤 판정+발사.
+using System.Collections.Generic;
+
+// 주사위 6: 왼쪽(-X) 기준 ±(LaserSprayArcDegrees/2) 안에서 방향을 무작위로 뽑아 여러 발을 쏜다.
+// 얇은 선행 레이저가 LaserSprayShotInterval 간격으로 다라락 연속으로 나가고, 각 발은 자기가
+// 나온 시점 기준 LaserSprayChargeTime 뒤에 독립적으로 굵은 임팩트가 터진다(발끼리 겹쳐 진행됨).
 // 코어를 조준하지 않으므로, 발사 순간 코어가 그 직선 근처에 있으면 맞고 아니면 빗나간다.
 public class BossDiceLaserSprayPattern : IBossPattern
 {
 	private const float HitRadius = 24f;
-	private const float ChargeWidth = 1f;
-	private const float FireWidth = 6f;
 
-	private int _shotsFired;
-	private float _chargeElapsed;
-	private bool _charging;
+	private class ActiveShot
+	{
+		public BossLaserSprayBeam Beam;
+		public Vector2 Direction;
+		public float ChargeElapsed;
+	}
+
+	private readonly List<ActiveShot> _activeShots = new List<ActiveShot>();
+	private int _shotsSpawned;
+	private float _spawnElapsed;
 	private bool _finished = true;
-	private Vector2 _currentDirection;
-	private BossLaserSprayBeam _currentBeam;
 
 	public bool IsFinished => _finished;
 	public bool WasCancelled => false;
 
 	public void Start(Boss boss)
 	{
-		_shotsFired = 0;
+		_activeShots.Clear();
+		_shotsSpawned = 0;
+		_spawnElapsed = 0f;
 		_finished = false;
-		BeginNextShot(boss);
+
+		SpawnShot(boss);
 	}
 
 	public void Tick(Boss boss, double delta)
 	{
-		if (_finished || !_charging)
+		if (_finished)
 			return;
 
 		BossData data = boss.Config;
-		_chargeElapsed += (float)delta;
-		float t = Mathf.Clamp(_chargeElapsed / data.LaserSprayChargeTime, 0f, 1f);
-		_currentBeam?.SetWidth(Mathf.Lerp(ChargeWidth, FireWidth, t));
+		int total = Mathf.Max(data.LaserSprayCount, 1);
 
-		if (_chargeElapsed >= data.LaserSprayChargeTime)
-			FireCurrentShot(boss);
+		if (_shotsSpawned < total)
+		{
+			_spawnElapsed += (float)delta;
+			if (_spawnElapsed >= data.LaserSprayShotInterval)
+			{
+				_spawnElapsed = 0f;
+				SpawnShot(boss);
+			}
+		}
+
+		for (int i = _activeShots.Count - 1; i >= 0; i--)
+		{
+			ActiveShot shot = _activeShots[i];
+			shot.ChargeElapsed += (float)delta;
+			if (shot.ChargeElapsed >= data.LaserSprayChargeTime)
+			{
+				FireShot(boss, shot);
+				_activeShots.RemoveAt(i);
+			}
+		}
+
+		if (_shotsSpawned >= total && _activeShots.Count == 0)
+			_finished = true;
 	}
 
-	private void BeginNextShot(Boss boss)
+	private void SpawnShot(Boss boss)
 	{
 		BossData data = boss.Config;
 		float halfArc = data.LaserSprayArcDegrees * 0.5f;
 		float angleDeg = (float)GD.RandRange(-halfArc, halfArc);
-		_currentDirection = Vector2.Left.Rotated(Mathf.DegToRad(angleDeg));
+		Vector2 direction = Vector2.Left.Rotated(Mathf.DegToRad(angleDeg));
 
-		_currentBeam = new BossLaserSprayBeam();
-		boss.GetParent().AddChild(_currentBeam);
-		_currentBeam.GlobalPosition = boss.GlobalPosition;
-		_currentBeam.Setup(_currentDirection, data.LaserSprayLength, new Color(1f, 0.15f, 0.25f, 0.85f), ChargeWidth);
+		BossLaserSprayBeam beam = new BossLaserSprayBeam();
+		boss.GetParent().AddChild(beam);
+		beam.GlobalPosition = boss.GlobalPosition;
+		beam.Setup(direction, data.LaserSprayLength, boss.LaserGradient, data.LaserSprayThinWidth);
 
-		_chargeElapsed = 0f;
-		_charging = true;
+		_activeShots.Add(new ActiveShot { Beam = beam, Direction = direction, ChargeElapsed = 0f });
+		_shotsSpawned++;
 	}
 
-	private void FireCurrentShot(Boss boss)
+	private void FireShot(Boss boss, ActiveShot shot)
 	{
 		BossData data = boss.Config;
-		_charging = false;
 
-		if (HitsCore(boss, _currentDirection, data.LaserSprayLength))
+		if (HitsCore(boss, shot.Direction, data.LaserSprayLength))
 			boss.HitCore(data.LaserSprayDamage);
 
-		_currentBeam?.SetWidth(FireWidth);
-		_currentBeam?.Fire(data.LaserSprayFadeDuration);
-		_currentBeam = null;
+		// 얇은 선행 레이저 → 판정 순간 굵은 임팩트 레이저로 스냅(보간 아님, 순간 전환)
+		shot.Beam.SetWidth(data.LaserSprayImpactWidth);
+		shot.Beam.Fire(data.LaserSprayFadeDuration);
 		boss.PlayAttackAnim();
 
-		_shotsFired++;
-		int total = Mathf.Max(data.LaserSprayCount, 1);
-		GD.Print($"[Dice6] {_shotsFired}/{total}");
-
-		if (_shotsFired >= total)
-			_finished = true;
-		else
-			BeginNextShot(boss);
+		GD.Print($"[Dice6] {_shotsSpawned}/{Mathf.Max(data.LaserSprayCount, 1)} 임팩트");
 	}
 
 	// 콜리전 아님 — 점(코어)과 선분(레이저 경로) 사이 최단거리를 계산하는 순수 기하 판정.

@@ -8,6 +8,7 @@ public partial class Boss : Monster
 	[Export] public PackedScene MonsterScene { get; set; }   // Monster.cs가 붙은 범용 몬스터 씬(스포너와 동일)
 	[Export] public MonsterData ShieldData { get; set; }     // 방패병 데이터(MoveSpeed=0, 원거리형+데미지0 권장)
 	[Export] public PackedScene MagicCircleScene { get; set; }   // MagicCircle.cs가 붙은 장판 프리팹
+	[Export] public Gradient LaserGradient { get; set; }     // 레이저 색상(에디터에서 그라데이션 편집, 주사위6)
 
 	private const string ShieldGroup = "boss_shield";
 

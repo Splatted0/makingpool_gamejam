@@ -103,7 +103,6 @@ texture = ExtResource("2_tkjpb")
 
 [node name="Core" parent="BattleCenter" unique_id=326636362 instance=ExtResource("2_1bjxy")]
 position = Vector2(60, 242)
-collision_layer = 1
 
 [node name="Player" parent="BattleCenter" unique_id=1271626603 instance=ExtResource("3_1j1wl")]
 position = Vector2(312, 329)
