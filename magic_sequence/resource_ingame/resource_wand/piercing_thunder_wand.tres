@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cpmumx8qeq3rg"]
 
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_t0k1k"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://wperkthunder001" path="res://resource_ingame/resource_magic_perk/wand_perk_piercing_thunder.tres" id="2_perk"]
+[ext_resource type="Resource" uid="uid://bf0kiw8b3cl0k" path="res://resource_ingame/resource_magic_perk/wand_perk_piercing_thunder.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_wand")

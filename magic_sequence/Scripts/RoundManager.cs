@@ -4,6 +4,13 @@ public partial class RoundManager : Node
 {
     [Signal] public delegate void RoundEndedEventHandler();
 
+    private const float WaveSpawnInterval = 0.2f;
+    private const string SlimePath = "res://resource_ingame/resource_monster/slime.tres";
+    private const string SkeletonArcherPath = "res://resource_ingame/resource_monster/skeleton_archer.tres";
+    private const string SkeletonShieldPath = "res://resource_ingame/resource_monster/skeleton_shield.tres";
+    private const string WolfPath = "res://resource_ingame/resource_monster/wolf.tres";
+    private const string FairyHealerPath = "res://resource_ingame/resource_monster/fairy_healer.tres";
+
     [Export] public Spawner Spawner { get; set; }
     [Export] public BattleWorldHud Hud { get; set; }
     [Export] public Node Projectiles { get; set; }
@@ -12,7 +19,13 @@ public partial class RoundManager : Node
     [Export] public double BetweenRoundSeconds { get; set; } = 1.0;
 
     [Export] public int RoundNumber { get; set; } = 1;
-    [Export] public int MaxRounds { get; set; } = 0;
+    [Export] public int MaxRounds { get; set; } = 10;
+
+    private MonsterData _slime;
+    private MonsterData _skeletonArcher;
+    private MonsterData _skeletonShield;
+    private MonsterData _wolf;
+    private MonsterData _fairyHealer;
 
     private bool _roundRunning;
     private bool _cancelRequested;
@@ -58,12 +71,12 @@ public partial class RoundManager : Node
             return;
         }
 
-        WaveData wave = Spawner.GetDefaultWave();
+        WaveData wave = BuildWaveData(RoundNumber);
 
         if (wave == null)
         {
             _roundRunning = false;
-            GD.PrintErr("[RoundManager] WaveData is missing. Assign WaveData to Spawner.");
+            GD.PrintErr($"[RoundManager] WaveData is missing for round {RoundNumber}.");
             return;
         }
 
@@ -162,5 +175,74 @@ public partial class RoundManager : Node
         }
 
         return count;
+    }
+
+    private WaveData BuildWaveData(int roundNumber)
+    {
+        LoadMonsterData();
+
+        return roundNumber switch
+        {
+            1 => CreateWave(slime: 15),
+            2 => CreateWave(slime: 15, wolf: 10),
+            3 => CreateWave(slime: 20, skeletonArcher: 10),
+            4 => CreateWave(skeletonArcher: 15, skeletonShield: 15),
+            5 => CreateWave(skeletonArcher: 15, skeletonShield: 15, fairyHealer: 3),
+            6 => CreateWave(skeletonArcher: 15, wolf: 30),
+            7 => CreateWave(slime: 20, skeletonArcher: 15, skeletonShield: 20, fairyHealer: 5),
+            8 => CreateWave(slime: 40, wolf: 30),
+            9 => CreateWave(skeletonArcher: 25, skeletonShield: 25, fairyHealer: 10),
+            10 => CreateWave(skeletonArcher: 15, skeletonShield: 15, wolf: 15, fairyHealer: 5),
+            _ => null
+        };
+    }
+
+    private void LoadMonsterData()
+    {
+        _slime ??= GD.Load<MonsterData>(SlimePath);
+        _skeletonArcher ??= GD.Load<MonsterData>(SkeletonArcherPath);
+        _skeletonShield ??= GD.Load<MonsterData>(SkeletonShieldPath);
+        _wolf ??= GD.Load<MonsterData>(WolfPath);
+        _fairyHealer ??= GD.Load<MonsterData>(FairyHealerPath);
+    }
+
+    private WaveData CreateWave(
+        int slime = 0,
+        int skeletonArcher = 0,
+        int skeletonShield = 0,
+        int wolf = 0,
+        int fairyHealer = 0)
+    {
+        var wave = new WaveData
+        {
+            Interval = WaveSpawnInterval,
+            Entries = new Godot.Collections.Array<SpawnEntry>()
+        };
+
+        AddEntry(wave, _slime, slime);
+        AddEntry(wave, _skeletonArcher, skeletonArcher);
+        AddEntry(wave, _skeletonShield, skeletonShield);
+        AddEntry(wave, _wolf, wolf);
+        AddEntry(wave, _fairyHealer, fairyHealer);
+
+        return wave;
+    }
+
+    private static void AddEntry(WaveData wave, MonsterData data, int count)
+    {
+        if (count <= 0)
+            return;
+
+        if (data == null)
+        {
+            GD.PrintErr("[RoundManager] MonsterData is missing while building WaveData.");
+            return;
+        }
+
+        wave.Entries.Add(new SpawnEntry
+        {
+            Data = data,
+            Count = count
+        });
     }
 }

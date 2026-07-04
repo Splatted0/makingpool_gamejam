@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cpmxtu6qtqg5g"]
 
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_j5734"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://wperkworldtree1" path="res://resource_ingame/resource_magic_perk/wand_perk_world_tree_branch.tres" id="2_perk"]
+[ext_resource type="Resource" uid="uid://bf0npt6cjbyek" path="res://resource_ingame/resource_magic_perk/wand_perk_world_tree_branch.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_wand")
@@ -9,6 +10,5 @@ WandName = "세계수 가지 지팡이"
 Description = "맵 통제용. 발현 시 생성되는 장판 크기 +50%, 투사체 직접 데미지 -20%."
 Tier = 2
 Slot = 4
-BaseCooldown = 3.0
 WandPerk = ExtResource("2_perk")
 metadata/_custom_type_script = "uid://1s667kayv311"

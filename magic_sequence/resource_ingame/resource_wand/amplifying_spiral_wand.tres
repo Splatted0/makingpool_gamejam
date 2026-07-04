@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cxl0ufwiglm77"]
 
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_gwcwh"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://wperkspiral001" path="res://resource_ingame/resource_magic_perk/wand_perk_amplifying_spiral.tres" id="2_perk"]
+[ext_resource type="Resource" uid="uid://b0e4llf40rlqe" path="res://resource_ingame/resource_magic_perk/wand_perk_amplifying_spiral.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_wand")
@@ -9,6 +10,5 @@ WandName = "증폭의 나선 지팡이"
 Description = "뒤쪽 슬롯일수록 위력 증폭. 1번 0%, 2번 +15%, 3번 +30%, 4번 +50%."
 Tier = 2
 Slot = 4
-BaseCooldown = 3.0
 WandPerk = ExtResource("2_perk")
 metadata/_custom_type_script = "uid://1s667kayv311"

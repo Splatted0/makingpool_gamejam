@@ -12,4 +12,5 @@ AttackRange = 400.0
 AttackInterval = 0.0
 SpawnFront = true
 Frames = ExtResource("1_fnc1f")
+GoldReward = 20
 metadata/_custom_type_script = "uid://cxrvco7ce4fuv"

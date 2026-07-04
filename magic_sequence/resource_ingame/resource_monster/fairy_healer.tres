@@ -5,8 +5,11 @@
 
 [resource]
 script = ExtResource("2_v5k58")
-MaxHealth = 10000
-AttackRange = 100.0
+MaxHealth = 300
+MoveSpeed = 50.0
+AttackDamage = 200
+AttackRange = 600.0
 HealAmount = 10
 Frames = ExtResource("1_csgr5")
+GoldReward = 30
 metadata/_custom_type_script = "uid://cxrvco7ce4fuv"

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MagicPerkWandStatModifier" format=3 uid="uid://bf0npt6cjbyek"]
 
-[ext_resource type="Script" uid="uid://wandstatmodifier" path="res://class_ability/MagicPerkWandStatModifier.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://btxg1mwolxdw8" path="res://class_ability/MagicPerkWandStatModifier.cs" id="1_script"]
 
 [resource]
 script = ExtResource("1_script")

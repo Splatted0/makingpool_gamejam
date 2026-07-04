@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cxl0xey2gm4j7"]
 
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_efqat"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://wperkvolcanic1" path="res://resource_ingame/resource_magic_perk/wand_perk_volcanic_shotgun.tres" id="2_perk"]
+[ext_resource type="Resource" uid="uid://b0e4okio0s22e" path="res://resource_ingame/resource_magic_perk/wand_perk_volcanic_shotgun.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_wand")

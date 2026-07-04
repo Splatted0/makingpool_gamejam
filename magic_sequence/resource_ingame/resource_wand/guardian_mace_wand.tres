@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cxl0ikoijhvu7"]
 
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_balh6"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
-[ext_resource type="Resource" uid="uid://wperkguardian1" path="res://resource_ingame/resource_magic_perk/wand_perk_guardian_mace.tres" id="2_perk"]
+[ext_resource type="Resource" uid="uid://b0e38p643nuee" path="res://resource_ingame/resource_magic_perk/wand_perk_guardian_mace.tres" id="2_perk"]
 
 [resource]
 script = ExtResource("1_wand")

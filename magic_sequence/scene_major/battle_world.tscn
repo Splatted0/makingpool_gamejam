@@ -135,7 +135,7 @@ script = ExtResource("8_yt1t0")
 Spawner = NodePath("../EnemySpawner/Spawner")
 Hud = NodePath("../..")
 Projectiles = NodePath("../Projectiles")
-MaxRounds = 4
+MaxRounds = 10
 
 [node name="UIRoot" type="Control" parent="." unique_id=1582633444]
 layout_mode = 3

@@ -10,4 +10,5 @@ MoveSpeed = 75.0
 AttackDamage = 150
 AttackRange = 600.0
 Frames = ExtResource("1_3noac")
+GoldReward = 15
 metadata/_custom_type_script = "uid://cxrvco7ce4fuv"

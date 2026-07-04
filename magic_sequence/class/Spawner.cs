@@ -1,4 +1,4 @@
-// 몬스터 소환 실행자. WaveData를 받아 타이머로 하나씩 소환한다.
+﻿// 몬스터 소환 실행자. WaveData를 받아 타이머로 하나씩 소환한다.
 // 웨이브 내용·진행은 결정하지 않음 — 매니저가 SpawnStart로 넘긴 것만 실행.
 public partial class Spawner : Node2D
 {
@@ -18,6 +18,8 @@ public partial class Spawner : Node2D
 	private int _spawnIndex;
 	private MonsterData _pendingBoss;
 	private int _totalSpawnCount;
+	private const float MinSpawnDistance = 48f;
+	private const int MaxSpawnPositionAttempts = 24;
 
 	public int TotalSpawnCount => _totalSpawnCount;
 	public int PendingSpawnCount
@@ -121,7 +123,6 @@ public partial class Spawner : Node2D
 		}
 
 		_spawnList.Shuffle();   // 기본 소환 순서는 랜덤
-		MoveFrontMonstersFirst();   // 방패병 등 SpawnFront 몬스터를 앞으로 몰아 먼저 나오게
 
 		_spawnIndex = 0;
 		_pendingBoss = wave.Boss;
@@ -178,7 +179,7 @@ public partial class Spawner : Node2D
 			}
 			else
 			{
-				SpawnMonster(_spawnList[_spawnIndex], RandomPointInArea());
+				SpawnMonster(_spawnList[_spawnIndex], RandomNonOverlappingPointInArea());
 				_spawnIndex++;
 			}
 		}
@@ -222,6 +223,37 @@ public partial class Spawner : Node2D
 		float x = center.X + (float)GD.RandRange(-size.X * 0.5, size.X * 0.5);
 		float y = center.Y + (float)GD.RandRange(-size.Y * 0.5, size.Y * 0.5);
 		return new Vector2(x, y);
+	}
+
+	private Vector2 RandomNonOverlappingPointInArea()
+	{
+		Vector2 fallback = RandomPointInArea();
+
+		for (int i = 0; i < MaxSpawnPositionAttempts; i++)
+		{
+			Vector2 point = i == 0 ? fallback : RandomPointInArea();
+			if (IsSpawnPointClear(point))
+				return point;
+		}
+
+		return fallback;
+	}
+
+	private bool IsSpawnPointClear(Vector2 point)
+	{
+		if (Container == null)
+			return true;
+
+		foreach (Node child in Container.GetChildren())
+		{
+			if (child is Monster monster && IsInstanceValid(monster))
+			{
+				if (monster.GlobalPosition.DistanceTo(point) < MinSpawnDistance)
+					return false;
+			}
+		}
+
+		return true;
 	}
 
 	// 큐 앞쪽의 연속된 방패병 전체를 세로 1자 대형으로 한 번에 소환한다(쫙 등장).
