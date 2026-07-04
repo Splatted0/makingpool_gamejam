@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MagicPerkWaveform" format=3 uid="uid://bdw3gpq2ijr3h"]
+
+[ext_resource type="Script" uid="uid://ckvp5fxouqdv2" path="res://class_ability/MagicPerkWaveform.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+TickIntervalSeconds = 0.3
+DamageMultiplier = 1.0
+EnhancedDamageMultiplier = 1.0
+DurationFrameMultiplier = 1.0
+EnhancedDurationFrameMultiplier = 1.5

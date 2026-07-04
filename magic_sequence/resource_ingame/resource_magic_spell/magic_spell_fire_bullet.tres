@@ -1,14 +1,15 @@
 [gd_resource type="Resource" script_class="MagicSpellFireBullet" format=3 uid="uid://dgr2vywejrt44"]
 
-[ext_resource type="PackedScene" uid="uid://dl11hdsuas40" path="res://scene_magic/magic_fire_bullet.tscn" id="1_60l8f"]
-[ext_resource type="Script" uid="uid://bmwn06e42qw3p" path="res://class_ability/MagicSpellFireBullet.cs" id="1_ci2vt"]
+[ext_resource type="PackedScene" uid="uid://dl11hdsuas40" path="res://scene_magic/magic_fire_bullet.tscn" id="1_scene"]
+[ext_resource type="Script" path="res://class_ability/MagicSpellFireBullet.cs" id="2_script"]
 
 [resource]
-script = ExtResource("1_ci2vt")
-MagicNodePack = ExtResource("1_60l8f")
+script = ExtResource("2_script")
+MagicNodePack = ExtResource("1_scene")
 Elemental = 1
 BaseMaxDistance = 500.0
 BaseSpeed = 500.0
 BaseDamage = 100
 BaseDurationFrame = 60
-metadata/_custom_type_script = "uid://bmwn06e42qw3p"
+EnhancedDamage = 140
+metadata/_custom_type_script = "res://class_ability/MagicSpellFireBullet.cs"

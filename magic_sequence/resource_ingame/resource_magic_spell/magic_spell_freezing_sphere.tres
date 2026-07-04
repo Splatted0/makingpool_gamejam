@@ -1,15 +1,19 @@
-[gd_resource type="Resource" script_class="MagicSpellIceShard" format=3 uid="uid://c4l3qdm4gjof5"]
+[gd_resource type="Resource" script_class="MagicSpellFreezingSphere" format=3 uid="uid://c4l3qdm4gjof5"]
 
-[ext_resource type="PackedScene" uid="uid://dqnpv3vix66ed" path="res://scene_magic/magic_freezing_sphere.tscn" id="1_1pkw7"]
-[ext_resource type="Script" uid="uid://vymir3jlcsrp" path="res://class_ability/MagicSpellIceShard.cs" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://dqnpv3vix66ed" path="res://scene_magic/magic_freezing_sphere.tscn" id="1_scene"]
+[ext_resource type="Script" path="res://class_ability/MagicSpellFreezingSphere.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
-MagicNodePack = ExtResource("1_1pkw7")
+MagicNodePack = ExtResource("1_scene")
 Elemental = 2
 BaseMaxDistance = 500.0
 BaseArrivalRange = 75.0
 BaseSpeed = 500.0
 BaseDamage = 150
 BaseDurationFrame = 150
-metadata/_custom_type_script = "uid://vymir3jlcsrp"
+EnhancedDamage = 200
+SlowAmount = 0.3
+EnhancedSlowAmount = 0.4
+SlowDuration = 2.0
+metadata/_custom_type_script = "res://class_ability/MagicSpellFreezingSphere.cs"

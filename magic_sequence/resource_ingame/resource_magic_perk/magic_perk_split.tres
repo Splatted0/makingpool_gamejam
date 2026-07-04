@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="MagicPerkWandStatModifier" format=3 uid="uid://e2ldwnh0k3fb"]
+[gd_resource type="Resource" script_class="MagicPerkWandStatModifier" format=3 uid="uid://dy3l1gljdynf5"]
 
 [ext_resource type="Script" uid="uid://btxg1mwolxdw8" path="res://class_ability/MagicPerkWandStatModifier.cs" id="1_script"]
 
 [resource]
 script = ExtResource("1_script")
-ProjectileDamageMultiplier = 0.8
-ArrivalRangeMultiplier = 1.5
+DamageMultiplier = 0.7
+EnhancedDamageMultiplier = 0.85
+ExtraFanProjectiles = 2
+FanAngleDegrees = 15.0
 metadata/_custom_type_script = "uid://wandstatmodifier"

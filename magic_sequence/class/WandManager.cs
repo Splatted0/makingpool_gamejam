@@ -18,6 +18,7 @@ public partial class WandManager : Node
     private readonly double[] _fireCooldownLeft = new double[3];
     private readonly bool[] _isFiringSequence = new bool[3];
     private readonly double[] _sequenceDelayLeft = new double[3];
+    private readonly double[] _sequenceCooldownMultiplier = { 1.0, 1.0, 1.0 };
     private readonly Queue<MagicNode>[] _queuedMagicNodes =
     {
         new Queue<MagicNode>(),
@@ -30,10 +31,6 @@ public partial class WandManager : Node
     {
         ResolveReferences();
         SetupWands();
-
-        ValidateInputAction("first_wand");
-        ValidateInputAction("second_wand");
-        ValidateInputAction("third_wand");
     }
 
     public override void _Process(double delta)
@@ -41,19 +38,18 @@ public partial class WandManager : Node
         if (Blackboard.BattleWorldHud != null && !Blackboard.BattleWorldHud.Visible)
             return;
 
-        for (int i = 0; i < _fireCooldownLeft.Length; i++)
-            _fireCooldownLeft[i] -= delta;
-
         UpdateFiringSequences(delta);
 
-        if (Input.IsActionJustPressed("first_wand"))
-            Fire(0);
+        for (int i = 0; i < _fireCooldownLeft.Length; i++)
+        {
+            if (_isFiringSequence[i])
+                continue;
 
-        if (Input.IsActionJustPressed("second_wand"))
-            Fire(1);
+            _fireCooldownLeft[i] -= delta;
 
-        if (Input.IsActionJustPressed("third_wand"))
-            Fire(2);
+            if (_fireCooldownLeft[i] <= 0.0 && !TryFire(i))
+                _fireCooldownLeft[i] = GetBaseCooldown(i);
+        }
     }
 
     public void SetupWands()
@@ -64,7 +60,13 @@ public partial class WandManager : Node
         for (int i = 0; i < nodes.Length; i++)
         {
             Wand wand = wands != null && i < wands.Length ? wands[i] : null;
+            wand?.Setup();
             nodes[i]?.Setup(wand);
+            _fireCooldownLeft[i] = 0.0;
+            _isFiringSequence[i] = false;
+            _sequenceDelayLeft[i] = 0.0;
+            _sequenceCooldownMultiplier[i] = 1.0;
+            _queuedMagicNodes[i].Clear();
         }
 
         Arsenal?.Refresh();
@@ -77,35 +79,40 @@ public partial class WandManager : Node
         _cooldownMultiplier = Math.Max(multiplier, 0.0);
     }
 
-    private void Fire(int wandIndex)
+    private bool TryFire(int wandIndex)
     {
         ResolveReferences();
 
         if (Player == null || Projectiles == null || wandIndex < 0 || wandIndex >= _fireCooldownLeft.Length)
-            return;
+            return false;
 
         if (_isFiringSequence[wandIndex] || _fireCooldownLeft[wandIndex] > 0.0)
-            return;
+            return false;
 
         WandNode wandNode = GetWandNodes()[wandIndex];
 
         if (wandNode == null)
-            return;
+            return false;
 
         Array<MagicNode> magicNodes = wandNode.Active();
 
         if (magicNodes.Count == 0)
-            return;
+            return false;
 
         _queuedMagicNodes[wandIndex].Clear();
+        _sequenceCooldownMultiplier[wandIndex] = 1.0;
         foreach (MagicNode magicNode in magicNodes)
+        {
             _queuedMagicNodes[wandIndex].Enqueue(magicNode);
+            _sequenceCooldownMultiplier[wandIndex] *= Math.Max(magicNode.GetFireCooldownMultiplier(), 0f);
+        }
 
         _isFiringSequence[wandIndex] = true;
         _sequenceDelayLeft[wandIndex] = 0.0;
         LaunchNextInSequence(wandIndex);
         
-        EmitSignal(SignalName.LanchedWand, Blackboard.Wands[wandIndex]);
+        EmitSignal(SignalName.LanchedWand, wandNode.Wand);
+        return true;
     }
 
     private void UpdateFiringSequences(double delta)
@@ -128,22 +135,25 @@ public partial class WandManager : Node
         if (queue.Count == 0)
         {
             _isFiringSequence[wandIndex] = false;
-            _fireCooldownLeft[wandIndex] = GetBaseCooldown(wandIndex);
+            _fireCooldownLeft[wandIndex] = GetBaseCooldown(wandIndex) * _sequenceCooldownMultiplier[wandIndex];
+            _sequenceCooldownMultiplier[wandIndex] = 1.0;
             Arsenal?.Refresh();
             return;
         }
 
-        Launch(queue.Dequeue());
+        MagicNode launchedNode = queue.Dequeue();
+        Launch(launchedNode);
         Arsenal?.Refresh();
 
         if (queue.Count > 0)
         {
-            _sequenceDelayLeft[wandIndex] = GetSlotDelay(wandIndex);
+            _sequenceDelayLeft[wandIndex] = GetSlotDelay(wandIndex) * Math.Max(launchedNode.GetSlotDelayMultiplier(), 0f);
             return;
         }
 
         _isFiringSequence[wandIndex] = false;
-        _fireCooldownLeft[wandIndex] = GetBaseCooldown(wandIndex);
+        _fireCooldownLeft[wandIndex] = GetBaseCooldown(wandIndex) * _sequenceCooldownMultiplier[wandIndex];
+        _sequenceCooldownMultiplier[wandIndex] = 1.0;
     }
 
     private void Launch(MagicNode magicNode)
@@ -182,12 +192,6 @@ public partial class WandManager : Node
         Core ??= GetNodeOrNull<Core>("../Core");
         Projectiles ??= GetNodeOrNull<Node>("../Projectiles");
         Arsenal ??= GetNodeOrNull<Arsenal>("../../UIRoot/Arsenal");
-    }
-
-    private static void ValidateInputAction(string action)
-    {
-        if (!InputMap.HasAction(action))
-            GD.PrintErr($"[WandManager] Input action '{action}' does not exist. Check Project Settings > Input Map.");
     }
 
     private static Vector2 GetFireDirection() => Vector2.Right;

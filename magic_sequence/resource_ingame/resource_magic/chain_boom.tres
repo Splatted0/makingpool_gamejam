@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Magic" format=3]
+
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
+[ext_resource type="Resource" uid="uid://1noper07jlva" path="res://resource_ingame/resource_magic_perk/magic_perk_chain_boom.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_magic")
+Name = "Chain Boom"
+Description = "On magic arrival, immediately hits 3 random enemies on the field with the same magic."
+EnhancedDescription = "On magic arrival, immediately hits 5 random enemies on the field with the same magic."
+Tier = 3
+MagicEffect = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

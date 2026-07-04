@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Magic" format=3]
+
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
+[ext_resource type="Resource" uid="uid://byl1iyua3hkqt" path="res://resource_ingame/resource_magic_perk/magic_perk_stronger_lingerings.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_magic")
+Name = "Stronger Lingerings"
+Description = "Arrival area size and duration are increased by 1.2x."
+EnhancedDescription = "Arrival area size and duration are increased by 1.5x."
+Tier = 1
+MagicEffect = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

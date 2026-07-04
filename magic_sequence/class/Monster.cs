@@ -26,6 +26,7 @@ public partial class Monster : CharacterBody2D, IEntity
 	public bool IsStunned { get; set; }
 	public float MoveSpeedMultiplier { get; set; } = 1f;
 	public float DamageTakenMultiplier { get; set; } = 1f;
+	public bool HealBlocked { get; set; }
 
 	private DebuffController _debuffs;
 	private MonsterAnimator _animator;
@@ -67,16 +68,19 @@ public partial class Monster : CharacterBody2D, IEntity
 			ApplyElementEffect(hitInfo.Element, hitInfo);
 
 		if (hitInfo.ApplyFireEffect)
-			ApplyFireBurn(hitInfo.FireDurationMultiplier);
+			ApplyFireBurn(hitInfo.FireDurationMultiplier, hitInfo.FireDurationSeconds);
 
 		if (hitInfo.ApplyIceEffect)
-			ApplyIceSlow();
+			ApplyIceSlow(hitInfo.IceDurationSeconds, hitInfo.IceSlow);
 
 		if (hitInfo.ApplyEarthEffect)
-			ApplyEarthStun(hitInfo.EarthDurationMultiplier);
+			ApplyEarthStun(hitInfo.EarthDurationMultiplier, hitInfo.EarthDurationSeconds);
 
 		if (hitInfo.ApplyVulnerableEffect)
-			_debuffs.Apply(new VulnerableEffect(2f, 1.1f));
+			ApplyVulnerable(hitInfo.VulnerableDurationSeconds, hitInfo.VulnerableDamageMultiplier);
+
+		if (hitInfo.ApplyHealBlockEffect)
+			ApplyHealBlock(hitInfo.HealBlockDurationSeconds);
 	}
 
 	public virtual void TakeDamage(int amount, Color color)
@@ -300,36 +304,53 @@ public partial class Monster : CharacterBody2D, IEntity
 		switch (element)
 		{
 			case Elemental.Fire:
-				ApplyFireBurn(hitInfo.FireDurationMultiplier);
+				ApplyFireBurn(hitInfo.FireDurationMultiplier, hitInfo.FireDurationSeconds);
 				break;
 			case Elemental.Ice:
-				ApplyIceSlow();
+				ApplyIceSlow(hitInfo.IceDurationSeconds, hitInfo.IceSlow);
 				break;
 			case Elemental.Earth:
-				ApplyEarthStun(hitInfo.EarthDurationMultiplier);
+				ApplyEarthStun(hitInfo.EarthDurationMultiplier, hitInfo.EarthDurationSeconds);
 				break;
 		}
 	}
 
-	private void ApplyFireBurn(float durationMultiplier = 1f)
+	private void ApplyFireBurn(float durationMultiplier = 1f, float durationSeconds = 0f)
 	{
 		if (durationMultiplier <= 0f)
 			durationMultiplier = 1f;
 
-		_debuffs.Apply(new FireEffect(2f * durationMultiplier, 40));
+		float duration = durationSeconds > 0f ? durationSeconds : 2f * durationMultiplier;
+		_debuffs.Apply(new FireEffect(duration, 40));
 	}
 
-	private void ApplyIceSlow()
+	private void ApplyIceSlow(float durationSeconds = 0f, float slow = 0f)
 	{
-		_debuffs.Apply(new IceEffect(2f, 0.3f));
+		float duration = durationSeconds > 0f ? durationSeconds : 2f;
+		float amount = slow > 0f ? slow : 0.2f;
+		_debuffs.Apply(new IceEffect(duration, amount));
 	}
 
-	private void ApplyEarthStun(float durationMultiplier = 1f)
+	private void ApplyEarthStun(float durationMultiplier = 1f, float durationSeconds = 0f)
 	{
 		if (durationMultiplier <= 0f)
 			durationMultiplier = 1f;
 
-		_debuffs.Apply(new EarthEffect(1f * durationMultiplier));
+		float duration = durationSeconds > 0f ? durationSeconds : 1f * durationMultiplier;
+		_debuffs.Apply(new EarthEffect(duration));
+	}
+
+	private void ApplyVulnerable(float durationSeconds = 0f, float damageMultiplier = 0f)
+	{
+		float duration = durationSeconds > 0f ? durationSeconds : 2f;
+		float multiplier = damageMultiplier > 0f ? damageMultiplier : 1.1f;
+		_debuffs.Apply(new VulnerableEffect(duration, multiplier));
+	}
+
+	private void ApplyHealBlock(float durationSeconds = 0f)
+	{
+		float duration = durationSeconds > 0f ? durationSeconds : 2f;
+		_debuffs.Apply(new HealBlockEffect(duration));
 	}
 
 	private void HealTick(double delta)
@@ -361,7 +382,7 @@ public partial class Monster : CharacterBody2D, IEntity
 
 	public void Heal(int amount)
 	{
-		if (amount <= 0)
+		if (amount <= 0 || HealBlocked)
 			return;
 
 		Health = Mathf.Min(Health + amount, Data.MaxHealth);

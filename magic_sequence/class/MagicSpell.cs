@@ -13,6 +13,10 @@ public abstract partial class MagicSpell : MagicEffect
     [Export] public int BaseDamage { get; private set; }
     [ExportCategory("MagicData")]
     [Export] public int BaseDurationFrame { get; private set; }
+    [ExportCategory("MagicEnhance")]
+    [Export] public int EnhancedDamage { get; private set; } = -1;
+
+    public int CurrentDamage => IsEnhanced && EnhancedDamage >= 0 ? EnhancedDamage : BaseDamage;
 
     public abstract void SpawnEffect(MagicNode node);
 

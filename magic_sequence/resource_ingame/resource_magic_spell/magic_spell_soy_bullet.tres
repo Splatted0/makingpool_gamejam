@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="MagicSpellFireBullet" format=3 uid="uid://b33dkve6aowvw"]
+[gd_resource type="Resource" script_class="MagicSpellSoyBullet" format=3 uid="uid://b33dkve6aowvw"]
 
-[ext_resource type="Script" uid="uid://bmwn06e42qw3p" path="res://class_ability/MagicSpellFireBullet.cs" id="1_ci2vt"]
-[ext_resource type="PackedScene" uid="uid://bdyr4cwjadhi" path="res://scene_magic/magic_soy_bullet.tscn" id="1_eg3pr"]
+[ext_resource type="PackedScene" uid="uid://bdyr4cwjadhi" path="res://scene_magic/magic_soy_bullet.tscn" id="1_scene"]
+[ext_resource type="Script" path="res://class_ability/MagicSpellSoyBullet.cs" id="2_script"]
 
 [resource]
-script = ExtResource("1_ci2vt")
-MagicNodePack = ExtResource("1_eg3pr")
+script = ExtResource("2_script")
+MagicNodePack = ExtResource("1_scene")
 Elemental = 1
 BaseMaxDistance = 500.0
 BaseSpeed = 500.0
 BaseDamage = 180
 BaseDurationFrame = 150
-metadata/_custom_type_script = "uid://bmwn06e42qw3p"
+EnhancedDamage = 240
+metadata/_custom_type_script = "res://class_ability/MagicSpellSoyBullet.cs"

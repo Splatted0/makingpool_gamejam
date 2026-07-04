@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MagicSpellIceShard" format=3 uid="uid://b2bgx1b1y17ru"]
+[gd_resource type="Resource" script_class="MagicSpellAbsoluteZero" format=3 uid="uid://b2bgx1b1y17ru"]
 
-[ext_resource type="PackedScene" uid="uid://c6tv5ybn5njli" path="res://scene_magic/magic_ice_shard.tscn" id="1_scene"]
-[ext_resource type="Script" uid="uid://vymir3jlcsrp" path="res://class_ability/MagicSpellIceShard.cs" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://uexdu1tt48ox" path="res://scene_magic/magic_absolute_zero.tscn" id="1_scene"]
+[ext_resource type="Script" path="res://class_ability/MagicSpellAbsoluteZero.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
@@ -12,4 +12,8 @@ BaseArrivalRange = 100.0
 BaseSpeed = 500.0
 BaseDamage = 250
 BaseDurationFrame = 195
-metadata/_custom_type_script = "uid://vymir3jlcsrp"
+EnhancedDamage = 320
+SlowAmount = 0.5
+EnhancedSlowAmount = 0.6
+SlowDuration = 5.0
+metadata/_custom_type_script = "res://class_ability/MagicSpellAbsoluteZero.cs"

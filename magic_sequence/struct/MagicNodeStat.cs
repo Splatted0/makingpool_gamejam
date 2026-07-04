@@ -13,7 +13,7 @@ public struct MagicStat
         MaxDistance = spell.BaseMaxDistance,
         MoveRange       = spell.BaseMoveRange,
         ArrivalRange = spell.BaseArrivalRange,
-        Damage      = spell.BaseDamage,
+        Damage      = spell.CurrentDamage,
         DurationFrame = spell.BaseDurationFrame,
     };
 }

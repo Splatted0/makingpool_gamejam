@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Magic" format=3]
+
+[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
+[ext_resource type="Resource" uid="uid://dy3l1gljdynf5" path="res://resource_ingame/resource_magic_perk/magic_perk_split.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_magic")
+Name = "Split"
+Description = "Next projectile attack magic splits into three shots, and each shot deals 30% less damage."
+EnhancedDescription = "Next projectile attack magic splits into three shots, and each shot deals 15% less damage."
+Tier = 2
+MagicEffect = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

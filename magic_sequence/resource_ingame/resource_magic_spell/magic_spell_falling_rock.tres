@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="MagicSpellRockSpike" format=3 uid="uid://dq4h1c8cjrf0j"]
+[gd_resource type="Resource" script_class="MagicSpellFallingRock" format=3 uid="uid://dq4h1c8cjrf0j"]
 
-[ext_resource type="PackedScene" uid="uid://b8b3detivj5t8" path="res://scene_magic/magic_falling_rock.tscn" id="1_xxy15"]
-[ext_resource type="Script" uid="uid://cx347a68ud25d" path="res://class_ability/MagicSpellRockSpike.cs" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://b8b3detivj5t8" path="res://scene_magic/magic_falling_rock.tscn" id="1_scene"]
+[ext_resource type="Script" path="res://class_ability/MagicSpellFallingRock.cs" id="2_script"]
 
 [resource]
 script = ExtResource("2_script")
-MagicNodePack = ExtResource("1_xxy15")
+MagicNodePack = ExtResource("1_scene")
 Elemental = 3
 BaseMaxDistance = 500.0
 BaseSpeed = 500.0
 BaseDamage = 150
 BaseDurationFrame = 60
-metadata/_custom_type_script = "uid://cx347a68ud25d"
+EnhancedDamage = 200
+metadata/_custom_type_script = "res://class_ability/MagicSpellFallingRock.cs"

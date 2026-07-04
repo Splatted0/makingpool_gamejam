@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MagicPerkKnockback" format=3 uid="uid://dbyoq24m5cut4"]
+
+[ext_resource type="Script" uid="uid://cfppy16ce7lwp" path="res://class_ability/MagicPerkKnockback.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+KnockbackValue = 50.0
+EnhancedKnockbackValue = 75.0

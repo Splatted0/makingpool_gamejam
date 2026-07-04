@@ -4,6 +4,10 @@
 
 [resource]
 script = ExtResource("1_script")
-ProjectileDamageMultiplier = 0.8
-ArrivalRangeMultiplier = 1.5
+MoveRangeMultiplier = 1.2
+EnhancedMoveRangeMultiplier = 1.5
+ArrivalRangeMultiplier = 1.2
+EnhancedArrivalRangeMultiplier = 1.5
+DurationFrameMultiplier = 1.2
+EnhancedDurationFrameMultiplier = 1.5
 metadata/_custom_type_script = "uid://wandstatmodifier"

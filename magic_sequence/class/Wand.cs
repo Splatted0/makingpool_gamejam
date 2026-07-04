@@ -4,6 +4,20 @@ using Godot.Collections;
 [GlobalClass]
 public partial class Wand : Resource, IDropObject
 {
+    private static readonly System.Collections.Generic.Dictionary<string, string> DefaultPerkPaths = new()
+    {
+        ["beginner_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_beginner.tres",
+        ["rapid_fire_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_rapid_fire.tres",
+        ["obsidian_giant_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_obsidian_giant.tres",
+        ["alchemist_fusion_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_alchemist_fusion.tres",
+        ["volcanic_shotgun_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_volcanic_shotgun.tres",
+        ["world_tree_branch_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_world_tree_branch.tres",
+        ["amplifying_spiral_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_amplifying_spiral.tres",
+        ["piercing_thunder_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_piercing_thunder.tres",
+        ["guardian_mace_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_guardian_mace.tres",
+        ["archmage_void_wand"] = "res://resource_ingame/resource_magic_perk/wand_perk_archmage_void.tres"
+    };
+
     [Export] public string WandName { get; private set; } = "";
     [Export(PropertyHint.MultilineText)] public string Description { get; private set; } = "";
     [Export] public Tier Tier { get; private set; }
@@ -14,7 +28,22 @@ public partial class Wand : Resource, IDropObject
 
     public void Setup()
     {
+        EnsureDefaultWandPerks();
         Magics.Resize(Slot);
+    }
+
+    private void EnsureDefaultWandPerks()
+    {
+        if (WandPerks.Count > 0 || string.IsNullOrEmpty(ResourcePath))
+            return;
+
+        string wandId = System.IO.Path.GetFileNameWithoutExtension(ResourcePath);
+        if (!DefaultPerkPaths.TryGetValue(wandId, out string perkPath))
+            return;
+
+        MagicPerk perk = GD.Load<MagicPerk>(perkPath);
+        if (perk != null)
+            WandPerks.Add(perk);
     }
 
     // index 슬롯이 비어 있으면 magic을 넣는다.

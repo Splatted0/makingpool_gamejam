@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MagicPerkChainBoom" format=3 uid="uid://1noper07jlva"]
+
+[ext_resource type="Script" uid="uid://bev53xpayk8ox" path="res://class_ability/MagicPerkChainBoom.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+TargetCount = 3
+EnhancedTargetCount = 5

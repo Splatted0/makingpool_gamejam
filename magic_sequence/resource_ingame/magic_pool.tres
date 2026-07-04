@@ -14,9 +14,18 @@
 [ext_resource type="Resource" uid="uid://c0eri7qbckibi" path="res://resource_ingame/resource_magic/soy_bullet.tres" id="11_cqu0p"]
 [ext_resource type="Resource" uid="uid://ba0i4hewmym5x" path="res://resource_ingame/resource_magic/typhoon.tres" id="12_ei20c"]
 [ext_resource type="Resource" uid="uid://b2jq7b4b7l5gr" path="res://resource_ingame/resource_magic/wind_arrow.tres" id="13_xuqmf"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/fast_chant.tres" id="14_fast"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/dual_chant.tres" id="15_dual"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/amplify_chant.tres" id="16_amplify"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/enlarge.tres" id="17_enlarge"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/split.tres" id="18_split"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/waveform.tres" id="19_wave"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/stronger_lingerings.tres" id="20_linger"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/knockback.tres" id="21_knock"]
+[ext_resource type="Resource" path="res://resource_ingame/resource_magic/chain_boom.tres" id="22_chain"]
 
 [resource]
 script = ExtResource("2_f3t1d")
-_pool = Array[ExtResource("1_2bs4b")]([ExtResource("2_u4aum"), ExtResource("3_hcor6"), ExtResource("4_7nm6u"), ExtResource("5_arnvr"), ExtResource("6_ylp6y"), ExtResource("7_7cc35"), ExtResource("8_ja4mw"), ExtResource("9_utvgs"), ExtResource("10_v5khm"), ExtResource("11_cqu0p"), ExtResource("12_ei20c"), ExtResource("13_xuqmf")])
+_pool = Array[ExtResource("1_2bs4b")]([ExtResource("2_u4aum"), ExtResource("3_hcor6"), ExtResource("4_7nm6u"), ExtResource("5_arnvr"), ExtResource("6_ylp6y"), ExtResource("7_7cc35"), ExtResource("8_ja4mw"), ExtResource("9_utvgs"), ExtResource("10_v5khm"), ExtResource("11_cqu0p"), ExtResource("12_ei20c"), ExtResource("13_xuqmf"), ExtResource("14_fast"), ExtResource("15_dual"), ExtResource("16_amplify"), ExtResource("17_enlarge"), ExtResource("18_split"), ExtResource("19_wave"), ExtResource("20_linger"), ExtResource("21_knock"), ExtResource("22_chain")])
 _fallbackDrop = ExtResource("13_xuqmf")
 metadata/_custom_type_script = "uid://s5av2w1p2afp"

@@ -50,6 +50,7 @@ public partial class MagicNode : Node2D
             }
             list.Add(perk);
         }
+
     }
 
     public void Fire(Vector2 direction)
@@ -197,6 +198,12 @@ public partial class MagicNode : Node2D
         }
 
         MagicSpell.MoveEffect(this, targets, fdelta);
+
+        if (_perkMap.TryGetValue(typeof(MagicPerk), out var genericPerks))
+        {
+            foreach (MagicPerk perk in genericPerks)
+                perk.OnNodeMove(this, targets, fdelta);
+        }
     }
 
     private void OnArrival(float fdelta, bool isFirstTrigger = false)
@@ -220,6 +227,12 @@ public partial class MagicNode : Node2D
                 ((MagicPerkArrival)perk).ArrivalEffect(MagicSpell, targets, _progressedFrame);
         }
         MagicSpell.ArrivalEffect(this, targets, _progressedFrame);
+
+        if (_perkMap.TryGetValue(typeof(MagicPerk), out var genericPerks))
+        {
+            foreach (MagicPerk perk in genericPerks)
+                perk.OnNodeArrival(this, targets, _progressedFrame);
+        }
     }
 
     public bool TryMarkMoveHit(Monster monster)
@@ -231,6 +244,10 @@ public partial class MagicNode : Node2D
         _moveHitIds.Add(id);
         return true;
     }
+
+    public float GetFireCooldownMultiplier() => GetPerkMultiplier(perk => perk.GetFireCooldownMultiplier());
+
+    public float GetSlotDelayMultiplier() => GetPerkMultiplier(perk => perk.GetSlotDelayMultiplier());
 
     public MagicNode SpawnSibling(float angleDegrees)
     {
@@ -254,6 +271,18 @@ public partial class MagicNode : Node2D
             return;
 
         AffectedElementals.Add(elemental);
+    }
+
+    private float GetPerkMultiplier(Func<MagicPerk, float> selector)
+    {
+        if (_magicPerks == null)
+            return 1f;
+
+        float multiplier = 1f;
+        foreach (MagicPerk perk in _magicPerks)
+            multiplier *= selector(perk);
+
+        return multiplier;
     }
 
     private void SetAreaRange(Area2D area, float range, float particleRatio)

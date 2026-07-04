@@ -30,6 +30,9 @@ public partial class Main : Node
 
     public override void _Ready()
     {
+        foreach (Wand wand in Wands)
+            wand?.Setup();
+
         StateChanger.Start();
     }
 
@@ -72,6 +75,8 @@ public partial class Main : Node
 
     public void AddWand(Wand wand)
     {
+        wand?.Setup();
+
         var newWands = new Wand[Wands.Length + 1];
         Wands.CopyTo(newWands, 0);
         newWands[Wands.Length] = wand;
