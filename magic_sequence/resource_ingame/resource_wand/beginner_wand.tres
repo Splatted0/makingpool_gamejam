@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cpmcjj31ndurg"]
+
+[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
+[ext_resource type="Resource" uid="uid://wperkbeginner01" path="res://resource_ingame/resource_magic_perk/wand_perk_beginner.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_wand")
+WandName = "초심자의 지팡이"
+Description = "표준 지팡이. 모든 마법의 데미지 +10%, 투사체 비행 속도 +10%."
+Slot = 3
+BaseCooldown = 3.0
+WandPerk = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://1s667kayv311"

@@ -8,6 +8,7 @@ public partial class Wand : Resource, IDropObject
     [Export] public string Description { get; private set; } = "";
     [Export] public Tier Tier { get; private set; }
     [Export] public int Slot { get; private set; } = 5;
+    [Export] public double BaseCooldown { get; private set; } = 3.0;
     [Export] public MagicPerk WandPerk { get; private set; }
     [Export] public Array<Magic> Magics { get; set; } = new();
 

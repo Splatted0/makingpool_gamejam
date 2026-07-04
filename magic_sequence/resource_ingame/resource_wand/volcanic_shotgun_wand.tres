@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cxl0xey2gm4j7"]
+
+[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
+[ext_resource type="Resource" uid="uid://wperkvolcanic1" path="res://resource_ingame/resource_magic_perk/wand_perk_volcanic_shotgun.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_wand")
+WandName = "화산암 산탄 지팡이"
+Description = "근접 분사용. 모든 마법 투사체 수 +2, 최대 사거리 -40%, 개별 위력 -15%."
+Tier = 1
+Slot = 3
+BaseCooldown = 2.5
+WandPerk = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://1s667kayv311"

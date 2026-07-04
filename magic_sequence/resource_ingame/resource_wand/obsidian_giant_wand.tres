@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cxl0p068jhvu7"]
+
+[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
+[ext_resource type="Resource" uid="uid://wperkobsidian1" path="res://resource_ingame/resource_magic_perk/wand_perk_obsidian_giant.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_wand")
+WandName = "거인의 흑요석 지팡이"
+Description = "묵직한 한 방. 모든 마법 위력 +40%, 사거리 +40%, 투사체 비행 속도 -20%."
+Tier = 1
+Slot = 4
+BaseCooldown = 4.0
+WandPerk = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://1s667kayv311"

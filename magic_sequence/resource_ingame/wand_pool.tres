@@ -1,16 +1,20 @@
 [gd_resource type="Resource" script_class="WandPool" format=3 uid="uid://uico6cp0vjnj"]
 
-[ext_resource type="Resource" uid="uid://dbg5cmwand000" path="res://resource_ingame/resource_wand/common_wand.tres" id="1_3334k"]
 [ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_kwqj1"]
 [ext_resource type="Script" uid="uid://bcfme4ovhetw4" path="res://class_resource/WandPool.cs" id="2_q6lad"]
-[ext_resource type="Resource" uid="uid://banpxa2wpix51" path="res://resource_ingame/resource_wand/default_wand.tres" id="3_odw4s"]
-[ext_resource type="Resource" uid="uid://lnwbtnpq44w" path="res://resource_ingame/resource_wand/three_wand.tres" id="4_1su0h"]
-[ext_resource type="Resource" uid="uid://dbg7epwand000" path="res://resource_ingame/resource_wand/epic_wand.tres" id="5_qhchx"]
-[ext_resource type="Resource" uid="uid://dbg6rewand000" path="res://resource_ingame/resource_wand/rare_wand.tres" id="6_6mgc1"]
-[ext_resource type="Resource" uid="uid://dbg8lgwand000" path="res://resource_ingame/resource_wand/legendary_wand.tres" id="7_fkj8w"]
+[ext_resource type="Resource" uid="uid://wandbeginner01" path="res://resource_ingame/resource_wand/beginner_wand.tres" id="3_beginner"]
+[ext_resource type="Resource" uid="uid://wandrapidfire1" path="res://resource_ingame/resource_wand/rapid_fire_wand.tres" id="4_rapid"]
+[ext_resource type="Resource" uid="uid://wandobsidian1" path="res://resource_ingame/resource_wand/obsidian_giant_wand.tres" id="5_obsidian"]
+[ext_resource type="Resource" uid="uid://wandalchemist1" path="res://resource_ingame/resource_wand/alchemist_fusion_wand.tres" id="6_alchemy"]
+[ext_resource type="Resource" uid="uid://wandvolcanic1" path="res://resource_ingame/resource_wand/volcanic_shotgun_wand.tres" id="7_volcanic"]
+[ext_resource type="Resource" uid="uid://wandworldtree1" path="res://resource_ingame/resource_wand/world_tree_branch_wand.tres" id="8_worldtree"]
+[ext_resource type="Resource" uid="uid://wandspiral001" path="res://resource_ingame/resource_wand/amplifying_spiral_wand.tres" id="9_spiral"]
+[ext_resource type="Resource" uid="uid://wandthunder001" path="res://resource_ingame/resource_wand/piercing_thunder_wand.tres" id="10_thunder"]
+[ext_resource type="Resource" uid="uid://wandguardian1" path="res://resource_ingame/resource_wand/guardian_mace_wand.tres" id="11_guardian"]
+[ext_resource type="Resource" uid="uid://wandarchmage1" path="res://resource_ingame/resource_wand/archmage_void_wand.tres" id="12_archmage"]
 
 [resource]
 script = ExtResource("2_q6lad")
-_pool = Array[ExtResource("1_kwqj1")]([ExtResource("3_odw4s"), ExtResource("4_1su0h"), ExtResource("5_qhchx"), ExtResource("6_6mgc1"), ExtResource("1_3334k"), ExtResource("7_fkj8w")])
-_fallbackDrop = ExtResource("1_3334k")
+_pool = Array[ExtResource("1_kwqj1")]([ExtResource("3_beginner"), ExtResource("4_rapid"), ExtResource("5_obsidian"), ExtResource("6_alchemy"), ExtResource("7_volcanic"), ExtResource("8_worldtree"), ExtResource("9_spiral"), ExtResource("10_thunder"), ExtResource("11_guardian"), ExtResource("12_archmage")])
+_fallbackDrop = ExtResource("3_beginner")
 metadata/_custom_type_script = "uid://bcfme4ovhetw4"

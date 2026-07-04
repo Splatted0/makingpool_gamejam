@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cpmumx8qeq3rg"]
+
+[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
+[ext_resource type="Resource" uid="uid://wperkthunder001" path="res://resource_ingame/resource_magic_perk/wand_perk_piercing_thunder.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_wand")
+WandName = "꿰뚫는 뇌전의 지팡이"
+Description = "방패 뒤의 적 저격용. 투사체 비행 속도 +100%, 모든 투사체 관통, 바람 속성 효과 제외."
+Tier = 3
+Slot = 3
+BaseCooldown = 1.5
+WandPerk = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://1s667kayv311"

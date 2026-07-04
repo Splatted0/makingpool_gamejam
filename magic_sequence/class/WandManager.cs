@@ -117,7 +117,7 @@ public partial class WandManager : Node
         if (queue.Count == 0)
         {
             _isFiringSequence[wandIndex] = false;
-            _fireCooldownLeft[wandIndex] = FireCooldown;
+            _fireCooldownLeft[wandIndex] = GetBaseCooldown(wandIndex);
             Arsenal?.Refresh();
             return;
         }
@@ -127,12 +127,12 @@ public partial class WandManager : Node
 
         if (queue.Count > 0)
         {
-            _sequenceDelayLeft[wandIndex] = FireCooldown;
+            _sequenceDelayLeft[wandIndex] = GetSlotDelay(wandIndex);
             return;
         }
 
         _isFiringSequence[wandIndex] = false;
-        _fireCooldownLeft[wandIndex] = FireCooldown;
+        _fireCooldownLeft[wandIndex] = GetBaseCooldown(wandIndex);
     }
 
     private void Launch(MagicNode magicNode)
@@ -147,6 +147,19 @@ public partial class WandManager : Node
     }
 
     public WandNode[] GetWandNodes() => new[] { WandNode1, WandNode2, WandNode3 };
+
+    private double GetBaseCooldown(int wandIndex)
+    {
+        Wand wand = GetWandNodes()[wandIndex]?.Wand;
+        return wand?.BaseCooldown ?? FireCooldown;
+    }
+
+    private double GetSlotDelay(int wandIndex)
+    {
+        Wand wand = GetWandNodes()[wandIndex]?.Wand;
+        float multiplier = wand?.WandPerk?.GetSlotDelayMultiplier() ?? 1f;
+        return FireCooldown * multiplier;
+    }
 
     private void ResolveReferences()
     {

@@ -12,6 +12,16 @@ public partial class MagicSpellRockSpike : MagicSpell
         if (targets.Count == 0)
             return;
 
+        if (node.ForcePierce)
+        {
+            foreach (Monster monster in targets)
+            {
+                if (node.TryMarkMoveHit(monster))
+                    monster.Hit(MagicCombo.BuildHit(node, Elemental.Earth, monster));
+            }
+            return;
+        }
+
         node.PrimaryTarget ??= targets[0];
         node.TriggerArrival();
     }

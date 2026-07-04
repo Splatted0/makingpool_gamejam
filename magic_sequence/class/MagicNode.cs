@@ -19,18 +19,24 @@ public partial class MagicNode : Node2D
     public List<Elemental> AffectedElementals;
     public Monster PrimaryTarget { get; set; }
     public bool HasSplit { get; set; }
+    public bool ForcePierce { get; set; }
+    public bool SuppressWindElementEffects { get; set; }
+    public int CastSlotIndex { get; private set; } = -1;
 
     private Dictionary<Type, List<MagicPerk>> _perkMap;
+    private List<MagicPerk> _magicPerks;
     private readonly HashSet<ulong> _moveHitIds = new();
     private bool _arrived;
     private float _distanceTraveled;
     private int _progressedFrame;
 
-    public void Setup(MagicSpell magicSpell, List<MagicPerk> magicPerks)
+    public void Setup(MagicSpell magicSpell, List<MagicPerk> magicPerks, int castSlotIndex = -1)
     {
         MagicSpell = magicSpell;
         Stat = MagicStat.From(magicSpell);
+        CastSlotIndex = castSlotIndex;
         AffectedElementals = new List<Elemental>();
+        _magicPerks = new List<MagicPerk>(magicPerks);
         _perkMap = new Dictionary<Type, List<MagicPerk>>();
 
         foreach (MagicPerk perk in magicPerks)
@@ -82,6 +88,9 @@ public partial class MagicNode : Node2D
 
     public void OnSpawn()
     {
+        foreach (MagicPerk perk in _magicPerks)
+            perk.ApplyToNode(this);
+
         OnMagicStatSet();
 
         if (_moveArea == null || _arrivalArea == null)
@@ -107,6 +116,8 @@ public partial class MagicNode : Node2D
             {
                 if (perk is MagicPerkSplitNextCast splitPerk)
                     splitPerk.SpawnEffect(this);
+
+                perk.OnNodeSpawned(this);
             }
         }
     }
@@ -225,13 +236,13 @@ public partial class MagicNode : Node2D
     public MagicNode SpawnSibling(float angleDegrees)
     {
         MagicNode sibling = MagicSpell.MagicNodePack.Instantiate<MagicNode>();
-        sibling.Setup(MagicSpell, new List<MagicPerk>());
+        sibling.Setup(MagicSpell, _magicPerks ?? new List<MagicPerk>(), CastSlotIndex);
+        sibling.HasSplit = true;
         GetParent().AddChild(sibling);
         sibling.GlobalPosition = GlobalPosition;
         sibling.Fire(Direction.Rotated(Mathf.DegToRad(angleDegrees)));
         sibling.OnSpawn();
         sibling.AffectedElementals.AddRange(AffectedElementals);
-        sibling.HasSplit = true;
         return sibling;
     }
 

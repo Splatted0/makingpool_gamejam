@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MagicPerkWandStatModifier" format=3 uid="uid://b0e38p643nuee"]
+
+[ext_resource type="Script" uid="uid://wandstatmodifier" path="res://class_ability/MagicPerkWandStatModifier.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+NearCoreDamageMultiplier = 1.3
+NearCoreScreenWidthRatio = 0.1
+metadata/_custom_type_script = "uid://wandstatmodifier"

@@ -12,16 +12,23 @@ public static class MagicCombo
         => PreviousElemental(node) == Elemental.Earth && current == Elemental.Ice;
 
     public static bool ShouldPierce(MagicNode node, Elemental current)
-        => current == Elemental.Wind && PreviousElemental(node) != Elemental.Earth;
+        => node.ForcePierce || (current == Elemental.Wind && PreviousElemental(node) != Elemental.Earth);
 
     public static HitInfo BuildHit(MagicNode node, Elemental current, Monster target = null)
     {
         Elemental previous = PreviousElemental(node);
+        bool suppressWind = node.SuppressWindElementEffects
+            && (previous == Elemental.Wind || current == Elemental.Wind);
+
+        if (suppressWind)
+            previous = Elemental.None;
+
         var hit = new HitInfo
         {
             Damage = AdjustedDamage(node.Stat.Damage, previous, current),
             SourceTeam = Team.Player,
-            Element = current
+            Element = current,
+            SuppressElementEffect = suppressWind && current == Elemental.Wind
         };
 
         ApplyCombinationEffects(ref hit, previous, current, node, target);

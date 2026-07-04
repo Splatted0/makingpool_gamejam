@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cxl0ikoijhvu7"]
+
+[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
+[ext_resource type="Resource" uid="uid://wperkguardian1" path="res://resource_ingame/resource_magic_perk/wand_perk_guardian_mace.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_wand")
+WandName = "수호자의 철퇴 지팡이"
+Description = "위기 상황 화력. 코어 근처 가로 10% 안쪽에서 공격 마법 대미지 +30%."
+Tier = 1
+Slot = 4
+BaseCooldown = 2.5
+WandPerk = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://1s667kayv311"

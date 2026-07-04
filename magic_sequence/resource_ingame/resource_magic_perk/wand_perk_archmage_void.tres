@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MagicPerkWandStatModifier" format=3 uid="uid://b0e32m8udf04e"]
+
+[ext_resource type="Script" uid="uid://wandstatmodifier" path="res://class_ability/MagicPerkWandStatModifier.cs" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+DamageMultiplier = 1.3
+ArrivalRangeMultiplier = 1.2
+metadata/_custom_type_script = "uid://wandstatmodifier"

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Wand" format=3 uid="uid://dbg5cmwand000"]
-
-[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_dbgwcm"]
-[ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_rxo4l"]
-
-[resource]
-script = ExtResource("1_dbgwcm")
-WandName = "common_wand"
-metadata/_custom_type_script = "uid://1s667kayv311"

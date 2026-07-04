@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Wand" format=3 uid="uid://cxl0chp7r82l7"]
+
+[ext_resource type="Script" uid="uid://1s667kayv311" path="res://class/Wand.cs" id="1_wand"]
+[ext_resource type="Resource" uid="uid://wperkarchmage1" path="res://resource_ingame/resource_magic_perk/wand_perk_archmage_void.tres" id="2_perk"]
+
+[resource]
+script = ExtResource("1_wand")
+WandName = "대마법사의 공허 지팡이"
+Description = "하이리스크 5슬롯 콤보. 모든 마법 위력 +30%, 장판 크기 +20%."
+Tier = 3
+Slot = 5
+BaseCooldown = 5.0
+WandPerk = ExtResource("2_perk")
+metadata/_custom_type_script = "uid://1s667kayv311"

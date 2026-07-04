@@ -56,7 +56,7 @@ public partial class WandNode : Control
             if (Wand.WandPerk != null)
                 perks.Add(Wand.WandPerk);
 
-            node.Setup(spell, perks);
+            node.Setup(spell, perks, index);
             result.Add(node);
         }
 
