@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_icon"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="2_script"]
-[ext_resource type="Resource" uid="uid://splitnextcastpk" path="res://resource_ingame/resource_magic_perk/magic_perk_split_next_cast.tres" id="3_perk"]
+[ext_resource type="Resource" uid="uid://crredhtbu0b8w" path="res://resource_ingame/resource_magic_perk/magic_perk_split_next_cast.tres" id="3_perk"]
 
 [resource]
 script = ExtResource("2_script")
 Name = "Split Seal"
-Description = "Grants the next cast the Earth + Ice split projectile effect."
 Icon = ExtResource("1_icon")
+Description = "Grants the next cast the Earth + Ice split projectile effect."
 Tier = 1
 MagicEffect = ExtResource("3_perk")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

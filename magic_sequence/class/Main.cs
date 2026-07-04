@@ -6,6 +6,7 @@ public partial class Main : Node
     [Signal] public delegate void HealthChangedEventHandler(int health, int maxHealth);
     [Signal] public delegate void GoldChangedEventHandler(int gold);
     [Signal] public delegate void WaveChangedEventHandler(int wave);
+    [Signal] public delegate void WandsChangedEventHandler();
 
     public int Wave { get; private set; }
     public int Health { get; private set; }
@@ -23,6 +24,7 @@ public partial class Main : Node
     [Export] public Wand[] Wands;
     [Export] public MagicPool MagicPool;
     [Export] public WandPool WandPool;
+    [Export] public EnhanceData[] EnhanceDataList;
     
     public override void _EnterTree()
     {
@@ -87,5 +89,6 @@ public partial class Main : Node
         Wands.CopyTo(newWands, 0);
         newWands[Wands.Length] = wand;
         Wands = newWands;
+        EmitSignal(SignalName.WandsChanged);
     }
 }

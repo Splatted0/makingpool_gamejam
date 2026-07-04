@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_icon"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="2_script"]
-[ext_resource type="Resource" uid="uid://msice001000000" path="res://resource_ingame/resource_magic_spell/magic_spell_ice_shard.tres" id="3_spell"]
+[ext_resource type="Resource" uid="uid://bdgn4sxbvrqnv" path="res://resource_ingame/resource_magic_spell/magic_spell_ice_shard.tres" id="3_spell"]
 
 [resource]
 script = ExtResource("2_script")
 Name = "Frost Shard"
-Description = "Deals 80 ice damage and slows enemies by 30% for 2 seconds."
 Icon = ExtResource("1_icon")
+Description = "Deals 80 ice damage and slows enemies by 30% for 2 seconds."
 Tier = 1
 MagicEffect = ExtResource("3_spell")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

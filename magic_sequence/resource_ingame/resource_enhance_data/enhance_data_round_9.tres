@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EnhanceData" format=3 uid="uid://drhrspc4qayxq"]
+
+[ext_resource type="Script" uid="uid://2npsgh2k1wgp" path="res://class_resource/EnhanceData.cs" id="1_22upv"]
+
+[resource]
+script = ExtResource("1_22upv")
+MustGetMagicCount = 2
+metadata/_custom_type_script = "uid://2npsgh2k1wgp"

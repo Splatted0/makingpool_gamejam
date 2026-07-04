@@ -16,13 +16,6 @@
   "hooks": {
     "PreToolUse": [
       {
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-write-claude-md-guard.sh\""
-          }
-        ]
-      },
-      {
         "matcher": "Bash",
         "hooks": [
           {

@@ -12,6 +12,7 @@ public static class Blackboard
     public static EnhanceManager EnhanceManager => Main.EnhanceManager;
     public static MagicInfoLayer MagicInfoLayer => Main.MagicInfoLayer;
     public static Wand[] Wands => Main.Wands;
+    public static EnhanceData[] EnhanceDataList => Main.EnhanceDataList;
     
     public static MagicPool MagicPool => Main.MagicPool;
     public static WandPool WandPool => Main.WandPool;

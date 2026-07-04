@@ -2,7 +2,7 @@
 using Godot;
 using Godot.Collections;
 
-public partial class MagicChangeManager : Node
+public partial class MagicChangeManager : Control
 {
     [Signal] public delegate void MagicChangeEndEventHandler();
 
@@ -11,13 +11,15 @@ public partial class MagicChangeManager : Node
 
     public Magic[] GetMagics { get; private set; }
 
-    public bool IsGetMagicRemain
+    public int GetMagicRemainCount
     {
         get
         {
+            int count = 0;
             foreach (Magic m in GetMagics)
-                if (m != null) return true;
-            return false;
+                if (m != null)
+                    count++;
+            return count;
         }
     }
 
@@ -46,16 +48,29 @@ public partial class MagicChangeManager : Node
             WandUi captured = WandUis[i];
             WandUis[i].Dragged += (magic, panelIndex) => OnWandUiDragged(magic, panelIndex, captured);
         }
+
+        Blackboard.Main.WandsChanged += SyncWandUisFromBlackboard;
     }
 
     public void Setup(Magic[] magics)
     {
-        Wand[] wands = Blackboard.Wands;
-        for (int i = 0; i < magics.Length && i < GetMagicPanels.Count; i++)
+        for (int i = 0; i < GetMagicPanels.Count; i++)
         {
-            SetGetMagic(i, magics[i]);
+            if (i < magics.Length)
+                SetGetMagic(i, magics[i]);
+            else
+                SetGetMagic(i, null);
         }
-        
+
+        SyncWandUisFromBlackboard();
+
+        if (magics.Length == 0)
+            EmitSignal(SignalName.MagicChangeEnd);
+    }
+
+    private void SyncWandUisFromBlackboard()
+    {
+        Wand[] wands = Blackboard.Wands;
         for (int i = 0; i < WandUis.Count; i++)
         {
             Wand wand = i < wands.Length ? wands[i] : null;
@@ -67,15 +82,20 @@ public partial class MagicChangeManager : Node
             WandUis[i].Visible = true;
             WandUis[i].Setup(wand);
         }
-
-        if (magics.Length == 0)
-            EmitSignal(SignalName.MagicChangeEnd);
     }
 
     public void SetGetMagic(int index, Magic magic)
     {
         GetMagics[index] = magic;
-        GetMagicPanels[index].Setup(magic);
+        if (magic == null)
+        {
+            GetMagicPanels[index].Visible = false;
+        }
+        else
+        {
+            GetMagicPanels[index].Setup(magic);
+            GetMagicPanels[index].Visible = true;
+        }
     }
 
     public override void _Input(InputEvent @event)
@@ -194,7 +214,7 @@ public partial class MagicChangeManager : Node
     {
         _hoveredPanel?.Unselected();
         _sourcePanel?.Able();
-
+        
         _isDragging = false;
         _draggedMagic = null;
         _sourcePanel = null;
@@ -208,7 +228,7 @@ public partial class MagicChangeManager : Node
         EmitSignal(SignalName.MagicChangeEnd);
     }
 
-    private void RefreshAllWandUis()
+    public void RefreshAllWandUis()
     {
         foreach (WandUi wandUi in WandUis)
         {
