@@ -8,6 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "태풍"
 Icon = ExtResource("1_7324p")
+Description = "거대한 폭풍을 소환해 적을 관통하며 240의 피해를 가하고, 남겨진 장판 내의 적들을 1초마다 바깥으로 강하게 밀어냅니다(넉백)."
+EnhancedDescription = "거대한 폭풍을 소환해 적을 관통하며 [b]320[/b]의 피해를 가하고, 남겨진 장판 내의 적들을 [b]0.5초[/b]마다 바깥으로 강하게 밀어냅니다(넉백)."
 Tier = 3
 MagicEffect = ExtResource("2_o5fwk")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

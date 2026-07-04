@@ -8,6 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "지옥불"
 Icon = ExtResource("1_7324p")
+Description = "파멸의 운석을 발사하여 350의 피해를 가하고, 화상을 부여하며, 적의 체력 회복을 완전히 차단하고 입힌 피해의 20%만큼 지속 타격을 주는 장판이 생성됩니다."
+EnhancedDescription = "파멸의 운석을 발사하여 [b]450[/b]의 피해를 가하고, 화상을 부여하며, 적의 체력 회복을 완전히 차단하고 입힌 피해의 [b]25%[/b]만큼 지속 타격을 주는 장판이 생성됩니다."
 Tier = 3
 MagicEffect = ExtResource("2_61tm1")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

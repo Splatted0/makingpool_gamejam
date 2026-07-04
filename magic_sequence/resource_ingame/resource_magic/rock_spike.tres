@@ -8,6 +8,8 @@
 script = ExtResource("1_dbgcm")
 Name = "바위 송곳"
 Icon = ExtResource("1_7324p")
+Description = "날카로운 바위로 적을 꿰뚫어 250의 피해를 가하며, 1초 동안 기절시키고 적이 받는 대미지를 10% 증가시킵니다."
+EnhancedDescription = "날카로운 바위로 적을 꿰뚫어 [b]320[/b]의 피해를 가하며, 1초 동안 기절시키고 적이 받는 대미지를 [b]20%[/b] 증가시킵니다."
 Tier = 2
 MagicEffect = ExtResource("2_f641h")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"
