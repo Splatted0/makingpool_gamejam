@@ -46,8 +46,14 @@ public partial class Monster : CharacterBody2D, IEntity
     {
         if (hitInfo.SourceTeam == Team)
             return;
-
-        TakeDamage(hitInfo.Damage, ColorPreset.White);
+        if (hitInfo.Element == Elemental.Fire)
+            TakeDamage(hitInfo.Damage, ColorPreset.Red);
+        if (hitInfo.Element == Elemental.Earth)
+            TakeDamage(hitInfo.Damage, ColorPreset.Brown);
+        if (hitInfo.Element == Elemental.Wind)
+            TakeDamage(hitInfo.Damage, ColorPreset.Green);
+        if (hitInfo.Element == Elemental.Ice)
+            TakeDamage(hitInfo.Damage, ColorPreset.Blue);
         ApplyDebuffs(hitInfo);
     }
 
