@@ -5,7 +5,7 @@ public abstract partial class VfxExplanation : Node2D
     readonly float _fadeInRatio = 0.3f;
 
     readonly float _durationRandomRange = 0.2f;
-    readonly float _positionRandomRange = 16.0f;
+    readonly float _positionRandomRange = 8.0f;
     readonly float _moveSpeedRandomRange = 10.0f;
     readonly float _moveSpeed = 40.0f;
     readonly float _scaleRandomRange = 0.3f;

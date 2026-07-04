@@ -8,11 +8,12 @@
 [ext_resource type="Script" uid="uid://biiffutoay1n2" path="res://class_vfx/VfxExplanationHealPool.cs" id="6_e1ti7"]
 [ext_resource type="PackedScene" uid="uid://8hkn3s12wvye" path="res://scene_minor/vfx_explanation_heal.tscn" id="7_goksr"]
 
-[node name="VfxLayer" type="CanvasLayer" unique_id=1052624970 node_paths=PackedStringArray("ExplanationDamagePool", "DeathParticlePool")]
+[node name="VfxLayer" type="CanvasLayer" unique_id=1052624970 node_paths=PackedStringArray("ExplanationDamagePool", "DeathParticlePool", "ExplanationHealPool")]
 layer = 10
 script = ExtResource("1_2wie7")
 ExplanationDamagePool = NodePath("ExplanationPool")
 DeathParticlePool = NodePath("DeathParticle")
+ExplanationHealPool = NodePath("ExplanationHeal")
 
 [node name="ExplanationPool" type="Node2D" parent="." unique_id=68312988]
 script = ExtResource("2_jbkbl")
