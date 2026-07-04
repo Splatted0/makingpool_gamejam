@@ -47,7 +47,7 @@ public partial class EnhanceManager : CanvasLayer
         bool showWand = _enhanceData.IsWandDrop && Blackboard.Wands.Length < 3;
         if (showWand)
         {
-            Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1, _enhanceData);
+            Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1);
             _getWand = wands[0].Duplicate() as Wand;
             GetWandUi.Setup(_getWand);
         }
@@ -94,7 +94,7 @@ public partial class EnhanceManager : CanvasLayer
     {
         if (!Blackboard.TrySpendGold(_enhanceData.WandRerollCost)) return;
 
-        Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1, _enhanceData);
+        Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1);
         _getWand = wands[0].Duplicate() as Wand;
         GetWandUi.Setup(_getWand);
     }
