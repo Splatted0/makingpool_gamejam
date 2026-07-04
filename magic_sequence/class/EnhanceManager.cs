@@ -103,7 +103,7 @@ public partial class EnhanceManager : CanvasLayer
 
     private void OnAddHealthButtonPressed()
     {
-        if (!Blackboard.TrySpendGold(0)) return;
+        if (!Blackboard.TrySpendGold(150)) return;
 
         Blackboard.Core.Health = Mathf.Min(Blackboard.Health + 1000, Blackboard.Core.MaxHp);
     }

@@ -25,8 +25,7 @@ script = ExtResource("1_pvu3l")
 _magicInfo = NodePath("MagicInfo")
 
 [node name="MagicInfo" type="PanelContainer" parent="." unique_id=494533344 node_paths=PackedStringArray("_name", "_description", "_tier", "_enhanceContainer", "_enhanceDescription", "_enhanceButton")]
-visible = false
-offset_right = 400.0
+offset_right = 413.0
 offset_bottom = 199.0
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_umlpb")
@@ -107,4 +106,4 @@ theme_override_colors/font_hover_pressed_color = Color(0.078431375, 0.078431375,
 theme_override_styles/normal = SubResource("StyleBoxFlat_rluau")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_uype8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_umlpb")
-text = "강화 $50"
+text = "강화 $200"

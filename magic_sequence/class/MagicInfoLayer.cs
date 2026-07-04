@@ -47,7 +47,7 @@ public partial class MagicInfoLayer : Node
 
     private void OnEnhancedButtonPressed(Magic magic)
     {
-        if (Blackboard.TrySpendGold(50))
+        if (Blackboard.TrySpendGold(200))
         {
             magic.MagicEffect.MagicEnhance();
             _magicInfo.Setup(magic);
