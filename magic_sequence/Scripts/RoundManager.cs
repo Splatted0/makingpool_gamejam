@@ -10,6 +10,7 @@ public partial class RoundManager : Node
     private const string SkeletonShieldPath = "res://resource_ingame/resource_monster/skeleton_shield.tres";
     private const string WolfPath = "res://resource_ingame/resource_monster/wolf.tres";
     private const string FairyHealerPath = "res://resource_ingame/resource_monster/fairy_healer.tres";
+    private const string BossDataPath = "res://resource_ingame/resource_monster/boss_data.tres";
 
     [Export] public Spawner Spawner { get; set; }
     [Export] public BattleWorldHud Hud { get; set; }
@@ -27,6 +28,7 @@ public partial class RoundManager : Node
     private MonsterData _skeletonShield;
     private MonsterData _wolf;
     private MonsterData _fairyHealer;
+    private MonsterData _bossData;
 
     private bool _roundRunning;
     private bool _cancelRequested;
@@ -213,7 +215,7 @@ public partial class RoundManager : Node
             7 => CreateWave(slime: 20, skeletonArcher: 15, skeletonShield: 20, fairyHealer: 5),
             8 => CreateWave(slime: 40, wolf: 30),
             9 => CreateWave(skeletonArcher: 25, skeletonShield: 25, fairyHealer: 10),
-            10 => CreateWave(skeletonArcher: 15, skeletonShield: 15, wolf: 15, fairyHealer: 5),
+            10 => CreateBossWave(),
             _ => null
         };
     }
@@ -225,6 +227,18 @@ public partial class RoundManager : Node
         _skeletonShield ??= GD.Load<MonsterData>(SkeletonShieldPath);
         _wolf ??= GD.Load<MonsterData>(WolfPath);
         _fairyHealer ??= GD.Load<MonsterData>(FairyHealerPath);
+        _bossData ??= GD.Load<MonsterData>(BossDataPath);
+    }
+
+    // 10라운드는 일반 몬스터 없이 보스 단독(1대1) 웨이브.
+    private WaveData CreateBossWave()
+    {
+        return new WaveData
+        {
+            Interval = WaveSpawnInterval,
+            Entries = new Godot.Collections.Array<SpawnEntry>(),
+            Boss = _bossData
+        };
     }
 
     private WaveData CreateWave(
