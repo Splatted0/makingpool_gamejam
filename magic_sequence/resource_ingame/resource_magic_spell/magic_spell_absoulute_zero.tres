@@ -7,9 +7,9 @@
 script = ExtResource("2_script")
 MagicNodePack = ExtResource("1_scene")
 Elemental = 2
-BaseMaxDistance = 250.0
-BaseRange = 50.0
+BaseMaxDistance = 500.0
+BaseArrivalRange = 100.0
 BaseSpeed = 500.0
-BaseDamage = 80
-BaseDurationFrame = 30
+BaseDamage = 250
+BaseDurationFrame = 195
 metadata/_custom_type_script = "uid://vymir3jlcsrp"

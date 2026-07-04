@@ -7,8 +7,9 @@
 script = ExtResource("1_1p100")
 MagicNodePack = ExtResource("1_nbu3u")
 Elemental = 1
-BaseMaxDistance = 100.0
-BaseSpeed = 100.0
-BaseDamage = 5
-BaseDurationFrame = 30
+BaseMaxDistance = 1000.0
+BaseArrivalRange = 100.0
+BaseSpeed = 500.0
+BaseDamage = 350
+BaseDurationFrame = 195
 metadata/_custom_type_script = "uid://dvwypatb3ogq2"

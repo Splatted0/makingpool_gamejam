@@ -2,9 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]
+[ext_resource type="Resource" uid="uid://bdgn4sxbvrqnv" path="res://resource_ingame/resource_magic_spell/magic_spell_ice_shard.tres" id="2_05xgy"]
 
 [resource]
 script = ExtResource("1_dbgcm")
-Name = "common_magic"
+Name = "서리 파편"
 Icon = ExtResource("1_7324p")
+Tier = 1
+MagicEffect = ExtResource("2_05xgy")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"

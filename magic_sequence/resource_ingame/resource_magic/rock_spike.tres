@@ -2,9 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="1_7324p"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_dbgcm"]
+[ext_resource type="Resource" uid="uid://8e1xawbwrqnv" path="res://resource_ingame/resource_magic_spell/magic_spell_rock_spike.tres" id="2_f641h"]
 
 [resource]
 script = ExtResource("1_dbgcm")
-Name = "common_magic"
+Name = "바위 송곳"
 Icon = ExtResource("1_7324p")
+Tier = 2
+MagicEffect = ExtResource("2_f641h")
 metadata/_custom_type_script = "uid://b6q3bfra0rpsi"
