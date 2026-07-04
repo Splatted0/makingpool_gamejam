@@ -46,10 +46,7 @@ public partial class BossData : MonsterData
     [Export] public float BarrageBurstGap { get; set; } = 0.3f;  // 연발 사이 간격(초)
     [Export] public float BarrageBurstAngleJitter { get; set; } = 15f;  // 매 연발마다 기준 각도에 더해지는 무작위 오차(도)
 
-    // 5: 자기 회복(랜덤량)
-    [ExportSubgroup("Dice5 SelfHeal")]
-    [Export] public int SelfHealMin { get; set; } = 100;
-    [Export] public int SelfHealMax { get; set; } = 400;
+    // 5: 자기 회복 — 1~(잃은 체력) 사이 랜덤량. 데이터 파라미터 없음(현재 체력에 따라 결정).
 
     // 6: 전방에 랜덤 방향 레이저 여러 발
     [ExportSubgroup("Dice6 LaserSpray")]
@@ -60,10 +57,9 @@ public partial class BossData : MonsterData
     [Export] public float LaserSprayChargeTime { get; set; } = 0.15f;  // 발당 짧은 전조(가늘게→굵게) 시간
     [Export] public float LaserSprayFadeDuration { get; set; } = 0.25f;  // 발사 후 사라지는 시간
 
-    // 4: 플레이어 이동속도 감소 (Player 코드 수정 동반 → 맨 마지막 구현)
-    [ExportSubgroup("Dice4 PlayerSlow")]
-    [Export] public float PlayerSlowMultiplier { get; set; } = 0.4f;
-    [Export] public float PlayerSlowDuration { get; set; } = 3f;
+    // 4: 코어를 잠깐 속박(목줄 무시, 제자리 고정)해 회피 이동을 무력화
+    [ExportSubgroup("Dice4 CoreRoot")]
+    [Export] public float CoreRootDuration { get; set; } = 3f;
 
     // 7: 플레이어 공격속도 급증(반전 조커)
     [ExportSubgroup("Dice7 PlayerBoost")]

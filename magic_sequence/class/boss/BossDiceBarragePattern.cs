@@ -51,6 +51,6 @@ public class BossDiceBarragePattern : IBossPattern
 		BossBarragePattern.FireFan(boss, baseDirection);
 
 		_shotsFired++;
-		GD.Print($"[Dice3] 연발 {_shotsFired}/{Mathf.Max(data.BarrageBurstCount, 1)}");
+		GD.Print("[Dice3] 발사");
 	}
 }

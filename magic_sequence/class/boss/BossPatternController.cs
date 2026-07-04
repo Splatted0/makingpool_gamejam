@@ -117,8 +117,17 @@ public class BossPatternController
 			case 1:
 				_activeDiceEffect = new BossDiceShieldPattern();
 				break;
+			case 2:
+				_activeDiceEffect = new BossDiceShufflePattern();
+				break;
 			case 3:
 				_activeDiceEffect = new BossDiceBarragePattern();
+				break;
+			case 4:
+				_activeDiceEffect = new BossDiceRootPattern();
+				break;
+			case 5:
+				_activeDiceEffect = new BossDiceHealPattern();
 				break;
 			case 6:
 				_activeDiceEffect = new BossDiceLaserSprayPattern();

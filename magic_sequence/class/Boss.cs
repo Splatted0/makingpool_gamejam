@@ -22,6 +22,12 @@ public partial class Boss : Monster
 		Core?.Hit(new HitInfo { Damage = damage, SourceTeam = Team, Element = Elemental.None });
 	}
 
+	public void SetCoreRooted(bool rooted)
+	{
+		if (Core is global::Core core)
+			core.SetRooted(rooted);
+	}
+
 	public void SpawnBullet(Vector2 direction, float speed, int damage)
 	{
 		if (BulletScene == null)
@@ -83,7 +89,18 @@ public partial class Boss : Monster
 		_bossData = Data as BossData;
 		SetupBeam();
 		SetupDiceSprite();
+		StartCoreLeash();
 		_patterns = new BossPatternController(this);
+	}
+
+	// 보스 등장 자체가 "웨이브10 시작" 신호 — 별도 이벤트 없이 여기서 코어를 플레이어에 붙인다.
+	private void StartCoreLeash()
+	{
+		if (Core is not global::Core core)
+			return;
+
+		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		core.StartLeash(player);
 	}
 
 	// 오른쪽 고정. 행군 대신 예고선 갱신 + 패턴 스케줄러 tick.
