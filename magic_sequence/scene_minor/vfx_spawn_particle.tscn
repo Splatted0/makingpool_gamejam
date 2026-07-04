@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cq0oy4t27iffq"]
 
+[ext_resource type="Script" uid="uid://5l0gffkouu0a" path="res://class_vfx/VfxSpawnParticle.cs" id="1_ahcse"]
+
 [sub_resource type="Gradient" id="Gradient_8f436"]
 offsets = PackedFloat32Array(0.12247191, 0.16966292, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
@@ -33,3 +35,4 @@ color_ramp = SubResource("GradientTexture1D_rluau")
 amount = 32
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_i8g4g")
+script = ExtResource("1_ahcse")
