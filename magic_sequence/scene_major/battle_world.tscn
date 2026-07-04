@@ -41,29 +41,6 @@ Entries = Array[ExtResource("5_egww6")]([SubResource("Resource_egww6"), SubResou
 Interval = 0.2
 metadata/_custom_type_script = "uid://brf2rmq1y1476"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjtai"]
-bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.9767049, 0.77171063, 0, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3204"]
-bg_color = Color(1, 0.33693364, 0.32751083, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0c07y"]
 bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
 border_width_left = 2
@@ -71,12 +48,18 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.96425396, 0.7770437, 0.11536012, 1)
-expand_margin_left = 2.0
-expand_margin_right = 2.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2q4sl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjtai"]
+bg_color = Color(0.13333334, 0.45490196, 0.64705884, 1)
+border_width_bottom = 2
+border_color = Color(0.9647059, 0.7764706, 0.11372549, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7yqp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3204"]
+bg_color = Color(1, 0.33693364, 0.32751083, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer")]
 script = ExtResource("8_m7vi4")
@@ -144,61 +127,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CoreStatus" type="Control" parent="UIRoot" unique_id=129841672]
-anchors_preset = 0
+[node name="CoreStatus" type="PanelContainer" parent="UIRoot" unique_id=1474758104]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 337.0
 offset_right = 120.0
 offset_bottom = 388.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0c07y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/CoreStatus" unique_id=239895195]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1.0
-offset_top = -1.0
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CoreHpArea" type="Control" parent="UIRoot/CoreStatus/VBoxContainer" unique_id=965978]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="CoreHpBar" type="ProgressBar" parent="UIRoot/CoreStatus/VBoxContainer/CoreHpArea" unique_id=1923452347]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -1.5
-offset_bottom = 1.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CoreHpBar" type="ProgressBar" parent="UIRoot/CoreStatus/VBoxContainer" unique_id=1923452347]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_kjtai")
 theme_override_styles/fill = SubResource("StyleBoxFlat_m3204")
 show_percentage = false
 
-[node name="CoreHpText" type="Label" parent="UIRoot/CoreStatus/VBoxContainer/CoreHpArea" unique_id=1297434061]
+[node name="CoreHpText" type="Label" parent="UIRoot/CoreStatus/VBoxContainer/CoreHpBar" unique_id=1297434061]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_right = 0.95
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("14_xoob8")
 theme_override_font_sizes/font_size = 10
 text = "75/100 (75%)"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="GoldPanel" type="PanelContainer" parent="UIRoot/CoreStatus/VBoxContainer" unique_id=1074364365]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_0c07y")
-
-[node name="GoldText" type="Label" parent="UIRoot/CoreStatus/VBoxContainer/GoldPanel" unique_id=942591015]
+[node name="GoldText" type="Label" parent="UIRoot/CoreStatus/VBoxContainer" unique_id=942591015]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("14_xoob8")
 theme_override_font_sizes/font_size = 12
@@ -245,19 +207,14 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Roundinfo" type="PanelContainer" parent="UIRoot" unique_id=5342678]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.052
-offset_bottom = 0.30400085
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_2q4sl")
-
-[node name="RoundInfo" type="Label" parent="UIRoot/Roundinfo" unique_id=584256267]
-layout_mode = 2
+[node name="RoundInfo" type="Label" parent="UIRoot" unique_id=584256267]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 1152.0
+offset_bottom = 28.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("14_xoob8")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_2q4sl")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_e7yqp")
+theme_override_font_sizes/font_size = 24
 text = "Round 0: 0/0"
 horizontal_alignment = 1
