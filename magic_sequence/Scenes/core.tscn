@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://8ts3lb4x7jt8"]
 
 [ext_resource type="Script" uid="uid://dwnjguu20rscl" path="res://Scripts/Core.cs" id="1_pghlq"]
-[ext_resource type="Texture2D" uid="uid://vkl15u4ukk5q" path="res://heart.jpg" id="2_wtb72"]
 [ext_resource type="SpriteFrames" uid="uid://n14uer6q0akf" path="res://resource_ingame/core_spriteframe.tres" id="3_lstiq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m3204"]
@@ -22,12 +21,6 @@ shape = SubResource("CircleShape2D_m3204")
 scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("3_lstiq")
 frame_progress = 0.27179506
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=949804163]
-visible = false
-position = Vector2(-1.5258789e-05, -1.5258789e-05)
-scale = Vector2(0.15833333, 0.14166667)
-texture = ExtResource("2_wtb72")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1888369803]
 
