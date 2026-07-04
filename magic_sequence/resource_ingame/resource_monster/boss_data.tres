@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="BossData" format=3 uid="uid://dbyr50s8rq4ev"]
 
 [ext_resource type="Script" uid="uid://bkambmluuumf1" path="res://class_resource/BossData.cs" id="1_2motd"]
+[ext_resource type="SpriteFrames" uid="uid://cpy7qgbv8fd07" path="res://resource_ingame/resource_monster/boss_spritesheet.tres" id="1_76jvc"]
 
 [resource]
 script = ExtResource("1_2motd")
 MaxHealth = 5000
 AttackRange = 300.0
 HealAmount = 10
+Frames = ExtResource("1_76jvc")
 metadata/_custom_type_script = "uid://bkambmluuumf1"

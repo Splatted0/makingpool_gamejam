@@ -1,17 +1,31 @@
 [gd_scene format=3 uid="uid://jy5l3vsctdhx"]
 
 [ext_resource type="Script" uid="uid://bpr64nhb8b5qp" path="res://class/Boss.cs" id="1_0154r"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_vg3xd"]
+[ext_resource type="PackedScene" uid="uid://coc2ntnyxkrn3" path="res://Scenes/boss_bullet.tscn" id="2_cxrok"]
+[ext_resource type="Resource" uid="uid://dbyr50s8rq4ev" path="res://resource_ingame/resource_monster/boss_data.tres" id="3_ukjjc"]
+[ext_resource type="SpriteFrames" uid="uid://q5iwlotb6uep" path="res://resource_ingame/resource_monster/dice_spritesheet.tres" id="4_n725y"]
+[ext_resource type="SpriteFrames" uid="uid://cpy7qgbv8fd07" path="res://resource_ingame/resource_monster/boss_spritesheet.tres" id="5_mh6p8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b58md"]
 
-[node name="Boss" type="CharacterBody2D" unique_id=934036589]
+[node name="Boss" type="CharacterBody2D" unique_id=934036589 node_paths=PackedStringArray("DiceSprite", "_animatedSprite")]
 script = ExtResource("1_0154r")
+BulletScene = ExtResource("2_cxrok")
+DiceSprite = NodePath("AnimatedSprite2D_dice")
+Data = ExtResource("3_ukjjc")
+_animatedSprite = NodePath("AnimatedSprite2D_bossanim")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=102912107]
+[node name="AnimatedSprite2D_dice" type="AnimatedSprite2D" parent="." unique_id=1760940110]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_vg3xd")
+position = Vector2(0, -83)
+scale = Vector2(0.3469388, 0.3469388)
+sprite_frames = ExtResource("4_n725y")
+animation = &"dice"
+
+[node name="AnimatedSprite2D_bossanim" type="AnimatedSprite2D" parent="." unique_id=102912107]
+texture_filter = 1
+sprite_frames = ExtResource("5_mh6p8")
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=297662633]
 shape = SubResource("CircleShape2D_b58md")

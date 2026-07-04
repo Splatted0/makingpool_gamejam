@@ -24,6 +24,8 @@ public partial class BossData : MonsterData
     // === 주사위: 3초마다 굴려 방해 패턴 시전(노데미지). 1~6 균등, 7만 낮게 ===
     [ExportGroup("Dice")]
     [Export] public float DiceInterval { get; set; } = 3f;
+    [Export] public float DiceRollDuration { get; set; } = 0.8f;    // 얼굴이 무작위로 바뀌며 굴러가는 시간
+    [Export] public float DiceFlickerInterval { get; set; } = 0.05f; // 굴러가는 동안 얼굴이 바뀌는 간격
     [Export] public float DiceWeight1 { get; set; } = 1f;   // 방패병 소환
     [Export] public float DiceWeight2 { get; set; } = 1f;   // 지팡이 셔플
     [Export] public float DiceWeight3 { get; set; } = 1f;   // 탄막 3연발

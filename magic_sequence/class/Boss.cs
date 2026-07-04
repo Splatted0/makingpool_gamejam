@@ -4,6 +4,7 @@
 public partial class Boss : Monster
 {
 	[Export] public PackedScene BulletScene { get; set; }   // BossBullet.cs가 붙은 탄막 프리팹
+	[Export] public AnimatedSprite2D DiceSprite { get; set; }   // 얼굴 1~7 = Frame 0~6. Play() 안 쓰고 Frame만 직접 제어
 
 	private BossData _bossData;
 	private Line2D _beam;               // 보스↔코어 상시 빨간 예고선
@@ -39,6 +40,12 @@ public partial class Boss : Monster
 			_beam.Width = width;
 	}
 
+	public void SetDiceFace(int face)
+	{
+		if (DiceSprite != null)
+			DiceSprite.Frame = face - 1;
+	}
+
 	// 씬에 직접 배치된 경우 코어를 그룹에서 찾아 타깃으로 잡는다.
 	// Spawner 경유로 소환될 땐 SetTarget이 이미 호출돼 있어 이 경로를 타지 않는다.
 	public override void _Ready()
@@ -50,6 +57,7 @@ public partial class Boss : Monster
 
 		_bossData = Data as BossData;
 		SetupBeam();
+		SetupDiceSprite();
 		_patterns = new BossPatternController(this);
 	}
 
@@ -75,6 +83,16 @@ public partial class Boss : Monster
 		_beam.AddPoint(Vector2.Zero);   // 보스 원점
 		_beam.AddPoint(Vector2.Zero);   // 코어(매 프레임 갱신)
 		AddChild(_beam);
+	}
+
+	// autoplay로 SpriteFrames가 자체 재생하는 걸 막고, SetDiceFace로만 프레임을 제어한다.
+	private void SetupDiceSprite()
+	{
+		if (DiceSprite == null)
+			return;
+
+		DiceSprite.Stop();
+		DiceSprite.Frame = 0;
 	}
 
 	private void UpdateBeamGeometry()

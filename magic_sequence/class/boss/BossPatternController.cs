@@ -5,14 +5,17 @@ public class BossPatternController
 	private readonly Boss _boss;
 	private readonly BossLaserPattern _laser = new BossLaserPattern();   // 스턴 캔슬 위해 구체 타입
 	private readonly IBossPattern _barrage = new BossBarragePattern();
+	private readonly BossDicePattern _dice = new BossDicePattern();
 	private double _laserCooldown;
 	private double _barrageCooldown;
+	private double _diceCooldown;
 
 	public BossPatternController(Boss boss)
 	{
 		_boss = boss;
 		_laserCooldown = boss.Config != null ? boss.Config.LaserInterval : 0;
 		_barrageCooldown = boss.Config != null ? boss.Config.BarrageInterval : 0;
+		_diceCooldown = boss.Config != null ? boss.Config.DiceInterval : 0;
 	}
 
 	public void Tick(double delta)
@@ -22,6 +25,7 @@ public class BossPatternController
 
 		TickLaser(delta);
 		TickBarrage(delta);
+		TickDice(delta);
 	}
 
 	// 스턴 중 호출(매 프레임). 충전 중인 레이저를 캔슬하고 쿨다운을 새로 잡는다.
@@ -75,5 +79,22 @@ public class BossPatternController
 		}
 
 		_barrage.Tick(_boss, delta);
+	}
+
+	// 주사위를 주기(DiceInterval)마다 굴림. 진행 중이면 tick, 끝나면 쿨다운 후 재시작.
+	// 결과 패턴 디스패치는 다음 단계에서 _dice.ResultFace를 참조해 붙인다.
+	private void TickDice(double delta)
+	{
+		if (_dice.IsFinished)
+		{
+			_diceCooldown -= delta;
+			if (_diceCooldown <= 0)
+				_dice.Start(_boss);
+			return;
+		}
+
+		_dice.Tick(_boss, delta);
+		if (_dice.IsFinished)
+			_diceCooldown = _boss.Config.DiceInterval;
 	}
 }
