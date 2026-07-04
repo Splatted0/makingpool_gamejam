@@ -5,6 +5,8 @@ public partial class Boss : Monster
 {
 	[Export] public PackedScene BulletScene { get; set; }   // BossBullet.cs가 붙은 탄막 프리팹
 	[Export] public AnimatedSprite2D DiceSprite { get; set; }   // 얼굴 1~7 = Frame 0~6. Play() 안 쓰고 Frame만 직접 제어
+	[Export] public PackedScene MonsterScene { get; set; }   // Monster.cs가 붙은 범용 몬스터 씬(스포너와 동일)
+	[Export] public MonsterData ShieldData { get; set; }     // 방패병 데이터(MoveSpeed=0, 원거리형+데미지0 권장)
 
 	private BossData _bossData;
 	private Line2D _beam;               // 보스↔코어 상시 빨간 예고선
@@ -44,6 +46,29 @@ public partial class Boss : Monster
 	{
 		if (DiceSprite != null)
 			DiceSprite.Frame = face - 1;
+	}
+
+	// 스포너와 동일한 순서(Data → SetTarget → AddChild)로 방패병 한 마리를 즉석 소환한다.
+	public void SummonShield(Vector2 worldPosition)
+	{
+		if (MonsterScene == null || ShieldData == null)
+		{
+			GD.PrintErr($"[Boss] {Name}: MonsterScene/ShieldData가 비어있습니다.");
+			return;
+		}
+
+		Monster shield = MonsterScene.Instantiate<Monster>();
+		shield.Data = ShieldData;
+		if (TargetNode != null && IsInstanceValid(TargetNode) && Core != null)
+			shield.SetTarget(TargetNode.GlobalPosition, Core);
+
+		// TODO(M6 통합 시 롤백): GetParent() 폴백은 독립 테스트 씬 디버깅용 임시 조치.
+		// Blackboard.EntityContainer는 내부적으로 Main.BattleWorldHud를 타는데, Main이 없는
+		// 독립 씬에서는 그 자체가 NullReferenceException을 던져서 임시로 우회해둔 것.
+		// 실제 battle_world 통합 후엔 Blackboard.EntityContainer만 쓰도록 되돌릴 것.
+		Node parent = Blackboard.Main != null ? (Node)Blackboard.EntityContainer : GetParent();
+		parent.AddChild(shield);
+		shield.GlobalPosition = worldPosition;
 	}
 
 	// 씬에 직접 배치된 경우 코어를 그룹에서 찾아 타깃으로 잡는다.

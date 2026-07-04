@@ -34,14 +34,17 @@ public partial class BossData : MonsterData
     [Export] public float DiceWeight6 { get; set; } = 1f;   // 레이저 6발
     [Export] public float DiceWeight7 { get; set; } = 0.15f; // 캐릭터 도움(반전 조커)
 
-    // 1: 전방에 방패병 소환
+    // 1: 전방(왼쪽)에 방패병을 세로 한 줄로 소환해 벽을 세운다
     [ExportSubgroup("Dice1 Shield")]
-    [Export] public int ShieldSummonCount { get; set; } = 3;
+    [Export] public int ShieldSummonCount { get; set; } = 8;
+    [Export] public float ShieldSummonSpacing { get; set; } = 60f;       // 방패병 사이 세로 간격
+    [Export] public float ShieldSummonForwardOffset { get; set; } = 200f; // 보스 기준 전방(왼쪽) 거리
 
     // 3: 탄막 패턴을 연속 발사
     [ExportSubgroup("Dice3 BarrageBurst")]
     [Export] public int BarrageBurstCount { get; set; } = 3;
     [Export] public float BarrageBurstGap { get; set; } = 0.3f;  // 연발 사이 간격(초)
+    [Export] public float BarrageBurstAngleJitter { get; set; } = 15f;  // 매 연발마다 기준 각도에 더해지는 무작위 오차(도)
 
     // 5: 자기 회복(랜덤량)
     [ExportSubgroup("Dice5 SelfHeal")]
@@ -51,8 +54,11 @@ public partial class BossData : MonsterData
     // 6: 전방에 랜덤 방향 레이저 여러 발
     [ExportSubgroup("Dice6 LaserSpray")]
     [Export] public int LaserSprayCount { get; set; } = 6;
-    [Export] public float LaserSprayArcDegrees { get; set; } = 90f;  // 전방 랜덤 분포 각도
+    [Export] public float LaserSprayArcDegrees { get; set; } = 90f;  // 전방(-X) 기준 랜덤 분포 각도
     [Export] public int LaserSprayDamage { get; set; } = 150;
+    [Export] public float LaserSprayLength { get; set; } = 1200f;   // 레이저 길이
+    [Export] public float LaserSprayChargeTime { get; set; } = 0.15f;  // 발당 짧은 전조(가늘게→굵게) 시간
+    [Export] public float LaserSprayFadeDuration { get; set; } = 0.25f;  // 발사 후 사라지는 시간
 
     // 4: 플레이어 이동속도 감소 (Player 코드 수정 동반 → 맨 마지막 구현)
     [ExportSubgroup("Dice4 PlayerSlow")]

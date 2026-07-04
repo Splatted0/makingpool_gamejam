@@ -6,6 +6,7 @@ public class BossPatternController
 	private readonly BossLaserPattern _laser = new BossLaserPattern();   // 스턴 캔슬 위해 구체 타입
 	private readonly IBossPattern _barrage = new BossBarragePattern();
 	private readonly BossDicePattern _dice = new BossDicePattern();
+	private IBossPattern _activeDiceEffect;   // 굴림 끝나고 확정된 얼굴에 대응하는 방해 패턴
 	private double _laserCooldown;
 	private double _barrageCooldown;
 	private double _diceCooldown;
@@ -81,10 +82,21 @@ public class BossPatternController
 		_barrage.Tick(_boss, delta);
 	}
 
-	// 주사위를 주기(DiceInterval)마다 굴림. 진행 중이면 tick, 끝나면 쿨다운 후 재시작.
-	// 결과 패턴 디스패치는 다음 단계에서 _dice.ResultFace를 참조해 붙인다.
+	// 주사위를 주기(DiceInterval)마다 굴림. 진행 중이면 tick, 끝나면 결과 패턴을 디스패치.
+	// 디스패치된 패턴이 끝날 때까지 다음 롤은 시작하지 않는다(주사위끼리만 캐스트락).
 	private void TickDice(double delta)
 	{
+		if (_activeDiceEffect != null)
+		{
+			_activeDiceEffect.Tick(_boss, delta);
+			if (_activeDiceEffect.IsFinished)
+			{
+				_activeDiceEffect = null;
+				_diceCooldown = _boss.Config.DiceInterval;
+			}
+			return;
+		}
+
 		if (_dice.IsFinished)
 		{
 			_diceCooldown -= delta;
@@ -95,6 +107,28 @@ public class BossPatternController
 
 		_dice.Tick(_boss, delta);
 		if (_dice.IsFinished)
-			_diceCooldown = _boss.Config.DiceInterval;
+			DispatchDiceResult();
+	}
+
+	private void DispatchDiceResult()
+	{
+		switch (_dice.ResultFace)
+		{
+			case 1:
+				_activeDiceEffect = new BossDiceShieldPattern();
+				break;
+			case 3:
+				_activeDiceEffect = new BossDiceBarragePattern();
+				break;
+			case 6:
+				_activeDiceEffect = new BossDiceLaserSprayPattern();
+				break;
+			default:
+				GD.Print($"[Dice] {_dice.ResultFace} 미구현");
+				_diceCooldown = _boss.Config.DiceInterval;
+				return;
+		}
+
+		_activeDiceEffect.Start(_boss);
 	}
 }

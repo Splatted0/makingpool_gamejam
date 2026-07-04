@@ -7,16 +7,26 @@ public class BossBarragePattern : IBossPattern
 
 	public void Start(Boss boss)
 	{
-		BossData data = boss.Config;
-
 		Vector2 baseDirection = (boss.CorePosition - boss.GlobalPosition).Normalized();
 		if (baseDirection == Vector2.Zero)
 			baseDirection = Vector2.Left;
 
+		int count = FireFan(boss, baseDirection);
+		GD.Print($"[Barrage] 발사 {count}발");
+		_finished = true;
+	}
+
+	public void Tick(Boss boss, double delta)
+	{
+	}
+
+	// 코어 방향 기준 부채꼴로 탄을 즉시 뿌린다. 주사위3(연발)도 이 부채꼴을 그대로 재사용한다.
+	// 슬로우(Ice) 상태이상 재해석: MoveSpeedMultiplier(슬로우 시 <1)를 탄속에 곱해 탄막을 느리게.
+	public static int FireFan(Boss boss, Vector2 baseDirection)
+	{
+		BossData data = boss.Config;
 		int count = Mathf.Max(data.BarrageBulletCount, 1);
 		float halfSpread = data.BarrageSpreadDegrees * 0.5f;
-
-		// 슬로우(Ice) 상태이상 재해석: MoveSpeedMultiplier(슬로우 시 <1)를 탄속에 곱해 탄막을 느리게.
 		float speed = data.BarrageBulletSpeed * boss.MoveSpeedMultiplier;
 
 		for (int i = 0; i < count; i++)
@@ -27,11 +37,6 @@ public class BossBarragePattern : IBossPattern
 			boss.SpawnBullet(direction, speed, data.BarrageDamage);
 		}
 
-		GD.Print($"[Barrage] 발사 {count}발 (탄속 {speed:F0})");
-		_finished = true;
-	}
-
-	public void Tick(Boss boss, double delta)
-	{
+		return count;
 	}
 }

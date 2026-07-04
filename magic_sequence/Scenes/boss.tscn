@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bpr64nhb8b5qp" path="res://class/Boss.cs" id="1_0154r"]
 [ext_resource type="PackedScene" uid="uid://coc2ntnyxkrn3" path="res://Scenes/boss_bullet.tscn" id="2_cxrok"]
+[ext_resource type="PackedScene" uid="uid://j26k3sobx3dd" path="res://Scenes/monster.tscn" id="3_mh6p8"]
 [ext_resource type="Resource" uid="uid://dbyr50s8rq4ev" path="res://resource_ingame/resource_monster/boss_data.tres" id="3_ukjjc"]
 [ext_resource type="SpriteFrames" uid="uid://q5iwlotb6uep" path="res://resource_ingame/resource_monster/dice_spritesheet.tres" id="4_n725y"]
+[ext_resource type="Resource" uid="uid://b7yguprnaarl5" path="res://resource_ingame/resource_monster/skeleton_boss_shield.tres" id="4_qtle2"]
 [ext_resource type="SpriteFrames" uid="uid://cpy7qgbv8fd07" path="res://resource_ingame/resource_monster/boss_spritesheet.tres" id="5_mh6p8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b58md"]
@@ -12,6 +14,8 @@
 script = ExtResource("1_0154r")
 BulletScene = ExtResource("2_cxrok")
 DiceSprite = NodePath("AnimatedSprite2D_dice")
+MonsterScene = ExtResource("3_mh6p8")
+ShieldData = ExtResource("4_qtle2")
 Data = ExtResource("3_ukjjc")
 _animatedSprite = NodePath("AnimatedSprite2D_bossanim")
 
