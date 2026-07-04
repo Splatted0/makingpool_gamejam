@@ -10,6 +10,7 @@ radius = 30.0
 radius = 40.0
 
 [node name="Core" type="StaticBody2D" unique_id=326636362]
+collision_layer = 2
 script = ExtResource("1_pghlq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1383276095]

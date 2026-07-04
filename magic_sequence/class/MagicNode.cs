@@ -5,6 +5,7 @@ public partial class MagicNode : Node2D
 {
     [Export] private Area2D _moveArea;
     [Export] private Area2D _arrivalArea;
+    [Export] public float DespawnMargin { get; set; } = 96.0f;
     
     public MagicSpell MagicSpell { get; private set; }
     private MagicStat _stat;
@@ -26,6 +27,7 @@ public partial class MagicNode : Node2D
     {
         MagicSpell = magicSpell;
         Stat = MagicStat.From(magicSpell);
+        AffectedElementals = new List<Elemental>();
         _perkMap = new Dictionary<Type, List<MagicPerk>>();
 
         foreach (MagicPerk perk in magicPerks)
@@ -91,6 +93,9 @@ public partial class MagicNode : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (QueueFreeIfOutsideViewport())
+            return;
+
         float fdelta = (float)delta;
         if (!_arrived)
         {
@@ -131,6 +136,9 @@ public partial class MagicNode : Node2D
         var targets = new List<Monster>();
         foreach (Node2D body in _moveArea.GetOverlappingBodies())
         {
+            if (body is Core)
+                continue;
+
             if (body is Monster monster)
                 targets.Add(monster);
             else if (body.GetParent() is MagicNode magicNode)
@@ -151,6 +159,9 @@ public partial class MagicNode : Node2D
         var targets = new List<Monster>();
         foreach (Node2D body in _arrivalArea.GetOverlappingBodies())
         {
+            if (body is Core)
+                continue;
+
             if (body is Monster monster)
                 targets.Add(monster);
         }
@@ -161,5 +172,17 @@ public partial class MagicNode : Node2D
                 ((MagicPerkArrival)perk).ArrivalEffect(MagicSpell, targets, _progressedFrame);
         }
         MagicSpell.ArrivalEffect(this, targets, _progressedFrame);
+    }
+
+    private bool QueueFreeIfOutsideViewport()
+    {
+        Rect2 visibleRect = GetViewport().GetVisibleRect().Grow(DespawnMargin);
+        Vector2 screenPosition = GetGlobalTransformWithCanvas().Origin;
+
+        if (visibleRect.HasPoint(screenPosition))
+            return false;
+
+        QueueFree();
+        return true;
     }
 }

@@ -1,5 +1,3 @@
-// 몬스터 베이스 클래스. 스탯·외형은 MonsterData 리소스에서, 행동(이동/공격/피격)은 여기서.
-// 스탯만 다른 종류는 .tres 교체로 끝. 특수 행동을 가진 종류만 이 클래스를 상속해 override 한다.
 public partial class Monster : CharacterBody2D, IEntity
 {
 	[Export] public MonsterData Data { get; set; }   // 종류별 스탯·외형. 인스펙터에서 .tres를 갈아끼운다

@@ -5,6 +5,7 @@ public partial class MagicMissile : Area2D
     [Export] public float Speed { get; set; } = 600.0f;
     [Export] public int Damage { get; set; } = 10;
     [Export] public float LifeTime { get; set; } = 2.0f;
+    [Export] public float DespawnMargin { get; set; } = 96.0f;
 
     public Vector2 Direction { get; set; } = Vector2.Right;
 
@@ -18,6 +19,9 @@ public partial class MagicMissile : Area2D
 
     public override void _Process(double delta)
     {
+        if (QueueFreeIfOutsideViewport())
+            return;
+
         GlobalPosition += Direction * Speed * (float)delta;
 
         _age += delta;
@@ -25,6 +29,18 @@ public partial class MagicMissile : Area2D
         {
             QueueFree();
         }
+    }
+
+    private bool QueueFreeIfOutsideViewport()
+    {
+        Rect2 visibleRect = GetViewport().GetVisibleRect().Grow(DespawnMargin);
+        Vector2 screenPosition = GetGlobalTransformWithCanvas().Origin;
+
+        if (visibleRect.HasPoint(screenPosition))
+            return false;
+
+        QueueFree();
+        return true;
     }
 
     private void OnBodyEntered(Node2D body)

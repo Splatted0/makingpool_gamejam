@@ -26,7 +26,7 @@ public partial class RoundManager : Node
             Hud = GetNodeOrNull<BattleWorldHud>("../..");
 
         if (Projectiles == null)
-            Projectiles = GetNodeOrNull<Node>("../EntityContainer/Projectiles");
+            Projectiles = GetNodeOrNull<Node>("../Projectiles");
     }
 
     public async void StartRound()
