@@ -68,8 +68,8 @@ public partial class MagicNode : Node2D
 
     private void OnMagicStatSet()
     {
-        SetAreaRange(_moveArea, Stat.Range);
-        SetAreaRange(_arrivalArea, Stat.Range);
+        SetAreaRange(_moveArea, Stat.MoveRange);
+        SetAreaRange(_arrivalArea, Stat.ArrivalRange);
     }
 
     private static Type GetPerkKey(MagicPerk perk) => perk switch

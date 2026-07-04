@@ -7,7 +7,8 @@ public abstract partial class MagicSpell : MagicEffect
     [ExportCategory("MagicStat")]
     [Export] public Elemental Elemental { get; private set; }
     [Export] public float BaseMaxDistance { get; private set; }
-    [Export] public float BaseRange { get; private set; } = 10;
+    [Export] public float BaseMoveRange { get; private set; } = 10;
+    [Export] public float BaseArrivalRange { get; private set; } = 10;
     [Export] public float BaseSpeed { get; private set; }
     [Export] public int BaseDamage { get; private set; }
     [ExportCategory("MagicData")]

@@ -2,7 +2,8 @@ public struct MagicStat
 {
     public float Speed;
     public float MaxDistance;
-    public float Range;
+    public float MoveRange;
+    public float ArrivalRange;
     public int Damage;
     public int DurationFrame;
 
@@ -10,7 +11,8 @@ public struct MagicStat
     {
         Speed       = spell.BaseSpeed,
         MaxDistance = spell.BaseMaxDistance,
-        Range       = spell.BaseRange,
+        MoveRange       = spell.BaseMoveRange,
+        ArrivalRange = spell.BaseArrivalRange,
         Damage      = spell.BaseDamage,
         DurationFrame = spell.BaseDurationFrame,
     };
