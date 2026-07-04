@@ -7,6 +7,7 @@
 [ext_resource type="SpriteFrames" uid="uid://q5iwlotb6uep" path="res://resource_ingame/resource_monster/dice_spritesheet.tres" id="4_n725y"]
 [ext_resource type="Resource" uid="uid://b7yguprnaarl5" path="res://resource_ingame/resource_monster/skeleton_boss_shield.tres" id="4_qtle2"]
 [ext_resource type="SpriteFrames" uid="uid://cpy7qgbv8fd07" path="res://resource_ingame/resource_monster/boss_spritesheet.tres" id="5_mh6p8"]
+[ext_resource type="PackedScene" uid="uid://du4muv8npdqa0" path="res://Scenes/boss_magic_circle.tscn" id="6_mgcrl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2q4sl"]
 radius = 31.0
@@ -18,6 +19,7 @@ BulletScene = ExtResource("2_cxrok")
 DiceSprite = NodePath("AnimatedSprite2D_dice")
 MonsterScene = ExtResource("3_mh6p8")
 ShieldData = ExtResource("4_qtle2")
+MagicCircleScene = ExtResource("6_mgcrl")
 Data = ExtResource("3_ukjjc")
 _animatedSprite = NodePath("AnimatedSprite2D_bossanim")
 

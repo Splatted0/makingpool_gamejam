@@ -11,15 +11,12 @@ public partial class Core : StaticBody2D, IEntity
 	[Export] public int MaxHp { get; set; } = 10000;
 
 	[ExportGroup("Leash")]
-	[Export] public float LeashAccel { get; set; } = 8f;      // 목줄이 당기는 힘(스프링 상수)
-	[Export] public float LeashDamping { get; set; } = 0.85f; // 초당 속도 감쇠율(0~1, 클수록 안 줄어듦)
-	[Export] public float LeashMaxSpeed { get; set; } = 600f;
-	[Export] public Vector2 LeashOffset { get; set; } = new Vector2(-80f, 0f);  // 타깃 기준 목표 지점 오프셋(왼쪽에 매달린 느낌)
+	[Export] public Vector2 LeashOffset { get; set; } = new Vector2(-80f, 0f);  // 타깃 기준 목표 지점 오프셋(왼쪽에 고정)
 	[Export] public float BossWaveScale { get; set; } = 0.6f;  // 목줄 걸릴 때(10웨이브) 코어 축소 배율
+	[Export] public float LeashCatchUpSpeed { get; set; } = 12f;  // 목표 지점과의 간격을 좁히는 속도(클수록 즉시 스냅에 가까움)
 
 	private bool _leashActive;
 	private Node2D _leashTarget;
-	private Vector2 _leashVelocity;
 	private bool _rooted;
 
 	private int _health;
@@ -36,35 +33,31 @@ public partial class Core : StaticBody2D, IEntity
 
 	}
 
-	// 보스 웨이브 진입 시 호출. target(플레이어)을 관성 붙여 뒤쫓아가는 목줄 모드를 켠다.
+	// 보스 웨이브 진입 시 호출. target(플레이어) 왼쪽에 고정 오프셋으로 딱 붙는 목줄 모드를 켠다.
 	// target이 null이면 목줄을 끈다(원래대로 고정).
 	public void StartLeash(Node2D target)
 	{
 		_leashTarget = target;
 		_leashActive = target != null;
-		_leashVelocity = Vector2.Zero;
 		Scale = target != null ? new Vector2(BossWaveScale, BossWaveScale) : Vector2.One;
 	}
 
-	// 주사위4(속박) 동안 목줄 당김을 무시하고 제자리에 고정한다.
+	// 주사위4(속박) 동안 위치 갱신을 멈추고 제자리에 고정한다.
 	public void SetRooted(bool rooted)
 	{
 		_rooted = rooted;
-		if (rooted)
-			_leashVelocity = Vector2.Zero;
 	}
 
+	// 스프링 관성은 없지만, 목표 지점까지 지수 감쇠로 부드럽게 좁혀간다(즉시 스냅 X).
+	// 속박이 풀린 직후처럼 간격이 크게 벌어져 있던 경우에도 순간이동 없이 자연스럽게 따라붙는다.
 	public override void _PhysicsProcess(double delta)
 	{
 		if (_rooted || !_leashActive || _leashTarget == null || !IsInstanceValid(_leashTarget))
 			return;
 
-		Vector2 toTarget = (_leashTarget.GlobalPosition + LeashOffset) - GlobalPosition;
-		_leashVelocity += toTarget * LeashAccel * (float)delta;
-		_leashVelocity *= Mathf.Pow(LeashDamping, (float)delta);
-		_leashVelocity = _leashVelocity.LimitLength(LeashMaxSpeed);
-
-		GlobalPosition += _leashVelocity * (float)delta;
+		Vector2 targetPosition = _leashTarget.GlobalPosition + LeashOffset;
+		float t = 1f - Mathf.Exp(-LeashCatchUpSpeed * (float)delta);
+		GlobalPosition = GlobalPosition.Lerp(targetPosition, t);
 	}
 
 	public void Hit(HitInfo hitInfo)

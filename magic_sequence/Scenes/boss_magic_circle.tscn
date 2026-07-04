@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://du4muv8npdqa0"]
+
+[ext_resource type="Script" uid="uid://c5p8tk5v13uxm" path="res://class/boss/MagicCircle.cs" id="1_mtdyq"]
+[ext_resource type="Texture2D" uid="uid://dx8pbc7rxk6k0" path="res://texture/boss/sprite-magical-spell-circle-64px.png" id="2_sprml"]
+
+[node name="MagicCircle" type="Node2D" unique_id=1100456688 node_paths=PackedStringArray("Visual")]
+script = ExtResource("1_mtdyq")
+Visual = NodePath("Visual")
+
+[node name="Visual" type="Sprite2D" parent="." unique_id=660638437]
+modulate = Color(1, 1, 1, 0.35)
+texture_filter = 1
+position = Vector2(-1.0000001, 0)
+scale = Vector2(5, 5)
+texture = ExtResource("2_sprml")

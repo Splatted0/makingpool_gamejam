@@ -7,12 +7,14 @@ public partial class Boss : Monster
 	[Export] public AnimatedSprite2D DiceSprite { get; set; }   // 얼굴 1~7 = Frame 0~6. Play() 안 쓰고 Frame만 직접 제어
 	[Export] public PackedScene MonsterScene { get; set; }   // Monster.cs가 붙은 범용 몬스터 씬(스포너와 동일)
 	[Export] public MonsterData ShieldData { get; set; }     // 방패병 데이터(MoveSpeed=0, 원거리형+데미지0 권장)
+	[Export] public PackedScene MagicCircleScene { get; set; }   // MagicCircle.cs가 붙은 장판 프리팹
 
 	private const string ShieldGroup = "boss_shield";
 
 	private BossData _bossData;
 	private BossPatternController _patterns;
 	private BossAnimator _bossAnimator;  // idle 기본 + 패턴 이벤트 시 단발 애니(die는 상속받은 MonsterAnimator가 처리)
+	private float _groundZoneElapsed;    // 주사위와 무관한 기본 공격(장판) 주기 타이머
 
 	// 패턴 조각이 참조하는 공개 API
 	public BossData Config => _bossData;
@@ -42,6 +44,74 @@ public partial class Boss : Monster
 		GetParent().AddChild(bullet);
 		bullet.GlobalPosition = GlobalPosition;
 		bullet.Fire(direction, speed, damage, Team, TargetNode);
+	}
+
+	// 주사위와 무관하게 일정 주기로 플레이어 근방에 장판(마법진) 여러 개를 동시에 깐다(기본 공격).
+	private void UpdateGroundZoneAttack(double delta)
+	{
+		if (_bossData == null)
+			return;
+
+		_groundZoneElapsed += (float)delta;
+		if (_groundZoneElapsed < _bossData.GroundZoneInterval)
+			return;
+
+		_groundZoneElapsed = 0f;
+		SpawnGroundZones();
+	}
+
+	private void SpawnGroundZones()
+	{
+		if (MagicCircleScene == null)
+		{
+			GD.PrintErr($"[Boss] {Name}: MagicCircleScene이 비어있습니다.");
+			return;
+		}
+
+		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
+		Vector2 center = player != null && IsInstanceValid(player) ? player.GlobalPosition : GlobalPosition;
+
+		// 순수 랜덤 좌표만으로는 좁은 범위에 여러 개를 욱여넣다 계속 겹쳐서, 각자 몫의 각도 구간(부채꼴)을
+		// 먼저 배정하고 그 안에서만 흔들어 배치한다 — 구조적으로 서로 겹치기 어렵게 만드는 방식.
+		int count = _bossData.GroundZoneCount;
+		float sectorDegrees = 360f / count;
+		float minDistance = _bossData.GroundZoneSpreadRange * 0.4f;
+		const int maxAttemptsPerZone = 30;
+		var placed = new Vector2[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			Vector2 position = Vector2.Zero;
+			for (int attempt = 0; attempt < maxAttemptsPerZone; attempt++)
+			{
+				float angleDeg = i * sectorDegrees + (float)GD.RandRange(-sectorDegrees * 0.4, sectorDegrees * 0.4);
+				float distance = (float)GD.RandRange(minDistance, _bossData.GroundZoneSpreadRange);
+				position = center + Vector2.Right.Rotated(Mathf.DegToRad(angleDeg)) * distance;
+
+				bool tooClose = false;
+				for (int j = 0; j < i; j++)
+				{
+					if (position.DistanceTo(placed[j]) < _bossData.GroundZoneMinSpacing)
+					{
+						tooClose = true;
+						break;
+					}
+				}
+
+				if (!tooClose)
+					break;
+			}
+
+			placed[i] = position;
+
+			MagicCircle circle = MagicCircleScene.Instantiate<MagicCircle>();
+			Node parent = Blackboard.Main != null ? (Node)Blackboard.EntityContainer : GetParent();
+			parent.AddChild(circle);
+			circle.GlobalPosition = position;
+			circle.Setup(_bossData.GroundZoneRadius, _bossData.GroundZoneTelegraphDuration, _bossData.GroundZoneActiveDuration, _bossData.GroundZoneDamage, Team, TargetNode);
+		}
+
+		GD.Print($"[GroundZone] 장판 {_bossData.GroundZoneCount}개 소환");
 	}
 
 	public void PlayAttackAnim() => _bossAnimator?.PlayAttack();
@@ -118,6 +188,7 @@ public partial class Boss : Monster
 	{
 		_bossAnimator?.PlayIdle();
 		_patterns?.Tick(delta);
+		UpdateGroundZoneAttack(delta);
 	}
 
 	// 스턴 상태이상 재해석: debuff 애니만 재생하고, 주사위 굴림·시전은 스턴과 무관하게 계속 진행한다.
@@ -125,6 +196,7 @@ public partial class Boss : Monster
 	{
 		_bossAnimator?.PlayDebuff();
 		_patterns?.Tick(delta);
+		UpdateGroundZoneAttack(delta);
 	}
 
 	// autoplay로 SpriteFrames가 자체 재생하는 걸 막고, SetDiceFace로만 프레임을 제어한다.

@@ -59,4 +59,15 @@ public partial class BossData : MonsterData
     [ExportSubgroup("Dice7 PlayerBoost")]
     [Export] public float PlayerCooldownMultiplier { get; set; } = 0.05f;  // 재발사 대기시간에 곱해질 배율(작을수록 빠름)
     [Export] public float PlayerRapidFireDuration { get; set; } = 3f;      // 지속시간(초)
+
+    // === 기본 공격: 주사위와 무관하게 일정 주기로 플레이어 근방에 장판(마법진)을 동시에 깐다 ===
+    [ExportGroup("GroundZone")]
+    [Export] public float GroundZoneInterval { get; set; } = 5f;          // 발동 주기(초)
+    [Export] public int GroundZoneCount { get; set; } = 5;                // 한 번에 까는 장판 개수
+    [Export] public float GroundZoneRadius { get; set; } = 130f;          // 장판 판정 반지름(px)
+    [Export] public int GroundZoneDamage { get; set; } = 20;
+    [Export] public float GroundZoneTelegraphDuration { get; set; } = 1f;   // 예고 시간
+    [Export] public float GroundZoneActiveDuration { get; set; } = 0.5f;    // 활성화 후 페이드아웃 시간
+    [Export] public float GroundZoneSpreadRange { get; set; } = 220f;     // 플레이어 위치 기준 최대 배치 반경
+    [Export] public float GroundZoneMinSpacing { get; set; } = 160f;      // 장판끼리 최소 이 거리(반지름 2배보다 작게 잡아 살짝 겹치는 건 허용)
 }
