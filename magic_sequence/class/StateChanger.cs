@@ -255,9 +255,9 @@ public partial class StateChanger : Node
         await tutorial.ShowCutscene("res://texture/cutscenes/ending0.png");
         await tutorial.ShowDialogue("", "주인공  :  “현자닙, 리치를 물리쳤어요!” \n현자  :  “고맙네! 약속대로 자네의 저주를 해결해주지!”\n");
         await tutorial.ShowCutscene("res://texture/cutscenes/ending1.png");
-        await tutorial.ShowText("주인공", "…괜찮아요! 이번에 리치와 싸우면서 느꼈어요. ");
+        await tutorial.ShowDialogue("주인공", "…괜찮아요! 이번에 리치와 싸우면서 느꼈어요. ");
         await tutorial.ShowCutscene("res://texture/cutscenes/ending2.png");
-        await tutorial.ShowText("주인공", "운빨망법사도 나쁘지 않다는 걸요!");
+        await tutorial.ShowDialogue("주인공", "운빨망법사도 나쁘지 않다는 걸요!");
     }
 
     private async Task GameOverState()
@@ -278,7 +278,7 @@ public partial class StateChanger : Node
         layer.AddChild(image);
 
         await WaitForAdvance();
-        layer.QueueFree();
+        GetTree().Quit();
     }
 
     private async Task WaitForAdvance()

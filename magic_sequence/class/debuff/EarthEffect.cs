@@ -21,5 +21,6 @@ public class EarthEffect : IDebuff
     public void OnExpire(Monster monster)
     {
         monster.IsStunned = false;
+        monster.EarthParticle.Visible = false;
     }
 }

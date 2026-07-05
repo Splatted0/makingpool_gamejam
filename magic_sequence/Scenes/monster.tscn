@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://b24pjug0vd1l6" path="res://Sprites/particle_fire2.png" id="3_cyu0s"]
 [ext_resource type="Texture2D" uid="uid://cdpv24dh6lhva" path="res://Sprites/particle/skill_ice.png" id="4_6ks7b"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_yg44f"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_bua6k"]
 atlas = ExtResource("2_ujuxu")
 region = Rect2(0, 0, 10, 4)
@@ -47,13 +49,9 @@ particles_anim_h_frames = 2
 particles_anim_v_frames = 2
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id="Gradient_1mxyj"]
-colors = PackedColorArray(0.47553682, 0.47553688, 0.47553682, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_3n4l1"]
-gradient = SubResource("Gradient_1mxyj")
-
 [sub_resource type="Gradient" id="Gradient_dfc53"]
+offsets = PackedFloat32Array(0.51604277, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.35006392, 0.35006395, 0.35006392, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_sihjj"]
 gradient = SubResource("Gradient_dfc53")
@@ -61,14 +59,13 @@ gradient = SubResource("Gradient_dfc53")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rluau"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 15.0
+emission_sphere_radius = 25.0
 angle_min = -29.99999
 angle_max = 30.000011
-scale_min = 0.049999997
-scale_max = 0.19999999
-color = Color(1, 0.01999998, 0.15066653, 1)
+scale_min = 0.39999998
+scale_max = 0.59999996
+color = Color(0.99253577, 0, 0.14321738, 1)
 color_ramp = SubResource("GradientTexture1D_sihjj")
-color_initial_ramp = SubResource("GradientTexture1D_3n4l1")
 anim_speed_min = 0.5
 anim_speed_max = 0.5
 
@@ -100,12 +97,12 @@ curve = SubResource("Curve_c2122")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3s86v"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 20.0
+emission_sphere_radius = 25.0
 angle_min = -29.99999
 angle_max = 30.000011
 gravity = Vector3(0, 4.5, 0)
-scale_min = 0.049999997
-scale_max = 0.099999994
+scale_min = 0.29999998
+scale_max = 0.39999998
 scale_curve = SubResource("CurveTexture_1m7lt")
 color_ramp = SubResource("GradientTexture1D_aiar5")
 color_initial_ramp = SubResource("GradientTexture1D_q7811")
@@ -122,13 +119,14 @@ FireParticle = NodePath("AnimatedSprite2D/fire")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=102912107]
 texture_filter = 1
-animation = &"attack"
+sprite_frames = SubResource("SpriteFrames_yg44f")
 
 [node name="ground" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=482692291]
 visible = false
 position = Vector2(1, -13)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_i8g4g")
-frame_progress = 0.99989164
+frame_progress = 0.5301756
 
 [node name="fire" type="GPUParticles2D" parent="AnimatedSprite2D" unique_id=1685953503]
 visible = false
