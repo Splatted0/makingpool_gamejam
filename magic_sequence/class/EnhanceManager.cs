@@ -46,7 +46,21 @@ public partial class EnhanceManager : CanvasLayer
 
         MagicRerollButton.Text = "$" + _enhanceData.MagicRerollCost;
         MagicRerollButton.Visible = magics.Length > 0;
+        bool isfull = true;
+        foreach (Wand wand in Blackboard.Wands)
+        {
+            if (wand.Magics.Count < wand.Slot)
+            {
+                isfull = false;
+            }
+            
+        }
 
+        if (isfull)
+        {
+            _getMagicCount = 0;
+            OnMagicChangeEnd();
+        }
         bool showWand = _enhanceData.IsWandDrop && Blackboard.Wands.Length < 3;
         if (showWand)
         {
@@ -64,7 +78,6 @@ public partial class EnhanceManager : CanvasLayer
 
     private void OnMagicChangeEnd()
     {
-        if (_getMagicCount >= _enhanceData.MustGetMagicCount) return;
 
         if (_enhanceData.DropMagicCount - MagicChanceManager.GetMagicRemainCount > 0)
             _getMagicCount++;
