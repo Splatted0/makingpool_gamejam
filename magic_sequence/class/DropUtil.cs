@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 public static class DropUtil
 {
@@ -22,13 +23,30 @@ public static class DropUtil
 
     public static Wand[] GetWandDrops(WandPool pool, int count)
     {
-        Wand[] ownedWands = Blackboard.Wands;
+        Wand[] ownedWands = Blackboard.Wands ?? Array.Empty<Wand>();
+        HashSet<string> ownedIds = ownedWands
+            .SelectMany(GetWandIds)
+            .Where(id => !string.IsNullOrEmpty(id))
+            .ToHashSet();
+
         var filters = new Func<Wand, bool>[count];
         for (int i = 0; i < count; i++)
         {
-            filters[i] = w => !ownedWands.Contains(w);
+            filters[i] = w => !GetWandIds(w).Any(ownedIds.Contains);
         }
         return pool.DrawFixedSlots(filters);
+    }
+
+    private static IEnumerable<string> GetWandIds(Wand wand)
+    {
+        if (wand == null)
+            yield break;
+
+        if (!string.IsNullOrEmpty(wand.ResourcePath))
+            yield return System.IO.Path.GetFileNameWithoutExtension(wand.ResourcePath);
+
+        if (!string.IsNullOrEmpty(wand.WandName))
+            yield return wand.WandName;
     }
 
     private static Tier RollTier(EnhanceData enhanceData)

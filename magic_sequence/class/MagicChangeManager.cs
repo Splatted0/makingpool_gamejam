@@ -195,9 +195,14 @@ public partial class MagicChangeManager : Control
 
     private bool DropFromGetPanel()
     {
-        if (!_hoveredWand.Wand.IsEmpty(_hoveredIndex)) return false;
+        if (_hoveredWand?.Wand == null || _hoveredIndex < 0 || _hoveredIndex >= _hoveredWand.Wand.Magics.Count)
+            return false;
 
-        _hoveredWand.Wand.Add(_draggedMagic, _hoveredIndex);
+        if (_hoveredWand.Wand.IsEmpty(_hoveredIndex))
+            _hoveredWand.Wand.Add(_draggedMagic, _hoveredIndex);
+        else
+            _hoveredWand.Wand.Magics[_hoveredIndex] = _draggedMagic;
+
         int idx = GetMagicPanels.IndexOf(_sourcePanel);
         if (idx >= 0) SetGetMagic(idx, null);
         return true;

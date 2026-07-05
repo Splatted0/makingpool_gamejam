@@ -48,34 +48,20 @@ public partial class EnhanceManager : CanvasLayer
         
         MagicRerollButton.Text = "$" + _enhanceData.MagicRerollCost;
         MagicRerollButton.Visible = magics.Length > 0;
-        bool isfull = true;
- 
-        
-        bool showWand = _enhanceData.IsWandDrop && Blackboard.Wands.Length < 3;
+
+        Wand[] ownedWands = Blackboard.Wands ?? Array.Empty<Wand>();
+        bool needsStarterWand = ownedWands.Length == 0;
+        bool showWand = (needsStarterWand || _enhanceData.IsWandDrop) && ownedWands.Length < 3;
         if (showWand)
         {
-            Wand[] wands = Blackboard.Wands.Length == 0 ? StartWand : DropUtil.GetWandDrops(Blackboard.WandPool, 1);
-            wands[0].Setup();
-            _getWand = wands[0].Duplicate() as Wand;
-            _getWand?.Setup();
-            GetWandUi.Setup(_getWand);
-        }
-        
-        foreach (Wand wand in Blackboard.Wands)
-        {
-            if (wand.Magics.Count < wand.Slot)
-            {
-                isfull = false;
-            }
-            
+            Wand[] wands = needsStarterWand ? StartWand : DropUtil.GetWandDrops(Blackboard.WandPool, 1);
+            Wand selectedWand = wands != null && wands.Length > 0 ? wands[0] : null;
+            _getWand = CreateEmptyWandCopy(selectedWand);
+            showWand = _getWand != null;
+            if (showWand)
+                GetWandUi.Setup(_getWand);
         }
 
-        if (isfull && !showWand)
-        {
-            _getMagicCount = 99;
-            OnMagicChangeEnd();
-        }
-        
         GetWandUi.Visible = showWand;
         GetWandButton.Visible = showWand;
         WandRerollButton.Text = "$" + _enhanceData.WandRerollCost;
@@ -98,6 +84,9 @@ public partial class EnhanceManager : CanvasLayer
 
     private void OnGetWandButtonPressed()
     {
+        if (_getWand == null)
+            return;
+
         Blackboard.Main.AddWand(_getWand);
         GetWandUi.Visible = false;
         GetWandButton.Visible = false;
@@ -119,10 +108,26 @@ public partial class EnhanceManager : CanvasLayer
         if (!Blackboard.TrySpendGold(_enhanceData.WandRerollCost)) return;
 
         Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1);
-        wands[0].Setup();
-        _getWand = wands[0].Duplicate() as Wand;
-        _getWand?.Setup();
-        GetWandUi.Setup(_getWand);
+        Wand selectedWand = wands != null && wands.Length > 0 ? wands[0] : null;
+        _getWand = CreateEmptyWandCopy(selectedWand);
+        if (_getWand != null)
+            GetWandUi.Setup(_getWand);
+    }
+
+    private static Wand CreateEmptyWandCopy(Wand source)
+    {
+        if (source == null)
+            return null;
+
+        source.Setup();
+        Wand copy = source.Duplicate(true) as Wand;
+        if (copy == null)
+            return null;
+
+        copy.Setup();
+        copy.Magics.Clear();
+        copy.Magics.Resize(copy.Slot);
+        return copy;
     }
 
     private void OnAddHealthButtonPressed()

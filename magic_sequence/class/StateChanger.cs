@@ -9,17 +9,27 @@ public partial class StateChanger : Node
             await TutorialState();
 
             bool gameOver = false;
+            bool gameClear = false;
             await EnhanceState();
 
-            while (!gameOver)
+            while (!gameOver && !gameClear)
             {
                 gameOver = await BattleState();
+                gameClear = IsAllRoundsCleared();
 
-                if (!gameOver)
+                if (!gameOver && !gameClear)
                     await EnhanceState();
             }
 
-            await GameOverState();
+            if (gameClear)
+            {
+                await EndingState();
+                return;
+            }
+            else
+            {
+                await GameOverState();
+            }
         }
     }
 
@@ -221,6 +231,33 @@ public partial class StateChanger : Node
     private async Task WaitForSignal(GodotObject source, StringName signal)
     {
         await ToSignal(source, signal);
+    }
+
+    private static bool IsAllRoundsCleared()
+    {
+        RoundManager roundManager = Blackboard.RoundManager;
+        return roundManager != null
+            && roundManager.MaxRounds > 0
+            && roundManager.RoundNumber > roundManager.MaxRounds;
+    }
+
+    private async Task EndingState()
+    {
+        Blackboard.BattleWorldHud.Visible = false;
+        Blackboard.EnhanceManager.Visible = false;
+        Blackboard.MainMenu.Visible = false;
+
+        Tutorial tutorial = Blackboard.Tutorial;
+        if (tutorial == null)
+            return;
+
+        tutorial.Visible = true;
+        await tutorial.ShowCutscene("res://texture/cutscenes/ending0.png");
+        await tutorial.ShowDialogue("", "주인공  :  “현자닙, 리치를 물리쳤어요!” \n현자  :  “고맙네! 약속대로 자네의 저주를 해결해주지!”\n");
+        await tutorial.ShowCutscene("res://texture/cutscenes/ending1.png");
+        await tutorial.ShowText("주인공", "…괜찮아요! 이번에 리치와 싸우면서 느꼈어요. ");
+        await tutorial.ShowCutscene("res://texture/cutscenes/ending2.png");
+        await tutorial.ShowText("주인공", "운빨망법사도 나쁘지 않다는 걸요!");
     }
 
     private async Task GameOverState()

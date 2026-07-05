@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bqlfcju4dqymo" path="res://Sprites/missile.png" id="2_2i5qk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kjtai"]
+radius = 27.0
+height = 66.0
 
 [node name="MagicMissile" type="Node2D" unique_id=2105891535 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
 script = ExtResource("1_lwd6k")

@@ -25,7 +25,9 @@ public partial class Tutorial : CanvasLayer
     public async Task ShowCutscene(params string[] imagePaths)
     {
 
+        Overlay.Modulate = Colors.White;
         DialoguePanel.Visible = false;
+        TextPanel.Visible = false;
         Overlay.Visible = true;
         CutSceneImage.Visible = true;
 
