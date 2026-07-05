@@ -45,10 +45,10 @@ public partial class StateChanger : Node
 
         await Tutorial.ShowCutscene(
             tutorial,
-            "res://texture/magicIcon/fire1.png",
-            "res://texture/magicIcon/ground1.png",
-            "res://texture/magicIcon/ice1.png",
-            "res://texture/magicIcon/wind1.png");
+            "res://texture/cutscenes/first.png",
+            "res://texture/cutscenes/second.png",
+            "res://texture/cutscenes/third.png",
+            "res://texture/cutscenes/fourth.png");
 
         battleWorldHud.Visible = true;
         SetupTutorialEnemy(battleWorldHud);
@@ -99,7 +99,7 @@ public partial class StateChanger : Node
         tutorial.Visible = true;
 
         await Tutorial.ShowDialogue(tutorial, "현자", "마법학도라면 원소 간의 상성과 역상성에 대해서도 알고 있겠지? 마법을 나눠담을 지팡이를 가져올 테니 일단 리치의 병사들을 막아내고 있게. 골드를 통해 저장된 마법 자체도 강화할 수 있다네. 그럼 이따 보지!");
-        await Tutorial.ShowCutscene(tutorial, "res://texture/magicIcon/support1.png");
+        await Tutorial.ShowCutscene(tutorial, "res://texture/cutscenes/fifth.png");
 
         ClearTutorialBattleObjects(battleWorldHud);
         Blackboard.Main.Wands = previousWands
