@@ -18,6 +18,8 @@ public partial class StateChanger : Node
                 if (!gameOver)
                     await EnhanceState();
             }
+
+            await GameOverState();
         }
     }
 
@@ -220,5 +222,45 @@ public partial class StateChanger : Node
     private async Task WaitForSignal(GodotObject source, StringName signal)
     {
         await ToSignal(source, signal);
+    }
+
+    private async Task GameOverState()
+    {
+        Blackboard.BattleWorldHud.Visible = false;
+        Blackboard.EnhanceManager.Visible = false;
+        Blackboard.Tutorial.Visible = false;
+        Blackboard.MainMenu.Visible = false;
+
+        CanvasLayer layer = new CanvasLayer { Name = "GameOverScreen" };
+        AddChild(layer);
+
+        TextureRect image = new TextureRect();
+        image.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+        image.Texture = GD.Load<Texture2D>("res://Sprites/gameover.png");
+        image.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+        image.StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered;
+        layer.AddChild(image);
+
+        await WaitForAdvance();
+        layer.QueueFree();
+    }
+
+    private async Task WaitForAdvance()
+    {
+        while (IsAdvancePressed())
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        while (!IsAdvancePressed())
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        while (IsAdvancePressed())
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+    }
+
+    private static bool IsAdvancePressed()
+    {
+        return Input.IsMouseButtonPressed(MouseButton.Left)
+            || Input.IsKeyPressed(Key.Space)
+            || Input.IsKeyPressed(Key.Enter);
     }
 }
