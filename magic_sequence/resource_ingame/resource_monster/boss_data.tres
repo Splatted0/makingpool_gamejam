@@ -5,7 +5,22 @@
 
 [resource]
 script = ExtResource("1_2motd")
+BarrageBulletCount = 15
+BarrageSpreadDegrees = 90.0
+BarrageBulletSpeed = 900.0
+DiceWeight1 = 0.5
+DiceWeight2 = 0.5
+DiceWeight4 = 0.7
+ShieldSummonCount = 10
+HealVfxBurstCount = 10
+LaserSprayCount = 15
 LaserSprayLength = 2000.0
+LaserSpawnOffsetX = 500.0
+LaserSprayChargeTime = 0.7
+LaserSprayFadeDuration = 0.1
+LaserSprayThinWidth = 1.0
+LaserSprayImpactWidth = 120.0
+RootChainWidth = 36.0
 MaxHealth = 5000
 AttackRange = 300.0
 HealAmount = 10

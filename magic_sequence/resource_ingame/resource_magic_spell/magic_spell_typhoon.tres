@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MagicSpellTyphoon" format=3 uid="uid://bp5aql63tw7b3"]
+[gd_resource type="Resource" format=3 uid="uid://bp5aql63tw7b3"]
 
 [ext_resource type="PackedScene" uid="uid://coohebjf604o4" path="res://scene_magic/magic_wind_arrow.tscn" id="1_scene"]
 [ext_resource type="Script" uid="uid://b3soqilqfgw64" path="res://class_ability/MagicSpellTyphoon.cs" id="2_script"]

@@ -21,6 +21,7 @@ public class BossDiceShieldPattern : IBossPattern
 		{
 			Vector2 position = origin + new Vector2(0f, i * data.ShieldSummonSpacing);
 			boss.SummonShield(position);
+			Vfx.SpawnParticle.Throw(new VfxSpawnParticleData { GlobalPosition = position });
 		}
 
 		boss.PlayBuffAnim();

@@ -32,7 +32,9 @@ scale_curve = SubResource("CurveTexture_i8g4g")
 color_ramp = SubResource("GradientTexture1D_rluau")
 
 [node name="VfxSpawnParticle" type="GPUParticles2D" unique_id=2009721058]
+emitting = false
 amount = 32
+one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_i8g4g")
 script = ExtResource("1_ahcse")

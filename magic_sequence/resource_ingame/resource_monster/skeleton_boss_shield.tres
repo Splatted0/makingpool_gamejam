@@ -1,13 +1,14 @@
 [gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://b7yguprnaarl5"]
 
 [ext_resource type="Script" uid="uid://cxrvco7ce4fuv" path="res://class_resource/MonsterData.cs" id="1_gg2js"]
-[ext_resource type="SpriteFrames" uid="uid://ceprictqladxa" path="res://resource_ingame/resource_monster/skeleton_shield_spriteframe.tres" id="1_khg8d"]
+[ext_resource type="SpriteFrames" uid="uid://cunmciiwe3yww" path="res://resource_ingame/resource_monster/skeleton_boss_shield_spritesheet.tres" id="1_khg8d"]
 
 [resource]
 script = ExtResource("1_gg2js")
+MaxHealth = 1000
 MoveSpeed = 0.0
 AttackDamage = 0
-AttackRange = 150.0
+AttackRange = 9999.0
 AttackInterval = 0.0
 Frames = ExtResource("1_khg8d")
 metadata/_custom_type_script = "uid://cxrvco7ce4fuv"

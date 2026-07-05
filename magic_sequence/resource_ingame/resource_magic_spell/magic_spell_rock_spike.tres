@@ -5,8 +5,6 @@
 
 [resource]
 script = ExtResource("2_script")
-VulnerableDamageMultiplier = 1.1
-EnhancedVulnerableDamageMultiplier = 1.2
 MagicNodePack = ExtResource("1_scene")
 Elemental = 3
 BaseMaxDistance = 500.0
@@ -14,5 +12,4 @@ BaseArrivalRange = 75.0
 BaseSpeed = 500.0
 BaseDamage = 250
 BaseDurationFrame = 30
-EnhancedDamage = 320
 metadata/_custom_type_script = "res://class_ability/MagicSpellRockSpike.cs"

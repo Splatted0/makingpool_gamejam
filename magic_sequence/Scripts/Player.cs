@@ -7,7 +7,17 @@ public partial class Player : CharacterBody2D
     [Export] private Godot.Collections.Dictionary<Wand, SpriteFrames> _handsByWand;
     [Export] private AnimatedSprite2D _basePlayerSprite;
     [Export] private AnimatedSprite2D _handSprite;
-    
+
+    private bool _hasRightLimit;
+    private float _rightLimitX;
+
+    // 보스가 웨이브 진입 시 호출. 이 X 지점보다 오른쪽으로는 못 가게 막는다(위아래는 무제한).
+    public void SetRightLimit(float x)
+    {
+        _rightLimitX = x;
+        _hasRightLimit = true;
+    }
+
     public override void _Ready()
     {
         AddToGroup("player");
@@ -24,6 +34,9 @@ public partial class Player : CharacterBody2D
             Velocity = Velocity.MoveToward(Vector2.Zero, Speed);
 
         MoveAndSlide();
+
+        if (_hasRightLimit && GlobalPosition.X > _rightLimitX)
+            GlobalPosition = new Vector2(_rightLimitX, GlobalPosition.Y);
     }
 
     private async void OnLanchedWand(Wand wand)
