@@ -52,6 +52,9 @@ public partial class StateChanger : Node
 
         battleWorldHud.Visible = true;
         SetupTutorialEnemy(battleWorldHud);
+        Wand[] previousWands = Blackboard.Main.Wands ?? Array.Empty<Wand>();
+        WandManager tutorialWandManager = battleWorldHud.WandManager;
+        bool previousAutoFireEnabled = tutorialWandManager?.AutoFireEnabled ?? true;
 
         Wand beginnerWand = GD.Load<Wand>("res://resource_ingame/resource_wand/beginner_wand.tres")?.Duplicate(true) as Wand;
         Magic fireBullet = GD.Load<Magic>("res://resource_ingame/resource_magic/fire_bullet.tres");
@@ -71,25 +74,42 @@ public partial class StateChanger : Node
         beginnerWand.Magics.Clear();
         beginnerWand.Magics.Resize(beginnerWand.Slot);
         Blackboard.Main.Wands = new[] { beginnerWand };
+        if (tutorialWandManager != null)
+            tutorialWandManager.AutoFireEnabled = false;
 
         await Tutorial.ShowDialogue(tutorial, "현자", "시전한 마법을 저장할 수 있는 완드라네. 이거라면 불확실성을 줄일 수 있겠지. 자, 마법을 사용해 보게.");
 
+        ShowBattleDemoView();
         beginnerWand.Add(fireBullet, 0);
-        battleWorldHud.WandManager?.SetupWands();
-
+        tutorialWandManager?.SetupWands();
+        tutorialWandManager?.FireOnce(0);
         await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
-        battleWorldHud.WandManager?.SetupWands();
+        tutorialWandManager?.FireOnce(0);
+        await ToSignal(GetTree().CreateTimer(0.4), SceneTreeTimer.SignalName.Timeout);
+        tutorial.Visible = true;
 
         await Tutorial.ShowDialogue(tutorial, "주인공", "와! 이거라면!");
 
+        ShowBattleDemoView();
         beginnerWand.Add(rockSpike, 1);
         beginnerWand.Add(windArrow, 2);
-        battleWorldHud.WandManager?.SetupWands();
+        tutorialWandManager?.SetupWands();
+        tutorialWandManager?.FireOnce(0);
+        await ToSignal(GetTree().CreateTimer(1.4), SceneTreeTimer.SignalName.Timeout);
+        tutorial.Visible = true;
 
         await Tutorial.ShowDialogue(tutorial, "현자", "마법학도라면 원소 간의 상성과 역상성에 대해서도 알고 있겠지? 마법을 나눠담을 지팡이를 가져올 테니 일단 리치의 병사들을 막아내고 있게. 골드를 통해 저장된 마법 자체도 강화할 수 있다네. 그럼 이따 보지!");
         await Tutorial.ShowCutscene(tutorial, "res://texture/magicIcon/support1.png");
 
         ClearTutorialBattleObjects(battleWorldHud);
+        Blackboard.Main.Wands = previousWands
+            .Where(wand => System.IO.Path.GetFileNameWithoutExtension(wand?.ResourcePath ?? "") != "beginner_wand")
+            .ToArray();
+        if (tutorialWandManager != null)
+        {
+            tutorialWandManager.AutoFireEnabled = previousAutoFireEnabled;
+            tutorialWandManager.SetupWands();
+        }
         Tutorial.Hide(tutorial);
         tutorial.Visible = false;
         battleWorldHud.Visible = true;
@@ -119,6 +139,34 @@ public partial class StateChanger : Node
             slime.SetTarget(core.GlobalPosition, core);
             slime.GlobalPosition = new Vector2(1080f, 330f);
             container.AddChild(slime);
+        }
+
+        void ShowBattleDemoView()
+        {
+            tutorial.Visible = false;
+            battleWorldHud.Visible = true;
+
+            Node2D battleCenter = battleWorldHud.GetNodeOrNull<Node2D>("BattleCenter");
+            if (battleCenter != null)
+                battleCenter.Visible = true;
+
+            Player player = battleWorldHud.GetNodeOrNull<Player>("BattleCenter/Player");
+            if (player != null)
+            {
+                player.Visible = true;
+                player.Modulate = Colors.White;
+                player.GlobalPosition = new Vector2(312f, 329f);
+                player.ZIndex = 100;
+            }
+
+            WandManager wandManager = battleWorldHud.WandManager;
+            if (wandManager != null)
+            {
+                wandManager.AutoFireEnabled = false;
+                wandManager.Player ??= player;
+                wandManager.Projectiles ??= battleWorldHud.GetNodeOrNull<Node>("BattleCenter/Projectiles");
+                wandManager.Core ??= battleWorldHud.Core;
+            }
         }
 
         void ClearTutorialBattleObjects(BattleWorldHud hud)

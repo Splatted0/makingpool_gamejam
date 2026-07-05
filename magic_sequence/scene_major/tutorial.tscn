@@ -1,46 +1,6 @@
 [gd_scene format=3 uid="uid://c5snkrp8fqpjy"]
 
-[ext_resource type="Texture2D" uid="uid://dsxxqs68g6fp2" path="res://Sprites/backgroundtotal.png" id="1_ty52s"]
-[ext_resource type="PackedScene" uid="uid://8ts3lb4x7jt8" path="res://Scenes/core.tscn" id="2_gol65"]
-[ext_resource type="PackedScene" uid="uid://c5mjlu0ja5toy" path="res://Scenes/player.tscn" id="3_eldjy"]
-[ext_resource type="Script" uid="uid://dd3sy43j8qy70" path="res://class/WandManager.cs" id="4_mnyrh"]
-[ext_resource type="PackedScene" uid="uid://v06jyj3rh1iu" path="res://scene_minor/wand_node.tscn" id="5_kbo8i"]
-
 [node name="Tutorial" type="CanvasLayer" unique_id=1715003538]
 
 [node name="Tutorial" type="Node2D" parent="." unique_id=611852372]
-
-[node name="Map" type="Node2D" parent="Tutorial" unique_id=614879073]
-
-[node name="Parallax2D" type="Parallax2D" parent="Tutorial/Map" unique_id=1410188017]
-
-[node name="Sprite2D" type="Sprite2D" parent="Tutorial/Map/Parallax2D" unique_id=1901999505]
-position = Vector2(640, 360)
-texture = ExtResource("1_ty52s")
-
-[node name="EntityContainer" type="Node2D" parent="Tutorial" unique_id=115396338]
-
-[node name="Core" parent="Tutorial" unique_id=326636362 instance=ExtResource("2_gol65")]
-position = Vector2(60, 242)
-
-[node name="Player" parent="Tutorial" unique_id=1271626603 instance=ExtResource("3_eldjy")]
-position = Vector2(312, 329)
-
-[node name="Projectiles" type="Node2D" parent="Tutorial" unique_id=153481380]
-
-[node name="WandManager" type="Node" parent="Tutorial" unique_id=1278142685 node_paths=PackedStringArray("Player", "Core", "Projectiles", "WandNode1", "WandNode2", "WandNode3")]
-script = ExtResource("4_mnyrh")
-Player = NodePath("../Player")
-Core = NodePath("../Core")
-Projectiles = NodePath("../Projectiles")
-WandNode1 = NodePath("WandNode1")
-WandNode2 = NodePath("WandNode2")
-WandNode3 = NodePath("WandNode3")
-
-[node name="WandNode1" parent="Tutorial/WandManager" unique_id=1352109310 instance=ExtResource("5_kbo8i")]
-
-[node name="WandNode2" parent="Tutorial/WandManager" unique_id=1153526613 instance=ExtResource("5_kbo8i")]
-
-[node name="WandNode3" parent="Tutorial/WandManager" unique_id=1284556349 instance=ExtResource("5_kbo8i")]
-
-[node name="DeadZone" type="Node2D" parent="Tutorial" unique_id=121677392]
+visible = false

@@ -14,6 +14,7 @@ public partial class WandManager : Node
 
     [Export] public float SpawnDistance { get; set; } = 50.0f;
     [Export] public double FireCooldown { get; set; } = 0.5;
+    [Export] public bool AutoFireEnabled { get; set; } = true;
 
     private readonly double[] _fireCooldownLeft = new double[3];
     private readonly bool[] _isFiringSequence = new bool[3];
@@ -39,6 +40,9 @@ public partial class WandManager : Node
             return;
 
         UpdateFiringSequences(delta);
+
+        if (!AutoFireEnabled)
+            return;
 
         for (int i = 0; i < _fireCooldownLeft.Length; i++)
         {
@@ -77,6 +81,14 @@ public partial class WandManager : Node
     public void SetCooldownMultiplier(double multiplier)
     {
         _cooldownMultiplier = Math.Max(multiplier, 0.0);
+    }
+
+    public bool FireOnce(int wandIndex, bool ignoreCooldown = true)
+    {
+        if (ignoreCooldown && wandIndex >= 0 && wandIndex < _fireCooldownLeft.Length)
+            _fireCooldownLeft[wandIndex] = 0.0;
+
+        return TryFire(wandIndex);
     }
 
     private bool TryFire(int wandIndex)
