@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://c4l3qdm4gjof5"]
+[gd_resource type="Resource" script_class="MagicSpellFreezingSphere" format=3 uid="uid://c4l3qdm4gjof5"]
 
 [ext_resource type="PackedScene" uid="uid://dqnpv3vix66ed" path="res://scene_magic/magic_freezing_sphere.tscn" id="1_scene"]
 [ext_resource type="Script" uid="uid://w5av1aktqi4q" path="res://class_ability/MagicSpellFreezingSphere.cs" id="2_script"]

@@ -101,7 +101,7 @@ texture = ExtResource("2_tkjpb")
 [node name="EntityContainer" type="Node2D" parent="BattleCenter" unique_id=845372466]
 
 [node name="Core" parent="BattleCenter" unique_id=326636362 instance=ExtResource("2_1bjxy")]
-position = Vector2(60, 242)
+position = Vector2(71, 271)
 
 [node name="Player" parent="BattleCenter" unique_id=1271626603 instance=ExtResource("3_1j1wl")]
 position = Vector2(312, 329)
@@ -143,7 +143,7 @@ script = ExtResource("8_yt1t0")
 Spawner = NodePath("../EnemySpawner/Spawner")
 Hud = NodePath("../..")
 Projectiles = NodePath("../Projectiles")
-RoundNumber = 10
+RoundNumber = 4
 
 [node name="UIRoot" type="Control" parent="." unique_id=1582633444]
 layout_mode = 3
