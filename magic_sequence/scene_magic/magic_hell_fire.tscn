@@ -1,11 +1,20 @@
 [gd_scene format=3 uid="uid://d0sa7pujtxe08"]
 
 [ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_wsw0h"]
+[ext_resource type="Texture2D" uid="uid://bnouyfo6b5cnw" path="res://Sprites/particle/skill_fire.png" id="2_7tfmc"]
+[ext_resource type="Texture2D" uid="uid://xswhu6enkrcs" path="res://Sprites/particle/skill_fire2.png" id="2_jjnae"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7tfmc"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
 [sub_resource type="Gradient" id="Gradient_hv5tx"]
-offsets = PackedFloat32Array(0, 0.7875817)
+offsets = PackedFloat32Array(0, 0.65525115, 1)
+colors = PackedColorArray(0.7583892, 0.29882193, 0, 1, 0.69650006, 2.7554854e-06, 6.738305e-07, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_sasbg"]
 gradient = SubResource("Gradient_hv5tx")
@@ -25,9 +34,8 @@ orbit_velocity_max = 1.0000001
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -1.0000023
 radial_accel_max = -1.0000023
-scale_min = 2.0
-scale_max = 3.0
-color = Color(0.93791914, 0, 0.2091747, 1)
+scale_min = 0.14999999
+scale_max = 0.19999999
 color_ramp = SubResource("GradientTexture1D_sasbg")
 hue_variation_min = -0.050000023
 hue_variation_max = -0.050000023
@@ -47,8 +55,8 @@ gradient = SubResource("Gradient_n0xlg")
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(16, 45, 1)
-angle_min = 180.00002
-angle_max = 180.00002
+angle_min = -39.99999
+angle_max = 40.00001
 direction = Vector3(0, -1, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 10.0
@@ -57,8 +65,8 @@ angular_velocity_max = 2.9999838
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -1.0000023
 radial_accel_max = -1.0000023
-scale_min = 8.0
-scale_max = 15.0
+scale_min = 0.19999999
+scale_max = 0.24
 color_ramp = SubResource("GradientTexture1D_uuls3")
 hue_variation_min = -0.050000023
 hue_variation_max = -0.050000023
@@ -74,14 +82,18 @@ _arrivalArea = NodePath("ArraivalArea")
 shape = SubResource("CircleShape2D_i8g4g")
 
 [node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea" unique_id=31773775]
-amount = 16
+material = SubResource("CanvasItemMaterial_7tfmc")
+amount = 32
+texture = ExtResource("2_7tfmc")
 process_material = SubResource("ParticleProcessMaterial_i8g4g")
 
 [node name="ArraivalArea" type="Area2D" parent="." unique_id=1874273450]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=217446823]
 shape = SubResource("CapsuleShape2D_i8g4g")
 
 [node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea" unique_id=246698336]
 amount = 64
+texture = ExtResource("2_jjnae")
 process_material = SubResource("ParticleProcessMaterial_t3nnn")

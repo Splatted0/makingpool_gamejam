@@ -1,8 +1,15 @@
 [gd_scene format=3 uid="uid://coohebjf604o4"]
 
 [ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_srcxt"]
+[ext_resource type="Texture2D" uid="uid://so6eqtctan23" path="res://Sprites/particle/skill_wind.png" id="2_jn02f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_srcxt"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_22yia"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_4k436"]
 colors = PackedColorArray(0.90588236, 0.92156863, 0.5647059, 1, 1, 1, 1, 1)
@@ -27,15 +34,23 @@ orbit_velocity_max = 0.010000096
 radial_velocity_min = -1.0000223
 radial_velocity_max = 0.99997765
 gravity = Vector3(0, 0, 0)
-scale_min = 5.0
-scale_max = 10.0
+scale_min = 0.099999994
+scale_max = 0.29999998
 color = Color(0.13333334, 0.45490196, 0.64705884, 1)
 color_ramp = SubResource("GradientTexture1D_rluau")
 hue_variation_min = -0.050000023
 hue_variation_max = -0.050000023
+anim_speed_min = 0.5
+anim_speed_max = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rluau"]
 radius = 50.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u1p0s"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_vheu0"]
 colors = PackedColorArray(0.71129656, 0.71129656, 0.7112965, 1, 0.13333334, 0.45490196, 0.64705884, 1)
@@ -47,7 +62,7 @@ gradient = SubResource("Gradient_vheu0")
 particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 50.0
-angle_min = 180.00002
+angle_min = -179.99998
 angle_max = 180.00002
 direction = Vector3(0, -1, 0)
 initial_velocity_min = 10.0
@@ -59,11 +74,13 @@ orbit_velocity_max = 3.0000002
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -1.0000023
 radial_accel_max = 0.99999774
-scale_min = 1.5
-scale_max = 3.0
+scale_min = 0.099999994
+scale_max = 0.29999998
 color_ramp = SubResource("GradientTexture1D_u82lg")
 hue_variation_min = -0.050000023
 hue_variation_max = -0.050000023
+anim_speed_min = 0.5
+anim_speed_max = 1.0
 
 [node name="MagicWindArrow" type="Node2D" unique_id=2134768026 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
 script = ExtResource("1_srcxt")
@@ -72,20 +89,24 @@ _arrivalArea = NodePath("ArraivalArea")
 metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 
 [node name="MoveArea" type="Area2D" parent="." unique_id=2033369668]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1180152413]
 shape = SubResource("CircleShape2D_srcxt")
 
 [node name="OngoingParticle" type="GPUParticles2D" parent="MoveArea" unique_id=1241741050]
+material = SubResource("CanvasItemMaterial_22yia")
 amount = 16
+texture = ExtResource("2_jn02f")
 process_material = SubResource("ParticleProcessMaterial_ec4ad")
 
 [node name="ArraivalArea" type="Area2D" parent="." unique_id=1830287559]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArraivalArea" unique_id=1789332359]
 shape = SubResource("CircleShape2D_rluau")
 
 [node name="OngoingParticle" type="GPUParticles2D" parent="ArraivalArea" unique_id=1884600055]
+material = SubResource("CanvasItemMaterial_u1p0s")
 amount = 64
+texture = ExtResource("2_jn02f")
 process_material = SubResource("ParticleProcessMaterial_q53ey")

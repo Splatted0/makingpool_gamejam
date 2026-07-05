@@ -1,8 +1,16 @@
 [gd_scene format=3 uid="uid://dqnpv3vix66ed"]
 
 [ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_pvmai"]
+[ext_resource type="Texture2D" uid="uid://cdpv24dh6lhva" path="res://Sprites/particle/skill_ice.png" id="2_iu33t"]
+[ext_resource type="Texture2D" uid="uid://cyuoy0u8ugaam" path="res://Sprites/particle/skill_ice2.png" id="3_gkdst"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r5i1p"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_neio3"]
 colors = PackedColorArray(0.49639755, 0.8552619, 1, 1, 1, 1, 1, 1)
@@ -19,9 +27,11 @@ initial_velocity_max = 50.0
 angular_velocity_min = -50.000015
 angular_velocity_max = 49.99998
 gravity = Vector3(0, 98, 0)
-scale_min = 2.5
-scale_max = 4.5
+scale_min = 0.099999994
+scale_max = 0.19999999
 color_ramp = SubResource("GradientTexture1D_rluau")
+anim_speed_min = 0.5
+anim_speed_max = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rluau"]
 radius = 50.0
@@ -38,6 +48,13 @@ point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_20f4n"]
 curve = SubResource("Curve_sihjj")
+
+[sub_resource type="Curve" id="Curve_r6rnp"]
+_data = [Vector2(0, 0.54918027), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h8s34"]
+curve = SubResource("Curve_r6rnp")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3s86v"]
 particle_flag_disable_z = true
@@ -57,8 +74,9 @@ radial_velocity_min = -100.00002
 radial_velocity_max = -50.000023
 radial_velocity_curve = SubResource("CurveTexture_20f4n")
 gravity = Vector3(0, 0, 0)
-scale_min = 3.0
-scale_max = 4.0
+scale_min = 0.099999994
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_h8s34")
 color_ramp = SubResource("GradientTexture1D_1m7lt")
 
 [node name="MagicFreezingSphere" type="Node2D" unique_id=1234899191 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
@@ -73,6 +91,10 @@ metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 shape = SubResource("CircleShape2D_i8g4g")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="MoveArea" unique_id=25019120]
+material = SubResource("CanvasItemMaterial_r5i1p")
+amount = 32
+texture = ExtResource("2_iu33t")
+lifetime = 0.7
 randomness = 0.5
 process_material = SubResource("ParticleProcessMaterial_i8g4g")
 
@@ -82,7 +104,8 @@ process_material = SubResource("ParticleProcessMaterial_i8g4g")
 shape = SubResource("CircleShape2D_rluau")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="ArrivalArea" unique_id=2139712989]
-amount = 32
+amount = 64
+texture = ExtResource("3_gkdst")
 lifetime = 0.5
 explosiveness = 0.9
 randomness = 0.5
