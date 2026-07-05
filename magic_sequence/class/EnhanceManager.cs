@@ -58,9 +58,10 @@ public partial class EnhanceManager : CanvasLayer
 
         if (isfull)
         {
-            _getMagicCount = 0;
+            _getMagicCount = 99;
             OnMagicChangeEnd();
         }
+        
         bool showWand = _enhanceData.IsWandDrop && Blackboard.Wands.Length < 3;
         if (showWand)
         {
