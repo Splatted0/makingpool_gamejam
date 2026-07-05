@@ -5,11 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://c5mjlu0ja5toy" path="res://Scenes/player.tscn" id="3_1j1wl"]
 [ext_resource type="PackedScene" uid="uid://drt3vfnkyfnyy" path="res://Scenes/spawner.tscn" id="4_0bhie"]
 [ext_resource type="Script" uid="uid://b13lxgu1pog8m" path="res://class_resource/SpawnEntry.cs" id="5_egww6"]
+[ext_resource type="AudioStream" uid="uid://8eiptwgjcm2f" path="res://SFX/firebullet.wav" id="6_qekvb"]
+[ext_resource type="AudioStream" uid="uid://b8skxkwhnemj6" path="res://SFX/709888__lotteria001__ice-magic-arrow_type-01.wav" id="7_22w4w"]
 [ext_resource type="Script" uid="uid://brf2rmq1y1476" path="res://class_resource/WaveData.cs" id="7_yt1t0"]
 [ext_resource type="Resource" uid="uid://dbyr50s8rq4ev" path="res://resource_ingame/resource_monster/boss_data.tres" id="8_0tnul"]
 [ext_resource type="PackedScene" uid="uid://jy5l3vsctdhx" path="res://Scenes/boss.tscn" id="8_2q4sl"]
+[ext_resource type="AudioStream" uid="uid://bt8f3e838bka4" path="res://SFX/49171__gmtechb__rockscrape_01.wav" id="8_flgew"]
 [ext_resource type="Script" uid="uid://bryasmnd8ejj8" path="res://class/BattleWorldHud.cs" id="8_m7vi4"]
 [ext_resource type="Script" uid="uid://b8cuf2svmc8xq" path="res://Scripts/RoundManager.cs" id="8_yt1t0"]
+[ext_resource type="AudioStream" uid="uid://dwia1iot8e38x" path="res://SFX/195937__michimuc2__short-wind-noise.wav" id="9_u3qbu"]
 [ext_resource type="Script" uid="uid://dd3sy43j8qy70" path="res://class/WandManager.cs" id="9_wandmanager"]
 [ext_resource type="Resource" uid="uid://2wxpyyq5w8ix" path="res://resource_ingame/resource_monster/slime.tres" id="10_0522j"]
 [ext_resource type="Resource" uid="uid://iixjd210kydr" path="res://resource_ingame/resource_monster/wolf.tres" id="10_vg3xd"]
@@ -77,7 +81,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer", "Core", "WandManager", "_coreHpBar", "_coreHpText", "_goldText", "_roundInfoBar", "_roundInfoText")]
+[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer", "Core", "WandManager", "_coreHpBar", "_coreHpText", "_goldText", "_roundInfoText")]
 script = ExtResource("8_m7vi4")
 RoundManager = NodePath("BattleCenter/RoundManager")
 EntityContainer = NodePath("BattleCenter/EntityContainer")
@@ -86,7 +90,6 @@ WandManager = NodePath("BattleCenter/WandManager")
 _coreHpBar = NodePath("UIRoot/CoreStatus/VBoxContainer/CoreHpBar")
 _coreHpText = NodePath("UIRoot/CoreStatus/VBoxContainer/CoreHpBar/CoreHpText")
 _goldText = NodePath("UIRoot/CoreStatus/VBoxContainer/GoldText")
-_roundInfoBar = NodePath("UIRoot/RounInfoBar")
 _roundInfoText = NodePath("UIRoot/RounInfoBar/RoundInfo")
 
 [node name="BattleCenter" type="Node2D" parent="." unique_id=614227833]
@@ -117,6 +120,10 @@ Projectiles = NodePath("../Projectiles")
 WandNode1 = NodePath("WandNode1")
 WandNode2 = NodePath("WandNode2")
 WandNode3 = NodePath("WandNode3")
+FireCastSfx = ExtResource("6_qekvb")
+IceCastSfx = ExtResource("7_22w4w")
+EarthCastSfx = ExtResource("8_flgew")
+WindCastSfx = ExtResource("9_u3qbu")
 
 [node name="WandNode1" parent="BattleCenter/WandManager" unique_id=120000002 instance=ExtResource("10_wandnode")]
 

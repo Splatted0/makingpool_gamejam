@@ -20,6 +20,7 @@ public class BossDiceHealPattern : IBossPattern
 			boss.Heal(amount);
 
 		boss.FlashTint(new Color(0.4f, 2.2f, 0.3f, 1f), 0.5f);   // 쨍한 연두 틴트로 힐 확 강조(HDR처럼 G채널 1 넘게)
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = boss.Config.Dice5HealSfx });
 
 		_vfxOrigin = boss.GlobalPosition;
 		_vfxThrown = 0;

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 VfxLayer="*uid://btse1kexhmk45"
+SfxLayer="*res://scene_major/sfx_layer.tscn"
 
 [display]
 

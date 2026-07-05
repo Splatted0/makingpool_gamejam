@@ -203,7 +203,7 @@ public partial class Boss : Monster
 			Node parent = Blackboard.Main != null ? (Node)Blackboard.EntityContainer : GetParent();
 			parent.AddChild(circle);
 			circle.GlobalPosition = position;
-			circle.Setup(_bossData.GroundZoneRadius, _bossData.GroundZoneTelegraphDuration, _bossData.GroundZoneActiveDuration, _bossData.GroundZoneDamage, Team, TargetNode);
+			circle.Setup(_bossData.GroundZoneRadius, _bossData.GroundZoneTelegraphDuration, _bossData.GroundZoneActiveDuration, _bossData.GroundZoneDamage, Team, TargetNode, _bossData.GroundZoneSfx);
 		}
 
 		return placedCount;
@@ -358,6 +358,7 @@ public partial class Boss : Monster
 	protected override void Die()
 	{
 		// 보스 사망 = 승리. 연출·라운드 종료 신호는 통합 단계(M6)에서. 지금은 로그 훅만.
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = _bossData?.BossDeathSfx });
 		GD.Print("[Boss] 처치됨 — 승리");
 		base.Die();
 	}

@@ -17,6 +17,8 @@
 [ext_resource type="Resource" uid="uid://bj6dpci3bvnw4" path="res://resource_ingame/resource_enhance_data/enhance_data_round_7.tres" id="12_wx4fy"]
 [ext_resource type="Resource" uid="uid://wktdm10jgs8" path="res://resource_ingame/resource_enhance_data/enhance_data_round_8.tres" id="13_ffkeu"]
 [ext_resource type="Resource" uid="uid://drhrspc4qayxq" path="res://resource_ingame/resource_enhance_data/enhance_data_round_9.tres" id="14_rn1qq"]
+[ext_resource type="AudioStream" uid="uid://41uv6ka7sbi" path="res://SFX/808501__manuelgraf__first-battle-fantasy-combat-background-music-loop-135bpm-in-e-minor.wav" id="14_vgjvj"]
+[ext_resource type="AudioStream" uid="uid://b2oiimtm1dt76" path="res://SFX/[Non Copyrighted Music] @MiguelJohnson - Good Day To Die [Epic] - BreakingCopyright — Royalty Free Music (128k).mp3" id="15_7cque"]
 [ext_resource type="Resource" uid="uid://nubxtnu6upxi" path="res://resource_ingame/resource_enhance_data/enhance_data_round_10.tres" id="15_yjvlc"]
 [ext_resource type="Script" uid="uid://cucbxxdyreh04" path="res://class/Tutorial.cs" id="18_fvx2i"]
 [ext_resource type="PackedScene" uid="uid://c5snkrp8fqpjy" path="res://scene_major/tutorial.tscn" id="19_6ecsu"]
@@ -33,6 +35,8 @@ Wands = Array[Object]([])
 MagicPool = ExtResource("4_jq05p")
 WandPool = ExtResource("5_1k3cu")
 EnhanceDataList = Array[Object]([ExtResource("6_fvx2i"), ExtResource("7_wywvw"), ExtResource("8_vgjvj"), ExtResource("9_7cque"), ExtResource("10_prtxx"), ExtResource("11_acv28"), ExtResource("12_wx4fy"), ExtResource("13_ffkeu"), ExtResource("14_rn1qq"), ExtResource("15_yjvlc")])
+BattleBgm = ExtResource("14_vgjvj")
+BossBgm = ExtResource("15_7cque")
 
 [node name="StateChanger" type="Node" parent="." unique_id=354889198]
 script = ExtResource("6_6ah6l")

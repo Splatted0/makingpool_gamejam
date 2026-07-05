@@ -25,6 +25,7 @@ public class BossDiceShieldPattern : IBossPattern
 		}
 
 		boss.PlayBuffAnim();
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = data.Dice1ShieldSfx });
 		GD.Print($"[Dice1] 방패병 {count}마리 소환");
 		_finished = true;
 	}

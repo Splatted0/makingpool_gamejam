@@ -22,6 +22,10 @@ public partial class Main : Node
     [Export] public MagicPool MagicPool;
     [Export] public WandPool WandPool;
     [Export] public EnhanceData[] EnhanceDataList;
+
+    [ExportCategory("Bgm")]
+    [Export] public AudioStream BattleBgm;   // 일반 전투(1~9웨이브) BGM
+    [Export] public AudioStream BossBgm;     // 10웨이브 보스전 전용 BGM
     
     public override void _EnterTree()
     {

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bgh7y238kejxu"
+path="res://.godot/imported/Slot Machine Jackpot Sound Effect - Charl Pollock (128k).mp3-c7e470b602f5a9cde8cac20a83b17adb.mp3str"
+
+[deps]
+
+source_file="res://SFX/Slot Machine Jackpot Sound Effect - Charl Pollock (128k).mp3"
+dest_files=["res://.godot/imported/Slot Machine Jackpot Sound Effect - Charl Pollock (128k).mp3-c7e470b602f5a9cde8cac20a83b17adb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

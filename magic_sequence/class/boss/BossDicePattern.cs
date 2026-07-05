@@ -20,6 +20,7 @@ public class BossDicePattern : IBossPattern
 		_flickerElapsed = 0f;
 		_finished = false;
 		boss.PlayDiceRollAnim();
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = boss.Config.DiceRollSfx });
 		GD.Print("[Dice] 굴림 시작");
 	}
 
@@ -44,6 +45,7 @@ public class BossDicePattern : IBossPattern
 		{
 			boss.SetDiceFace(_targetFace);
 			boss.ResetDicePosition();   // 굴림 끝 — 흔들림 멈추고 제자리로
+			Sfx.OneShot.Throw(new SfxOneShotData { Stream = data.DiceLockSfx });
 			GD.Print($"[Dice] {_targetFace}");
 			_finished = true;
 		}

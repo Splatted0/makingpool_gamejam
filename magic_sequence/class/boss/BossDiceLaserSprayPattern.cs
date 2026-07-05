@@ -91,6 +91,7 @@ public class BossDiceLaserSprayPattern : IBossPattern
 		shot.Beam.SetWidth(data.LaserSprayImpactWidth);
 		shot.Beam.Fire(data.LaserSprayFadeDuration);
 		boss.PlayAttackAnim();
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = data.Dice6LaserImpactSfx, PitchScaleMin = 0.95f, PitchScaleMax = 1.05f });
 
 		GD.Print($"[Dice6] {_shotsSpawned}/{Mathf.Max(data.LaserSprayCount, 1)} 임팩트");
 	}

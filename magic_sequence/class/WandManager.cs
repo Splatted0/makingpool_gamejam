@@ -16,6 +16,12 @@ public partial class WandManager : Node
     [Export] public double FireCooldown { get; set; } = 0.5;
     [Export] public bool AutoFireEnabled { get; set; } = true;
 
+    [ExportGroup("Sfx")]
+    [Export] public AudioStream FireCastSfx { get; set; }
+    [Export] public AudioStream IceCastSfx { get; set; }
+    [Export] public AudioStream EarthCastSfx { get; set; }
+    [Export] public AudioStream WindCastSfx { get; set; }
+
     private readonly double[] _fireCooldownLeft = new double[3];
     private readonly bool[] _isFiringSequence = new bool[3];
     private readonly double[] _sequenceDelayLeft = new double[3];
@@ -177,7 +183,18 @@ public partial class WandManager : Node
         magicNode.GlobalPosition = spawnPosition;
         magicNode.Fire(direction);
         magicNode.OnSpawn();
+        Sfx.OneShot.Throw(new SfxOneShotData { Stream = GetCastSfx(magicNode.MagicSpell?.Elemental ?? Elemental.None) });
     }
+
+    // 속성별 발사음. None(퍼크만 있는 슬롯 등)은 그냥 무음.
+    private AudioStream GetCastSfx(Elemental elemental) => elemental switch
+    {
+        Elemental.Fire => FireCastSfx,
+        Elemental.Ice => IceCastSfx,
+        Elemental.Earth => EarthCastSfx,
+        Elemental.Wind => WindCastSfx,
+        _ => null,
+    };
 
     public WandNode[] GetWandNodes() => new[] { WandNode1, WandNode2, WandNode3 };
 

@@ -50,6 +50,7 @@ public class BossDiceBarragePattern : IBossPattern
 		baseDirection = baseDirection.Rotated(Mathf.DegToRad(jitterDeg));
 
 		BossBarragePattern.FireFan(boss, baseDirection);
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = data.Dice3BarrageSfx, PitchScaleMin = 0.95f, PitchScaleMax = 1.05f });
 
 		_shotsFired++;
 		GD.Print("[Dice3] 발사");

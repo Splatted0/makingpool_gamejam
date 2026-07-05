@@ -2,18 +2,35 @@
 
 [ext_resource type="Script" uid="uid://bkambmluuumf1" path="res://class_resource/BossData.cs" id="1_2motd"]
 [ext_resource type="SpriteFrames" uid="uid://cpy7qgbv8fd07" path="res://resource_ingame/resource_monster/boss_spritesheet.tres" id="1_76jvc"]
+[ext_resource type="PackedScene" uid="uid://coc2ntnyxkrn3" path="res://Scenes/boss_bullet.tscn" id="2_bulletscene"]
+[ext_resource type="PackedScene" uid="uid://j26k3sobx3dd" path="res://Scenes/monster.tscn" id="3_monsterscene"]
+[ext_resource type="AudioStream" uid="uid://bt8f3e838bka4" path="res://SFX/49171__gmtechb__rockscrape_01.wav" id="3_y2awn"]
+[ext_resource type="AudioStream" uid="uid://8eiptwgjcm2f" path="res://SFX/firebullet.wav" id="4_barrage"]
+[ext_resource type="AudioStream" uid="uid://cf5aehx7f0i64" path="res://SFX/Chain_reverse.wav" id="4_nyg0t"]
+[ext_resource type="Resource" uid="uid://b7yguprnaarl5" path="res://resource_ingame/resource_monster/skeleton_boss_shield.tres" id="4_shielddata"]
+[ext_resource type="AudioStream" uid="uid://cttogv4butbmi" path="res://SFX/833035__zeltbolt__apply_heal.wav" id="5_heal"]
+[ext_resource type="PackedScene" uid="uid://du4muv8npdqa0" path="res://Scenes/boss_magic_circle.tscn" id="5_magiccircle"]
+[ext_resource type="AudioStream" uid="uid://78u2oaq102p2" path="res://SFX/Chain_start.wav" id="5_y2awn"]
+[ext_resource type="AudioStream" uid="uid://dwia1iot8e38x" path="res://SFX/195937__michimuc2__short-wind-noise.wav" id="5_ykj73"]
+[ext_resource type="Texture2D" uid="uid://wg5h1n1o6bh5" path="res://texture/boss/boss_razer.png" id="6_lasertexture"]
+[ext_resource type="Texture2D" uid="uid://5n1hudqpdsxl" path="res://texture/boss/chain.png" id="7_chaintexture"]
+[ext_resource type="AudioStream" uid="uid://hv83mq3dawo8" path="res://SFX/lasersfx.wav" id="8_laser"]
+[ext_resource type="AudioStream" uid="uid://bwddk8adpcpbe" path="res://SFX/diceDing.wav" id="8_nyg0t"]
+[ext_resource type="AudioStream" uid="uid://bgh7y238kejxu" path="res://SFX/Slot Machine Jackpot Sound Effect - Charl Pollock (128k).mp3" id="9_nbwed"]
+[ext_resource type="AudioStream" uid="uid://c6n8tjhjsofo3" path="res://SFX/dicerollsound.wav" id="9_nyg0t"]
 
 [resource]
 script = ExtResource("1_2motd")
+BulletScene = ExtResource("2_bulletscene")
+MonsterScene = ExtResource("3_monsterscene")
+ShieldData = ExtResource("4_shielddata")
+MagicCircleScene = ExtResource("5_magiccircle")
+LaserTexture = ExtResource("6_lasertexture")
+ChainTexture = ExtResource("7_chaintexture")
 BarrageBulletCount = 15
 BarrageSpreadDegrees = 90.0
 BarrageBulletSpeed = 900.0
-DiceWeight1 = 0.1
-DiceWeight3 = 0.1
-DiceWeight4 = 0.1
-DiceWeight5 = 0.7
-DiceWeight6 = 0.1
-DiceWeight7 = 1.0
+DiceWeight7 = 0.15
 ShieldSummonCount = 10
 LaserSprayCount = 15
 LaserSprayLength = 2000.0
@@ -23,6 +40,18 @@ LaserSprayThinWidth = 1.0
 LaserSprayImpactWidth = 120.0
 PlayerCooldownMultiplier = 0.02
 PlayerBoostBodyTintColor = Color(0.6639503, 1.4439226e-07, 0.3847315, 1)
+DiceRollSfx = ExtResource("9_nyg0t")
+DiceLockSfx = ExtResource("8_nyg0t")
+Dice1ShieldSfx = ExtResource("3_y2awn")
+Dice2ShuffleSfx = ExtResource("5_ykj73")
+Dice3BarrageSfx = ExtResource("4_barrage")
+Dice4ChainSpawnSfx = ExtResource("5_y2awn")
+Dice4ChainReleaseSfx = ExtResource("4_nyg0t")
+Dice5HealSfx = ExtResource("5_heal")
+Dice6LaserImpactSfx = ExtResource("8_laser")
+Dice7BoostSfx = ExtResource("9_nbwed")
+BossDeathSfx = ExtResource("8_nyg0t")
+GroundZoneSfx = ExtResource("4_barrage")
 MaxHealth = 5000
 AttackRange = 300.0
 HealAmount = 10

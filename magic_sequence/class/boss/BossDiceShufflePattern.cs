@@ -14,6 +14,7 @@ public class BossDiceShufflePattern : IBossPattern
 		// 독립 씬에서도 연출(애니+틴트)은 보이게, 실제 완드 셔플 로직만 게임 컨텍스트가 있을 때 처리한다.
 		boss.PlayDebuffAnim();
 		boss.FlashTint(new Color(2.2f, 0.35f, 0.3f, 1f), 0.5f);   // 디버프 강조: 쨍한 빨강 틴트
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = boss.Config.Dice2ShuffleSfx });
 
 		if (boss.GetTree().GetFirstNodeInGroup("player") is Player player)
 			player.FlashTint(new Color(2.2f, 0.35f, 0.3f, 1f), 0.5f);   // 플레이어도 디버프 맞았다는 걸 빨강으로 표시

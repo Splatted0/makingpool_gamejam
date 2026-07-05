@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://class_sfx/SfxLayer.cs" id="1_sfxlayer"]
+[ext_resource type="Script" path="res://class_sfx/SfxOneShotPool.cs" id="2_sfxoneshotpool"]
+[ext_resource type="PackedScene" path="res://scene_minor/sfx_one_shot.tscn" id="3_sfxoneshotscene"]
+
+[node name="SfxLayer" type="Node" node_paths=PackedStringArray("OneShotPool")]
+script = ExtResource("1_sfxlayer")
+OneShotPool = NodePath("OneShotPool")
+
+[node name="OneShotPool" type="Node" parent="."]
+script = ExtResource("2_sfxoneshotpool")
+PackedSfx = ExtResource("3_sfxoneshotscene")
+PoolSize = 16

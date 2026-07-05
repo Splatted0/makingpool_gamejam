@@ -16,6 +16,7 @@ public class BossDicePlayerBoostPattern : IBossPattern
 		boss.PlayLuckyAnim();
 		boss.StartTintBlink(boss.Config.PlayerBoostTintColor, boss.Config.PlayerBoostBlinkSpeed);
 		boss.SetBodyTint(boss.Config.PlayerBoostBodyTintColor);   // 몸통은 살짝 어둡게(약해짐 표시)
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = boss.Config.Dice7BoostSfx });
 
 		_elapsed = 0f;
 		_finished = false;

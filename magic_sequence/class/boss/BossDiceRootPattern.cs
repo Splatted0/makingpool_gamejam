@@ -21,6 +21,7 @@ public class BossDiceRootPattern : IBossPattern
 		boss.PlayDebuffAnim();
 		boss.FlashTint(new Color(1.6f, 0.3f, 2.2f, 1f), 0.5f);   // 속박 강조: 쨍한 보라 틴트
 		SpawnChains(boss);
+		Sfx.OneShot.Throw(new SfxOneShotData { Stream = boss.Config.Dice4ChainSpawnSfx });
 		GD.Print("[Dice4] 코어 속박");
 	}
 
@@ -43,6 +44,7 @@ public class BossDiceRootPattern : IBossPattern
 				chain?.Fade(FadeDuration);
 			_chains.Clear();
 
+			Sfx.OneShot.Throw(new SfxOneShotData { Stream = boss.Config.Dice4ChainReleaseSfx });
 			GD.Print("[Dice4] 속박 해제");
 			_finished = true;
 		}

@@ -17,13 +17,14 @@ public partial class MagicCircle : Node2D
 	private int _damage;
 	private Team _sourceTeam;
 	private Node2D _targetNode;
+	private AudioStream _activateSfx;
 
 	private float _elapsed;
 	private bool _active;
 
 	// 소환 직후 호출. radius는 실제 판정 반지름(px). telegraphDuration 동안 예고만 하다가
 	// activeDuration 동안 활성화 표시를 유지한 뒤 사라진다. targetNode는 판정 대상(IEntity 구현체).
-	public void Setup(float radius, float telegraphDuration, float activeDuration, int damage, Team sourceTeam, Node2D targetNode)
+	public void Setup(float radius, float telegraphDuration, float activeDuration, int damage, Team sourceTeam, Node2D targetNode, AudioStream activateSfx = null)
 	{
 		_radius = radius;
 		_telegraphDuration = telegraphDuration;
@@ -31,6 +32,7 @@ public partial class MagicCircle : Node2D
 		_damage = damage;
 		_sourceTeam = sourceTeam;
 		_targetNode = targetNode;
+		_activateSfx = activateSfx;
 
 		if (Visual != null)
 		{
@@ -52,6 +54,7 @@ public partial class MagicCircle : Node2D
 
 			_active = true;
 			_elapsed = 0f;
+			Sfx.OneShot.Throw(new SfxOneShotData { Stream = _activateSfx });
 			TryHit();
 			return;
 		}
