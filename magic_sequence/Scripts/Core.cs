@@ -20,11 +20,16 @@ public partial class Core : StaticBody2D, IEntity
 	[Export] public Color RootTintColor { get; set; } = new Color(1.6f, 0.3f, 2.2f, 1f);  // 속박 중 깜빡이는 색(보라)
 	[Export] public float RootTintBlinkSpeed { get; set; } = 8f;  // 깜빡이는 속도(클수록 빠르게 명멸)
 
+	[ExportGroup("Glow")]
+	[Export] public Color GlowColor { get; set; } = new Color(1.8f, 2.0f, 2.6f, 1f);  // 평상시 발광 색(HDR 느낌으로 채널 1 넘김, 청백)
+	[Export] public float GlowSpeed { get; set; } = 3f;  // 발광 명멸 속도
+
 	private bool _leashActive;
 	private Node2D _leashTarget;
 	private bool _rooted;
 	private Vector2 _rootBasePosition;   // 속박 시작 시점 위치(흔들림은 이 지점 기준으로만 흔들고 드리프트하지 않음)
 	private float _tintBlinkElapsed;
+	private float _glowElapsed;
 
 	private int _health;
 	public int Health
@@ -70,17 +75,26 @@ public partial class Core : StaticBody2D, IEntity
 		_rooted = rooted;
 
 		if (!rooted)
-		{
-			GlobalPosition = _rootBasePosition;   // 흔들림 오프셋 제거하고 목줄 갱신으로 넘김
-			if (_sprite != null)
-				_sprite.Modulate = Colors.White;
-		}
+			GlobalPosition = _rootBasePosition;   // 흔들림 오프셋 제거하고 목줄 갱신으로 넘김(색은 다음 프레임 발광이 알아서 이어받음)
+	}
+
+	// 평상시 HDR 느낌으로 은은하게 발광(흰색↔GlowColor 사인파 왕복). 속박 중엔 그 위를 보라 명멸이 덮는다.
+	private void UpdateGlow(double delta)
+	{
+		if (_sprite == null || _rooted)
+			return;
+
+		_glowElapsed += (float)delta;
+		float wave = (Mathf.Sin(_glowElapsed * GlowSpeed) + 1f) * 0.5f;
+		_sprite.Modulate = Colors.White.Lerp(GlowColor, wave);
 	}
 
 	// 스프링 관성은 없지만, 목표 지점까지 지수 감쇠로 부드럽게 좁혀간다(즉시 스냅 X).
 	// 속박이 풀린 직후처럼 간격이 크게 벌어져 있던 경우에도 순간이동 없이 자연스럽게 따라붙는다.
 	public override void _PhysicsProcess(double delta)
 	{
+		UpdateGlow(delta);
+
 		if (_rooted)
 		{
 			_tintBlinkElapsed += (float)delta;

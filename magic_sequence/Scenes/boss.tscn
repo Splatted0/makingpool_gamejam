@@ -28,9 +28,10 @@ Data = ExtResource("3_ukjjc")
 _animatedSprite = NodePath("AnimatedSprite2D_bossanim")
 
 [node name="AnimatedSprite2D_dice" type="AnimatedSprite2D" parent="." unique_id=1760940110]
+z_index = 10
 texture_filter = 1
-position = Vector2(0, -122)
-scale = Vector2(1.5, 1.5)
+position = Vector2(0, -152)
+scale = Vector2(2, 2)
 sprite_frames = ExtResource("4_n725y")
 animation = &"dice"
 

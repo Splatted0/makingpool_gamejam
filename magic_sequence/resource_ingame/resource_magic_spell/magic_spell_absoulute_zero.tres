@@ -13,4 +13,4 @@ BaseArrivalRange = 100.0
 BaseSpeed = 500.0
 BaseDamage = 250
 BaseDurationFrame = 195
-metadata/_custom_type_script = "uid://vymir3jlcsrp"
+metadata/_custom_type_script = "res://class_ability/MagicSpellAbsoluteZero.cs"

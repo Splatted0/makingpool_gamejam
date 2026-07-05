@@ -12,4 +12,4 @@ BaseSpeed = 700.0
 BaseDamage = 120
 BaseDurationFrame = 60
 EnhancedDamage = 160
-metadata/_custom_type_script = "uid://da5oy71jdts15"
+metadata/_custom_type_script = "res://class_ability/MagicSpellWindArrow.cs"

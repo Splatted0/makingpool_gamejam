@@ -1,33 +1,62 @@
 [gd_scene format=3 uid="uid://7w7eqt0uj323"]
 
 [ext_resource type="Script" uid="uid://bxrqlp2dec128" path="res://class/MainMenu.cs" id="1_7recj"]
-[ext_resource type="PackedScene" uid="uid://cex0wvflkcg2e" path="res://scene_minor/main_button.tscn" id="1_r1agc"]
-[ext_resource type="Texture2D" uid="uid://dsxxqs68g6fp2" path="res://Sprites/backgroundtotal.png" id="3_nrswc"]
+[ext_resource type="Texture2D" uid="uid://d4fpja75fh0u7" path="res://Sprites/d8f3492c947a7b69.png" id="2_gi6v4"]
+[ext_resource type="Texture2D" uid="uid://3m65mc8uiur5" path="res://Sprites/90e622e326dba7f1.png" id="3_jxpis"]
+[ext_resource type="Texture2D" uid="uid://bqh8iwntuucfr" path="res://Sprites/971714bddb433471.png" id="3_t6k7f"]
+[ext_resource type="Texture2D" uid="uid://d2sj7ik4kcbmx" path="res://Sprites/ea2e395f57afdafa.png" id="4_gi6v4"]
+[ext_resource type="Texture2D" uid="uid://bdcnxjsupl6kr" path="res://Sprites/f1e357415ab3027c.png" id="4_ujitb"]
 
-[node name="MainMenu" type="CanvasLayer" unique_id=1559025204 node_paths=PackedStringArray("StartButton")]
+[node name="MainMenu" type="CanvasLayer" unique_id=1559025204 node_paths=PackedStringArray("StartButton", "Character", "CharacterBackground", "Logo")]
 script = ExtResource("1_7recj")
-StartButton = NodePath("CenterContainer/VBoxContainer/MainButton")
+StartButton = NodePath("Background/StartButton")
+Character = NodePath("Background/CharacterShadow/Character")
+CharacterBackground = NodePath("Background/CharacterShadow")
+Logo = NodePath("Background/Logo")
+ButtonFlashScaleMin = Vector2(0.52, 0.52)
+ButtonFlashScaleMax = Vector2(0.47, 0.47)
+WanderMinDistance = 5.0
+WanderMaxDistance = 15.0
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=160300324]
+[node name="Background" type="TextureRect" parent="." unique_id=1285576406]
+custom_minimum_size = Vector2(1280, 720)
 offset_right = 1280.0
 offset_bottom = 720.0
-texture = ExtResource("3_nrswc")
+texture = ExtResource("2_gi6v4")
+expand_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1711536123]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -74.0
-offset_top = -20.0
-offset_right = 74.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CharacterShadow" type="TextureRect" parent="Background" unique_id=750320550]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("3_t6k7f")
+expand_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=648098686]
-layout_mode = 2
+[node name="Character" type="TextureRect" parent="Background/CharacterShadow" unique_id=2086604763]
+layout_mode = 0
+offset_left = -88.425
+offset_top = -7.5
+offset_right = 1191.575
+offset_bottom = 832.5
+texture = ExtResource("4_ujitb")
+expand_mode = 2
+stretch_mode = 6
 
-[node name="MainButton" parent="CenterContainer/VBoxContainer" unique_id=1432610921 instance=ExtResource("1_r1agc")]
-layout_mode = 2
+[node name="Logo" type="TextureRect" parent="Background" unique_id=262321946]
+layout_mode = 0
+offset_left = 462.0
+offset_top = 388.0
+offset_right = 1803.0
+offset_bottom = 682.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_jxpis")
+
+[node name="StartButton" type="TextureButton" parent="Background" unique_id=858982043]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 529.0
+offset_right = 1554.0
+offset_bottom = 730.0
+scale = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture_normal = ExtResource("4_gi6v4")

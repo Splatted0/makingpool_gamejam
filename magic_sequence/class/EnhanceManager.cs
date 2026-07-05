@@ -13,6 +13,7 @@ public partial class EnhanceManager : CanvasLayer
     [Export] public BaseButton AddHealthButton;
     [Export] public RichTextLabel HealthLabel;
     [Export] public Label GoldLabel;
+    [Export] public Wand[] StartWand;
 
     private Wand _getWand;
     private EnhanceData _enhanceData;
@@ -49,7 +50,7 @@ public partial class EnhanceManager : CanvasLayer
         bool showWand = _enhanceData.IsWandDrop && Blackboard.Wands.Length < 3;
         if (showWand)
         {
-            Wand[] wands = DropUtil.GetWandDrops(Blackboard.WandPool, 1);
+            Wand[] wands = Blackboard.Wands.Length == 0 ? StartWand : DropUtil.GetWandDrops(Blackboard.WandPool, 1);
             wands[0].Setup();
             _getWand = wands[0].Duplicate() as Wand;
             _getWand?.Setup();

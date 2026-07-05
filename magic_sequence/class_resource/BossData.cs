@@ -36,7 +36,7 @@ public partial class BossData : MonsterData
     [Export] public int ShieldSummonCount { get; set; } = 8;
     [Export] public float ShieldSummonSpacing { get; set; } = 60f;       // 방패병 사이 세로 간격
     [Export] public float ShieldSummonForwardOffset { get; set; } = 200f; // 보스 기준 전방(왼쪽) 거리
-    [Export] public float ShieldScale { get; set; } = 1.6f;              // 소환되는 방패병 크기 배율
+    [Export] public float ShieldScale { get; set; } = 2f;                 // 소환되는 방패병 크기 배율
 
     // 3: 탄막 패턴을 연속 발사
     [ExportSubgroup("Dice3 BarrageBurst")]
@@ -74,7 +74,7 @@ public partial class BossData : MonsterData
     [ExportSubgroup("Dice7 PlayerBoost")]
     [Export] public float PlayerCooldownMultiplier { get; set; } = 0.05f;  // 재발사 대기시간에 곱해질 배율(작을수록 빠름)
     [Export] public float PlayerRapidFireDuration { get; set; } = 3f;      // 지속시간(초)
-    [Export] public Color PlayerBoostTintColor { get; set; } = new Color(0.3f, 2.2f, 0.4f, 1f);  // 버프 중 주사위가 깜빡이는 색(초록)
+    [Export] public Color PlayerBoostTintColor { get; set; } = new Color(2.4f, 1.8f, 0.2f, 1f);  // 버프 중 주사위가 깜빡이는 색(금빛)
     [Export] public float PlayerBoostBlinkSpeed { get; set; } = 8f;        // 깜빡이는 속도(클수록 빠르게 명멸)
     [Export] public float PlayerBoostDiceScale { get; set; } = 1.6f;       // 버프 지속 중 주사위 확대 배율
     [Export] public float PlayerBoostDiceShakeMagnitude { get; set; } = 6f; // 버프 지속 중 주사위 흔들림 크기

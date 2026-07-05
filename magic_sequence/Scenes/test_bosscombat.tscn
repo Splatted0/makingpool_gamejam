@@ -16,5 +16,5 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(177, 332)
 
 [node name="Boss" parent="." unique_id=934036589 instance=ExtResource("3_s3wyt")]
-position = Vector2(1051, 328)
+position = Vector2(1053, 411)
 scale = Vector2(2, 2)
