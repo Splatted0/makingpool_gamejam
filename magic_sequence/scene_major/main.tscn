@@ -18,12 +18,13 @@
 [ext_resource type="Resource" uid="uid://wktdm10jgs8" path="res://resource_ingame/resource_enhance_data/enhance_data_round_8.tres" id="13_ffkeu"]
 [ext_resource type="Resource" uid="uid://drhrspc4qayxq" path="res://resource_ingame/resource_enhance_data/enhance_data_round_9.tres" id="14_rn1qq"]
 [ext_resource type="Resource" uid="uid://nubxtnu6upxi" path="res://resource_ingame/resource_enhance_data/enhance_data_round_10.tres" id="15_yjvlc"]
-[ext_resource type="Script" uid="uid://csebvs1rcly32" path="res://scene_major/tutorial.gd" id="18_fvx2i"]
+[ext_resource type="Script" uid="uid://cucbxxdyreh04" path="res://class/Tutorial.cs" id="18_fvx2i"]
 [ext_resource type="PackedScene" uid="uid://c5snkrp8fqpjy" path="res://scene_major/tutorial.tscn" id="19_6ecsu"]
 
-[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("MainMenu", "BattleWorldHud", "MagicInfoLayer", "EnhanceManager", "StateChanger")]
+[node name="Main" type="Node" unique_id=1478852612 node_paths=PackedStringArray("MainMenu", "Tutorial", "BattleWorldHud", "MagicInfoLayer", "EnhanceManager", "StateChanger")]
 script = ExtResource("1_aof71")
 MainMenu = NodePath("MainMenu")
+Tutorial = NodePath("Tutorial")
 BattleWorldHud = NodePath("BattleWorldHud")
 MagicInfoLayer = NodePath("MagicInfoLayer")
 EnhanceManager = NodePath("EnhanceManager")

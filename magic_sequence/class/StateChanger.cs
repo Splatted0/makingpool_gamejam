@@ -43,13 +43,12 @@ public partial class StateChanger : Node
         tutorial.Visible = true;
         battleWorldHud.Visible = false;
 
-        await Tutorial.PlaySteps(tutorial, new[]
-        {
-            new Tutorial.Step("???", "주인공, 일어나세요. 시간이 많지 않습니다.", "res://texture/magicIcon/fire1.png"),
-            new Tutorial.Step("???", "리치 레이가 곧 쳐들어올 겁니다. 전투 능력이 깨어진 지금은 마법의 흐름부터 다시 익혀야 합니다.", "res://texture/magicIcon/ground1.png"),
-            new Tutorial.Step("주인공", "제가 리치를 물리치게요. 그런데 마법은 어떻게 쓰죠?", "res://texture/magicIcon/ice1.png"),
-            new Tutorial.Step("???", "마력은 굳건하지만 아직 제어가 불안정하군요. 지팡이에 마법을 실어 자동으로 순환시키면 됩니다.", "res://texture/magicIcon/wind1.png"),
-        });
+        await Tutorial.ShowCutscene(
+            tutorial,
+            "res://texture/magicIcon/fire1.png",
+            "res://texture/magicIcon/ground1.png",
+            "res://texture/magicIcon/ice1.png",
+            "res://texture/magicIcon/wind1.png");
 
         battleWorldHud.Visible = true;
         SetupTutorialEnemy(battleWorldHud);
@@ -73,20 +72,24 @@ public partial class StateChanger : Node
         beginnerWand.Magics.Resize(beginnerWand.Slot);
         Blackboard.Main.Wands = new[] { beginnerWand };
 
-        await Tutorial.ShowMessage(tutorial, "???", "기본 지팡이를 준비했습니다. 먼저 불꽃탄을 장착해 보겠습니다.", "res://texture/magicIcon/fire1.png");
+        await Tutorial.ShowDialogue(tutorial, "현자", "시전한 마법을 저장할 수 있는 완드라네. 이거라면 불확실성을 줄일 수 있겠지. 자, 마법을 사용해 보게.");
+
         beginnerWand.Add(fireBullet, 0);
         battleWorldHud.WandManager?.SetupWands();
 
         await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
+        battleWorldHud.WandManager?.SetupWands();
 
-        await Tutorial.ShowMessage(tutorial, "주인공", "아, 이렇게 자동으로 발사되는군요!", "res://texture/magicIcon/fire1.png");
+        await Tutorial.ShowDialogue(tutorial, "주인공", "와! 이거라면!");
+
         beginnerWand.Add(rockSpike, 1);
         beginnerWand.Add(windArrow, 2);
         battleWorldHud.WandManager?.SetupWands();
 
-        await Tutorial.ShowMessage(tutorial, "???", "마법은 지팡이 슬롯 순서대로 순환합니다. 서로 다른 원소를 조합하면 추가 효과도 생깁니다.", "res://texture/magicIcon/wind1.png");
-        await Tutorial.ShowMessage(tutorial, "???", "강화에서 얻은 마법은 더 강해질 수 있습니다. 이제 실제 전투로 넘어가죠.", "res://texture/magicIcon/ground1.png");
+        await Tutorial.ShowDialogue(tutorial, "현자", "마법학도라면 원소 간의 상성과 역상성에 대해서도 알고 있겠지? 마법을 나눠담을 지팡이를 가져올 테니 일단 리치의 병사들을 막아내고 있게. 골드를 통해 저장된 마법 자체도 강화할 수 있다네. 그럼 이따 보지!");
+        await Tutorial.ShowCutscene(tutorial, "res://texture/magicIcon/support1.png");
 
+        ClearTutorialBattleObjects(battleWorldHud);
         Tutorial.Hide(tutorial);
         tutorial.Visible = false;
         battleWorldHud.Visible = true;
@@ -116,6 +119,17 @@ public partial class StateChanger : Node
             slime.SetTarget(core.GlobalPosition, core);
             slime.GlobalPosition = new Vector2(1080f, 330f);
             container.AddChild(slime);
+        }
+
+        void ClearTutorialBattleObjects(BattleWorldHud hud)
+        {
+            if (hud.EntityContainer != null)
+            {
+                foreach (Node child in hud.EntityContainer.GetChildren())
+                    child.QueueFree();
+            }
+
+            hud.RoundManager?.ClearProjectiles();
         }
     }
 
