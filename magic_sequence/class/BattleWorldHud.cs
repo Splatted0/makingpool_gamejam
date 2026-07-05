@@ -10,6 +10,7 @@ public partial class BattleWorldHud : CanvasLayer
     [Export] private ProgressBar _coreHpBar;
     [Export] private Label _coreHpText;
     [Export] private Label _goldText;
+    [Export] private ProgressBar _roundInfoBar;
     [Export] private Label _roundInfoText;
 
     private ColorRect _pauseDim;
@@ -70,16 +71,57 @@ public partial class BattleWorldHud : CanvasLayer
 
     private void UpdateRoundInfoText()
     {
-        if (_roundInfoText == null)
+        if (_roundInfoText == null && _roundInfoBar == null)
             return;
 
         RoundManager roundManager = RoundManager ?? Blackboard.RoundManager;
         Spawner spawner = roundManager?.Spawner;
         int roundNumber = roundManager?.RoundNumber ?? Blackboard.Wave;
 
-        int total = spawner?.TotalSpawnCount ?? 0;
-        int remaining = spawner?.RemainingMonsterCount ?? 0;
+        Boss boss = FindAliveBoss();
+        if (boss?.Data != null)
+        {
+            int bossMaxHealth = Mathf.Max(boss.Data.MaxHealth, 1);
+            int bossHealth = Mathf.Clamp(boss.Health, 0, bossMaxHealth);
 
-        _roundInfoText.Text = $"Round {roundNumber}: {remaining}/{total}";
+            if (_roundInfoBar != null)
+            {
+                _roundInfoBar.MinValue = 0;
+                _roundInfoBar.MaxValue = bossMaxHealth;
+                _roundInfoBar.Value = bossHealth;
+            }
+
+            if (_roundInfoText != null)
+                _roundInfoText.Text = $"Boss: {bossHealth}/{bossMaxHealth}";
+
+            return;
+        }
+
+        int total = Mathf.Max(spawner?.TotalSpawnCount ?? 0, 0);
+        int remaining = Mathf.Clamp(spawner?.RemainingMonsterCount ?? 0, 0, total);
+
+        if (_roundInfoBar != null)
+        {
+            _roundInfoBar.MinValue = 0;
+            _roundInfoBar.MaxValue = Mathf.Max(total, 1);
+            _roundInfoBar.Value = remaining;
+        }
+
+        if (_roundInfoText != null)
+            _roundInfoText.Text = $"Round {roundNumber}: {remaining}/{total}";
+    }
+
+    private Boss FindAliveBoss()
+    {
+        if (EntityContainer == null)
+            return null;
+
+        foreach (Node child in EntityContainer.GetChildren())
+        {
+            if (child is Boss boss && IsInstanceValid(boss) && boss.Health > 0)
+                return boss;
+        }
+
+        return null;
     }
 }
