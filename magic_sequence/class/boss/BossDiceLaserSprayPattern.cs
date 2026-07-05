@@ -6,8 +6,6 @@ using System.Collections.Generic;
 // 코어를 조준하지 않으므로, 발사 순간 코어가 그 직선 근처에 있으면 맞고 아니면 빗나간다.
 public class BossDiceLaserSprayPattern : IBossPattern
 {
-	private const float HitRadius = 24f;
-
 	private class ActiveShot
 	{
 		public BossLaserSprayBeam Beam;
@@ -112,6 +110,6 @@ public class BossDiceLaserSprayPattern : IBossPattern
 			: 0f;
 
 		Vector2 closest = start + segment * t;
-		return closest.DistanceTo(boss.CorePosition) <= HitRadius;
+		return closest.DistanceTo(boss.CorePosition) <= boss.Config.LaserSprayHitRadius;
 	}
 }

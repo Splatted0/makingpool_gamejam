@@ -61,6 +61,7 @@ public partial class BossData : MonsterData
     [Export] public float LaserSprayFadeDuration { get; set; } = 0.12f;  // 임팩트 후 사라지는 시간(짧을수록 빡 하고 사라짐)
     [Export] public float LaserSprayThinWidth { get; set; } = 3f;      // 선행 얇은 레이저 두께
     [Export] public float LaserSprayImpactWidth { get; set; } = 32f;   // 격발 순간 확 굵어지는 임팩트 레이저 두께
+    [Export] public float LaserSprayHitRadius { get; set; } = 24f;     // 실제 판정 폭(선 기준 좌우로 이 거리, 즉 총 폭은 이 값의 2배). 연출 두께와 별개로 독립 조절
 
     // 4: 코어를 잠깐 속박(목줄 무시, 제자리 고정)해 회피 이동을 무력화
     [ExportSubgroup("Dice4 CoreRoot")]

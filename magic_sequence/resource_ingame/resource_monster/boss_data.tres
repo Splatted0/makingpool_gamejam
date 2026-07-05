@@ -20,6 +20,7 @@ LaserSprayChargeTime = 0.7
 LaserSprayFadeDuration = 0.1
 LaserSprayThinWidth = 1.0
 LaserSprayImpactWidth = 120.0
+LaserSprayHitRadius = 60.0
 RootChainWidth = 36.0
 MaxHealth = 5000
 AttackRange = 300.0
