@@ -2,6 +2,10 @@ public partial class Monster : CharacterBody2D, IEntity
 {
 	[Export] public MonsterData Data { get; set; }
 	[Export] private AnimatedSprite2D _animatedSprite;
+	[Export] public Node2D IceParticle;
+	[Export] public Node2D EarthParticle;
+	[Export] public Node2D FireParticle;
+
 
 	public Team Team { get; set; } = Team.Enemy;
 	public int Health { get; set; }
