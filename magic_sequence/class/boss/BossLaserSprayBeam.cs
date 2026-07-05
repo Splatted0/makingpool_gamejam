@@ -10,7 +10,7 @@ public partial class BossLaserSprayBeam : Node2D
 	private float _fadeElapsed;
 	private bool _firing;
 
-	// texture는 Boss.LaserTexture(길이 전체에 늘어나는 한 장짜리 스프라이트)를 그대로 받는다.
+	// texture는 BossData.LaserTexture(길이 전체에 늘어나는 한 장짜리 스프라이트)를 그대로 받는다.
 	// backExtension만큼 시작점 뒤로도 이어 그려서 시작점이 화면 밖으로 나가게 한다(시작점이 보이면 어색해서).
 	public void Setup(Vector2 direction, float length, float backExtension, Texture2D texture, float chargeWidth)
 	{

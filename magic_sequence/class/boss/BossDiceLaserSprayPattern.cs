@@ -74,7 +74,7 @@ public class BossDiceLaserSprayPattern : IBossPattern
 		BossLaserSprayBeam beam = new BossLaserSprayBeam();
 		boss.GetParent().AddChild(beam);
 		beam.GlobalPosition = GetOrigin(boss);
-		beam.Setup(direction, data.LaserSprayLength, data.LaserSprayBackExtension, boss.LaserTexture, data.LaserSprayThinWidth);
+		beam.Setup(direction, data.LaserSprayLength, data.LaserSprayBackExtension, data.LaserTexture, data.LaserSprayThinWidth);
 
 		_activeShots.Add(new ActiveShot { Beam = beam, Direction = direction, ChargeElapsed = 0f });
 		_shotsSpawned++;

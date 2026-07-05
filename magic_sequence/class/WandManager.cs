@@ -185,7 +185,9 @@ public partial class WandManager : Node
     {
         Wand wand = GetWandNodes()[wandIndex]?.Wand;
         double baseCooldown = wand?.BaseCooldown ?? FireCooldown;
-        return baseCooldown * _cooldownMultiplier;
+        double result = baseCooldown * _cooldownMultiplier;
+        GD.Print($"[WandManager 디버그] wand{wandIndex} 쿨다운 {baseCooldown} x {_cooldownMultiplier} = {result:F3}s"); // TODO(디버그 임시): 조커 배율 적용 확인용, 확인 후 제거
+        return result;
     }
 
     private double GetSlotDelay(int wandIndex)

@@ -1,9 +1,17 @@
 // 보스 전용 데이터. MonsterData(체력·Frames·골드 등)를 상속하고,
-// 보스의 주 패턴·주사위 패턴 수치를 전부 여기에 [Export]로 몰아넣어 밸런싱을 데이터로만 한다.
-// 탄환/레이저 프리팹(PackedScene)은 여기 두지 않고 Boss 노드 쪽 [Export]로 둔다(수치 vs 씬 에셋 분리).
+// 보스의 주 패턴·주사위 패턴 수치와 프리팹/텍스처 참조까지 전부 여기에 [Export]로 몰아넣어
+// boss.tscn을 여러 씬에 배치해도 이 리소스 하나만 바꾸면 전부 동기화되게 한다.
 [GlobalClass]
 public partial class BossData : MonsterData
 {
+    [ExportGroup("Assets")]
+    [Export] public PackedScene BulletScene { get; set; }      // BossBullet.cs가 붙은 탄막 프리팹
+    [Export] public PackedScene MonsterScene { get; set; }      // Monster.cs가 붙은 범용 몬스터 씬(방패병 소환용)
+    [Export] public MonsterData ShieldData { get; set; }        // 방패병 데이터(MoveSpeed=0, 원거리형+데미지0 권장)
+    [Export] public PackedScene MagicCircleScene { get; set; }  // MagicCircle.cs가 붙은 장판 프리팹
+    [Export] public Texture2D LaserTexture { get; set; }        // 레이저 스프라이트(길이 전체에 늘어남, 주사위6)
+    [Export] public Texture2D ChainTexture { get; set; }        // 사슬 스프라이트(타일 반복, 주사위4 속박)
+
     // === 예고선: 보스↔코어 상시 연결선(항상 idle 두께로 표시, 더 이상 자체적으로 차지·발사하지 않음) ===
     [ExportGroup("Laser")]
     [Export] public float LaserWidthIdle { get; set; } = 2f;       // 평상시 예고선 두께
