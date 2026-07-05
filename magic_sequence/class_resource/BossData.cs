@@ -21,6 +21,8 @@ public partial class BossData : MonsterData
     [Export] public float DiceRollDuration { get; set; } = 0.8f;    // 얼굴이 무작위로 바뀌며 굴러가는 시간
     [Export] public float DiceFlickerInterval { get; set; } = 0.05f; // 굴러가는 동안 얼굴이 바뀌는 간격
     [Export] public float DiceShakeMagnitude { get; set; } = 6f;     // 굴러가는 동안 주사위 스프라이트 흔들림 크기(px, 0이면 안 흔들림)
+    [Export] public float DiceFloatAmplitude { get; set; } = 6f;     // 평상시 위아래로 둥실거리는 폭(px)
+    [Export] public float DiceFloatSpeed { get; set; } = 2f;         // 둥실거리는 속도(작을수록 천천히)
     [Export] public float DiceWeight1 { get; set; } = 1f;   // 방패병 소환
     [Export] public float DiceWeight2 { get; set; } = 1f;   // 지팡이 셔플
     [Export] public float DiceWeight3 { get; set; } = 1f;   // 탄막 3연발
@@ -72,6 +74,11 @@ public partial class BossData : MonsterData
     [ExportSubgroup("Dice7 PlayerBoost")]
     [Export] public float PlayerCooldownMultiplier { get; set; } = 0.05f;  // 재발사 대기시간에 곱해질 배율(작을수록 빠름)
     [Export] public float PlayerRapidFireDuration { get; set; } = 3f;      // 지속시간(초)
+    [Export] public Color PlayerBoostTintColor { get; set; } = new Color(0.3f, 2.2f, 0.4f, 1f);  // 버프 중 주사위가 깜빡이는 색(초록)
+    [Export] public float PlayerBoostBlinkSpeed { get; set; } = 8f;        // 깜빡이는 속도(클수록 빠르게 명멸)
+    [Export] public float PlayerBoostDiceScale { get; set; } = 1.6f;       // 버프 지속 중 주사위 확대 배율
+    [Export] public float PlayerBoostDiceShakeMagnitude { get; set; } = 6f; // 버프 지속 중 주사위 흔들림 크기
+    [Export] public Color PlayerBoostBodyTintColor { get; set; } = new Color(0.55f, 0.55f, 0.55f, 1f);  // 버프 중 보스 몸통에 살짝 주는 어두운 틴트(약해짐 표시)
 
     // === 기본 공격: 주사위와 무관하게 일정 주기로 플레이어 근방에 장판(마법진)을 동시에 깐다 ===
     // 발밑 가까이(Near) GroundZoneNearCount개 + 비교적 멀리(Far) 나머지로 나눠서 배치한다.

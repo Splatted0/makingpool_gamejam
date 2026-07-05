@@ -19,6 +19,7 @@ public class BossDiceRootPattern : IBossPattern
 		_finished = false;
 		boss.SetCoreRooted(true);
 		boss.PlayDebuffAnim();
+		boss.FlashTint(new Color(1.6f, 0.3f, 2.2f, 1f), 0.5f);   // 속박 강조: 쨍한 보라 틴트
 		SpawnChains(boss);
 		GD.Print("[Dice4] 코어 속박");
 	}

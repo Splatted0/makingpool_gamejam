@@ -18,6 +18,18 @@ public partial class Boss : Monster
 	private BossAnimator _bossAnimator;  // idle 기본 + 패턴 이벤트 시 단발 애니(die는 상속받은 MonsterAnimator가 처리)
 	private float _groundZoneElapsed;    // 주사위와 무관한 기본 공격(장판) 주기 타이머
 	private Vector2 _diceBasePosition;   // 주사위 스프라이트 원래 위치(굴릴 때 흔들고 끝나면 여기로 복원)
+	private Vector2 _diceBaseScale;      // 주사위 스프라이트 원래 크기(버프 중 커졌다가 끝나면 여기로 복원)
+	private float _diceFloatElapsed;     // 평상시 위아래로 둥실거리는 아이들 모션 타이머
+
+	private bool _tintFlashing;
+	private float _tintFlashElapsed;
+	private float _tintFlashDuration;
+	private Color _tintFlashColor;
+
+	private bool _tintBlinking;
+	private float _tintBlinkElapsed;
+	private float _tintBlinkSpeed;
+	private Color _tintBlinkColor;
 
 	// 패턴 조각이 참조하는 공개 API
 	public BossData Config => _bossData;
@@ -61,6 +73,71 @@ public partial class Boss : Monster
 
 		_groundZoneElapsed = 0f;
 		SpawnGroundZones();
+	}
+
+	// 보스 스프라이트를 잠깐 특정 색으로 확 틴트했다가 원래 흰색으로 돌아오게 한다(버프/힐 등 강조 연출용).
+	public void FlashTint(Color color, float duration)
+	{
+		_tintFlashColor = color;
+		_tintFlashDuration = Mathf.Max(duration, 0.01f);
+		_tintFlashElapsed = 0f;
+		_tintFlashing = true;
+	}
+
+	private void UpdateTintFlash(double delta)
+	{
+		if (!_tintFlashing)
+			return;
+
+		_tintFlashElapsed += (float)delta;
+		float t = Mathf.Clamp(_tintFlashElapsed / _tintFlashDuration, 0f, 1f);
+
+		if (AnimatedSprite != null)
+			AnimatedSprite.Modulate = _tintFlashColor.Lerp(Colors.White, t);
+
+		if (t >= 1f)
+			_tintFlashing = false;
+	}
+
+	// 주사위 스프라이트를 지정한 색으로 흰색↔색상을 오가며 계속 깜빡인다(버프 지속시간 내내 켜두는 용도). StopTintBlink로 끈다.
+	public void StartTintBlink(Color color, float speed)
+	{
+		_tintBlinking = true;
+		_tintBlinkColor = color;
+		_tintBlinkSpeed = speed;
+		_tintBlinkElapsed = 0f;
+	}
+
+	public void StopTintBlink()
+	{
+		_tintBlinking = false;
+		if (DiceSprite != null)
+			DiceSprite.Modulate = Colors.White;
+	}
+
+	private void UpdateTintBlink(double delta)
+	{
+		if (!_tintBlinking)
+			return;
+
+		_tintBlinkElapsed += (float)delta;
+		float wave = (Mathf.Sin(_tintBlinkElapsed * _tintBlinkSpeed) + 1f) * 0.5f;   // 0..1 왕복
+
+		if (DiceSprite != null)
+			DiceSprite.Modulate = Colors.White.Lerp(_tintBlinkColor, wave);
+	}
+
+	// 보스 몸통을 지정한 색으로 고정 틴트한다(약해짐 등 지속 상태 표시용). ResetBodyTint로 되돌린다.
+	public void SetBodyTint(Color color)
+	{
+		if (AnimatedSprite != null)
+			AnimatedSprite.Modulate = color;
+	}
+
+	public void ResetBodyTint()
+	{
+		if (AnimatedSprite != null)
+			AnimatedSprite.Modulate = Colors.White;
 	}
 
 	private void SpawnGroundZones()
@@ -143,22 +220,35 @@ public partial class Boss : Monster
 			DiceSprite.Frame = face - 1;
 	}
 
-	// 굴리는 동안 주사위 스프라이트를 원래 위치 주변으로 무작위로 흔든다.
-	public void ShakeDice(float magnitude)
+	// 평상시 위아래로 천천히 둥실거리는 아이들 모션. 매 프레임 위치를 base+float로 다시 잡아준다.
+	private void UpdateDiceFloat(double delta)
+	{
+		if (DiceSprite == null || _bossData == null)
+			return;
+
+		_diceFloatElapsed += (float)delta;
+		float offsetY = Mathf.Sin(_diceFloatElapsed * _bossData.DiceFloatSpeed) * _bossData.DiceFloatAmplitude;
+		DiceSprite.Position = _diceBasePosition + new Vector2(0f, offsetY);
+	}
+
+	// 굴리는 동안(또는 버프 지속 중) 주사위 스프라이트를 지금 위치(둥실거림 포함) 기준으로 추가 흔든다.
+	// scaleMultiplier를 주면 원래 크기 대비 이만큼 확대(1이면 그대로)도 같이 적용한다.
+	public void ShakeDice(float magnitude, float scaleMultiplier = 1f)
 	{
 		if (DiceSprite == null)
 			return;
 
-		DiceSprite.Position = _diceBasePosition + new Vector2(
+		DiceSprite.Position += new Vector2(
 			(float)GD.RandRange(-magnitude, magnitude),
 			(float)GD.RandRange(-magnitude, magnitude));
+		DiceSprite.Scale = _diceBaseScale * scaleMultiplier;
 	}
 
-	// 굴림이 끝나면 주사위를 원래 위치로 되돌린다.
+	// 굴림/버프가 끝나면 주사위 크기를 원래대로 되돌린다(위치는 둥실거림이 계속 알아서 갱신함).
 	public void ResetDicePosition()
 	{
 		if (DiceSprite != null)
-			DiceSprite.Position = _diceBasePosition;
+			DiceSprite.Scale = _diceBaseScale;
 	}
 
 	// 스포너와 동일한 순서(Data → SetTarget → AddChild)로 방패병 한 마리를 즉석 소환한다.
@@ -234,16 +324,22 @@ public partial class Boss : Monster
 	protected override void UpdateBehavior(double delta)
 	{
 		_bossAnimator?.PlayIdle();
+		UpdateDiceFloat(delta);
 		_patterns?.Tick(delta);
 		UpdateGroundZoneAttack(delta);
+		UpdateTintFlash(delta);
+		UpdateTintBlink(delta);
 	}
 
 	// 스턴 상태이상 재해석: debuff 애니만 재생하고, 주사위 굴림·시전은 스턴과 무관하게 계속 진행한다.
 	protected override void OnStunned(float delta)
 	{
 		_bossAnimator?.PlayDebuff();
+		UpdateDiceFloat(delta);
 		_patterns?.Tick(delta);
 		UpdateGroundZoneAttack(delta);
+		UpdateTintFlash(delta);
+		UpdateTintBlink(delta);
 	}
 
 	// autoplay로 SpriteFrames가 자체 재생하는 걸 막고, SetDiceFace로만 프레임을 제어한다.
@@ -253,6 +349,7 @@ public partial class Boss : Monster
 			return;
 
 		_diceBasePosition = DiceSprite.Position;
+		_diceBaseScale = DiceSprite.Scale;
 		DiceSprite.Stop();
 		DiceSprite.Frame = 0;
 	}

@@ -17,11 +17,14 @@ public partial class Core : StaticBody2D, IEntity
 	[Export] public float BossWaveScale { get; set; } = 0.6f;  // 목줄 걸릴 때(10웨이브) 코어 축소 배율
 	[Export] public float LeashCatchUpSpeed { get; set; } = 12f;  // 목표 지점과의 간격을 좁히는 속도(클수록 즉시 스냅에 가까움)
 	[Export] public float RootShakeMagnitude { get; set; } = 8f;  // 속박(SetRooted) 중 제자리에서 흔들리는 크기(px, 0이면 안 흔들림)
+	[Export] public Color RootTintColor { get; set; } = new Color(1.6f, 0.3f, 2.2f, 1f);  // 속박 중 깜빡이는 색(보라)
+	[Export] public float RootTintBlinkSpeed { get; set; } = 8f;  // 깜빡이는 속도(클수록 빠르게 명멸)
 
 	private bool _leashActive;
 	private Node2D _leashTarget;
 	private bool _rooted;
 	private Vector2 _rootBasePosition;   // 속박 시작 시점 위치(흔들림은 이 지점 기준으로만 흔들고 드리프트하지 않음)
+	private float _tintBlinkElapsed;
 
 	private int _health;
 	public int Health
@@ -55,16 +58,23 @@ public partial class Core : StaticBody2D, IEntity
 		Scale = target != null ? new Vector2(BossWaveScale, BossWaveScale) : Vector2.One;
 	}
 
-	// 주사위4(속박) 동안 목줄 추적을 멈추고 제자리에서 흔들리기만 한다.
+	// 주사위4(속박) 동안 목줄 추적을 멈추고 제자리에서 흔들리기만 한다. 보라색 명멸 틴트도 같이 켜고 끈다.
 	public void SetRooted(bool rooted)
 	{
 		if (rooted && !_rooted)
+		{
 			_rootBasePosition = GlobalPosition;
+			_tintBlinkElapsed = 0f;
+		}
 
 		_rooted = rooted;
 
 		if (!rooted)
+		{
 			GlobalPosition = _rootBasePosition;   // 흔들림 오프셋 제거하고 목줄 갱신으로 넘김
+			if (_sprite != null)
+				_sprite.Modulate = Colors.White;
+		}
 	}
 
 	// 스프링 관성은 없지만, 목표 지점까지 지수 감쇠로 부드럽게 좁혀간다(즉시 스냅 X).
@@ -73,6 +83,11 @@ public partial class Core : StaticBody2D, IEntity
 	{
 		if (_rooted)
 		{
+			_tintBlinkElapsed += (float)delta;
+			float wave = (Mathf.Sin(_tintBlinkElapsed * RootTintBlinkSpeed) + 1f) * 0.5f;
+			if (_sprite != null)
+				_sprite.Modulate = Colors.White.Lerp(RootTintColor, wave);
+
 			GlobalPosition = _rootBasePosition + new Vector2(
 				(float)GD.RandRange(-RootShakeMagnitude, RootShakeMagnitude),
 				(float)GD.RandRange(-RootShakeMagnitude, RootShakeMagnitude));
