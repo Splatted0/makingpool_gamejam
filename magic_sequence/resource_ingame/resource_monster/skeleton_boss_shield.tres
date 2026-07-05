@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_gg2js")
-MaxHealth = 1000
+MaxHealth = 100000
 MoveSpeed = 0.0
 AttackDamage = 0
 AttackRange = 9999.0
