@@ -16,6 +16,7 @@ public class FireEffect : IDebuff
 
     public void OnApply(Monster monster)
     {
+        monster.FireParticle.Visible = true;
     }
 
     public void OnTick(Monster monster, float delta)
@@ -31,6 +32,7 @@ public class FireEffect : IDebuff
 
     public void OnExpire(Monster monster)
     {
+        monster.FireParticle.Visible = false;
     }
 
     private float StackMultiplier() => 1f + (Stacks - 1) * 0.1f;

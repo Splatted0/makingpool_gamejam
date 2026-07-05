@@ -11,6 +11,7 @@ public class EarthEffect : IDebuff
     public void OnApply(Monster monster)
     {
         monster.IsStunned = true;
+        monster.EarthParticle.Visible = true;
     }
 
     public void OnTick(Monster monster, float delta)

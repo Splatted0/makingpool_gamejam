@@ -15,6 +15,7 @@ public class IceEffect : IDebuff
     {
         float slow = _slow * StackMultiplier();
         monster.MoveSpeedMultiplier = Mathf.Max(1f - slow, 0f);
+        monster.IceParticle.Visible = true;
     }
 
     public void OnTick(Monster monster, float delta)
@@ -24,6 +25,7 @@ public class IceEffect : IDebuff
     public void OnExpire(Monster monster)
     {
         monster.MoveSpeedMultiplier = 1f;
+        monster.IceParticle.Visible = false;
     }
 
     private float StackMultiplier() => 1f + (Stacks - 1) * 0.1f;

@@ -1,19 +1,148 @@
 [gd_scene format=3 uid="uid://j26k3sobx3dd"]
 
 [ext_resource type="Script" uid="uid://bow6gk1hibufj" path="res://class/Monster.cs" id="1_s3gyj"]
+[ext_resource type="Texture2D" uid="uid://dp6h64wic4xsh" path="res://Sprites/particle/stun.png" id="2_ujuxu"]
+[ext_resource type="Texture2D" uid="uid://b24pjug0vd1l6" path="res://Sprites/particle_fire2.png" id="3_cyu0s"]
+[ext_resource type="Texture2D" uid="uid://cdpv24dh6lhva" path="res://Sprites/particle/skill_ice.png" id="4_6ks7b"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_vg3xd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bua6k"]
+atlas = ExtResource("2_ujuxu")
+region = Rect2(0, 0, 10, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auidl"]
+atlas = ExtResource("2_ujuxu")
+region = Rect2(0, 4, 10, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko0n3"]
+atlas = ExtResource("2_ujuxu")
+region = Rect2(0, 8, 10, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yc8mp"]
+atlas = ExtResource("2_ujuxu")
+region = Rect2(0, 12, 10, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i8g4g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bua6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auidl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ko0n3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yc8mp")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_20f4n"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_1mxyj"]
+colors = PackedColorArray(0.47553682, 0.47553688, 0.47553682, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3n4l1"]
+gradient = SubResource("Gradient_1mxyj")
+
+[sub_resource type="Gradient" id="Gradient_dfc53"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sihjj"]
+gradient = SubResource("Gradient_dfc53")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rluau"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+angle_min = -29.99999
+angle_max = 30.000011
+scale_min = 0.049999997
+scale_max = 0.19999999
+color = Color(1, 0.01999998, 0.15066653, 1)
+color_ramp = SubResource("GradientTexture1D_sihjj")
+color_initial_ramp = SubResource("GradientTexture1D_3n4l1")
+anim_speed_min = 0.5
+anim_speed_max = 0.5
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sihjj"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_g0mdy"]
+colors = PackedColorArray(0.5673677, 0.56736773, 0.56736773, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q7811"]
+gradient = SubResource("Gradient_g0mdy")
+
+[sub_resource type="Gradient" id="Gradient_ppmea"]
+colors = PackedColorArray(0, 0.831467, 0.9963997, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_aiar5"]
+gradient = SubResource("Gradient_ppmea")
+
+[sub_resource type="Curve" id="Curve_c2122"]
+_data = [Vector2(0.2053872, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1m7lt"]
+curve = SubResource("Curve_c2122")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3s86v"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
+angle_min = -29.99999
+angle_max = 30.000011
+gravity = Vector3(0, 4.5, 0)
+scale_min = 0.049999997
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_1m7lt")
+color_ramp = SubResource("GradientTexture1D_aiar5")
+color_initial_ramp = SubResource("GradientTexture1D_q7811")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b58md"]
 radius = 16.0
 
-[node name="Monster" type="CharacterBody2D" unique_id=934036589 node_paths=PackedStringArray("_animatedSprite")]
+[node name="Monster" type="CharacterBody2D" unique_id=934036589 node_paths=PackedStringArray("_animatedSprite", "IceParticle", "EarthParticle", "FireParticle")]
 script = ExtResource("1_s3gyj")
 _animatedSprite = NodePath("AnimatedSprite2D")
+IceParticle = NodePath("AnimatedSprite2D/ice")
+EarthParticle = NodePath("AnimatedSprite2D/ground")
+FireParticle = NodePath("AnimatedSprite2D/fire")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=102912107]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_vg3xd")
+animation = &"attack"
+
+[node name="ground" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=482692291]
+visible = false
+position = Vector2(1, -13)
+sprite_frames = SubResource("SpriteFrames_i8g4g")
+frame_progress = 0.99989164
+
+[node name="fire" type="GPUParticles2D" parent="AnimatedSprite2D" unique_id=1685953503]
+visible = false
+material = SubResource("CanvasItemMaterial_20f4n")
+position = Vector2(0, 5)
+texture = ExtResource("3_cyu0s")
+process_material = SubResource("ParticleProcessMaterial_rluau")
+
+[node name="ice" type="GPUParticles2D" parent="AnimatedSprite2D" unique_id=1201316808]
+visible = false
+material = SubResource("CanvasItemMaterial_sihjj")
+position = Vector2(1, 5)
+texture = ExtResource("4_6ks7b")
+process_material = SubResource("ParticleProcessMaterial_3s86v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=297662633]
 position = Vector2(0, 5)
