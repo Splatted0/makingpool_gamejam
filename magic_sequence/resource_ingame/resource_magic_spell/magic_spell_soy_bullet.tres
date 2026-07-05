@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://b33dkve6aowvw"]
+[gd_resource type="Resource" script_class="MagicSpellSoyBullet" format=3 uid="uid://b33dkve6aowvw"]
 
 [ext_resource type="PackedScene" uid="uid://bdyr4cwjadhi" path="res://scene_magic/magic_soy_bullet.tscn" id="1_scene"]
 [ext_resource type="Script" uid="uid://b0tqplke6pkmp" path="res://class_ability/MagicSpellSoyBullet.cs" id="2_script"]

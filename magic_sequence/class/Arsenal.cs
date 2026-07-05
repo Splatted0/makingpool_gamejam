@@ -35,7 +35,7 @@ public partial class Arsenal : PanelContainer
         skillUi.Visible = true;
         skillUi.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
 
-        Control content = skillUi.GetNodeOrNull<Control>("VBoxContainer");
+        Control content = skillUi.GetNodeOrNull<Control>("MarginContainer/VBoxContainer");
         if (content != null)
             content.Visible = wand != null;
 
@@ -44,7 +44,7 @@ public partial class Arsenal : PanelContainer
         if (wand == null)
             return;
 
-        RichTextLabel wandName = skillUi.GetNodeOrNull<RichTextLabel>("VBoxContainer/WandName");
+        RichTextLabel wandName = skillUi.GetNodeOrNull<RichTextLabel>("MarginContainer/VBoxContainer/WandName");
         if (wandName != null)
             wandName.Text = wand.WandName;
 
@@ -56,8 +56,9 @@ public partial class Arsenal : PanelContainer
             Magic magic = i < wand.Magics.Count ? wand.Magics[i] : null;
             bool hasMagic = magic != null;
 
-            panel.Visible = hasMagic;
             panel.Setup(magic);
+            panel.Visible = true;
+            panel.Modulate = hasMagic ? Colors.White : new Color(1, 1, 1, 0.35f);
 
             if (!hasMagic)
             {
@@ -72,7 +73,7 @@ public partial class Arsenal : PanelContainer
     private static Array<MagicPanel> GetMagicPanels(Control skillUi)
     {
         var panels = new Array<MagicPanel>();
-        Node container = skillUi.GetNodeOrNull("VBoxContainer/HBoxContainer");
+        Node container = skillUi.GetNodeOrNull("MarginContainer/VBoxContainer/HBoxContainer");
 
         if (container == null)
             return panels;

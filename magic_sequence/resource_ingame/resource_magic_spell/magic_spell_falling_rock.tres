@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://dq4h1c8cjrf0j"]
+[gd_resource type="Resource" script_class="MagicSpellFallingRock" format=3 uid="uid://dq4h1c8cjrf0j"]
 
 [ext_resource type="PackedScene" uid="uid://b8b3detivj5t8" path="res://scene_magic/magic_falling_rock.tscn" id="1_scene"]
 [ext_resource type="Script" uid="uid://c15f14ivacyyc" path="res://class_ability/MagicSpellFallingRock.cs" id="2_script"]

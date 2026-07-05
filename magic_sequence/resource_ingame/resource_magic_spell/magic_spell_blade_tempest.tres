@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://brmwhswcvrqnv"]
+[gd_resource type="Resource" script_class="MagicSpellBladeTempest" format=3 uid="uid://brmwhswcvrqnv"]
 
 [ext_resource type="PackedScene" uid="uid://bi6552fdql1ep" path="res://scene_magic/magic_blade_tempest.tscn" id="1_scene"]
 [ext_resource type="Script" uid="uid://vqocul0r6op4" path="res://class_ability/MagicSpellBladeTempest.cs" id="2_script"]
