@@ -1,8 +1,15 @@
 [gd_scene format=3 uid="uid://dcibi66tfbvoh"]
 
 [ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_vn827"]
+[ext_resource type="Texture2D" uid="uid://ba14dus6nkt2k" path="res://Sprites/particle/skill_ground4.png" id="2_5w657"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
+
+[sub_resource type="Gradient" id="Gradient_3wca7"]
+colors = PackedColorArray(0.054573774, 0.054573774, 0.05457376, 1, 0.9019608, 0.6862745, 0.18039216, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0if3e"]
+gradient = SubResource("Gradient_3wca7")
 
 [sub_resource type="Curve" id="Curve_vn827"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -10,7 +17,7 @@ point_count = 2
 
 [sub_resource type="Curve" id="Curve_5w657"]
 _limits = [0.0, 10.0, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, -0.7527092, 0, 0, Vector2(0.18200836, 10), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, -0.7527092, 0, 0, Vector2(0.24603176, 1.9672127), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_3wca7"]
@@ -27,16 +34,17 @@ particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 10.0
 gravity = Vector3(0, 0, 0)
-scale_min = 0.9
-scale_max = 1.1
+scale_min = 0.049999997
+scale_max = 0.14999999
 scale_curve = SubResource("CurveXYZTexture_20f4n")
+color_ramp = SubResource("GradientTexture1D_0if3e")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rluau"]
 radius = 50.0
 
 [sub_resource type="Gradient" id="Gradient_k2aad"]
-offsets = PackedFloat32Array(0, 0.2011236, 0.5516854)
-colors = PackedColorArray(0.9019608, 0.6862745, 0.18039216, 1, 0.40916094, 0.18971285, 0.18791582, 1, 0.3882353, 0.16862746, 0.1882353, 1)
+offsets = PackedFloat32Array(0.025114154, 0.23972602, 1)
+colors = PackedColorArray(0.40916094, 0.18971285, 0.18791582, 1, 0.9019608, 0.6862745, 0.18039216, 1, 0.3882353, 0.16862746, 0.1882353, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1m7lt"]
 gradient = SubResource("Gradient_k2aad")
@@ -47,7 +55,7 @@ point_count = 2
 
 [sub_resource type="Curve" id="Curve_fe4xd"]
 _limits = [0.0, 10.0, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.087866105, 10), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.09126984, 1.9672127), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_trcmq"]
@@ -66,8 +74,12 @@ emission_sphere_radius = 50.0
 angle_min = -4.9999895
 angle_max = 5.000011
 gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.19999999
 scale_curve = SubResource("CurveXYZTexture_3n4l1")
 color_ramp = SubResource("GradientTexture1D_1m7lt")
+hue_variation_min = -0.010000022
+hue_variation_max = 0.009999977
 
 [node name="MagicSpireRock" type="Node2D" unique_id=1603212500 node_paths=PackedStringArray("_moveArea", "_arrivalArea")]
 script = ExtResource("1_vn827")
@@ -76,11 +88,14 @@ _arrivalArea = NodePath("ArrivalArea")
 metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 
 [node name="MoveArea" type="Area2D" parent="." unique_id=1176977369]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1168704429]
 shape = SubResource("CircleShape2D_i8g4g")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="MoveArea" unique_id=756081592]
+amount = 24
+texture = ExtResource("2_5w657")
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_3s86v")
 
@@ -91,5 +106,6 @@ shape = SubResource("CircleShape2D_rluau")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="ArrivalArea" unique_id=339612718]
 amount = 32
+texture = ExtResource("2_5w657")
 explosiveness = 0.9
 process_material = SubResource("ParticleProcessMaterial_sihjj")

@@ -10,6 +10,7 @@ public partial class EnhanceManager : CanvasLayer
     [Export] public BaseButton GetWandButton;
     [Export] public Button MagicRerollButton;
     [Export] public Button WandRerollButton;
+    [Export] public Label MagicInfoLabel;
     [Export] public BaseButton AddHealthButton;
     [Export] public RichTextLabel HealthLabel;
     [Export] public Label GoldLabel;
@@ -43,24 +44,12 @@ public partial class EnhanceManager : CanvasLayer
         Magic[] magics = DropUtil.GetMagicDrops(Blackboard.MagicPool, _enhanceData.DropMagicCount, _enhanceData);
         MagicChanceManager.Setup(magics);
         MagicChanceManager.Visible = true;
-
+        MagicInfoLabel.Text = $"● 마법 획득 ●\n마법을 {_enhanceData.MustGetMagicCount}개 획득해야 진행 가능합니다.";
+        
         MagicRerollButton.Text = "$" + _enhanceData.MagicRerollCost;
         MagicRerollButton.Visible = magics.Length > 0;
         bool isfull = true;
-        foreach (Wand wand in Blackboard.Wands)
-        {
-            if (wand.Magics.Count < wand.Slot)
-            {
-                isfull = false;
-            }
-            
-        }
-
-        if (isfull)
-        {
-            _getMagicCount = 99;
-            OnMagicChangeEnd();
-        }
+ 
         
         bool showWand = _enhanceData.IsWandDrop && Blackboard.Wands.Length < 3;
         if (showWand)
@@ -71,6 +60,22 @@ public partial class EnhanceManager : CanvasLayer
             _getWand?.Setup();
             GetWandUi.Setup(_getWand);
         }
+        
+        foreach (Wand wand in Blackboard.Wands)
+        {
+            if (wand.Magics.Count < wand.Slot)
+            {
+                isfull = false;
+            }
+            
+        }
+
+        if (isfull && !showWand)
+        {
+            _getMagicCount = 99;
+            OnMagicChangeEnd();
+        }
+        
         GetWandUi.Visible = showWand;
         GetWandButton.Visible = showWand;
         WandRerollButton.Text = "$" + _enhanceData.WandRerollCost;

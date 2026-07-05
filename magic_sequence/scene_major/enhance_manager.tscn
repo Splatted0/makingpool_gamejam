@@ -27,7 +27,7 @@ font_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 font = ExtResource("2_u3f34")
 font_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
 
-[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton", "MagicRerollButton", "WandRerollButton", "AddHealthButton", "HealthLabel", "GoldLabel")]
+[node name="EnhanceManager" type="CanvasLayer" unique_id=900625737 node_paths=PackedStringArray("MagicChanceManager", "GetWandUi", "ExitButton", "GetWandButton", "MagicRerollButton", "WandRerollButton", "MagicInfoLabel", "AddHealthButton", "HealthLabel", "GoldLabel")]
 script = ExtResource("1_s5w6b")
 MagicChanceManager = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager")
 GetWandUi = NodePath("HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi")
@@ -35,6 +35,7 @@ ExitButton = NodePath("ExitButton")
 GetWandButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/GetWandButton")
 MagicRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer/MagicRerollButton")
 WandRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandRerollButton")
+MagicInfoLabel = NodePath("HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer/MagicInfoLabel")
 AddHealthButton = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/AddHealthButton")
 HealthLabel = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/HealthLabel")
 GoldLabel = NodePath("MoneyUi")
@@ -87,9 +88,10 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="Label" type="Label" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer" unique_id=412489152]
+[node name="MagicInfoLabel" type="Label" parent="HBoxContainer/GetContainer/CenterContainer/MagicChangeManager/PanelContainer/MarginContainer/VBoxContainer" unique_id=412489152]
 layout_mode = 2
-text = "● 마법 획득 ●"
+text = "● 마법 획득 ●
+마법을 1개 획득해야 진행 가능합니다."
 label_settings = SubResource("LabelSettings_i8g4g")
 horizontal_alignment = 1
 vertical_alignment = 1
