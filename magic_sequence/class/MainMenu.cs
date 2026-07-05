@@ -33,6 +33,14 @@ public partial class MainMenu : CanvasLayer
         StartCharacterWander();
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseEvent &&  mouseEvent.Pressed)
+        {
+            OnStartPressed();
+        }
+    }
+    
     private void OnStartPressed()
     {
         _buttonColorTween?.Kill();

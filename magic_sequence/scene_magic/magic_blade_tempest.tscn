@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bi6552fdql1ep"]
 
 [ext_resource type="Script" uid="uid://0ma1wfpeg5cq" path="res://class/MagicNode.cs" id="1_gtx6j"]
-[ext_resource type="Texture2D" uid="uid://c8dnyg8xnkg1w" path="res://Sprites/particle/skill_ice3.png" id="2_lhavi"]
+[ext_resource type="Texture2D" uid="uid://75m72abum8mk" path="res://Sprites/particle/skill_wind3.png" id="2_lhavi"]
 [ext_resource type="Texture2D" uid="uid://cyuoy0u8ugaam" path="res://Sprites/particle/skill_ice2.png" id="3_07q72"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8g4g"]
@@ -20,8 +20,6 @@ angle_min = -89.99999
 angle_max = 90.000015
 initial_velocity_min = 12.0
 initial_velocity_max = 15.0
-orbit_velocity_min = -0.49999994
-orbit_velocity_max = 0.5000001
 radial_velocity_min = -0.10002235
 radial_velocity_max = 0.09997764
 gravity = Vector3(0, 0, 0)
@@ -77,7 +75,6 @@ _arrivalArea = NodePath("ArrivalArea")
 metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 
 [node name="MoveArea" type="Area2D" parent="." unique_id=1617669393]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=24250572]
 shape = SubResource("CircleShape2D_i8g4g")
@@ -88,6 +85,7 @@ texture = ExtResource("2_lhavi")
 process_material = SubResource("ParticleProcessMaterial_rluau")
 
 [node name="ArrivalArea" type="Area2D" parent="." unique_id=1362848546]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArrivalArea" unique_id=1951525818]
 shape = SubResource("CircleShape2D_q7811")

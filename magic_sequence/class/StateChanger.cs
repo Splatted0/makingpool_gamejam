@@ -33,24 +33,23 @@ public partial class StateChanger : Node
 
     public async Task TutorialState()
     {
-        CanvasLayer tutorial = Blackboard.Tutorial ?? GetNodeOrNull<CanvasLayer>("../Tutorial");
+        Tutorial tutorial = Blackboard.Tutorial;
         BattleWorldHud battleWorldHud = Blackboard.BattleWorldHud;
-
-        if (tutorial == null || battleWorldHud == null)
-        {
-            GD.PrintErr("[StateChanger] TutorialState requires Tutorial and BattleWorldHud nodes.");
-            return;
-        }
-
         tutorial.Visible = true;
         battleWorldHud.Visible = false;
+        await tutorial.ShowCutscene("res://texture/cutscenes/first.png");
+        
+        await tutorial.ShowCutscene("res://texture/cutscenes/1.png");
+        await tutorial.ShowDialogue("주인공", "“불 마법을 쓰려는데 얼음 마법이 나오고, 바람 마법을 쓰려는데 불 마법이 나오고!\n도저히 못 살겠어요! 혹시 해결법을 아시나요?” ");
 
-        await Tutorial.ShowCutscene(
-            tutorial,
-            "res://texture/cutscenes/first.png",
-            "res://texture/cutscenes/second.png",
-            "res://texture/cutscenes/third.png",
-            "res://texture/cutscenes/fourth.png");
+        await tutorial.ShowCutscene("res://texture/cutscenes/6.png");
+        await tutorial.ShowDialogue("현자", "“이건 마법이 랜덤하게 나오게되는 가챠의 저주로군. \n이 저주를 가진 이들은 운빨망법사라해서, 강한 마력을 가지고 있지만 \n운에 따라 전투력이 천차만별이 되지. 해결해줄 수야 있다만 리치 놈이 곧 쳐들어올 거야. \n난 전투능력이 떨어지니 대피해야만 하네. “");
+
+        await tutorial.ShowCutscene("res://texture/cutscenes/5.png");
+        await tutorial.ShowDialogue("", "주인공  :  “제가 리치를 물리칠게요! 그럼 어떤가요?” \n현자  :  “마력은 굉장하다만... 마법도 제어 못하는 자네가? 할 수 있겠는가?”\n");
+
+        await tutorial.ShowCutscene("res://texture/cutscenes/fifth.png");
+        await tutorial.ShowDialogue("", "\n주인공  :  “맡겨만 주세요!”\n현자  :  “흠, 그럼 이런건 어떤가?”\n");
 
         battleWorldHud.Visible = true;
         SetupTutorialEnemy(battleWorldHud);
@@ -79,7 +78,7 @@ public partial class StateChanger : Node
         if (tutorialWandManager != null)
             tutorialWandManager.AutoFireEnabled = false;
 
-        await Tutorial.ShowDialogue(tutorial, "현자", "시전한 마법을 저장할 수 있는 완드라네. 이거라면 불확실성을 줄일 수 있겠지. 자, 마법을 사용해 보게.");
+        await Blackboard.Tutorial.ShowText("현자", "시전한 마법을 저장할 수 있는 완드라네. 이거라면 불확실성을 줄일 수 있겠지. 자, 마법을 사용해 보게.");
 
         ShowBattleDemoView();
         beginnerWand.Add(fireBullet, 0);
@@ -90,7 +89,7 @@ public partial class StateChanger : Node
         await ToSignal(GetTree().CreateTimer(0.4), SceneTreeTimer.SignalName.Timeout);
         tutorial.Visible = true;
 
-        await Tutorial.ShowDialogue(tutorial, "주인공", "와! 이거라면!");
+        await Blackboard.Tutorial.ShowText("주인공", "와! 이거라면!");
 
         ShowBattleDemoView();
         beginnerWand.Add(rockSpike, 1);
@@ -100,8 +99,8 @@ public partial class StateChanger : Node
         await ToSignal(GetTree().CreateTimer(1.4), SceneTreeTimer.SignalName.Timeout);
         tutorial.Visible = true;
 
-        await Tutorial.ShowDialogue(tutorial, "현자", "마법학도라면 원소 간의 상성과 역상성에 대해서도 알고 있겠지? 마법을 나눠담을 지팡이를 가져올 테니 일단 리치의 병사들을 막아내고 있게. 골드를 통해 저장된 마법 자체도 강화할 수 있다네. 그럼 이따 보지!");
-        await Tutorial.ShowCutscene(tutorial, "res://texture/cutscenes/fifth.png");
+        await Blackboard.Tutorial.ShowText("현자", "마법학도라면 원소 간의 상성과 역상성에 대해서도 알고 있겠지? 마법을 나눠담을 지팡이를 가져올 테니 일단 리치의 병사들을 막아내고 있게.\n골드를 통해 저장된 마법 자체도 강화할 수 있다네. 그럼 이따 보지!");
+
 
         ClearTutorialBattleObjects(battleWorldHud);
         Blackboard.Main.Wands = previousWands

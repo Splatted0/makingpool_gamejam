@@ -1,107 +1,74 @@
+using System.Threading;
 using Godot;
 using System.Threading.Tasks;
 
 public partial class Tutorial : CanvasLayer
 {
+    [Signal] public delegate void AcceptedEventHandler();
     private const string OverlayName = "RuntimeTutorialOverlay";
 
-    public static async Task ShowCutscene(CanvasLayer host, params string[] imagePaths)
+    [Export] public Control Overlay;
+    [Export] public TextureRect CutSceneImage;
+    [Export] public Panel DialoguePanel;
+    [Export] public RichTextLabel DialogueText;
+    [Export] public Control TextPanel;
+    [Export] public RichTextLabel TextLabel;
+
+    public override void _Input(InputEvent @event)
     {
-        if (host == null)
-            return;
-
-        SetSceneContentVisible(host, false);
-        Control overlay = GetOrCreateOverlay(host);
-        TextureRect image = overlay.GetNode<TextureRect>("CutsceneImage");
-        ColorRect dim = overlay.GetNode<ColorRect>("Dim");
-        PanelContainer dialoguePanel = overlay.GetNode<PanelContainer>("DialoguePanel");
-
-        overlay.Visible = true;
-        image.Visible = true;
-        dim.Visible = false;
-        dialoguePanel.Visible = false;
-
-        foreach (string imagePath in imagePaths)
+        if (@event is InputEventMouseButton mouseEvent &&  mouseEvent.Pressed)
         {
-            image.Texture = GD.Load<Texture2D>(imagePath);
-            await WaitForAdvance(host);
+            EmitSignalAccepted();
         }
     }
 
-    public static async Task ShowDialogue(CanvasLayer host, string speaker, string text)
+    public async Task ShowCutscene(params string[] imagePaths)
     {
-        if (host == null)
-            return;
 
-        SetSceneContentVisible(host, false);
-        Control overlay = GetOrCreateOverlay(host);
-        TextureRect image = overlay.GetNode<TextureRect>("CutsceneImage");
-        ColorRect dim = overlay.GetNode<ColorRect>("Dim");
-        PanelContainer dialoguePanel = overlay.GetNode<PanelContainer>("DialoguePanel");
-        RichTextLabel dialogueText = overlay.GetNode<RichTextLabel>("DialoguePanel/Margin/Text");
+        DialoguePanel.Visible = false;
+        Overlay.Visible = true;
+        CutSceneImage.Visible = true;
 
-        overlay.Visible = true;
-        image.Visible = false;
-        dim.Visible = false;
-        dialoguePanel.Visible = true;
-        dialogueText.Text = $"[b]{speaker}[/b]\n{text}\n\n[color=#cfcfcf][font_size=14]Click / Space / Enter[/font_size][/color]";
-
-        await WaitForAdvance(host);
+        foreach (string imagePath in imagePaths)
+        {
+            CutSceneImage.Texture = GD.Load<Texture2D>(imagePath);
+            Tween fadeTween = CreateTween().SetTrans(Tween.TransitionType.Sine);
+            fadeTween.TweenProperty(Overlay, "modulate", Colors.White, 0.5).From(Colors.Black);
+            await ToSignal(this, SignalName.Accepted);
+        }
     }
 
+    public async Task ShowDialogue(string speaker, string text)
+    {
+        Overlay.Visible = true;
+        DialoguePanel.Visible = true;
+        TextPanel.Visible = false;
+        
+        Tween fadeTween = CreateTween().SetTrans(Tween.TransitionType.Sine);
+        fadeTween.TweenProperty(DialoguePanel, "modulate", Colors.White, 0.5).From(new Color(1, 1,1, 0));
+        DialogueText.Text = $"[b]{speaker}[/b]\n\n{text}";
+        await ToSignal(this, SignalName.Accepted);
+        fadeTween = CreateTween().SetTrans(Tween.TransitionType.Sine);
+        fadeTween.TweenProperty(Overlay, "modulate", Colors.Black, 0.5).From(Colors.White);
+        await ToSignal(fadeTween, Tween.SignalName.Finished);
+    }
+
+    public async Task ShowText(string speaker, string text)
+    {
+        Overlay.Modulate = Colors.White;
+        Overlay.Visible = true;
+        DialoguePanel.Visible = false;
+        CutSceneImage.Visible = false;
+        TextPanel.Visible = true;
+        TextLabel.Text = $"[b]{speaker}[/b]\n\n{text}";
+        
+        await ToSignal(this, SignalName.Accepted);
+    }
+    
     public static void Hide(CanvasLayer host)
     {
         host?.GetNodeOrNull<Control>(OverlayName)?.Hide();
         SetSceneContentVisible(host, false);
-    }
-
-    private static Control GetOrCreateOverlay(CanvasLayer host)
-    {
-        Control existing = host.GetNodeOrNull<Control>(OverlayName);
-        if (existing != null)
-            return existing;
-
-        var overlay = new Control { Name = OverlayName };
-        overlay.SetAnchorsPreset(Control.LayoutPreset.FullRect);
-        overlay.MouseFilter = Control.MouseFilterEnum.Stop;
-        host.AddChild(overlay);
-
-        var image = new TextureRect { Name = "CutsceneImage" };
-        image.SetAnchorsPreset(Control.LayoutPreset.FullRect);
-        image.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
-        image.StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered;
-        overlay.AddChild(image);
-
-        var dim = new ColorRect { Name = "Dim", Color = new Color(0f, 0f, 0f, 0.25f) };
-        dim.SetAnchorsPreset(Control.LayoutPreset.FullRect);
-        overlay.AddChild(dim);
-
-        var panel = new PanelContainer { Name = "DialoguePanel" };
-        panel.SetAnchorsPreset(Control.LayoutPreset.BottomWide);
-        panel.OffsetLeft = 48f;
-        panel.OffsetRight = -48f;
-        panel.OffsetTop = -164f;
-        panel.OffsetBottom = -24f;
-        overlay.AddChild(panel);
-
-        var margin = new MarginContainer { Name = "Margin" };
-        margin.AddThemeConstantOverride("margin_left", 18);
-        margin.AddThemeConstantOverride("margin_right", 18);
-        margin.AddThemeConstantOverride("margin_top", 14);
-        margin.AddThemeConstantOverride("margin_bottom", 14);
-        panel.AddChild(margin);
-
-        var text = new RichTextLabel { Name = "Text" };
-        text.BbcodeEnabled = true;
-        text.FitContent = true;
-        text.ScrollActive = false;
-        text.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-        text.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
-        text.AddThemeFontSizeOverride("normal_font_size", 20);
-        text.AddThemeFontSizeOverride("bold_font_size", 22);
-        margin.AddChild(text);
-
-        return overlay;
     }
 
     private static void SetSceneContentVisible(CanvasLayer host, bool visible)
@@ -119,22 +86,4 @@ public partial class Tutorial : CanvasLayer
         }
     }
 
-    private static async Task WaitForAdvance(Node node)
-    {
-        while (IsAdvancePressed())
-            await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
-
-        while (!IsAdvancePressed())
-            await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
-
-        while (IsAdvancePressed())
-            await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
-    }
-
-    private static bool IsAdvancePressed()
-    {
-        return Input.IsMouseButtonPressed(MouseButton.Left)
-            || Input.IsKeyPressed(Key.Space)
-            || Input.IsKeyPressed(Key.Enter);
-    }
 }
