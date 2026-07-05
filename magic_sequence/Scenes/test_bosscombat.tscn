@@ -11,9 +11,6 @@
 [node name="Core" parent="." unique_id=326636362 instance=ExtResource("1_tkifu")]
 position = Vector2(35, 330)
 scale = Vector2(0.5, 0.5)
-LeashAccel = 100.0
-LeashDamping = 3.0
-LeashMaxSpeed = 100.0
 
 [node name="Player" parent="." unique_id=1271626603 instance=ExtResource("2_s3wyt")]
 position = Vector2(177, 332)

@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cunmciiwe3yww"]
+
+[ext_resource type="Texture2D" uid="uid://0apkveu2sqt6" path="res://texture/skeletonShield/boss_skeleton_shield.png" id="1_lv5j8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_be81r"]
+atlas = ExtResource("1_lv5j8")
+region = Rect2(0, 0, 244, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdrp3"]
+atlas = ExtResource("1_lv5j8")
+region = Rect2(0, 63, 244, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_238et"]
+atlas = ExtResource("1_lv5j8")
+region = Rect2(0, 126, 244, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sswsp"]
+atlas = ExtResource("1_lv5j8")
+region = Rect2(0, 189, 244, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gk8lh"]
+atlas = ExtResource("1_lv5j8")
+region = Rect2(0, 252, 244, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcipo"]
+atlas = ExtResource("1_lv5j8")
+region = Rect2(0, 315, 244, 63)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_be81r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdrp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_238et")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sswsp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gk8lh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcipo")
+}],
+"loop": 1,
+"name": &"attack",
+"speed": 5.0
+}]

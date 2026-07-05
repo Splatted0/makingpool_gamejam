@@ -6,8 +6,6 @@ using System.Collections.Generic;
 // 코어를 조준하지 않으므로, 발사 순간 코어가 그 직선 근처에 있으면 맞고 아니면 빗나간다.
 public class BossDiceLaserSprayPattern : IBossPattern
 {
-	private const float HitRadius = 24f;
-
 	private class ActiveShot
 	{
 		public BossLaserSprayBeam Beam;
@@ -75,8 +73,8 @@ public class BossDiceLaserSprayPattern : IBossPattern
 
 		BossLaserSprayBeam beam = new BossLaserSprayBeam();
 		boss.GetParent().AddChild(beam);
-		beam.GlobalPosition = boss.GlobalPosition;
-		beam.Setup(direction, data.LaserSprayLength, boss.LaserGradient, data.LaserSprayThinWidth);
+		beam.GlobalPosition = GetOrigin(boss);
+		beam.Setup(direction, data.LaserSprayLength, data.LaserSprayBackExtension, boss.LaserTexture, data.LaserSprayThinWidth);
 
 		_activeShots.Add(new ActiveShot { Beam = beam, Direction = direction, ChargeElapsed = 0f });
 		_shotsSpawned++;
@@ -97,10 +95,13 @@ public class BossDiceLaserSprayPattern : IBossPattern
 		GD.Print($"[Dice6] {_shotsSpawned}/{Mathf.Max(data.LaserSprayCount, 1)} 임팩트");
 	}
 
+	// 보스 기준 오른쪽으로 물러난 실제 발사 시작점(몸통을 뚫고 나오지 않게).
+	private static Vector2 GetOrigin(Boss boss) => boss.GlobalPosition + new Vector2(boss.Config.LaserSpawnOffsetX, 0f);
+
 	// 콜리전 아님 — 점(코어)과 선분(레이저 경로) 사이 최단거리를 계산하는 순수 기하 판정.
 	private bool HitsCore(Boss boss, Vector2 direction, float length)
 	{
-		Vector2 start = boss.GlobalPosition;
+		Vector2 start = GetOrigin(boss);
 		Vector2 segment = direction * length;
 		float segmentLengthSq = segment.LengthSquared();
 
@@ -109,6 +110,6 @@ public class BossDiceLaserSprayPattern : IBossPattern
 			: 0f;
 
 		Vector2 closest = start + segment * t;
-		return closest.DistanceTo(boss.CorePosition) <= HitRadius;
+		return closest.DistanceTo(boss.CorePosition) <= boss.Config.LaserSprayHitRadius;
 	}
 }

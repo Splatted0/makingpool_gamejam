@@ -32,6 +32,8 @@ public class BossDicePattern : IBossPattern
 		_rollElapsed += (float)delta;
 		_flickerElapsed += (float)delta;
 
+		boss.ShakeDice(data.DiceShakeMagnitude);   // 굴리는 동안 매 프레임 흔들림
+
 		if (_flickerElapsed >= data.DiceFlickerInterval)
 		{
 			_flickerElapsed = 0f;
@@ -41,6 +43,7 @@ public class BossDicePattern : IBossPattern
 		if (_rollElapsed >= data.DiceRollDuration)
 		{
 			boss.SetDiceFace(_targetFace);
+			boss.ResetDicePosition();   // 굴림 끝 — 흔들림 멈추고 제자리로
 			GD.Print($"[Dice] {_targetFace}");
 			_finished = true;
 		}

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c5snkrp8fqpjy"]
+
+[node name="Tutorial" type="CanvasLayer" unique_id=1715003538]
+
+[node name="Tutorial" type="Node2D" parent="." unique_id=611852372]
+visible = false

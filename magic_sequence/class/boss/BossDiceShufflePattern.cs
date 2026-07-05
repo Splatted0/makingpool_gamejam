@@ -11,9 +11,16 @@ public class BossDiceShufflePattern : IBossPattern
 
 	public void Start(Boss boss)
 	{
+		// 독립 씬에서도 연출(애니+틴트)은 보이게, 실제 완드 셔플 로직만 게임 컨텍스트가 있을 때 처리한다.
+		boss.PlayDebuffAnim();
+		boss.FlashTint(new Color(2.2f, 0.35f, 0.3f, 1f), 0.5f);   // 디버프 강조: 쨍한 빨강 틴트
+
+		if (boss.GetTree().GetFirstNodeInGroup("player") is Player player)
+			player.FlashTint(new Color(2.2f, 0.35f, 0.3f, 1f), 0.5f);   // 플레이어도 디버프 맞았다는 걸 빨강으로 표시
+
 		if (Blackboard.Main == null)
 		{
-			GD.Print("[Dice2] 독립 씬이라 스킵");
+			GD.Print("[Dice2] 독립 씬이라 셔플은 스킵");
 			_cancelled = true;
 			_finished = true;
 			return;
@@ -29,7 +36,6 @@ public class BossDiceShufflePattern : IBossPattern
 		WandManager wandManager = Blackboard.BattleWorldHud?.GetNodeOrNull<WandManager>("BattleCenter/WandManager");
 		wandManager?.SetupWands();
 
-		boss.PlayDebuffAnim();
 		GD.Print("[Dice2] 지팡이 셔플");
 		_finished = true;
 	}

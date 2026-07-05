@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MagicSpellEarthQuake" format=3 uid="uid://bi0emiuqt6bpg"]
+[gd_resource type="Resource" format=3 uid="uid://bi0emiuqt6bpg"]
 
 [ext_resource type="PackedScene" uid="uid://rca5hjv0tuxw" path="res://scene_magic/magic_earth_quake.tscn" id="1_scene"]
 [ext_resource type="Script" uid="uid://dbibh3c6f5k0d" path="res://class_ability/MagicSpellEarthQuake.cs" id="2_script"]

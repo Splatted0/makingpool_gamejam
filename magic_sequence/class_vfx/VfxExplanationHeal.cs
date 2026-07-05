@@ -19,7 +19,7 @@ public partial class VfxExplanationHeal :  VfxExplanation, IVfxNode<VfxExplanati
         _text.Text = "+";
         SetupPositionTween(duration);
         SetupAlphaTween(duration);
-        SetupScaleTween(duration, 1);
+        SetupScaleTween(duration, 4f);   // 안착 스케일 배율 ↑ — 힐 "+"를 더 크게(잘 안 보여서)
     }
     
 }

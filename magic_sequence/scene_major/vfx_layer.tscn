@@ -12,12 +12,14 @@
 [ext_resource type="Script" uid="uid://rrgt53qlghgs" path="res://class_vfx/VfxSpawnParticlePool.cs" id="8_jh6c7"]
 [ext_resource type="PackedScene" uid="uid://cq0oy4t27iffq" path="res://scene_minor/vfx_spawn_particle.tscn" id="9_33ok5"]
 
-[node name="VfxLayer" type="CanvasLayer" unique_id=1052624970 node_paths=PackedStringArray("ExplanationDamagePool", "DeathParticlePool", "ExplanationHealPool")]
+[node name="VfxLayer" type="CanvasLayer" unique_id=1052624970 node_paths=PackedStringArray("ExplanationDamagePool", "DeathParticlePool", "ExplanationHealPool", "ExplanationBuffPool", "SpawnParticlePool")]
 layer = 10
 script = ExtResource("1_2wie7")
 ExplanationDamagePool = NodePath("ExplanationPool")
 DeathParticlePool = NodePath("DeathParticle")
 ExplanationHealPool = NodePath("ExplanationHeal")
+ExplanationBuffPool = NodePath("ExplanationBuff")
+SpawnParticlePool = NodePath("SpawnParticle")
 
 [node name="ExplanationPool" type="Node2D" parent="." unique_id=68312988]
 script = ExtResource("2_jbkbl")
@@ -35,6 +37,7 @@ PackedVfx = ExtResource("7_7drt7")
 [node name="SpawnParticle" type="Node2D" parent="." unique_id=938263769]
 script = ExtResource("8_jh6c7")
 PackedVfx = ExtResource("9_33ok5")
+PoolSize = 12
 
 [node name="DeathParticle" type="Node2D" parent="." unique_id=891497398]
 script = ExtResource("4_e1ti7")
