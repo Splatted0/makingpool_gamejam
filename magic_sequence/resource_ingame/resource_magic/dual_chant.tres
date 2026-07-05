@@ -1,15 +1,13 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://br54gbaaom8qv"]
 
+[ext_resource type="Texture2D" uid="uid://c5om8xio75bd2" path="res://texture/magicIcon/support2.png" id="1_bgebw"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
 [ext_resource type="Resource" uid="uid://e2ldwnh0k3fb" path="res://resource_ingame/resource_magic_perk/magic_perk_dual_chant.tres" id="2_perk"]
-
-[sub_resource type="Resource" id="Resource_mojno"]
-metadata/__load_path__ = "res://texture/magicIcon/support2.png"
 
 [resource]
 script = ExtResource("1_magic")
 Name = "이중 영창"
-Icon = SubResource("Resource_mojno")
+Icon = ExtResource("1_bgebw")
 Description = "다음 공격 마법을  2번 발사하는 대신, 지팡이의 쿨타임이 30% 증가합니다."
 EnhancedDescription = "다음 공격 마법을  2번 발사하는 대신, 지팡이의 쿨타임이 [b]15%[/b] 증가합니다."
 Tier = 2

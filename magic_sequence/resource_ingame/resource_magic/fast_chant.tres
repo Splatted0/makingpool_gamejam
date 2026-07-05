@@ -1,15 +1,13 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://iongbolojt88"]
 
+[ext_resource type="Texture2D" uid="uid://e8u5polbhu23" path="res://texture/magicIcon/support1.png" id="1_jc6dh"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
 [ext_resource type="Resource" uid="uid://buq3ee6uv7pgt" path="res://resource_ingame/resource_magic_perk/magic_perk_fast_chant.tres" id="2_perk"]
-
-[sub_resource type="Resource" id="Resource_bxyed"]
-metadata/__load_path__ = "res://texture/magicIcon/support1.png"
 
 [resource]
 script = ExtResource("1_magic")
 Name = "신속 영창"
-Icon = SubResource("Resource_bxyed")
+Icon = ExtResource("1_jc6dh")
 Description = "다음 공격 마법의 대미지가 20% 감소하는 대신 지팡이의 총 쿨타임이 20% 감소합니다."
 EnhancedDescription = "다음 공격 마법의 대미지가 [b]10%[/b] 감소하는 대신 지팡이의 총 쿨타임이 [b]30%[/b] 감소합니다."
 Tier = 1
