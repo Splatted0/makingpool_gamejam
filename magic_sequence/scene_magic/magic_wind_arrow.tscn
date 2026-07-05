@@ -89,7 +89,6 @@ _arrivalArea = NodePath("ArraivalArea")
 metadata/_custom_type_script = "uid://0ma1wfpeg5cq"
 
 [node name="MoveArea" type="Area2D" parent="." unique_id=2033369668]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveArea" unique_id=1180152413]
 shape = SubResource("CircleShape2D_srcxt")

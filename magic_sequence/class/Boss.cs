@@ -3,13 +3,7 @@
 // 역할 분담: Boss=몸통+예고선+패턴용 API / BossPatternController=스케줄링 / IBossPattern=한 사이클 동작.
 public partial class Boss : Monster
 {
-	[Export] public PackedScene BulletScene { get; set; }   // BossBullet.cs가 붙은 탄막 프리팹
 	[Export] public AnimatedSprite2D DiceSprite { get; set; }   // 얼굴 1~7 = Frame 0~6. Play() 안 쓰고 Frame만 직접 제어
-	[Export] public PackedScene MonsterScene { get; set; }   // Monster.cs가 붙은 범용 몬스터 씬(스포너와 동일)
-	[Export] public MonsterData ShieldData { get; set; }     // 방패병 데이터(MoveSpeed=0, 원거리형+데미지0 권장)
-	[Export] public PackedScene MagicCircleScene { get; set; }   // MagicCircle.cs가 붙은 장판 프리팹
-	[Export] public Texture2D LaserTexture { get; set; }     // 레이저 스프라이트(길이 전체에 늘어남, 주사위6)
-	[Export] public Texture2D ChainTexture { get; set; }     // 사슬 스프라이트(타일 반복, 주사위4 속박)
 
 	private const string ShieldGroup = "boss_shield";
 
@@ -41,6 +35,13 @@ public partial class Boss : Monster
 		Core?.Hit(new HitInfo { Damage = damage, SourceTeam = Team, Element = Elemental.None });
 	}
 
+	// TODO(디버그 임시): 보스 체력이 너무 빨리 깎이는 원인 파악용, 확인 후 제거
+	public override void TakeDamage(int amount, Color color)
+	{
+		base.TakeDamage(amount, color);
+		GD.Print($"[Boss 디버그] 피격 {amount} → Health {Health}/{Data.MaxHealth}");
+	}
+
 	public void SetCoreRooted(bool rooted)
 	{
 		if (Core is global::Core core)
@@ -49,13 +50,13 @@ public partial class Boss : Monster
 
 	public void SpawnBullet(Vector2 direction, float speed, int damage)
 	{
-		if (BulletScene == null)
+		if (_bossData?.BulletScene == null)
 		{
 			GD.PrintErr($"[Boss] {Name}: BulletScene이 비어있습니다.");
 			return;
 		}
 
-		BossBullet bullet = BulletScene.Instantiate<BossBullet>();
+		BossBullet bullet = _bossData.BulletScene.Instantiate<BossBullet>();
 		GetParent().AddChild(bullet);
 		bullet.GlobalPosition = GlobalPosition;
 		bullet.Fire(direction, speed, damage, Team, TargetNode);
@@ -142,7 +143,7 @@ public partial class Boss : Monster
 
 	private void SpawnGroundZones()
 	{
-		if (MagicCircleScene == null)
+		if (_bossData.MagicCircleScene == null)
 		{
 			GD.PrintErr($"[Boss] {Name}: MagicCircleScene이 비어있습니다.");
 			return;
@@ -198,7 +199,7 @@ public partial class Boss : Monster
 
 			placed[placedCount++] = position;
 
-			MagicCircle circle = MagicCircleScene.Instantiate<MagicCircle>();
+			MagicCircle circle = _bossData.MagicCircleScene.Instantiate<MagicCircle>();
 			Node parent = Blackboard.Main != null ? (Node)Blackboard.EntityContainer : GetParent();
 			parent.AddChild(circle);
 			circle.GlobalPosition = position;
@@ -254,14 +255,14 @@ public partial class Boss : Monster
 	// 스포너와 동일한 순서(Data → SetTarget → AddChild)로 방패병 한 마리를 즉석 소환한다.
 	public void SummonShield(Vector2 worldPosition)
 	{
-		if (MonsterScene == null || ShieldData == null)
+		if (_bossData?.MonsterScene == null || _bossData.ShieldData == null)
 		{
 			GD.PrintErr($"[Boss] {Name}: MonsterScene/ShieldData가 비어있습니다.");
 			return;
 		}
 
-		Monster shield = MonsterScene.Instantiate<Monster>();
-		shield.Data = ShieldData;
+		Monster shield = _bossData.MonsterScene.Instantiate<Monster>();
+		shield.Data = _bossData.ShieldData;
 		if (TargetNode != null && IsInstanceValid(TargetNode) && Core != null)
 			shield.SetTarget(TargetNode.GlobalPosition, Core);
 

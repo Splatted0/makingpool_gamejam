@@ -67,7 +67,7 @@ public class BossDiceRootPattern : IBossPattern
 		{
 			BossChainBeam chain = new BossChainBeam();
 			parent.AddChild(chain);
-			chain.Setup(corner, corePosition, boss.ChainTexture, boss.Config.RootChainWidth);
+			chain.Setup(corner, corePosition, boss.Config.ChainTexture, boss.Config.RootChainWidth);
 			_chains.Add(chain);
 		}
 	}

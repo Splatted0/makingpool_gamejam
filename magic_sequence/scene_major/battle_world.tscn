@@ -77,7 +77,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer", "Core", "WandManager", "_coreHpBar", "_coreHpText", "_goldText", "_roundInfoText")]
+[node name="BattleWorld" type="CanvasLayer" unique_id=2120806126 node_paths=PackedStringArray("RoundManager", "EntityContainer", "Core", "WandManager", "_coreHpBar", "_coreHpText", "_goldText", "_roundInfoBar", "_roundInfoText")]
 script = ExtResource("8_m7vi4")
 RoundManager = NodePath("BattleCenter/RoundManager")
 EntityContainer = NodePath("BattleCenter/EntityContainer")
@@ -86,7 +86,8 @@ WandManager = NodePath("BattleCenter/WandManager")
 _coreHpBar = NodePath("UIRoot/CoreStatus/VBoxContainer/CoreHpBar")
 _coreHpText = NodePath("UIRoot/CoreStatus/VBoxContainer/CoreHpBar/CoreHpText")
 _goldText = NodePath("UIRoot/CoreStatus/VBoxContainer/GoldText")
-_roundInfoText = NodePath("UIRoot/RoundInfo")
+_roundInfoBar = NodePath("UIRoot/RounInfoBar")
+_roundInfoText = NodePath("UIRoot/RounInfoBar/RoundInfo")
 
 [node name="BattleCenter" type="Node2D" parent="." unique_id=614227833]
 
@@ -223,11 +224,21 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RoundInfo" type="Label" parent="UIRoot" unique_id=584256267]
+[node name="RounInfoBar" type="ProgressBar" parent="UIRoot" unique_id=108177846]
 layout_mode = 0
-offset_top = 8.0
-offset_right = 1152.0
-offset_bottom = 28.0
+offset_left = 28.0
+offset_top = 14.0
+offset_right = 1233.0
+offset_bottom = 41.0
+show_percentage = false
+
+[node name="RoundInfo" type="Label" parent="UIRoot/RounInfoBar" unique_id=584256267]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("14_xoob8")
