@@ -38,6 +38,19 @@ public class BossDicePlayerBoostPattern : IBossPattern
 		GD.Print("[Dice7] 연사 조커 시작");
 	}
 
+	// 보스가 버프 도중 죽으면 쿨다운 배율(0.02)이 영구 지속되지 않게 즉시 원복한다.
+	public void Cancel(Boss boss)
+	{
+		if (_finished)
+			return;
+
+		_wandManager?.SetCooldownMultiplier(1.0);
+		boss.StopTintBlink();
+		boss.ResetBodyTint();
+		boss.ResetDicePosition();
+		_finished = true;
+	}
+
 	public void Tick(Boss boss, double delta)
 	{
 		if (_finished)

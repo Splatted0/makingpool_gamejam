@@ -208,6 +208,14 @@ public partial class StateChanger : Node
         Core core = battleWorldHud.GetNodeOrNull<Core>("BattleCenter/Core");
         WandManager wandManager = battleWorldHud.GetNodeOrNull<WandManager>("BattleCenter/WandManager");
 
+        // 모든 라운드(보스 포함) 클리어 상태에서 StartRound를 부르면 RoundEnded가 영원히 안 와 소프트락.
+        // 승리 연출이 생기기 전까지는 게임 종료로 처리해 메인 메뉴로 복귀시킨다.
+        if (roundManager.MaxRounds > 0 && roundManager.RoundNumber > roundManager.MaxRounds)
+        {
+            GD.Print("[StateChanger] 전 라운드 클리어 — 승리");
+            return true;
+        }
+
         battleWorldHud.Visible = true;
         wandManager?.SetupWands();
         roundManager.StartRound();

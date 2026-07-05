@@ -1,4 +1,4 @@
-// 10웨이브 단독 보스. Monster를 상속해 Health/피격/VFX/디버프/애니를 재사용하되,
+// 10웨이브 단독 보스. Monster를 상속해 Health/피격/VFX/애니를 재사용하되(상태이상은 전부 면역),
 // 타깃을 향한 행군은 하지 않고(오른쪽 고정) 코어를 노려 자체 패턴을 시전한다.
 // 역할 분담: Boss=몸통+예고선+패턴용 API / BossPatternController=스케줄링 / IBossPattern=한 사이클 동작.
 public partial class Boss : Monster
@@ -35,11 +35,14 @@ public partial class Boss : Monster
 		Core?.Hit(new HitInfo { Damage = damage, SourceTeam = Team, Element = Elemental.None });
 	}
 
-	// TODO(디버그 임시): 보스 체력이 너무 빨리 깎이는 원인 파악용, 확인 후 제거
-	public override void TakeDamage(int amount, Color color)
+	// 보스는 모든 상태이상(화상·슬로우·스턴·취약·힐밴) 면역 — 순수 데미지만 받는다.
+	protected override void ApplyDebuffs(HitInfo hitInfo)
 	{
-		base.TakeDamage(amount, color);
-		GD.Print($"[Boss 디버그] 피격 {amount} → Health {Health}/{Data.MaxHealth}");
+	}
+
+	// 넉백도 무시 — 보스가 밀리면 플레이어 이동 제한·레이저 발사 원점 등 위치 기반 로직이 틀어진다.
+	public override void Knockback(float amount)
+	{
 	}
 
 	public void SetCoreRooted(bool rooted)
@@ -332,17 +335,6 @@ public partial class Boss : Monster
 		UpdateTintBlink(delta);
 	}
 
-	// 스턴 상태이상 재해석: debuff 애니만 재생하고, 주사위 굴림·시전은 스턴과 무관하게 계속 진행한다.
-	protected override void OnStunned(float delta)
-	{
-		_bossAnimator?.PlayDebuff();
-		UpdateDiceFloat(delta);
-		_patterns?.Tick(delta);
-		UpdateGroundZoneAttack(delta);
-		UpdateTintFlash(delta);
-		UpdateTintBlink(delta);
-	}
-
 	// autoplay로 SpriteFrames가 자체 재생하는 걸 막고, SetDiceFace로만 프레임을 제어한다.
 	private void SetupDiceSprite()
 	{
@@ -357,9 +349,24 @@ public partial class Boss : Monster
 
 	protected override void Die()
 	{
-		// 보스 사망 = 승리. 연출·라운드 종료 신호는 통합 단계(M6)에서. 지금은 로그 훅만.
+		// 진행 중인 주사위 효과가 걸어둔 지속 상태(속박·쿨다운 배율·예고선)와
+		// 방패병·플레이어 이동 제한·코어 목줄을 전부 되돌린 뒤 죽는다.
+		// 특히 방패병(사실상 무적)을 안 치우면 CountAliveMonsters에 계속 잡혀 라운드가 영원히 안 끝난다.
+		_patterns?.CancelActive();
+		ClearShields();
+		ReleaseBattleLocks();
 		GD.Print("[Boss] 처치됨 — 승리");
 		base.Die();
+	}
+
+	// 보스 웨이브에서 걸었던 필드 구속(플레이어 이동 제한, 코어 목줄·축소)을 해제한다.
+	private void ReleaseBattleLocks()
+	{
+		if (GetTree().GetFirstNodeInGroup("player") is Player player)
+			player.ClearRightLimit();
+
+		if (Core is global::Core core)
+			core.StartLeash(null);
 	}
 
 	private void ResolveCoreTarget()

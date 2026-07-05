@@ -48,6 +48,19 @@ public class BossDiceRootPattern : IBossPattern
 		}
 	}
 
+	// 보스가 속박 도중 죽으면 코어가 영구 속박으로 남지 않게 즉시 해제하고 사슬을 정리한다.
+	public void Cancel(Boss boss)
+	{
+		if (_finished)
+			return;
+
+		boss.SetCoreRooted(false);
+		foreach (BossChainBeam chain in _chains)
+			chain?.Fade(FadeDuration);
+		_chains.Clear();
+		_finished = true;
+	}
+
 	// 화면 네 모서리 각각에서 코어(현재 위치, 속박 중이라 고정)까지 사슬을 하나씩 그린다.
 	private void SpawnChains(Boss boss)
 	{

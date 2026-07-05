@@ -64,6 +64,18 @@ public class BossDiceLaserSprayPattern : IBossPattern
 			_finished = true;
 	}
 
+	// 보스가 발사 도중 죽으면 아직 임팩트가 안 터진 예고선들이 화면에 영원히 남지 않게 페이드아웃시킨다.
+	public void Cancel(Boss boss)
+	{
+		if (_finished)
+			return;
+
+		foreach (ActiveShot shot in _activeShots)
+			shot.Beam?.Fire(boss.Config.LaserSprayFadeDuration);   // 판정 없이 페이드아웃만
+		_activeShots.Clear();
+		_finished = true;
+	}
+
 	private void SpawnShot(Boss boss)
 	{
 		BossData data = boss.Config;

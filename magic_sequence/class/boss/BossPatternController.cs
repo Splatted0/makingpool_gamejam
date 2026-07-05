@@ -52,6 +52,13 @@ public class BossPatternController
 			DispatchDiceResult();
 	}
 
+	// 보스 사망 시 호출. 진행 중인 주사위 효과가 걸어둔 지속 상태를 되돌린다.
+	public void CancelActive()
+	{
+		_activeDiceEffect?.Cancel(_boss);
+		_activeDiceEffect = null;
+	}
+
 	private void DispatchDiceResult()
 	{
 		switch (_dice.ResultFace)

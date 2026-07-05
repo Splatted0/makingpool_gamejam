@@ -2,13 +2,12 @@
 public static class BossBarragePattern
 {
 	// 코어 방향 기준 부채꼴로 탄을 즉시 뿌린다.
-	// 슬로우(Ice) 상태이상 재해석: MoveSpeedMultiplier(슬로우 시 <1)를 탄속에 곱해 탄막을 느리게.
 	public static int FireFan(Boss boss, Vector2 baseDirection)
 	{
 		BossData data = boss.Config;
 		int count = Mathf.Max(data.BarrageBulletCount, 1);
 		float halfSpread = data.BarrageSpreadDegrees * 0.5f;
-		float speed = data.BarrageBulletSpeed * boss.MoveSpeedMultiplier;
+		float speed = data.BarrageBulletSpeed;
 
 		for (int i = 0; i < count; i++)
 		{

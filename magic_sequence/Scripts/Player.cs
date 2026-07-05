@@ -23,6 +23,12 @@ public partial class Player : CharacterBody2D
         _hasRightLimit = true;
     }
 
+    // 보스 처치 시 호출. 이동 제한을 해제한다.
+    public void ClearRightLimit()
+    {
+        _hasRightLimit = false;
+    }
+
     // 플레이어 스프라이트를 잠깐 특정 색으로 확 틴트했다가 원래 흰색으로 돌아오게 한다(피격/디버프 강조용).
     public void FlashTint(Color color, float duration)
     {

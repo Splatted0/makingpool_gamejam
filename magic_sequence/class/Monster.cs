@@ -66,7 +66,8 @@ public partial class Monster : CharacterBody2D, IEntity
 		ApplyDebuffs(hitInfo);
 	}
 
-	private void ApplyDebuffs(HitInfo hitInfo)
+	// 보스 등 상태이상 면역 개체는 이 훅을 오버라이드해 무시한다.
+	protected virtual void ApplyDebuffs(HitInfo hitInfo)
 	{
 		if (!hitInfo.SuppressElementEffect)
 			ApplyElementEffect(hitInfo.Element, hitInfo);
@@ -209,7 +210,6 @@ public partial class Monster : CharacterBody2D, IEntity
 	}
 
 	// 스턴 중 매 프레임 호출(멈춘 상태에서도 돎). 기본은 아무 동작 없음.
-	// 보스는 이걸 오버라이드해 레이저 차지 캔슬 등에 쓴다.
 	protected virtual void OnStunned(float delta)
 	{
 	}
@@ -243,7 +243,7 @@ public partial class Monster : CharacterBody2D, IEntity
 		MoveAndSlide();
 	}
 
-	public void Knockback(float amount)
+	public virtual void Knockback(float amount)
 	{
 		_knockbackVelocity = -_direction * amount;
 	}

@@ -66,6 +66,9 @@ public partial class Core : StaticBody2D, IEntity
 	// 주사위4(속박) 동안 목줄 추적을 멈추고 제자리에서 흔들리기만 한다. 보라색 명멸 틴트도 같이 켜고 끈다.
 	public void SetRooted(bool rooted)
 	{
+		if (_rooted == rooted)
+			return;   // 속박된 적 없는데 해제가 불리면 _rootBasePosition(0,0)으로 순간이동하는 것 방지
+
 		if (rooted && !_rooted)
 		{
 			_rootBasePosition = GlobalPosition;

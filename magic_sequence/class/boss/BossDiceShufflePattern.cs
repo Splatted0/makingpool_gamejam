@@ -30,14 +30,8 @@ public class BossDiceShufflePattern : IBossPattern
 
 		Wand[] wands = Blackboard.Wands;
 		if (wands != null)
-		{
 			foreach (Wand wand in wands)
-			{
-				GD.Print($"[Dice2 디버그] 셔플 전 {wand.WandName}: {DescribeMagics(wand)}");
 				ShuffleWand(wand);
-				GD.Print($"[Dice2 디버그] 셔플 후 {wand.WandName}: {DescribeMagics(wand)}");
-			}
-		}
 
 		WandManager wandManager = Blackboard.BattleWorldHud?.GetNodeOrNull<WandManager>("BattleCenter/WandManager");
 		wandManager?.SetupWands();
@@ -48,21 +42,6 @@ public class BossDiceShufflePattern : IBossPattern
 
 	public void Tick(Boss boss, double delta)
 	{
-	}
-
-	// TODO(디버그 임시): 셔플 전후 순서 확인용, 원인 파악 후 제거
-	private static string DescribeMagics(Wand wand)
-	{
-		if (wand?.Magics == null)
-			return "(null)";
-
-		var names = new System.Text.StringBuilder();
-		for (int i = 0; i < wand.Magics.Count; i++)
-		{
-			if (i > 0) names.Append(", ");
-			names.Append(wand.Magics[i]?.Name ?? "-");
-		}
-		return names.ToString();
 	}
 
 	private static void ShuffleWand(Wand wand)
