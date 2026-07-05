@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cufy2efyd7lpq" path="res://scene_minor/magic_slot.tscn" id="1_i0e1h"]
 [ext_resource type="Script" uid="uid://csgf2ddedy3qk" path="res://class/EnhanceManager.cs" id="1_s5w6b"]
 [ext_resource type="FontFile" uid="uid://bykloh7j35fla" path="res://resource_dev/KIMM_bold.ttf" id="2_u3f34"]
+[ext_resource type="Resource" uid="uid://cpmcjj31ndurg" path="res://resource_ingame/resource_wand/beginner_wand.tres" id="2_vvfga"]
 [ext_resource type="StyleBox" uid="uid://cybwwlnwqgfee" path="res://Sprites/ui1_box.tres" id="3_2272h"]
 [ext_resource type="Script" uid="uid://ouqakoep72ep" path="res://class/MagicChangeManager.cs" id="6_dk4am"]
 [ext_resource type="StyleBox" uid="uid://c5fj51bv8ya05" path="res://Sprites/ui3_box.tres" id="6_vvfga"]
@@ -37,6 +38,7 @@ WandRerollButton = NodePath("HBoxContainer/GetContainer/CenterContainer2/GetWand
 AddHealthButton = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/AddHealthButton")
 HealthLabel = NodePath("HBoxContainer/GetContainer/CenterContainer3/HBoxContainer/HealthLabel")
 GoldLabel = NodePath("MoneyUi")
+StartWand = Array[Object]([ExtResource("2_vvfga")])
 
 [node name="Background" type="Panel" parent="." unique_id=272553167]
 anchors_preset = 15

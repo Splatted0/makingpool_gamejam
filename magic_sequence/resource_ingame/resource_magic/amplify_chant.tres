@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="Magic" format=3 uid="uid://bkmmmoeha0qld"]
 
-[ext_resource type="Texture2D" uid="uid://bctg8jagkljqa" path="res://texture/magicIcon/support3.png" id="1_ciovg"]
 [ext_resource type="Script" uid="uid://b6q3bfra0rpsi" path="res://class/Magic.cs" id="1_magic"]
 [ext_resource type="Resource" uid="uid://bx2pu6orkgs4x" path="res://resource_ingame/resource_magic_perk/magic_perk_amplify_chant.tres" id="2_perk"]
+
+[sub_resource type="Resource" id="Resource_sgps0"]
+metadata/__load_path__ = "res://texture/magicIcon/support3.png"
 
 [resource]
 script = ExtResource("1_magic")
 Name = "증폭 영창"
-Icon = ExtResource("1_ciovg")
+Icon = SubResource("Resource_sgps0")
 Description = "다음 공격 마법의 대미지를 150% 증폭시키는 대신, 지팡이 쿨타임이 50% 증가합니다."
 EnhancedDescription = "다음 공격 마법의 대미지를 [b]200%[/b] 증폭시키는 대신, 지팡이 쿨타임이 [b]40%[/b] 증가합니다."
 Tier = 3
