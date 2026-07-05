@@ -1,10 +1,22 @@
 [gd_resource type="Resource" script_class="BossData" format=3 uid="uid://dbyr50s8rq4ev"]
 
 [ext_resource type="Script" uid="uid://bkambmluuumf1" path="res://class_resource/BossData.cs" id="1_2motd"]
+[ext_resource type="PackedScene" uid="uid://coc2ntnyxkrn3" path="res://Scenes/boss_bullet.tscn" id="1_40imn"]
 [ext_resource type="SpriteFrames" uid="uid://cpy7qgbv8fd07" path="res://resource_ingame/resource_monster/boss_spritesheet.tres" id="1_76jvc"]
+[ext_resource type="Texture2D" uid="uid://5n1hudqpdsxl" path="res://texture/boss/chain.png" id="2_bq2li"]
+[ext_resource type="Texture2D" uid="uid://wg5h1n1o6bh5" path="res://texture/boss/boss_razer.png" id="4_xb1xo"]
+[ext_resource type="PackedScene" uid="uid://du4muv8npdqa0" path="res://Scenes/boss_magic_circle.tscn" id="5_daug4"]
+[ext_resource type="PackedScene" uid="uid://j26k3sobx3dd" path="res://Scenes/monster.tscn" id="6_cjr5a"]
+[ext_resource type="Resource" uid="uid://b7yguprnaarl5" path="res://resource_ingame/resource_monster/skeleton_boss_shield.tres" id="7_mr06c"]
 
 [resource]
 script = ExtResource("1_2motd")
+BulletScene = ExtResource("1_40imn")
+MonsterScene = ExtResource("6_cjr5a")
+ShieldData = ExtResource("7_mr06c")
+MagicCircleScene = ExtResource("5_daug4")
+LaserTexture = ExtResource("4_xb1xo")
+ChainTexture = ExtResource("2_bq2li")
 BarrageBulletCount = 15
 BarrageSpreadDegrees = 90.0
 BarrageBulletSpeed = 900.0

@@ -30,10 +30,11 @@ public class BossPatternController
 			_activeDiceEffect.Tick(_boss, delta);
 			if (_activeDiceEffect.IsFinished)
 			{
-				bool cancelled = _activeDiceEffect.WasCancelled;
+				//bool cancelled = _activeDiceEffect.WasCancelled;
 				_activeDiceEffect = null;
 				// 캔슬(조건 미충족으로 아무 효과 없음)이면 쿨다운 없이 바로 다음 주사위로 넘어간다.
-				_diceCooldown = cancelled ? 0 : _boss.Config.DiceInterval;
+				//_diceCooldown = cancelled ? 0 : _boss.Config.DiceInterval;
+				_diceCooldown = 0;
 			}
 			return;
 		}
