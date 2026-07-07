@@ -46,7 +46,7 @@ public partial class EnhanceManager : CanvasLayer
         MagicChanceManager.Visible = true;
         MagicInfoLabel.Text = $"● 마법 획득 ●\n마법을 {_enhanceData.MustGetMagicCount}개 획득해야 진행 가능합니다.";
         
-        MagicRerollButton.Text = "$" + _enhanceData.MagicRerollCost;
+        MagicRerollButton.Text = "리롤 $" + _enhanceData.MagicRerollCost;
         MagicRerollButton.Visible = magics.Length > 0;
 
         Wand[] ownedWands = Blackboard.Wands ?? Array.Empty<Wand>();
@@ -64,7 +64,7 @@ public partial class EnhanceManager : CanvasLayer
 
         GetWandUi.Visible = showWand;
         GetWandButton.Visible = showWand;
-        WandRerollButton.Text = "$" + _enhanceData.WandRerollCost;
+        WandRerollButton.Text = "리롤 $" + _enhanceData.WandRerollCost;
         WandRerollButton.Visible = showWand;
     }
 

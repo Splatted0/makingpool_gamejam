@@ -14,8 +14,8 @@ public class BossDiceHealPattern : IBossPattern
 	{
 		boss.PlayBuffAnim();
 
-		int missing = boss.Data.MaxHealth - boss.Health;
-		int amount = missing > 0 ? GD.RandRange(1, missing) : 0;
+		int maxMissing = Mathf.Min(boss.Data.MaxHealth - boss.Health, 500);
+		int amount = maxMissing > 0 ? GD.RandRange(1, maxMissing) : 0;
 		if (amount > 0)
 			boss.Heal(amount);
 

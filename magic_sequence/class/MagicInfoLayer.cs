@@ -38,7 +38,7 @@ public partial class MagicInfoLayer : Node
     
     private Vector2 ClampToScreen(Vector2 position)
     {
-        Vector2 screenSize = GetViewport().GetVisibleRect().Size * 0.7f;
+        Vector2 screenSize = GetViewport().GetVisibleRect().Size * 0.6f;
         return new Vector2(
             Mathf.Min(position.X, screenSize.X),
             Mathf.Min(position.Y, screenSize.Y)

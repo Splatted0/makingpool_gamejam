@@ -48,7 +48,7 @@ public partial class StateChanger : Node
         tutorial.Visible = true;
         battleWorldHud.Visible = false;
         await tutorial.ShowCutscene("res://texture/cutscenes/first.png");
-        
+
         await tutorial.ShowCutscene("res://texture/cutscenes/1.png");
         await tutorial.ShowDialogue("주인공", "“불 마법을 쓰려는데 얼음 마법이 나오고, 바람 마법을 쓰려는데 불 마법이 나오고!\n도저히 못 살겠어요! 혹시 해결법을 아시나요?” ");
 
@@ -266,6 +266,8 @@ public partial class StateChanger : Node
         await tutorial.ShowDialogue("주인공", "…괜찮아요! 이번에 리치와 싸우면서 느꼈어요. ");
         await tutorial.ShowCutscene("res://texture/cutscenes/ending2.png");
         await tutorial.ShowDialogue("주인공", "운빨망법사도 나쁘지 않다는 걸요!");
+        await tutorial.ShowCutscene("res://texture/cutscenes/ending0.png");
+        await tutorial.ShowLast("[font_size=56]Thank you for Playing[/font_size]\n[font_size=16]기획자 : 안광민\n리드 프로그래머 : 오준서\n서브 프로그래머 : 김혁, 김사윤\n아트 : 천승은");
     }
 
     private async Task GameOverState()

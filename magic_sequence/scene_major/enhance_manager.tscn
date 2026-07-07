@@ -168,6 +168,30 @@ horizontal_alignment = 1
 layout_mode = 2
 mouse_filter = 2
 
+[node name="TierPanel" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi/HBoxContainer" parent_id_path=PackedInt32Array(750007204, 535619405) index="0" unique_id=644569581]
+mouse_filter = 1
+
+[node name="Name" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi/HBoxContainer/VBoxContainer" parent_id_path=PackedInt32Array(750007204, 165110693) index="0" unique_id=910751212]
+mouse_filter = 1
+
+[node name="Description" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi/HBoxContainer/VBoxContainer" parent_id_path=PackedInt32Array(750007204, 165110693) index="1" unique_id=28563352]
+mouse_filter = 1
+
+[node name="MagicSlot" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi/HBoxContainer/VBoxContainer/MagicContainer" parent_id_path=PackedInt32Array(750007204, 635065174) index="0" unique_id=1128488414]
+mouse_filter = 1
+
+[node name="MagicSlot2" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi/HBoxContainer/VBoxContainer/MagicContainer" parent_id_path=PackedInt32Array(750007204, 635065174) index="1" unique_id=715778376]
+mouse_filter = 1
+
+[node name="MagicSlot3" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi/HBoxContainer/VBoxContainer/MagicContainer" parent_id_path=PackedInt32Array(750007204, 635065174) index="2" unique_id=927240082]
+mouse_filter = 1
+
+[node name="MagicSlot4" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi/HBoxContainer/VBoxContainer/MagicContainer" parent_id_path=PackedInt32Array(750007204, 635065174) index="3" unique_id=1053316518]
+mouse_filter = 1
+
+[node name="MagicSlot5" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi/HBoxContainer/VBoxContainer/MagicContainer" parent_id_path=PackedInt32Array(750007204, 635065174) index="4" unique_id=795842649]
+mouse_filter = 1
+
 [node name="WandRerollButton" type="Button" parent="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer" unique_id=1520773962]
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
@@ -273,3 +297,5 @@ grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_u3f34")
 theme_override_font_sizes/font_size = 24
 text = "보유 금액 : $0"
+
+[editable path="HBoxContainer/GetContainer/CenterContainer2/GetWandButton/MarginContainer/VBoxContainer/WandUi"]

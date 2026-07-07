@@ -55,6 +55,21 @@ public partial class Tutorial : CanvasLayer
         await ToSignal(fadeTween, Tween.SignalName.Finished);
     }
 
+    public async Task ShowLast(string text)
+    {
+        Overlay.Visible = true;
+        DialoguePanel.Visible = true;
+        TextPanel.Visible = false;
+        
+        Tween fadeTween = CreateTween().SetTrans(Tween.TransitionType.Sine);
+        fadeTween.TweenProperty(DialoguePanel, "modulate", Colors.White, 0.5).From(new Color(1, 1,1, 0));
+        DialogueText.Text = text;
+        await ToSignal(this, SignalName.Accepted);
+        fadeTween = CreateTween().SetTrans(Tween.TransitionType.Sine);
+        fadeTween.TweenProperty(Overlay, "modulate", Colors.Black, 0.5).From(Colors.White);
+        await ToSignal(fadeTween, Tween.SignalName.Finished);
+    }
+    
     public async Task ShowText(string speaker, string text)
     {
         Overlay.Modulate = Colors.White;
